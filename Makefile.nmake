@@ -66,11 +66,13 @@ OTHERCFLAGS= /Ss /G5 /O+
 LIBS=
 DEBUGLIBS=
 
-OBJFILES=	$(OBJDIR)attrs.obj         $(OBJDIR)istack.obj        $(OBJDIR)parser.obj        $(OBJDIR)tags.obj \
+OBJFILES=	$(OBJDIR)access.o \
+		$(OBJDIR)attrs.obj         $(OBJDIR)istack.obj        $(OBJDIR)parser.obj        $(OBJDIR)tags.obj \
 		$(OBJDIR)entities.obj      $(OBJDIR)lexer.obj         $(OBJDIR)pprint.obj        $(OBJDIR)clean.obj \
 		$(OBJDIR)localize.obj      $(OBJDIR)config.obj        $(OBJDIR)tidy.obj
 
-CFILES=	$(SRCDIR)attrs.c         $(SRCDIR)istack.c        $(SRCDIR)parser.c        $(SRCDIR)tags.c \
+CFILES=	$(SRCDIR)access.c \
+		$(SRCDIR)attrs.c         $(SRCDIR)istack.c        $(SRCDIR)parser.c        $(SRCDIR)tags.c \
 		$(SRCDIR)entities.c      $(SRCDIR)lexer.c         $(SRCDIR)pprint.c        $(SRCDIR)clean.c \
 		$(SRCDIR)localize.c      $(SRCDIR)config.c        $(SRCDIR)tidy.c
 

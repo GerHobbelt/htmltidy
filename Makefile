@@ -67,11 +67,13 @@ DEBUGLIBS=-ldmalloc
 INSTALLDIR= /usr/local/
 MANPAGESDIR= /usr/local/man/
 
-OFILES=		$(OBJDIR)attrs.o         $(OBJDIR)istack.o        $(OBJDIR)parser.o        $(OBJDIR)tags.o \
+OFILES=	$(OBJDIR)access.o \
+		$(OBJDIR)attrs.o         $(OBJDIR)istack.o        $(OBJDIR)parser.o        $(OBJDIR)tags.o \
 		$(OBJDIR)entities.o      $(OBJDIR)lexer.o         $(OBJDIR)pprint.o        $(OBJDIR)clean.o \
 		$(OBJDIR)localize.o      $(OBJDIR)config.o        $(OBJDIR)tidy.o
 
-CFILES=		$(SRCDIR)attrs.c         $(SRCDIR)istack.c        $(SRCDIR)parser.c        $(SRCDIR)tags.c \
+CFILES=	$(SRCDIR)access.c \
+		$(SRCDIR)attrs.c         $(SRCDIR)istack.c        $(SRCDIR)parser.c        $(SRCDIR)tags.c \
 		$(SRCDIR)entities.c      $(SRCDIR)lexer.c         $(SRCDIR)pprint.c        $(SRCDIR)clean.c \
 		$(SRCDIR)localize.c      $(SRCDIR)config.c        $(SRCDIR)tidy.c
 
