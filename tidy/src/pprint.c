@@ -2067,13 +2067,12 @@ void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
         else
             PPrintTag( doc, mode, indent, node );
 
-        if ( node->next )
+        if (node->next)
         {
-          if ( nodeIsPARAM(node) || nodeIsAREA(node) )
-              PCondFlushLine( doc, indent );
-          else if ( (nodeIsBR(node) && !(mode & PREFORMATTED)) || 
-                    nodeIsHR(node) )
-              PFlushLine( doc, indent );
+          if (nodeIsPARAM(node) || nodeIsAREA(node))
+              PCondFlushLine(doc, indent);
+          else if (nodeIsBR(node) || nodeIsHR(node))
+              PFlushLine(doc, indent);
         }
     }
     else /* some kind of container element */
