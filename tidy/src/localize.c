@@ -736,7 +736,7 @@ void HelloMessage(FILE *errout, char *date, char *filename)
 
 void ReportVersion(FILE *errout, Lexer *lexer, char *filename, Node *doctype)
 {
-    unsigned int i, c;
+    uint i, c;
     int state = 0;
     char *vers = HTMLVersionName(lexer);
 

@@ -1097,3 +1097,15 @@ void CheckLINK(Lexer *lexer, Node *node)
         }
     }
 }
+
+/* reports missing action attribute */
+void CheckFORM(Lexer *lexer, Node *node)
+{
+    AttVal *action = GetAttrByName(node, "rel");
+
+    CheckUniqueAttributes(lexer, node);
+    CheckAttributes(lexer, node);
+
+    if (!action)
+        ReportMissingAttr(lexer, node, "action");
+}

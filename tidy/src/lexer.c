@@ -77,7 +77,7 @@ struct _vers
 
 /* everything is allowed in proprietary version of HTML */
 /* this is handled here rather than in the tag/attr dicts */
-void ConstrainVersion(Lexer *lexer, unsigned int vers)
+void ConstrainVersion(Lexer *lexer, uint vers)
 {
     lexer->versions &= (vers | VERS_PROPRIETARY);
 }

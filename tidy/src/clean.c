@@ -1782,7 +1782,7 @@ static void NormalizeSpaces(Lexer *lexer, Node *node)
 
         if (node->type == TextNode)
         {
-            unsigned int i, c;
+            uint i, c;
             char *p = lexer->lexbuf + node->start;
 
             for (i = node->start; i < node->end; ++i)

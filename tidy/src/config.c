@@ -367,9 +367,9 @@ const char *ExpandTilde(const char *filename)
     static char *expanded_filename;
 
     char *home_dir, *p;
-    struct passwd *passwd = NULL;
+    struct passwd *passwd = null;
 
-    if (!filename) return(NULL);
+    if (!filename) return(null);
 
     if (filename[0] != '~')
         return(filename);
