@@ -3622,6 +3622,14 @@ Node *ParseDocument(TidyDocImpl* doc)
         break;
     }
 
+    if (!FindHTML(doc))
+    {
+        /* a later check should complain if <body> is empty */
+        html = InferredTag(doc, "html");
+        InsertNodeAtEnd(document, html);
+        ParseHTML(doc, html, no);
+    }
+
     return document;
 }
 
