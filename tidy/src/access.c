@@ -407,7 +407,7 @@ static void getTextNode( TidyDocImpl* doc, Node* node )
     */
 
     /* If the tag of the node is NULL, then grab the text within the node */
-    if ( node && node->type == TextNode )
+    if ( nodeIsText(node) )
     {
         uint i;
 
@@ -1026,12 +1026,11 @@ static void CheckObject( TidyDocImpl* doc, Node* node )
             /* Must have alternate text representation for that element */
             if ( !HasAlt )
             {
-                if ( node->content->type == TextNode )
+                if ( nodeIsText(node->content) )
                     word = textFromOneNode( doc, node->content );
 
-                if ( word == NULL && 
-                     node->content->content != NULL &&
-                     node->content->content->type == TextNode )
+                if ( word == NULL &&
+                     nodeIsText(node->content->content) )
                 {
                     word = textFromOneNode( doc, node->content->content );
                 }

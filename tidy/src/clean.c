@@ -1799,7 +1799,7 @@ void NormalizeSpaces(Lexer *lexer, Node *node)
         if ( node->content )
             NormalizeSpaces( lexer, node->content );
 
-        if (node->type == TextNode)
+        if (nodeIsText(node))
         {
             uint i, c;
             tmbstr p = lexer->lexbuf + node->start;
@@ -2118,7 +2118,7 @@ void BumpObject( TidyDocImpl* doc, Node *html )
                 for (child = node->content; child != NULL; child = child->next)
                 {
                     /* bump to body unless content is param */
-                    if ( (child->type == TextNode && !IsBlank(doc->lexer, node))
+                    if ( (nodeIsText(child) && !IsBlank(doc->lexer, node))
                          || !nodeIsPARAM(child) )
                     {
                             bump = yes;
@@ -2373,7 +2373,7 @@ void DowngradeTypography(TidyDocImpl* doc, Node* node)
     {
         next = node->next;
 
-        if (node->type == TextNode)
+        if (nodeIsText(node))
         {
             uint i, c;
             tmbstr p = lexer->lexbuf + node->start;
