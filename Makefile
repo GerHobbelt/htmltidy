@@ -6,7 +6,7 @@
 #     $Date$ 
 #     $Revision$ 
 #
-#  Copyright (c) 1998-2000 World Wide Web Consortium
+#  Copyright (c) 1998-2002 World Wide Web Consortium
 #  (Massachusetts Institute of Technology, Institut National de
 #  Recherche en Informatique et en Automatique, Keio University).
 #  All Rights Reserved.
@@ -80,9 +80,9 @@ HFILES=		$(INCLDIR)platform.h $(INCLDIR)html.h
 tidy:		$(OFILES)
 		$(CC) $(CFLAGS) $(OTHERCFLAGS) -o tidy $(OFILES) $(LIBS)
 
-$(OFILES):	$(HFILES) Makefile
-		$(CC) $(CFLAGS) $(OTHERCFLAGS) $(SRCDIR)$*.c -c
-                
+%.o:		$(SRCDIR)%.c $(HFILES) Makefile
+		$(CC) -c $(CFLAGS) $(OTHERCFLAGS) $<
+
 tab2space:	$(SRCDIR)tab2space.c
 		$(CC) $(CFLAGS) $(OTHERCFLAGS) -o tab2space $(SRCDIR)tab2space.c $(LIBS)
 
