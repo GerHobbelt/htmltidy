@@ -45,10 +45,17 @@ struct _Dict
     Dict*           next;
 };
 
+#ifdef ELEMENT_HASH_LOOKUP
+#define ELEMENT_HASH_SIZE 178
+#endif
+
 struct _TidyTagImpl
 {
     Dict* xml_tags;                /* placeholder for all xml tags */
     Dict* declared_tag_list;       /* User declared tags */
+#ifdef ELEMENT_HASH_LOOKUP
+    Dict* hashtab[ELEMENT_HASH_SIZE];
+#endif
 };
 
 typedef struct _TidyTagImpl TidyTagImpl;

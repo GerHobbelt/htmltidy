@@ -45,9 +45,9 @@ struct _Anchor
 
 typedef struct _Anchor Anchor;
 
-
-
-#define ATTRIB_HASHSIZE 357
+#ifdef ATTRIBUTE_HASH_LOOKUP
+#define ATTRIBUTE_HASH_SIZE 178
+#endif
 
 struct _TidyAttribImpl
 {
@@ -56,6 +56,10 @@ struct _TidyAttribImpl
 
     /* Declared literal attributes */
     Attribute* declared_attr_list;
+
+#ifdef ATTRIBUTE_HASH_LOOKUP
+    Attribute* hashtab[ATTRIBUTE_HASH_SIZE];
+#endif
 };
 
 typedef struct _TidyAttribImpl TidyAttribImpl;
