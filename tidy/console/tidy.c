@@ -15,11 +15,6 @@
 
 #include "tidy.h"
 
-uint  contentErrors = 0;
-uint  contentWarnings = 0;
-uint  optionErrors = 0;
-uint  accessWarnings = 0;
-
 FILE* errout = NULL;  /* set to stderr */
 FILE* txtout = NULL;  /* set to stdout */
 
@@ -396,6 +391,11 @@ int main( int argc, char** argv )
     ctmbstr cfgfil = NULL, errfil = NULL, htmlfil = NULL;
     TidyDoc tdoc = tidyCreate();
     int status = 0;
+
+    uint contentErrors = 0;
+    uint contentWarnings = 0;
+    uint optionErrors = 0;
+    uint accessWarnings = 0;
 
     errout = stderr;  /* initialize to stderr */
 
