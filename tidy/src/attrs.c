@@ -735,7 +735,7 @@ void RepairDuplicateAttributes( TidyDocImpl* doc, Node *node)
 
                 uint end = tmbstrlen(first->value);
 
-                if (first->value[end] == ';')
+                if (first->value[end - 1] == ';')
                 {
                     /* attribute ends with declaration seperator */
 
@@ -745,7 +745,7 @@ void RepairDuplicateAttributes( TidyDocImpl* doc, Node *node)
                     tmbstrcat(first->value, " ");
                     tmbstrcat(first->value, second->value);
                 }
-                else if (first->value[end] == '}')
+                else if (first->value[end - 1] == '}')
                 {
                     /* attribute ends with rule set */
 
@@ -1417,7 +1417,8 @@ void CheckTextDir( TidyDocImpl* doc, Node *node, AttVal *attval)
 /* checks lang and xml:lang attributes */
 void CheckLang( TidyDocImpl* doc, Node *node, AttVal *attval)
 {
-    if (!AttrHasValue(attval))
+    /* empty xml:lang is allowed through XML 1.0 SE errata */
+    if (!AttrHasValue(attval) && !attrIsXML_LANG(attval))
     {
         if ( cfg(doc, TidyAccessibilityCheckLevel) == 0 )
         {
