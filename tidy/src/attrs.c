@@ -802,7 +802,7 @@ static void CheckLowerCaseAttrValue(Lexer *lexer, Node *node, AttVal *attval)
     
     while (*p)
     {
-        if (!IsLower(*p))
+        if (IsUpper(*p)) /* #501230 - fix by Terry Teague - 09 Jan 02 */
         {
             hasUpper = yes;
             break;
