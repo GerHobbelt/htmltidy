@@ -1190,7 +1190,7 @@ void CheckNumber(Lexer *lexer, Node *node, AttVal *attval)
 /* check color syntax and beautify value by option */
 void CheckColor(Lexer *lexer, Node *node, AttVal *attval)
 {
-    Bool ReplaceColor = yes;
+    /* Bool ReplaceColor = yes; */ /* #477643 - replace hex color attribute values with names */
     Bool HexUppercase = yes;
     Bool invalid = no;
     Bool found = no;
