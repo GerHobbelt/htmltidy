@@ -1164,7 +1164,7 @@ int main(int argc, char **argv)
             break;
     }
 
-    if (totalerrors + totalwarnings > 0)
+    if (totalerrors + totalwarnings > 0 && !Quiet)
         GeneralInfo(errout);
 
     if (errout != stderr)
