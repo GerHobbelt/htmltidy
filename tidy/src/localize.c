@@ -544,7 +544,7 @@ void ReportAttrError( TidyDocImpl* doc, Node *node, AttVal *av, uint code)
                      "%s cannot copy name attribute to id", tagdesc );
         break;
 
-    case UNEXPECTED_END_OF_FILE:
+    case UNEXPECTED_END_OF_FILE_ATTR:
         /* on end of file adjust reported position to end of input */
         doc->lexer->lines   = doc->docIn->curline;
         doc->lexer->columns = doc->docIn->curcol;
