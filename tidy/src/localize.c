@@ -1035,7 +1035,7 @@ void HelpText(FILE *out, char *prog)
     tidy_out(out, "  -latin1         use ISO-8859-1 for both input and output\n");
     tidy_out(out, "  -iso2022        use ISO-2022 for both input and output\n");
     tidy_out(out, "  -utf8           use UTF-8 for both input and output\n");
-    tidy_out(out, "  -mac            use Mac OS Roman for input, US-ASCII for output\n");
+    tidy_out(out, "  -mac            use MacRoman for input, US-ASCII for output\n");
 
 #if SUPPORT_UTF16_ENCODINGS
 
