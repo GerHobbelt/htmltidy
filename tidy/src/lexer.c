@@ -2022,6 +2022,9 @@ Node* GetToken( TidyDocImpl* doc, uint mode )
             lexer->insertspace = no;
         }
 
+        if (c == 160 && (mode & Preformatted))
+            c = ' ';
+
         /* treat \r\n as \n and \r as \n */
 
         if (c == '\r')
