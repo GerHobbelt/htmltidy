@@ -364,9 +364,12 @@ Bool FindTag( TidyDocImpl* doc, Node *node )
 
 const Dict* LookupTagDef( TidyTagId tid )
 {
-  if ( tid > TidyTag_UNKNOWN && tid < N_TIDY_TAGS )
-      return tag_defs + tid;
-  return NULL;
+    if ( tid > TidyTag_UNKNOWN && tid < N_TIDY_TAGS )
+    {
+        assert( tag_defs[ tid ].id == tid );
+        return tag_defs + tid;
+    }
+    return NULL;
 }
 
 
