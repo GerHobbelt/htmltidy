@@ -1510,14 +1510,28 @@ static void PPrintDocType( TidyDocImpl* doc, uint indent, Node *node )
 static void PPrintPI( TidyDocImpl* doc, uint indent, Node *node )
 {
     TidyPrintImpl* pprint = &doc->pprint;
-    SetWrap( doc, indent );
+    tchar c;
+    tmbstr s;
 
+    SetWrap( doc, indent );
     AddString( pprint, "<?" );
+
+    s = node->element;
+
+    while (*s)
+    {
+        c = (unsigned char)*s;
+        if (c > 0x7F)
+            s += GetUTF8(s, &c);
+        AddChar(pprint, c);
+        ++s;
+    }
 
     /* set CDATA to pass < and > unescaped */
     PPrintText( doc, CDATA, indent, node );
 
-    if ( node->end <= 0 || doc->lexer->lexbuf[node->end - 1] != '?' )
+    if (cfgBool(doc, TidyXmlOut) ||
+        cfgBool(doc, TidyXhtmlOut) || node->closed)
         AddChar( pprint, '?' );
 
     AddChar( pprint, '>' );

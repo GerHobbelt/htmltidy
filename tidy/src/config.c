@@ -858,7 +858,7 @@ void AdjustConfig( TidyDocImpl* doc )
         SetOptionBool( doc, TidyXmlOut, yes );
         SetOptionBool( doc, TidyUpperCaseTags, no );
         SetOptionBool( doc, TidyUpperCaseAttrs, no );
-        SetOptionBool( doc, TidyXmlPIs, yes );
+        /* SetOptionBool( doc, TidyXmlPIs, yes ); */
     }
 
     /* if XML in, then XML out */
