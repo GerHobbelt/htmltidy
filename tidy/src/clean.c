@@ -1389,16 +1389,14 @@ Node* CleanNode( TidyDocImpl* doc, Node *node )
 ** call stack until we have a valid node reference.
 */
 
-static Node* CleanTree( TidyDocImpl* doc, Node *node, Node** prepl )
+static Node* CleanTree( TidyDocImpl* doc, Node *node )
 {
     if (node->content)
     {
-        Node *child, *repl = node;
+        Node *child;
         for (child = node->content; child != NULL; child = child->next)
         {
-            child = CleanTree( doc, child, &repl );
-            if ( repl != node ) 
-                return repl;
+            child = CleanTree( doc, child );
             if ( !child )
                 break;
         }
@@ -1428,8 +1426,7 @@ void CleanDocument( TidyDocImpl* doc )
     /* placeholder.  CleanTree()/CleanNode() will not
     ** zap root element 
     */
-    Node* repl = &doc->root;  
-    CleanTree( doc, &doc->root, &repl );
+    CleanTree( doc, &doc->root );
 
     if ( cfgBool(doc, TidyMakeClean) )
     {
