@@ -31,6 +31,8 @@ AttVal *DupAttrs( TidyDocImpl* doc, AttVal *attrs)
     newattrs->attribute = tmbstrdup(attrs->attribute);
     newattrs->value = tmbstrdup(attrs->value);
     newattrs->dict = FindAttribute(doc, newattrs);
+    newattrs->asp = attrs->asp ? CloneNode(doc, attrs->asp) : NULL;
+    newattrs->php = attrs->php ? CloneNode(doc, attrs->php) : NULL;
     return newattrs;
 }
 
