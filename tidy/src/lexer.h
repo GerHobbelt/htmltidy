@@ -37,6 +37,10 @@
     -   Doctype subset and marked sections
 */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "forward.h"
 
 /* lexer character types
@@ -569,6 +573,10 @@ int InlineDup( TidyDocImpl* doc, Node *node );
 */
 void DeferDup( TidyDocImpl* doc );
 Node *InsertedToken( TidyDocImpl* doc );
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif /* __LEXER_H__ */

@@ -16,6 +16,11 @@
 
 #include "platform.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 /* like strdup but using MemAlloc */
 tmbstr tmbstrdup( ctmbstr str );
 
@@ -65,5 +70,9 @@ ctmbstr tmbsubstr( ctmbstr s1, ctmbstr s2 );
 tmbstr tmbstrtolower( tmbstr s );
 
 Bool tmbsamefile( ctmbstr filename1, ctmbstr filename2 );
+
+#ifdef __cplusplus
+}  /* extern "C" */
+#endif
 
 #endif /* __TMBSTR_H__ */

@@ -23,6 +23,10 @@
 #include "buffio.h"
 #include "fileio.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 typedef enum
 {
   FileIO,
@@ -180,6 +184,9 @@ uint DecodeLatin0(uint c);
 
 /* Function to convert from Symbol Font chars to Unicode */
 uint DecodeSymbolFont(uint c);
+#ifdef __cplusplus
+}
+#endif
 
 
 /* Use numeric constants as opposed to escape chars (\r, \n)
