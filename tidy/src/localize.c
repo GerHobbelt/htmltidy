@@ -305,8 +305,6 @@ void ReportEncodingError( TidyDocImpl* doc, uint code, uint c )
     ctmbstr action = code & DISCARDED_CHAR ? "discarding" : "replacing";
     ctmbstr fmt = NULL;
 
-    doc->warnings++;
-
     /* An encoding mismatch is currently treated as a non-fatal error */
     switch ( reason )
     {
