@@ -111,5 +111,6 @@ typedef enum
 #define unlink _unlink
 #endif
 
-
-
+#if defined(DMALLOC)
+#include "dmalloc.h"
+#endif

@@ -58,8 +58,10 @@ INCLDIR= ./include/
 SRCDIR= ./src/
 OBJDIR= ./
 
-CFLAGS= -O -I $(INCLDIR)
+DEBUGFLG=-g -DDMALLOC
+CFLAGS= -I $(INCLDIR) $(DEBUGFLG)
 OTHERCFLAGS=
+LIBS=-lc -ldmalloc
 
 INSTALLDIR= /usr/local/
 MANPAGESDIR= /usr/local/man/
@@ -75,7 +77,7 @@ CFILES=		$(SRCDIR)attrs.c         $(SRCDIR)istack.c        $(SRCDIR)parser.c    
 HFILES=		$(INCLDIR)platform.h $(INCLDIR)html.h
 
 tidy:		$(OFILES)
-		$(CC) $(CFLAGS) $(OTHERCFLAGS) -o tidy $(OFILES) -lc
+		$(CC) $(CFLAGS) $(OTHERCFLAGS) -o tidy $(OFILES) $(LIBS)
 
 $(OFILES):	$(HFILES) Makefile
 		$(CC) $(CFLAGS) $(OTHERCFLAGS) $(SRCDIR)$*.c -c
