@@ -211,8 +211,10 @@ typedef struct _node Node;
 #define VERS_HTML32        2
 #define VERS_HTML40_STRICT 4
 #define VERS_HTML40_LOOSE  8
-#define VERS_FRAMES       16
-#define VERS_XML          32
+#define VERS_FRAMESET     16
+
+
+#define VERS_XML          32  /* special flag */
 
 #define VERS_NETSCAPE     64
 #define VERS_MICROSOFT   128
