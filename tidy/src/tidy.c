@@ -203,7 +203,8 @@ StreamIn *OpenInput(FILE *fp)
     in = (StreamIn *)MemAlloc(sizeof(StreamIn));
     in->file = fp;
     in->pushed = no;
-    in->c = '\0';
+    in->bufpos = 0;
+    in->charbuf[0] = '\0';
     in->tabs = 0;
     in->curline = 1;
     in->curcol = 1;
@@ -337,8 +338,9 @@ int ReadChar(StreamIn *in)
 
     if (in->pushed)
     {
-        in->pushed = no;
-        c =  in->c;
+        c = in->charbuf[--(in->bufpos)];
+        if ((in->bufpos) == 0)
+            in->pushed = no;
 
         if (c == '\n')
         {
@@ -437,7 +439,13 @@ int ReadChar(StreamIn *in)
 void UngetChar(int c, StreamIn *in)
 {
     in->pushed = yes;
-    in->c = c;
+
+    if (in->bufpos >= CHARBUF_SIZE)
+    {
+        memcpy(in->charbuf, in->charbuf + 1, CHARBUF_SIZE - 1);
+        (in->bufpos)--;
+    }
+    in->charbuf[(in->bufpos)++] = c;
 
     if (c == '\n')
         --(in->curline);

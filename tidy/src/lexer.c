@@ -2533,6 +2533,7 @@ static char  *ParseAttribute(Lexer *lexer, Bool *isempty,
             }
 
             UngetChar(c, lexer->in);
+            UngetChar('<', lexer->in);
             ReportAttrError(lexer, lexer->token, null, UNEXPECTED_GT);
             return null;
         }
@@ -2818,9 +2819,11 @@ static char *ParseValue(Lexer *lexer, char *name,
 
             if (c == '<')
             {
-                /* UngetChar(c, lexer->in); */
+                UngetChar(c, lexer->in);
+                c = '>';
+                UngetChar(c, lexer->in);
                 ReportAttrError(lexer, lexer->token, null, UNEXPECTED_GT);
-                /* break; */
+                break;
             }
 
             /*
