@@ -62,6 +62,14 @@ typedef struct _tidy_config
 } TidyConfigImpl;
 
 
+typedef struct {
+  TidyOptionId opt;          /**< Identifier. */
+  ctmbstr doc;               /**< HTML text */
+  TidyOptionId const *links; /**< Cross references.
+                             Last element must be 'TidyUnknownOption'. */
+} TidyOptionDoc;
+
+
 const TidyOptionImpl* lookupOption( ctmbstr optnam );
 const TidyOptionImpl* getOption( TidyOptionId optId );
 
@@ -70,6 +78,8 @@ const TidyOptionImpl*  getNextOption( TidyDocImpl* doc, TidyIterator* iter );
 
 TidyIterator getOptionPickList( const TidyOptionImpl* option );
 ctmbstr getNextOptionPick( const TidyOptionImpl* option, TidyIterator* iter );
+
+const TidyOptionDoc* tidyOptGetDocDesc( TidyOptionId optId );
 
 void InitConfig( TidyDocImpl* doc );
 void FreeConfig( TidyDocImpl* doc );

@@ -471,6 +471,39 @@ ctmbstr       tidyOptGetNextDeclTag( TidyDoc tdoc, TidyOptionId optId,
     return tagnam;
 }
 
+ctmbstr tidyOptGetDoc( TidyDoc ARG_UNUSED(tdoc), TidyOption opt )
+{
+    const TidyOptionId optId = tidyOptGetId( opt );
+    const TidyOptionDoc* docDesc = tidyOptGetDocDesc( optId );
+    return docDesc ? docDesc->doc : NULL;
+}
+
+TidyIterator tidyOptGetDocLinksList( TidyDoc ARG_UNUSED(tdoc), TidyOption opt )
+{
+    const TidyOptionId optId = tidyOptGetId( opt );
+    const TidyOptionDoc* docDesc = tidyOptGetDocDesc( optId );
+    if (docDesc && docDesc->links)
+        return (TidyIterator)docDesc->links;
+    return (TidyIterator)NULL;
+}
+
+TidyOption tidyOptGetNextDocLinks( TidyDoc tdoc, TidyIterator* pos )
+{
+    const TidyOptionId* curr = (TidyOptionId *)*pos;
+    TidyOption opt;
+
+    if (*curr == TidyUnknownOption)
+    {
+        *pos = (TidyIterator)NULL;
+        return (TidyOption)0;
+    }
+    opt = tidyGetOption(tdoc, *curr);
+    curr++;
+    *pos = (*curr == TidyUnknownOption ) ?
+        (TidyIterator)NULL:(TidyIterator)curr;
+    return opt;
+}
+
 int tidyOptSaveFile( TidyDoc tdoc, ctmbstr cfgfil )
 {
     TidyDocImpl* impl = tidyDocToImpl( tdoc );
