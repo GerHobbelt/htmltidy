@@ -877,7 +877,7 @@ uint nodeHeaderLevel( Node* node )
         return 6;
     default:
     {
-    	/* fall through */
+        /* fall through */
     }
     }
     return 0;

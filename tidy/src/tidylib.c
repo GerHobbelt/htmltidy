@@ -214,7 +214,7 @@ int         tidySetCharEncoding( TidyDoc tdoc, ctmbstr encnam )
     return -EINVAL;
 }
 
-int		tidySetInCharEncoding( TidyDoc tdoc, ctmbstr encnam )
+int           tidySetInCharEncoding( TidyDoc tdoc, ctmbstr encnam )
 {
     TidyDocImpl* impl = tidyDocToImpl( tdoc );
     if ( impl )
@@ -228,7 +228,7 @@ int		tidySetInCharEncoding( TidyDoc tdoc, ctmbstr encnam )
     return -EINVAL;
 }
 
-int		tidySetOutCharEncoding( TidyDoc tdoc, ctmbstr encnam )
+int           tidySetOutCharEncoding( TidyDoc tdoc, ctmbstr encnam )
 {
     TidyDocImpl* impl = tidyDocToImpl( tdoc );
     if ( impl )
