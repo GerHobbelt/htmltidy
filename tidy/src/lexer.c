@@ -3707,6 +3707,8 @@ static Node *ParseDocTypeDecl(TidyDocImpl* doc)
                     lexer->lexsize - start - 1);
                 hasfpi = !(tmbstrcasecmp(attname, "SYSTEM") == 0);
 
+                MemFree(attname);
+
                 /* todo: report an error if SYSTEM/PUBLIC not uppercase */
 
                 if (c == '>')
@@ -3726,6 +3728,7 @@ static Node *ParseDocTypeDecl(TidyDocImpl* doc)
                 char *value = tmbstrndup(lexer->lexbuf + start,
                     lexer->lexsize - start - 1);
                 AttVal* att = AddAttribute(doc, node, hasfpi ? "PUBLIC" : "SYSTEM", value);
+                MemFree(value);
                 att->delim = delim;
                 hasfpi = no;
                 state = DT_INTERMEDIATE;
