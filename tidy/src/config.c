@@ -949,9 +949,9 @@ void PrintConfigOptions(FILE *errout)
         = "=================================================================";
     struct Flag* configItem;
 
-    fprintf( stderr, "\nConfiguration File Settings:\n\n" );
-    fprintf( stderr, fmt, "Name", "Type", "Values" );
-    fprintf( stderr, fmt, ul, ul, ul );
+    tidy_out( errout, "\nConfiguration File Settings:\n\n" );
+    tidy_out( errout, fmt, "Name", "Type", "Values" );
+    tidy_out( errout, fmt, ul, ul, ul );
 
     for ( configItem = flags; configItem && configItem->name; configItem++ )
     {
