@@ -2362,7 +2362,7 @@ static void CheckHeaderNesting( TidyDocImpl* doc, Node* node )
            Text within header element cannot contain more than 20 words without
            a separate description
         */
-        if (node->content->tag == NULL)
+        if (node->content != NULL && node->content->tag == NULL)
         {
             word = textFromOneNode( doc, node->content);
 
