@@ -743,6 +743,7 @@ void tidy_out(FILE *fp, const char* msg, ...);
 #define ANCHOR_NOT_UNIQUE       19
 #define ENTITY_IN_ID            20
 #define JOINING_ATTRIBUTE       21
+#define UNEXPECTED_EQUALSIGN    22
 
 /* page transition effects */
 
