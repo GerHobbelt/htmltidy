@@ -1714,16 +1714,11 @@ static void CheckTable( TidyDocImpl* doc, Node* node )
             {
                 if ( hasValue(av) )
                 {
-                    if (!AttrContains(av, "summary") && 
-                        !AttrContains(av, "table"))
-                    {
-                        HasSummary = yes;
-                    }
+                    HasSummary = yes;
 
                     if (AttrContains(av, "summary") && 
                         AttrContains(av, "table"))
                     {
-                        HasSummary = yes;
                         ReportAccessError( doc, node, TABLE_SUMMARY_INVALID_PLACEHOLDER );
                     }
                 }
