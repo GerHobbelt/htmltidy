@@ -3004,7 +3004,8 @@ void ParseScript(TidyDocImpl* doc, Node *script, uint mode)
 
     node = GetToken(doc, IgnoreWhitespace);
 
-    if (!(node && node->type == EndTag && node->tag->id == script->tag->id))
+    if (!(node && node->type == EndTag && node->tag &&
+        node->tag->id == script->tag->id))
     {
         ReportError(doc, script, node, MISSING_ENDTAG_FOR);
 
