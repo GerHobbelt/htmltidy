@@ -54,13 +54,21 @@
  and the futime function, then set PRESERVEFILETIMES to 0
 */
 #ifndef PRESERVEFILETIMES
+#ifdef sun
+#define PRESERVEFILETIMES 0
+#else
 #define PRESERVEFILETIMES 1
+#endif
 #endif
 
 #if PRESERVEFILETIMES
 #include <sys/types.h> 
 #include <sys/stat.h>
+#ifdef __linux__
+#include <utime.h>
+#else
 #include <sys/utime.h>
+#endif /* __linux__ */
 
 /*
    MS Windows needs _ prefix for Unix file functions
@@ -78,7 +86,7 @@
 /* you may need to delete the #ifndef and #endif on your system */
 
 #ifndef __USE_MISC
-#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__MACH__)
+#if defined(sun) ||defined(__FreeBSD__) ||defined(__NetBSD__) ||defined(__OpenBSD__) ||defined(__MACH__)
 #include <sys/types.h>
 #else
 #ifndef _INCLUDE_HPUX_SOURCE
