@@ -926,6 +926,9 @@ int         tidyDocSaveStdout( TidyDocImpl* doc )
     if ( 0 == status )
       status = tidyDocSaveStream( doc, out );
 
+    /* fix for bug 689588 */
+    fflush(stdout);
+
 #if defined(_WIN32) || defined(OS2_OS)
     if ( oldmode != -1 )
         oldmode = _setmode( _fileno(stdout), oldmode );
