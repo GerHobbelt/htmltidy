@@ -1821,6 +1821,9 @@ void PPrintScriptStyle( TidyDocImpl* doc, uint mode, uint indent, Node *node )
     int     contentIndent = -1;
     Bool    xhtmlOut = cfgBool( doc, TidyXhtmlOut );
 
+    /* fix for http://tidy.sf.net/bug/729972, restores 04Aug00 behaivour */
+    indent = 0;
+
     if ( InsideHead(doc, node) )
       PFlushLine( doc, indent );
 
@@ -1867,7 +1870,7 @@ void PPrintScriptStyle( TidyDocImpl* doc, uint mode, uint indent, Node *node )
           content != NULL;
           content = content->next )
     {
-        PPrintTree( doc, (mode | PREFORMATTED | NOWRAP |CDATA), 
+        PPrintTree( doc, (mode | PREFORMATTED | NOWRAP | CDATA), 
                     indent, content );
 
         if ( content == node->last )
