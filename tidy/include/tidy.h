@@ -659,11 +659,11 @@ void dumpNode( TidyNode tnod, int indent )
     case TidyNode_End:
     case TidyNode_StartEnd:
     default:
-      ctmbstr name = tidyNodeGetName( child );
+      name = tidyNodeGetName( child );
       break;
     }
     assert( name != NULL );
-    printf( "\%*.*sNode: \%s\\n", indent, indent, name );
+    printf( "\%*.*sNode: \%s\\n", indent, indent, " ", name );
     dumpNode( child, indent + 4 );
   }
 }
