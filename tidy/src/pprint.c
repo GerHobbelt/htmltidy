@@ -2208,13 +2208,8 @@ void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
                 }
             }
 
-            /*
-            */
-            if ( !indcont && !hideend && node->next != NULL &&
-                 nodeHasCM(node, CM_BLOCK|CM_LIST|CM_DEFLIST|CM_TABLE) )
-            {
+            if (!indcont && !hideend && !nodeIsHTML(node) && !classic)
                 PFlushLine( doc, indent );
-            }
         }
     }
 }
