@@ -94,10 +94,14 @@ debug:
 clean:
 		rm -f $(OFILES) tab2space.o  tidy tab2space
 
-install:
+install: tidy
+	mkdir -p $(INSTALLDIR)bin
 	cp -f tidy $(INSTALLDIR)bin
-	cp -f man_page.txt $(MANPAGESDIR)man1/tidy.1
-	cd $(INSTALLDIR)bin; \
+	if [ -f "man_page.txt" ] ; then \
+		mkdir -p $(MANPAGESDIR)man1; \
+		cp -f man_page.txt $(MANPAGESDIR)man1/tidy.1; \
+	fi
+	-cd $(INSTALLDIR)bin; \
 	chmod 755 tidy; \
 	chgrp bin tidy; \
 	chown bin tidy;
