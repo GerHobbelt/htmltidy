@@ -21,7 +21,7 @@
 /* used to point to Web Accessibility Guidelines */
 #define ACCESS_URL  "http://www.w3.org/WAI/GL"
 
-char *release_date = "1st April 2002 (no joke)";
+char *release_date = "1st April 2002";
 
 static char *currentFile; /* sasdjb 01May00 for GNU Emacs error parsing */
 
