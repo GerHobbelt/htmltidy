@@ -197,6 +197,19 @@ struct _node
 typedef struct _node Node;
 
 /*
+ Anchor/Node linked list
+*/
+
+struct _anchor
+{
+    struct _anchor *next;
+    Node *node;
+    char *name;
+};
+
+typedef struct _anchor Anchor;
+
+/*
 
  If the document uses just HTML 2.0 tags and attributes described it as HTML 2.0
  Similarly for HTML 3.2 and the 3 flavors of HTML 4.0. If there are proprietary
@@ -510,6 +523,13 @@ Bool IsScript(char *attrname);
 Bool IsBool(char *attrname);
 void DeclareLiteralAttrib(char *name);
 Bool IsLiteralAttribute(char *attrname);
+Bool IsAnchorElement(Node *node);
+void FreeAnchor(Anchor *a);
+void RemoveAnchorByNode(Node *node);
+Anchor *NewAnchor(void);
+Anchor *AddAnchor(char *name, Node *node);
+Node *GetNodeByAnchor(char *name);
+FreeAnchors(void);
 
 /* istack.c */
 void PushInline(Lexer *lexer, Node *node);
@@ -674,7 +694,7 @@ void tidy_out(FILE *fp, const char* msg, ...);
 #define ESCAPED_ILLEGAL_URI     17
 
 #define NEWLINE_IN_URI          18
-
+#define ANCHOR_NOT_UNIQUE       19
 
 /* page transition effects */
 

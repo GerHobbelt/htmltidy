@@ -322,6 +322,12 @@ void ReportAttrError(Lexer *lexer, Node *node, AttVal *av, uint code)
             ReportTag(lexer, node);
             tidy_out(lexer->errout, " discarding newline in URI reference");
         }
+        else if (code == ANCHOR_NOT_UNIQUE)
+        {
+            tidy_out(lexer->errout, "Warning: ");
+            ReportTag(lexer, node);
+            tidy_out(lexer->errout, " Anchor \"%s\" already defined", av->value);
+        }
 
         tidy_out(lexer->errout, "\n");
     }
