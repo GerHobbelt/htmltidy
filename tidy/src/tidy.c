@@ -2233,13 +2233,11 @@ int main(int argc, char **argv)
 
             MemFree(lexer->in);
 
-            if (!Quiet)
-            {
-                totalwarnings += lexer->warnings;
-                totalerrors += lexer->errors;
+            totalwarnings += lexer->warnings;
+            totalerrors += lexer->errors;
 
+            if (!Quiet)
                 ReportNumWarnings(errout, lexer);
-            }
             
             if (lexer->errors > 0 && !ForceOutput)
                 NeedsAuthorIntervention(errout);
