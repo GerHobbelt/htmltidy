@@ -212,6 +212,8 @@ static void WrapLine(Out *fout, uint indent)
         q = linebuf + wraphere;
         AddC('\0', linelen);
 
+        p = linebuf; q = linebuf + wraphere;	/* 433856 - fix by Terry Teague 23 Jun 00 */
+        
         while ((*p++ = *q++));
 
         linelen -= wraphere;
@@ -249,6 +251,8 @@ static void WrapAttrVal(Out *fout, uint indent, Bool inString)
         q = linebuf + wraphere;
         AddC('\0', linelen);
 
+        p = linebuf; q = linebuf + wraphere;	/* 433856 - fix by Terry Teague 23 Jun 00 */
+        
         while ((*p++ = *q++));
 
         linelen -= wraphere;
