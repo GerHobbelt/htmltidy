@@ -173,7 +173,7 @@ int ReadBOMEncoding(StreamIn *in)
     {
         /* big-endian UTF-16 */
         if ( in->encoding != UTF16 && in->encoding != UTF16BE )
-            ReportEncodingError( in->doc, ENCODING_MISMATCH, UTF16BE, no ); /* non-fatal error */
+            ReportEncodingWarning(in->doc, ENCODING_MISMATCH, UTF16BE);
 
         return UTF16BE; /* return decoded BOM */
     }
@@ -181,7 +181,7 @@ int ReadBOMEncoding(StreamIn *in)
     {
         /* little-endian UTF-16 */
         if (in->encoding != UTF16 && in->encoding != UTF16LE)
-            ReportEncodingError( in->doc, ENCODING_MISMATCH, UTF16LE, no );
+            ReportEncodingWarning(in->doc, ENCODING_MISMATCH, UTF16LE);
 
         return UTF16LE; /* return decoded BOM */
     }
@@ -194,7 +194,7 @@ int ReadBOMEncoding(StreamIn *in)
         {
             /* UTF-8 */
             if (in->encoding != UTF8)
-                ReportEncodingError( in->doc, ENCODING_MISMATCH, UTF8, no );
+                ReportEncodingWarning(in->doc, ENCODING_MISMATCH, UTF8);
 
             return UTF8;
         }

@@ -62,6 +62,8 @@ void UnknownFile( TidyDocImpl* doc, ctmbstr program, ctmbstr file );
 void FileError( TidyDocImpl* doc, ctmbstr file, TidyReportLevel level );
 
 void ErrorSummary( TidyDocImpl* doc );
+
+void ReportEncodingWarning(TidyDocImpl* doc, uint code, uint encoding);
 void ReportEncodingError(TidyDocImpl* doc, uint code, uint c, Bool discarded);
 void ReportEntityError( TidyDocImpl* doc, uint code, ctmbstr entity, int c );
 void ReportAttrError( TidyDocImpl* doc, Node* node, AttVal* av, uint code );
@@ -125,7 +127,8 @@ void ReportFatal(TidyDocImpl* doc, Node* element, Node* node, uint code);
 #define TOO_MANY_ELEMENTS_IN         46
 #define UNEXPECTED_ENDTAG_IN         47
 #define REPLACING_ELEMENT            83
-#define REPLACING_UNEX_ELEMENT       84 /* last */
+#define REPLACING_UNEX_ELEMENT       84
+#define COERCE_TO_ENDTAG_WARN        85 /* last */
 
 /* error codes used for attribute messages */
 

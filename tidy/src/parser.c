@@ -1412,11 +1412,11 @@ void ParseInline( TidyDocImpl* doc, Node *element, uint mode )
              && !nodeIsQ(node)
            )
         {
-            if ( element->content != NULL && node->attributes == NULL )
+            if (element->content != NULL && node->attributes == NULL)
             {
-                ReportError(doc, element, node, COERCE_TO_ENDTAG );
+                ReportWarning(doc, element, node, COERCE_TO_ENDTAG_WARN);
                 node->type = EndTag;
-                UngetToken( doc );
+                UngetToken(doc);
                 continue;
             }
 
