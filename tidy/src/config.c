@@ -645,7 +645,10 @@ int ParseConfigFileEnc( TidyDocImpl* doc, ctmbstr file, ctmbstr charenc )
     int enc = CharEncodingId( charenc );
 
     if ( fin == NULL || enc < 0 )
+    {
         FileError( doc, fname, TidyConfig );
+        return -1;
+    }
     else
     {
         tchar c;
