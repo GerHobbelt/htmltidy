@@ -1156,9 +1156,6 @@ Bool FixDocType(Lexer *lexer, Node *root)
     if (lexer->bad_doctype)
         ReportWarning(lexer, null, null, MALFORMED_DOCTYPE);
 
-    if (XmlOut)
-        return yes;
-
     doctype = FindDocType(root);
 
     if (doctype_mode == doctype_omit)
@@ -1168,6 +1165,9 @@ Bool FixDocType(Lexer *lexer, Node *root)
 
         return yes;
     }
+
+    if (XmlOut)
+        return yes;
 
     if (doctype_mode == doctype_strict)
     {
