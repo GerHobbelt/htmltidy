@@ -1026,6 +1026,7 @@ void HelpText(FILE *out, char *prog)
     tidy_out(out, "  -xml              to specify the input is well formed XML\n");
     tidy_out(out, "  -asxml            to convert HTML to well formed XHTML\n");
     tidy_out(out, "  -asxhtml          to convert HTML to well formed XHTML\n");
+    tidy_out(out, "  -ashtml           to force XHTML to well formed HTML\n");
     tidy_out(out, "  -slides           to burst into slides on H2 elements\n");
     tidy_out(out, "\n");
 
