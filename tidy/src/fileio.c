@@ -52,7 +52,7 @@ void filesrc_ungetByte( uint sourceData, byte bv )
 
 void initFileSource( TidyInputSource* inp, FILE* fp )
 {
-  FileSource* fin = null;
+  FileSource* fin = NULL;
 
   inp->getByte    = filesrc_getByte;
   inp->eof        = filesrc_eof;

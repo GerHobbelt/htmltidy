@@ -43,7 +43,7 @@ struct _tidy_option
     ctmbstr             name;       /* property name */
     TidyOptionType      type;       /* string, int or bool */
     uint                dflt;       /* factory default */
-    ParseProperty*      parser;     /* parsing method, read-only if null */
+    ParseProperty*      parser;     /* parsing method, read-only if NULL */
     const ctmbstr*      pickList;   /* pick list */
 };
 

@@ -13,10 +13,10 @@
 
 #include "tidy.h"
 
-static TidyMalloc  g_malloc  = null;
-static TidyRealloc g_realloc = null;
-static TidyFree    g_free    = null;
-static TidyPanic   g_panic   = null;
+static TidyMalloc  g_malloc  = NULL;
+static TidyRealloc g_realloc = NULL;
+static TidyFree    g_free    = NULL;
+static TidyPanic   g_panic   = NULL;
 
 Bool        tidySetMallocCall( TidyMalloc fmalloc )
 {
@@ -62,8 +62,8 @@ void* MemAlloc( size_t size )
 void* MemRealloc( void* mem, size_t newsize )
 {
     void *p;
-    if (mem == (void *)null)
-        return MemAlloc(newsize);
+    if ( mem == NULL )
+        return MemAlloc( newsize );
 
     p = ( g_realloc ? g_realloc(mem, newsize) : realloc(mem, newsize) );
     if (!p)

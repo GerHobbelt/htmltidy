@@ -485,8 +485,10 @@ typedef enum
    yes
 } Bool;
 
-/* for null pointers */
-#define null 0
+/* for NULL pointers 
+#define null ((const void*)0)
+extern void* null;
+*/
 
 #if defined(DMALLOC)
 #include "dmalloc.h"
