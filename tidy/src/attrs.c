@@ -827,7 +827,7 @@ void RepairDuplicateAttributes( TidyDocImpl* doc, Node *node)
             /* first and second attribute have same local name */
             /* now determine what to do with this duplicate... */
 
-            if (attrIsCLASS(first) && cfgBool(doc, TidyJoinClasses))
+            if (attrIsCLASS(first) && cfgBool(doc, TidyJoinClasses) && AttrHasValue(first))
             {
                 /* concatenate classes */
 
@@ -843,7 +843,7 @@ void RepairDuplicateAttributes( TidyDocImpl* doc, Node *node)
 
                 second = temp;
             }
-            else if (attrIsSTYLE(first) && cfgBool(doc, TidyJoinStyles))
+            else if (attrIsSTYLE(first) && cfgBool(doc, TidyJoinStyles) && AttrHasValue(first))
             {
                 /* concatenate styles */
 
