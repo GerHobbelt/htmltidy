@@ -1200,6 +1200,27 @@ static Bool ShouldIndent(Node *node)
     return (Bool)(!(node->tag->model & CM_INLINE));
 }
 
+/*
+ Feature request #434940 - fix by Dave Raggett/Ignacio Vazquez-Abrams 21 Jun 01
+ print just the content of the body element.
+ useful when you want to reuse material from
+ other documents.
+
+ -- Sebastiano Vigna <vigna@dsi.unimi.it>
+*/
+void PrintBody(Out *fout, Lexer *lexer, Node *root)
+{
+    Node *content, *body = FindBody(root);
+
+    if (body != null)
+    {
+        for (content = body->content;
+            content != null;
+            content = content->next)
+            PPrintTree(fout, null, 0, lexer, content);
+    }
+}
+
 void PPrintTree(Out *fout, uint mode, uint indent,
                     Lexer *lexer, Node *node)
 {

@@ -550,6 +550,7 @@ void PPrintXMLTree(Out *fout, uint mode, uint indent,
                     Lexer *lexer, Node *node);
 void PFlushLine(Out *out, uint indent);
 void PCondFlushLine(Out *out, uint indent);
+void PrintBody(Out *fout, Lexer *lexer, Node *root);	/* Feature request #434940 - fix by Dave Raggett/Ignacio Vazquez-Abrams 21 Jun 01 */
 void AddTransitionEffect(Lexer *lexer, Node *root, int effect, float duration);
 Node *FindHead(Node *root);
 Node *FindBody(Node *root);
@@ -766,6 +767,7 @@ extern Bool IndentAttributes;
 extern Bool Word2000;
 extern Bool Emacs;  /* sasdjb 01May00 GNU Emacs error output format */
 extern Bool LiteralAttribs;
+extern Bool BodyOnly; /* #434940 - output BODY content only */
 
 /* Parser methods for tags */
 

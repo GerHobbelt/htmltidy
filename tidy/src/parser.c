@@ -2702,6 +2702,7 @@ void ParseHead(Lexer *lexer, Node *head, uint mode)
   
     if (HasTitle == 0)
     {
+        if (!BodyOnly)	/* Feature request #434940 - fix by Ignacio Vazquez-Abrams 21 Jun 01 */
         ReportWarning(lexer, head, null, MISSING_TITLE_ELEMENT);
         InsertNodeAtEnd(head, InferredTag(lexer, "title"));
     }
