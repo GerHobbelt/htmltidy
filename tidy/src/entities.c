@@ -337,7 +337,7 @@ uint EntityCode( ctmbstr name, uint versions )
         if ( name[2] == 'x' || (!isXml && name[2] == 'X') )
             sscanf( name+3, "%x", &c );
         else
-            sscanf( name+2, "%d", &c );
+            sscanf( name+2, "%u", &c );
 
         return (uint) c;
     }
@@ -369,7 +369,7 @@ Bool EntityInfo( ctmbstr name, Bool isXml, uint* code, uint* versions )
         if ( name[2] == 'x' || (!isXml && name[2] == 'X') )
             sscanf( name+3, "%x", &c );
         else
-            sscanf( name+2, "%d", &c );
+            sscanf( name+2, "%u", &c );
 
         *code = c;
         *versions = VERS_ALL;

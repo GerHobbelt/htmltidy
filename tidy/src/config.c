@@ -43,8 +43,6 @@
 #include "win32tc.h"
 #endif
 
-int CharEncodingId( ctmbstr charenc ); /* returns -1 if not recognized */
-
 void InitConfig( TidyDocImpl* doc )
 {
     ClearMemory( &doc->config, sizeof(TidyConfigImpl) );
@@ -682,7 +680,7 @@ int ParseConfigFileEnc( TidyDocImpl* doc, ctmbstr file, ctmbstr charenc )
                     {
                         TidyConfigImpl* cfg = &doc->config;
                         tmbchar buf[8192];
-                        int i = 0;
+                        uint i = 0;
                         tchar delim = 0;
                         Bool waswhite = yes;
 
@@ -726,7 +724,7 @@ int ParseConfigFileEnc( TidyDocImpl* doc, ctmbstr file, ctmbstr charenc )
 
         fclose( fin );
         MemFree( (void *)cfg->cfgIn->source.sourceData ); /* fix for bug #810259 */
-        MemFree( cfg->cfgIn );
+        freeStreamIn( cfg->cfgIn );
         cfg->cfgIn = NULL;
     }
 
@@ -1007,7 +1005,7 @@ Bool ParseBool( TidyDocImpl* doc, const TidyOptionImpl* entry )
 Bool ParseName( TidyDocImpl* doc, const TidyOptionImpl* option )
 {
     tmbchar buf[ 1024 ] = {0};
-    int i = 0;
+    uint i = 0;
     uint c = SkipWhite( &doc->config );
 
     while ( i < sizeof(buf)-2 && c != EndOfStream && !IsWhite(c) )
@@ -1074,7 +1072,7 @@ Bool ParseTagNames( TidyDocImpl* doc, const TidyOptionImpl* option )
 {
     TidyConfigImpl* cfg = &doc->config;
     tmbchar buf[1024];
-    int i = 0, nTags = 0;
+    uint i = 0, nTags = 0;
     uint c = SkipWhite( cfg );
     uint ttyp = 0;
 
@@ -1161,7 +1159,7 @@ Bool ParseString( TidyDocImpl* doc, const TidyOptionImpl* option )
 {
     TidyConfigImpl* cfg = &doc->config;
     tmbchar buf[8192];
-    int i = 0;
+    uint i = 0;
     tchar delim = 0;
     Bool waswhite = yes;
 
@@ -1202,7 +1200,8 @@ Bool ParseString( TidyDocImpl* doc, const TidyOptionImpl* option )
 Bool ParseCharEnc( TidyDocImpl* doc, const TidyOptionImpl* option )
 {
     tmbchar buf[64] = {0};
-    int i = 0, enc = ASCII;
+    uint i = 0;
+    int enc = ASCII;
     Bool validEncoding = yes;
     tchar c = SkipWhite( &doc->config );
 
@@ -1319,7 +1318,7 @@ Bool ParseIndent( TidyDocImpl* doc, const TidyOptionImpl* option )
 Bool ParseDocType( TidyDocImpl* doc, const TidyOptionImpl* option )
 {
     tmbchar buf[ 32 ] = {0};
-    int i = 0;
+    uint i = 0;
     Bool status = yes;
     TidyDoctypeModes dtmode = TidyDoctypeAuto;
 
@@ -1369,7 +1368,7 @@ Bool ParseRepeatAttr( TidyDocImpl* doc, const TidyOptionImpl* option )
 {
     Bool status = yes;
     tmbchar buf[64] = {0};
-    int i = 0;
+    uint i = 0;
 
     TidyConfigImpl* cfg = &doc->config;
     tchar c = SkipWhite( cfg );
@@ -1478,7 +1477,7 @@ static int  WriteOptionString( const TidyOptionImpl* option,
 static int  WriteOptionInt( const TidyOptionImpl* option, uint ival, StreamOut* out )
 {
   tmbchar sval[ 32 ] = {0};
-  tmbsnprintf(sval, sizeof(sval), "%d", ival );
+  tmbsnprintf(sval, sizeof(sval), "%u", ival );
   return WriteOptionString( option, sval, out );
 }
 

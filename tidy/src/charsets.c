@@ -19,7 +19,7 @@ static struct _charsetInfo
     ctmbstr charset;
     uint codepage;
     uint stateful;
-} charsetInfo[] =
+} const charsetInfo[] =
 {
   {   1, "adobe-standard-encoding",                           0,  no }, /* IANA */
   {   1, "csadobestandardencoding",                           0,  no }, /* IANA */

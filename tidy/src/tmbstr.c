@@ -156,7 +156,7 @@ int tmbstrncasecmp( ctmbstr s1, ctmbstr s2, uint n )
 {
     uint c;
 
-    while ( (c = tolower(*s1)) == (uint) tolower(*s2) )
+    while (c = (uint)(*s1), ToLower(c) == ToLower((uint)(*s2)))
     {
         if (c == '\0')
             return 0;

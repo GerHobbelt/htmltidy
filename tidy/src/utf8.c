@@ -166,7 +166,7 @@ static const struct validUTF8Sequence
     {0x100000, 0x10FFFF, 4, {0xF4, 0xF4, 0x80, 0x8F, 0x80, 0xBF, 0x80, 0xBF}} 
 };
 
-int DecodeUTF8BytesToChar( uint* c, uint firstByte, tmbstr successorBytes,
+int DecodeUTF8BytesToChar( uint* c, uint firstByte, ctmbstr successorBytes,
                            TidyInputSource* inp, int* count )
 {
     byte tempbuf[10];
@@ -438,7 +438,7 @@ int EncodeCharToUTF8Bytes( uint c, tmbstr encodebuf,
 /* return one less than the number of bytes used by the UTF-8 byte sequence */
 /* str points to the UTF-8 byte sequence */
 /* the Unicode char is returned in *ch */
-uint GetUTF8( tmbstr str, uint *ch )
+uint GetUTF8( ctmbstr str, uint *ch )
 {
     uint n;
     int bytes;

@@ -3,7 +3,7 @@
 
 /* tags.h -- recognize HTML tags
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -38,7 +38,7 @@ struct _Dict
     TidyTagId       id;
     tmbstr          name;
     uint            versions;
-    AttrVersion*    attrvers;
+    AttrVersion const *    attrvers;
     uint            model;
     Parser*         parser;
     CheckAttribs*   chkattrs;

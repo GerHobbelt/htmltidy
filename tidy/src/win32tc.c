@@ -1,6 +1,6 @@
 /* win32tc.c -- Interface to Win32 transcoding routines
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   $Id$
@@ -59,7 +59,7 @@ static struct _nameWinCPMap
     tmbstr name;
     uint wincp;
     Bool safe;
-} NameWinCPMap[] = {
+} const NameWinCPMap[] = {
   { "cp037",                                            37, yes },
   { "csibm037",                                         37, yes },
   { "ebcdic-cp-ca",                                     37, yes },

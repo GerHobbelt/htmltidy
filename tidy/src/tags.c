@@ -698,6 +698,8 @@ void CheckSCRIPT( TidyDocImpl* doc, Node *node )
         /* check for javascript */
         if ( lang )
         {
+            /* Test #696799. lang->value can be NULL. */
+            buf[0] = '\0';
             tmbstrncpy( buf, lang->value, sizeof(buf) );
             buf[10] = '\0';
 
