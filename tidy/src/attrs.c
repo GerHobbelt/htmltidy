@@ -446,6 +446,20 @@ AttVal* AddAttribute( TidyDocImpl* doc,
     return av;
 }
 
+AttVal* RepairAttrValue(TidyDocImpl* doc, Node* node, ctmbstr name, ctmbstr value)
+{
+    AttVal* old = GetAttrByName(node, name);
+
+    if (old)
+    {
+        MemFree(old->value);
+        old->value = tmbstrdup(value);
+        return old;
+    }
+    else
+        return AddAttribute(doc, node, name, value);
+}
+
 static Bool CheckAttrType( TidyDocImpl* doc,
                            ctmbstr attrname, AttrCheck type )
 {

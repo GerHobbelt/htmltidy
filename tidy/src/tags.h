@@ -53,10 +53,6 @@ struct _TidyTagImpl
 
 typedef struct _TidyTagImpl TidyTagImpl;
 
-/* choose what version to use for new doctype */
-int HTMLVersion( TidyDocImpl* doc );
-
-
 /* interface for finding tag by name */
 const Dict* LookupTagDef( TidyTagId tid );
 Bool    FindTag( TidyDocImpl* doc, Node *node );

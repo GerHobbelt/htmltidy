@@ -2210,7 +2210,7 @@ static Bool AttrCompliance( TidyDocImpl* doc, Node* node, uint versWanted )
         /* No align, except on: <col>, <colgroup>, <tbody>, <td>,
         ** <tfoot>, <th>, <thead>, <tr>
         */
-        if ( attrIsALIGN(attr) && VERS_HTML40_STRICT==versWanted )
+        if ( attrIsALIGN(attr) && VERS_HTML40_STRICT & versWanted )
         {
             switch ( TagId(node) )
             {
@@ -2270,7 +2270,7 @@ static Bool NodeCompliance( TidyDocImpl* doc, Node* node, uint versWanted )
                 compliant = no;
             }
         }
-        if ( compliant && VERS_HTML40_STRICT == versWanted )
+        if ( compliant && VERS_HTML40_STRICT & versWanted )
         {
             AttVal* attr = NULL;
             switch ( TagId(node) )

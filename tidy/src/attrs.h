@@ -146,6 +146,8 @@ AttVal* GetAttrByName( Node *node, ctmbstr name );
 AttVal* AddAttribute( TidyDocImpl* doc,
                       Node *node, ctmbstr name, ctmbstr value );
 
+AttVal* RepairAttrValue(TidyDocImpl* doc, Node* node, ctmbstr name, ctmbstr value);
+
 Bool IsUrl( TidyDocImpl* doc, ctmbstr attrname );
 
 Bool IsBool( TidyDocImpl* doc, ctmbstr attrname );

@@ -252,51 +252,6 @@ static const Dict tag_defs[] =
   { 0,                  NULL,         0,                    NULL,                       (0),                                           NULL,          NULL           }
 };
 
-/* choose what version to use for new doctype */
-int HTMLVersion( TidyDocImpl* doc )
-{
-    int dtver = doc->lexer->doctype;
-    uint versions = doc->lexer->versions;
-    TidyDoctypeModes dtmode = cfg(doc, TidyDoctypeMode);
-
-    Bool wantXhtml = !cfgBool(doc, TidyHtmlOut) &&
-                     ( cfgBool(doc, TidyXmlOut) || doc->lexer->isvoyager );
-
-    Bool wantHtml4 = dtmode==TidyDoctypeStrict || dtmode==TidyDoctypeLoose ||
-                     dtver==VERS_HTML40_STRICT || dtver==VERS_HTML40_LOOSE;
-
-    /* Prefer HTML 4.x for XHTML */
-    if ( !wantXhtml && !wantHtml4 )
-    {
-        if ( versions & VERS_HTML32 )   /* Prefer 3.2 over 2.0 */
-            return VERS_HTML32;
-
-        if ( versions & VERS_HTML20 )
-            return VERS_HTML20;
-    }
-
-    if ( wantXhtml && (versions & VERS_XHTML11) )
-        return VERS_XHTML11;
-
-    if ( versions & VERS_HTML40_STRICT )
-        return VERS_HTML40_STRICT;
-
-    if ( versions & VERS_HTML40_LOOSE )
-        return VERS_HTML40_LOOSE;
-
-    if ( versions & VERS_FRAMESET )
-        return VERS_FRAMESET;
-
-    /* Still here?  Try these again. */
-    if ( versions & VERS_HTML32 )   /* Prefer 3.2 over 2.0 */
-        return VERS_HTML32;
-
-    if ( versions & VERS_HTML20 )
-        return VERS_HTML20;
-
-    return VERS_UNKNOWN;
-}
-
 static const Dict* lookup( TidyTagImpl* tags, ctmbstr s )
 {
     Dict *np = NULL;
