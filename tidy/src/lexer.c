@@ -3850,7 +3850,7 @@ static Node *ParseDocTypeDecl(TidyDocImpl* doc)
     int start = lexer->lexsize;
     int state = DT_DOCTYPENAME;
     uint c;
-    int delim = 0;
+    uint delim = 0;
     Bool hasfpi = yes;
 
     lexer->waswhite = no;
