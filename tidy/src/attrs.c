@@ -1080,13 +1080,18 @@ void CheckLength(Lexer *lexer, Node *node, AttVal *attval)
         return;
     }
 
+    /* don't check for <col width=...> and <colgroup width=...> */
+    if (!wstrcmp(attval->attribute, "width") && (node->tag == tag_col || node->tag == tag_colgroup))
+        return;
+
     p = attval->value;
     
     if (!IsDigit(*p++))
     {
         ReportAttrError(lexer, node, attval, BAD_ATTRIBUTE_VALUE);
-    } else {
-
+    }
+    else
+    {
         while (*p)
         {
             if (!IsDigit(*p) && *p != '%')
@@ -1219,6 +1224,12 @@ void CheckNumber(Lexer *lexer, Node *node, AttVal *attval)
         ReportAttrError(lexer, node, attval, MISSING_ATTR_VALUE);
         return;
     }
+
+    /* don't check <frameset cols=... rows=...> */
+    if ((!wstrcmp(attval->attribute, "cols") ||
+         !wstrcmp(attval->attribute, "rows")) &&
+         node->tag == tag_frameset)
+     return;
 
     p  = attval->value;
     

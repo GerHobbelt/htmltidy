@@ -1016,6 +1016,7 @@ extern Dict *tag_td;
 extern Dict *tag_th;
 extern Dict *tag_tr;
 extern Dict *tag_col;
+extern Dict *tag_colgroup;
 extern Dict *tag_br;
 extern Dict *tag_a;
 extern Dict *tag_link;
