@@ -2571,7 +2571,7 @@ static void CheckTextArea( TidyDocImpl* doc, Node* node )
 
             if (flag == 0)
             {
-                if ( nodeIsLABEL(node->next->next) )
+                if ( node->next != NULL && nodeIsLABEL(node->next->next) )
                 {
                     temp = node->next->next;
                     
