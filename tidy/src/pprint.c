@@ -1138,6 +1138,10 @@ static void PPrintAttribute( TidyDocImpl* doc, uint indent,
     Bool wrappable = no;
     tchar c;
 
+    /* fix for odd attribute indentation bug triggered by long values */
+    if (!indAttrs)
+      xtra = 0;
+
     if ( indAttrs )
     {
         if ( nodeIsElement(node) && !first )
