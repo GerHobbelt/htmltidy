@@ -1,6 +1,6 @@
 /* attrs.c -- recognize HTML attributes
 
-  (c) 1998-2001 (W3C) MIT, INRIA, Keio University
+  (c) 1998-2002 (W3C) MIT, INRIA, Keio University
   See tidy.c for the copyright notice.
   
   CVS Info :
@@ -364,7 +364,7 @@ AttVal *GetAttrByName(Node *node, char *name)
 
     for (attr = node->attributes; attr != null; attr = attr->next)
     {
-        if (wstrcmp(attr->attribute, name) == 0)
+        if (attr->attribute && wstrcmp(attr->attribute, name) == 0)
             break;
     }
 
