@@ -2010,6 +2010,9 @@ Node *GetToken(Lexer *lexer, uint mode)
                         lexer->token->tag->chkattrs(lexer, lexer->token);
                     else
                         CheckAttributes(lexer, lexer->token);
+
+                    /* should this be called before attribute checks? */
+                    RepairDuplicateAttributes(lexer, lexer->token);
                 }
 
                  return lexer->token;  /* return start tag */
