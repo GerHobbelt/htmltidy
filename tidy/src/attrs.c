@@ -1090,7 +1090,7 @@ void CheckScript( TidyDocImpl* doc, Node *node, AttVal *attval)
 #pragma unused(attval)
 }
 
-static Bool IsValidHTMLID(ctmbstr id)
+Bool IsValidHTMLID(ctmbstr id)
 {
     ctmbstr s = id;
 

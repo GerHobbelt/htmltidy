@@ -175,6 +175,7 @@ Bool IsAnchorElement( TidyDocImpl* doc, Node* node );
 */
 Bool IsCSS1Selector( ctmbstr buf );
 
+Bool IsValidHTMLID(ctmbstr id);
 Bool IsValidXMLID(ctmbstr id);
 
 /* removes anchor for specific node */

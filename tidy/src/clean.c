@@ -2521,7 +2521,7 @@ void FixXhtmlNamespace(TidyDocImpl* doc, Bool wantXmlns)
 /*
   ...
 */
-void FixAnchors(TidyDocImpl* doc, Node *node, Bool wantName, Bool wantId, Bool xmlId)
+void FixAnchors(TidyDocImpl* doc, Node *node, Bool wantName, Bool wantId)
 {
     Node* next;
 
@@ -2546,7 +2546,7 @@ void FixAnchors(TidyDocImpl* doc, Node *node, Bool wantName, Bool wantId, Bool x
             }
             else if (name && wantId)
             {
-                if (IsValidXMLID(name->value) || !xmlId)
+                if (IsValidHTMLID(name->value))
                 {
                     RepairAttrValue(doc, node, "id", name->value);
                 }
@@ -2573,7 +2573,7 @@ void FixAnchors(TidyDocImpl* doc, Node *node, Bool wantName, Bool wantId, Bool x
         }
 
         if (node->content)
-            FixAnchors(doc, node->content, wantName, wantId, xmlId);
+            FixAnchors(doc, node->content, wantName, wantId);
 
         node = next;
     }

@@ -1243,14 +1243,14 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
         if (xhtmlOut && !htmlOut)
         {
             SetXHTMLDocType(doc);
-            FixAnchors(doc, &doc->root, yes, yes, yes);
+            FixAnchors(doc, &doc->root, yes, yes);
             FixXhtmlNamespace(doc, yes);
             FixLanguageInformation(doc, &doc->root, yes, yes);
         }
         else
         {
             FixDocType(doc);
-            FixAnchors(doc, &doc->root, yes, yes, no);
+            FixAnchors(doc, &doc->root, yes, yes);
             FixXhtmlNamespace(doc, no);
             FixLanguageInformation(doc, &doc->root, no, yes);
         }
