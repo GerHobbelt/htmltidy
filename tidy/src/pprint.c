@@ -1069,11 +1069,11 @@ static void PPrintTag(Lexer *lexer, Out *fout,
 
     PPrintAttrs(fout, indent, lexer, node, node->attributes);
 
-    if ((XmlOut == yes || lexer->isvoyager) &&
-            ((node->type == StartEndTag && !xHTML) || node->tag->model & CM_EMPTY))
+    if ( (XmlOut || xHTML) &&
+         (node->type == StartEndTag || node->tag->model & CM_EMPTY))
     {
-        AddC(' ', linelen++);   /* compatibility hack */
-        AddC('/', linelen++);
+        AddC(' ', linelen++);   /* Space is NS compatibility hack <br /> */
+        AddC('/', linelen++);   /* Required end tag marker */
     }
 
     AddC('>', linelen++);

@@ -57,6 +57,7 @@ extern Bool XmlTags;
 extern Bool XmlOut;
 extern char *alt_text;
 
+#define XHTML_NAMESPACE "http://www.w3.org/1999/xhtml"
 
 #define HASHSIZE 357
 
@@ -1464,9 +1465,12 @@ void CheckHTML(Lexer *lexer, Node *node)
     for (attval = node->attributes; attval != null; attval = attval->next)
     {
         attribute = CheckAttribute(lexer, node, attval);
-
-        if (attribute == attr_xmlns)
+        if (attribute == attr_xmlns && wstrcmp(attval->value, XHTML_NAMESPACE)==0 )
+        {
             lexer->isvoyager = yes;
+            if ( ! HtmlOut )  /* Unless user has specified plain HTML output, */
+              xHTML = yes;    /* output format will be XHTML. */
+        }
     }
 }
 
