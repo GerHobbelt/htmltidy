@@ -2414,10 +2414,16 @@ Bool  HTMLVersionCompliance( TidyDocImpl* doc )
     if (dtver == VERS_UNKNOWN)
         return no;
 
+#if 0
     if ( TidyDoctypeStrict == dtmode || VERS_HTML40_STRICT == dtver )
         versWanted = VERS_HTML40_STRICT;
     else if ( TidyDoctypeLoose == dtmode || VERS_HTML40_LOOSE == dtver )
         versWanted = VERS_HTML40_LOOSE;
+#endif
+
+    /* for now, only validate against given doctype, old code validated
+       HTML 4.01 Frameset against HTML 3.2... */
+    versWanted = doc->lexer->doctype;
 
     compliant = ( (versWanted & contver) != 0 );
     if ( !compliant )
