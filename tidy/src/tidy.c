@@ -2340,6 +2340,9 @@ int main(int argc, char **argv)
                     if (OutputBOM || (InputHadBOM && SmartBOM))
                         outBOM(&out);
 
+                    if (!FindDocType(document))
+                        NumEntities = yes;
+
                     if (XmlOut && !xHTML /*XmlTags*/) /* #427826 - fix by Dave Raggett 01 Sep 00 */
                         PPrintXMLTree(&out, null, 0, lexer, document);
                     /* Feature request #434940 - fix by Dave Raggett/Ignacio Vazquez-Abrams 21 Jun 01 */
