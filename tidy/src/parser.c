@@ -3380,11 +3380,6 @@ static void ParseXMLElement(Lexer *lexer, Node *element, uint mode)
 {
     Node *node;
 
-    /* Jeff Young's kludge for XSL docs */
-
-    if (wstrcasecmp(element->element, "xsl:text") == 0)
-        return;
-
     /* if node is pre or has xml:space="preserve" then do so */
 
     if (XMLPreserveWhiteSpace(element))
