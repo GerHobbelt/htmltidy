@@ -441,7 +441,7 @@ static tmbstr getTextNodeClear( TidyDocImpl* doc, Node* node )
     ClearMemory( doc->access.textNode, TEXTBUF_SIZE );
     doc->access.counter = 0;
 
-    getTextNode( doc, node );
+    getTextNode( doc, node->content );
     return doc->access.textNode;
 }
     
