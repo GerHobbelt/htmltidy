@@ -883,7 +883,7 @@ static void ParseEntity( TidyDocImpl* doc, int mode )
                     ReportEntityError( doc, MISSING_SEMICOLON_NCR,
                                        lexer->lexbuf+start, c );
  
-                ReportEncodingError( doc, INVALID_NCR | replaceMode, ch );
+                ReportEncodingError(doc, INVALID_NCR, ch, replaceMode == DISCARDED_CHAR);
                 
                 if ( c1 )
                 {

@@ -1107,7 +1107,7 @@ void CheckUrl( TidyDocImpl* doc, Node *node, AttVal *attval)
         else
             ReportAttrError( doc, node, attval, ILLEGAL_URI_REFERENCE);
 
-        doc->badChars |= INVALID_URI;
+        doc->badChars |= BC_INVALID_URI;
     }
 }
 
