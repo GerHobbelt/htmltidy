@@ -44,7 +44,6 @@ typedef enum
 struct _StreamIn
 {
     int  state;     /* FSM for ISO2022 */
-    Bool lookingForBOM;
     Bool pushed;
     uint charbuf[ CHARBUF_SIZE ];
     int  bufpos;
@@ -69,6 +68,7 @@ StreamIn* FileInput( TidyDocImpl* doc, FILE* fp, int encoding );
 StreamIn* BufferInput( TidyDocImpl* doc, TidyBuffer* content, int encoding );
 StreamIn* UserInput( TidyDocImpl* doc, TidyInputSource* source, int encoding );
 
+int       ReadBOMEncoding(StreamIn *in);
 uint      ReadChar( StreamIn* in );
 void      UngetChar( uint c, StreamIn* in );
 uint      PopChar( StreamIn *in );

@@ -1036,6 +1036,7 @@ int         tidyDocParseStream( TidyDocImpl* doc, StreamIn* in )
 {
     int status = -EINVAL;
     Bool xmlIn = cfgBool( doc, TidyXmlTags );
+    int bomEnc;
 
     assert( doc != NULL && in != NULL );
     assert( doc->docIn == NULL );
@@ -1055,20 +1056,12 @@ int         tidyDocParseStream( TidyDocImpl* doc, StreamIn* in )
     doc->root.column = doc->lexer->columns;
     doc->inputHadBOM = no;
 
-    /* skip byte order mark */
-    if ( in->encoding == UTF8
-#if SUPPORT_UTF16_ENCODINGS
-         || in->encoding == UTF16LE
-         || in->encoding == UTF16BE
-         || in->encoding == UTF16
-#endif
-       )
+    bomEnc = ReadBOMEncoding(in);
+
+    if (bomEnc != -1)
     {
-        uint c = ReadChar( in );
-        if ( c == UNICODE_BOM )
-            doc->inputHadBOM = yes;
-        else
-            UngetChar( c, in );
+        in->encoding = bomEnc;
+        SetOptionInt(doc, TidyInCharEncoding, bomEnc);
     }
 
 #ifdef TIDY_WIN32_MLANG_SUPPORT
