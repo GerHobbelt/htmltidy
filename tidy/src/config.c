@@ -540,14 +540,16 @@ Bool ParseConfig(char *option, char *parameter)
     PList *entry;
     FILE *ffp;
 
-    if (option && parameter)
+    if (option /* && parameter */)
     {
         ffp = fin;
     
         fin = null;
     
+        /*
         c = *parameter;
         parameter++;
+        */
     
         entry = lookup(option);
     
@@ -558,16 +560,30 @@ Bool ParseConfig(char *option, char *parameter)
             return no;
         }
 
-        config_text = parameter;
-        entry->parser(entry->location, option);
+        if (parameter)
+        {
+            c = *parameter;
+            parameter++;
     
-        fin = ffp;
+            config_text = parameter;
+            entry->parser(entry->location, option);
+    
+            fin = ffp;
+        }
+        else
+        {
+            ReportBadArgument(option);
+            return no;
+        }
+        
     }
+    /*
     else if (!parameter)
     {
         ReportBadArgument(option);
         return no;
     }
+    */
     
     return yes;
 }
