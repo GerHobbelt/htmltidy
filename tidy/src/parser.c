@@ -309,7 +309,7 @@ static void TrimTrailingSpace(Lexer *lexer, Node *element, Node *last)
         if (c == 160 || c == ' ')
         {
             /* take care with <td>&nbsp;</td> */
-            if (element->tag == tag_td || element->tag == tag_th)
+            if (c == 160 && (element->tag == tag_td || element->tag == tag_th))
             {
                 if (last->end > last->start + 1)
                     last->end -= 1;
