@@ -67,14 +67,14 @@ static StreamOut stdoutStreamOut =
     { 0, filesink_putByte }
 };
 
-StreamOut* StdErrOutput()
+StreamOut* StdErrOutput(void)
 {
   if ( stderrStreamOut.sink.sinkData == 0 )
       stderrStreamOut.sink.sinkData = (ulong) stderr;
   return &stderrStreamOut;
 }
 
-StreamOut* StdOutOutput()
+StreamOut* StdOutOutput(void)
 {
   if ( stdoutStreamOut.sink.sinkData == 0 )
       stdoutStreamOut.sink.sinkData = (ulong) stdout;

@@ -85,8 +85,8 @@ StreamOut* FileOutput( FILE* fp, int encoding, uint newln );
 StreamOut* BufferOutput( TidyBuffer* buf, int encoding, uint newln );
 StreamOut* UserOutput( TidyOutputSink* sink, int encoding, uint newln );
 
-StreamOut* StdErrOutput();
-StreamOut* StdOutOutput();
+StreamOut* StdErrOutput(void);
+StreamOut* StdOutOutput(void);
 void       ReleaseStreamOut( StreamOut* out );
 
 void WriteChar( uint c, StreamOut* out );

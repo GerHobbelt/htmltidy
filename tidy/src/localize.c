@@ -31,7 +31,7 @@
 
 const static char *release_date = "1st April 2003";
 
-ctmbstr ReleaseDate()
+ctmbstr ReleaseDate(void)
 {
   return release_date;
 }

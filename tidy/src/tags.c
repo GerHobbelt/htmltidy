@@ -422,8 +422,8 @@ ctmbstr        GetNextDeclaredTag( TidyDocImpl* doc, int tagType,
                                    TidyIterator* iter )
 {
     ctmbstr name = NULL;
-    Dict* curr = (Dict*) *iter;
-    for ( curr; name == NULL && curr != NULL; curr = curr->next )
+    Dict* curr;
+    for ( curr = (Dict*) *iter; name == NULL && curr != NULL; curr = curr->next )
     {
         switch ( tagType )
         {

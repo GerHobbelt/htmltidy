@@ -171,7 +171,7 @@ int main(int argc, char **argv )
 ** @{
 */
 
-TIDY_EXPORT TidyDoc     tidyCreate();
+TIDY_EXPORT TidyDoc     tidyCreate(void);
 TIDY_EXPORT void        tidyRelease( TidyDoc tdoc );
 
 /** Let application store a chunk of data w/ each Tidy instance.
@@ -183,7 +183,7 @@ TIDY_EXPORT void        tidySetAppData( TidyDoc tdoc, ulong appData );
 TIDY_EXPORT ulong       tidyGetAppData( TidyDoc tdoc );
 
 /** Get release date (version) for current library */
-TIDY_EXPORT ctmbstr     tidyReleaseDate();
+TIDY_EXPORT ctmbstr     tidyReleaseDate(void);
 
 /* Diagnostics and Repair
 */

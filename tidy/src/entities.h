@@ -16,8 +16,8 @@
 
 #include "forward.h"
 
-void InitEntities();
-void FreeEntities();
+void InitEntities(void);
+void FreeEntities(void);
 
 /* entity starting with "&" returns zero on error */
 uint    EntityCode( ctmbstr name, uint versions );

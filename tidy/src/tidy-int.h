@@ -111,7 +111,7 @@ TidyOption   tidyImplToOption( const TidyOptionImpl* option );
 #endif
 
 /* Create/Destroy a Tidy "document" object */
-TidyDocImpl* tidyDocCreate();
+TidyDocImpl* tidyDocCreate(void);
 void         tidyDocRelease( TidyDocImpl* impl );
 
 int          tidyDocStatus( TidyDocImpl* impl );

@@ -83,7 +83,7 @@ TidyOption   tidyImplToOption( const TidyOptionImpl* option )
 ** 
 */
 
-TidyDoc       tidyCreate()
+TidyDoc       tidyCreate(void)
 {
   TidyDocImpl* impl = tidyDocCreate();
   return tidyImplToDoc( impl );
@@ -95,7 +95,7 @@ void          tidyRelease( TidyDoc tdoc )
   tidyDocRelease( impl );
 }
 
-TidyDocImpl* tidyDocCreate()
+TidyDocImpl* tidyDocCreate(void)
 {
     TidyDocImpl* doc = MemAlloc( sizeof(TidyDocImpl) );
     ClearMemory( doc, sizeof(*doc) );
@@ -155,7 +155,7 @@ ulong       tidyGetAppData( TidyDoc tdoc )
   return 0;
 }
 
-ctmbstr     tidyReleaseDate()
+ctmbstr     tidyReleaseDate(void)
 {
     return ReleaseDate();
 }

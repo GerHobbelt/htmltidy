@@ -323,11 +323,11 @@ static const entity* lookup( ctmbstr s )
     return NULL;
 }
 
-void InitEntities()
+void InitEntities(void)
 {
 }
 
-void FreeEntities()
+void FreeEntities(void)
 {
 }
 

@@ -30,7 +30,7 @@
 ** Keeps track of ShowWarnings, ShowErrors, etc.
 */
 
-ctmbstr ReleaseDate();
+ctmbstr ReleaseDate(void);
 
 /* Reports error at current Lexer line/column. */ 
 void message( TidyDocImpl* doc, TidyReportLevel level, ctmbstr msg, ... );
