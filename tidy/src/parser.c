@@ -248,6 +248,9 @@ static Bool CanPrune(Node *element)
     if (element->tag->model & CM_ROW)
         return no;
 
+    if (element->tag->model & CM_EMPTY)
+        return no;
+
     if (element->tag == tag_applet)
         return no;
 
