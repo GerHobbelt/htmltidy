@@ -751,7 +751,6 @@ int   tidyParseSource( TidyDoc tdoc, TidyInputSource* source )
 int   tidyDocParseFile( TidyDocImpl* doc, ctmbstr filnam )
 {
     int status = -ENOENT;
-    uint inenc = cfg( doc, TidyInCharEncoding );
     FILE* fin = fopen( filnam, "rb" );
 
 #if PRESERVE_FILE_TIMES
@@ -768,7 +767,7 @@ int   tidyDocParseFile( TidyDocImpl* doc, ctmbstr filnam )
 
     if ( fin )
     {
-        StreamIn* in = in = FileInput( doc, fin, inenc );
+        StreamIn* in = FileInput( doc, fin, cfg( doc, TidyInCharEncoding ));
         status = tidyDocParseStream( doc, in );
         freeFileSource(&in->source, yes);
         MemFree(in);
@@ -780,8 +779,7 @@ int   tidyDocParseFile( TidyDocImpl* doc, ctmbstr filnam )
 
 int   tidyDocParseStdin( TidyDocImpl* doc )
 {
-    uint inenc = cfg( doc, TidyInCharEncoding );
-    StreamIn* in = FileInput( doc, stdin, inenc );
+    StreamIn* in = FileInput( doc, stdin, cfg( doc, TidyInCharEncoding ));
     int status = tidyDocParseStream( doc, in );
     MemFree( in );
     return status;
@@ -792,8 +790,7 @@ int   tidyDocParseBuffer( TidyDocImpl* doc, TidyBuffer* inbuf )
     int status = -EINVAL;
     if ( inbuf )
     {
-        uint inenc = cfg( doc, TidyInCharEncoding );
-        StreamIn* in = BufferInput( doc, inbuf, inenc );
+        StreamIn* in = BufferInput( doc, inbuf, cfg( doc, TidyInCharEncoding ));
         status = tidyDocParseStream( doc, in );
         MemFree( in );
     }
@@ -803,14 +800,13 @@ int   tidyDocParseBuffer( TidyDocImpl* doc, TidyBuffer* inbuf )
 int   tidyDocParseString( TidyDocImpl* doc, ctmbstr content )
 {
     int status = -EINVAL;
-    uint inenc = cfg( doc, TidyInCharEncoding );
     TidyBuffer inbuf = {0};
     StreamIn* in = NULL;
 
     if ( content )
     {
         tidyBufAttach( &inbuf, (void*)content, tmbstrlen(content)+1 );
-        in = BufferInput( doc, &inbuf, inenc );
+        in = BufferInput( doc, &inbuf, cfg( doc, TidyInCharEncoding ));
         status = tidyDocParseStream( doc, in );
         tidyBufDetach( &inbuf );
         MemFree( in );
@@ -820,8 +816,7 @@ int   tidyDocParseString( TidyDocImpl* doc, ctmbstr content )
 
 int   tidyDocParseSource( TidyDocImpl* doc, TidyInputSource* source )
 {
-    uint inenc = cfg( doc, TidyInCharEncoding );
-    StreamIn* in = UserInput( doc, source, inenc );
+    StreamIn* in = UserInput( doc, source, cfg( doc, TidyInCharEncoding ));
     int status = tidyDocParseStream( doc, in );
     MemFree( in );
     return status;
@@ -926,7 +921,7 @@ int         tidyDocSaveStdout( TidyDocImpl* doc )
          out->encoding == UTF16LE ||
          out->encoding == UTF16BE )
     {
-      ReportError(doc, NULL, doc->root, ENCODING_IO_CONFLICT );
+      ReportWarning( doc, NULL, &doc->root, ENCODING_IO_CONFLICT );
     }
 #endif
 
