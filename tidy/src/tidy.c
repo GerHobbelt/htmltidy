@@ -1049,7 +1049,7 @@ int main(int argc, char **argv)
 
                 /* ensure presence of initial <?XML version="1.0"?> */
                 if (XmlOut && XmlPi)
-                    FixXMLPI(lexer, document);
+                    FixXmlDecl(lexer, document);
 
                 totalwarnings += lexer->warnings;
                 totalerrors += lexer->errors;

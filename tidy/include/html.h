@@ -490,7 +490,7 @@ void DiscardDocType(Node *root);
 Bool FixDocType(Lexer *lexer, Node *node);
 char *HTMLVersionName(Lexer *lexer);
 int ApparentVersion(Lexer *lexer);
-Bool FixXMLPI(Lexer *lexer, Node *root);
+Bool FixXmlDecl(Lexer *lexer, Node *root);
 Bool SetXHTMLDocType(Lexer *lexer, Node *root);
 void FixId(Lexer *lexer, Node *node);
 Bool CheckDocTypeKeyWords(Lexer *lexer, Node *doctype);

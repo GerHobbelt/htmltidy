@@ -3589,7 +3589,7 @@ Node *ParseXMLDocument(Lexer *lexer)
 
     /* ensure presence of initial <?XML version="1.0"?> */
     if (XmlPi)
-        FixXMLPI(lexer, document);
+        FixXmlDecl(lexer, document);
 
     return document;
 }
