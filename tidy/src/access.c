@@ -3788,18 +3788,13 @@ static void CheckHTMLAccess (Lexer* lexer, Node* node) /* TRT */
 				if ((attval->value != NULL)&&
 					(IsWhitespace (attval->value) == no))
 				{
-					if ((strstr (attval->value, "fr") != NULL)||
-						(strstr (attval->value, "us") != NULL)||
-						(strstr (attval->value, "en") != NULL))
-					{
-						ValidLang = yes;
-					}
+					ValidLang = yes;
+				}	
 
-					else
-					{
-						ValidLang = yes;
-						ReportWarningsAndErrors (lexer, node, ACCESS_FATAL_ERROR, LANGUAGE_INVALID);
-					}
+				else
+				{
+					ValidLang = yes;
+					ReportWarningsAndErrors (lexer, node, ACCESS_FATAL_ERROR, LANGUAGE_INVALID);
 				}
 			}
 		}
