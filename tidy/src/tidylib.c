@@ -913,12 +913,14 @@ int         tidyDocSaveStdout( TidyDocImpl* doc )
 
 #if defined(_WIN32) || defined(OS2_OS)
     oldmode = _setmode( _fileno(stdout), _O_BINARY );
+#if SUPPORT_UTF16_ENCODINGS
     if ( out->encoding == UTF16   ||
          out->encoding == UTF16LE ||
          out->encoding == UTF16BE )
     {
       ReportWarning( doc, NULL, doc->root, ENCODING_IO_CONFLICT );
     }
+#endif
 #endif
 
     if ( 0 == status )

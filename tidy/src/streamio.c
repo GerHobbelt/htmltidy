@@ -949,7 +949,10 @@ uint ReadCharFromStream( StreamIn* in )
            in->encoding == UTF8) )
     {
         /* check for a Byte Order Mark */
-        uint c1, bom;
+        uint c1;
+#if SUPPORT_UTF16_ENCODINGS
+        uint bom;
+#endif
         in->lookingForBOM = no;
         if ( IsEOF(in) )
             return EndOfStream;
