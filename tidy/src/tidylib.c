@@ -1201,7 +1201,11 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
 
     /*  Move terminating <br /> tags from out of paragraphs  */
     /*!  Do we want to do this for all block-level elements?  */
+
+    /* This is disabled due to http://tidy.sf.net/bug/681116 */
+#if 0
     FixBrakes( doc, FindBody( doc ));
+#endif
 
     /*  Reconcile http-equiv meta element with output encoding  */
     if (cfg( doc, TidyOutCharEncoding) != RAW

@@ -2102,6 +2102,8 @@ void BumpObject( TidyDocImpl* doc, Node *html )
     }
 }
 
+/* This is disabled due to http://tidy.sf.net/bug/681116 */
+#if 0
 void FixBrakes( TidyDocImpl* pDoc, Node *pParent )
 {
     Node *pNode;
@@ -2142,6 +2144,7 @@ void FixBrakes( TidyDocImpl* pDoc, Node *pParent )
         TrimEmptyElement( pDoc, pParent );
     }
 }
+#endif
 
 void VerifyHTTPEquiv(TidyDocImpl* pDoc, Node *head)
 {

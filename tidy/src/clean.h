@@ -73,7 +73,10 @@ Bool IsWord2000( TidyDocImpl* doc );
 /* where appropriate move object elements from head to body */
 void BumpObject( TidyDocImpl* doc, Node *html );
 
+/* This is disabled due to http://tidy.sf.net/bug/681116 */
+#if 0
 void FixBrakes( TidyDocImpl* pDoc, Node *pParent );
+#endif
 
 void VerifyHTTPEquiv( TidyDocImpl* pDoc, Node *pParent );
 
