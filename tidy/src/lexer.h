@@ -520,10 +520,14 @@ Bool IsValidAttrName( ctmbstr attr );
 AttVal *NewAttribute(void);
 
 /* create a new attribute with given name and value */
-AttVal *NewAttributeEx(ctmbstr name, ctmbstr value);
+AttVal *NewAttributeEx( TidyDocImpl* doc, ctmbstr name, ctmbstr value,
+                        int delim );
 
-/* insert attribute at the end of attribute list of node */
+/* insert attribute at the end of attribute list of a node */
 void InsertAttributeAtEnd( Node *node, AttVal *av );
+
+/* insert attribute at the start of attribute list of a node */
+void InsertAttributeAtStart( Node *node, AttVal *av );
 
 /*************************************
   In-line Stack functions
