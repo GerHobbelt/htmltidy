@@ -1676,7 +1676,7 @@ static Node* NewXhtmlDocTypeNode( Node* root )
 
 Bool SetXHTMLDocType(Lexer *lexer, Node *root)
 {
-    char *fpi, *sysid, *dtdsub, *name_space = XHTML_NAMESPACE;
+    char *fpi = "", *sysid = "", *dtdsub, *name_space = XHTML_NAMESPACE; /* #578005 - fix by Anonymous 05 Jul 02 */
     Node *doctype;
     int dtdlen = 0;
 

@@ -652,7 +652,7 @@ void ParseBlock(Lexer *lexer, Node *element, uint mode)
 {
     Node *node, *parent;
     Bool checkstack;
-    uint istackbase;
+    uint istackbase = 0; /* #578005 - fix by Anonymous 05 Jul 02 */
 
     checkstack = yes;
 

@@ -266,10 +266,6 @@
 
 /* #define __USE_MISC */
 
-#ifdef NEEDS_UNISTD_H
-#include <unistd.h>  /* needed for unlink on some Unix systems */
-#endif
-
 /*
   Tidy preserves the last modified time for the files it
   cleans up.
@@ -382,26 +378,6 @@ typedef enum
 
 /* for null pointers */
 #define null 0
-
-/*
-  portability hack for deleting files - this is used
-  in pprint.c for deleting superfluous slides.
-
-  Win32 defines _unlink as per Unix unlink function.
-  Except, MSVC will not recognize unlink() w/ 
-  language extensions disabled (i.e. pure ANSI mode).
-
-  WINDOWS automatically set by Win16 compilers.
-  _WIN32 automatically set by Win32 compilers.
-*/
-
-#if defined(WINDOWS_OS) && !defined(__MSL__)
-#define unlink _unlink
-#endif
-
-#if defined(RISC_OS) || defined(OPENVMS_OS)
-#define unlink remove
-#endif
 
 #if defined(DMALLOC)
 #include "dmalloc.h"

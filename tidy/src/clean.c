@@ -128,7 +128,7 @@ static StyleProp *InsertProperty(StyleProp *props, char *name, char *value)
 */
 static StyleProp *CreateProps(StyleProp *prop, char *style)
 {
-    char *name, *value, *name_end, *value_end;
+    char *name, *value = NULL, *name_end, *value_end; /* #578005 - fix by Anonymous 05 Jul 02 */
     Bool more;
 
     style = wstrdup(style);

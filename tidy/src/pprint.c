@@ -2318,7 +2318,7 @@ void CreateSlides(Lexer *lexer, Node *root)
     {
         sprintf(buf, "slide%03d.html", slide); /* #427666 - fix by Eric Rossen 02 Aug 00 */
 
-        if (unlink(buf) != 0)
+        if (remove /* unlink */(buf) != 0) /* #578005 - fix by Anonymous 05 Jul 02 */
             break;
 
         ++slide;
