@@ -14,8 +14,8 @@
 
 */
 
-#include <tidy.h>
-#include <buffio.h>
+#include "tidy.h"
+#include "buffio.h"
 
 
 /**************
