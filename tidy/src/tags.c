@@ -635,7 +635,7 @@ void CheckHTML( TidyDocImpl* doc, Node *node )
 
     xmlns = AttrGetById(node, TidyAttr_XMLNS);
 
-    if (AttrMatches(xmlns, XHTML_NAMESPACE))
+    if (AttrValueIs(xmlns, XHTML_NAMESPACE))
     {
         Bool htmlOut = cfgBool( doc, TidyHtmlOut );
         doc->lexer->isvoyager = yes;                  /* Unless plain HTML */
