@@ -1279,10 +1279,7 @@ static void PPrintAttrs( TidyDocImpl* doc, uint indent, Node *node )
     {
         if ( av->attribute != NULL )
         {
-            const Attribute *dict = av->dict;
-            if ( !cfgBool(doc, TidyDropPropAttrs) ||
-                 ( dict != NULL && !(dict->versions & VERS_PROPRIETARY) ) )
-                PPrintAttribute( doc, indent, node, av );
+            PPrintAttribute( doc, indent, node, av );
         }
         else if ( av->asp != NULL )
         {
