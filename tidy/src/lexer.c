@@ -1210,15 +1210,15 @@ Bool SetXHTMLDocType(Lexer *lexer, Node *root)
             fpi = "-//W3C//DTD XHTML 1.0 Strict//EN";
             sysid = voyager_strict;
         }
-        else if (lexer->versions & VERS_LOOSE)
-        {
-            fpi = "-//W3C//DTD XHTML 1.0 Transitional//EN";
-            sysid = voyager_loose;
-        }
         else if (lexer->versions & VERS_FRAMESET)
         {   /* use XHTML frames */
             fpi = "-//W3C//DTD XHTML 1.0 Frameset//EN";
             sysid = voyager_frameset;
+        }
+        else if (lexer->versions & VERS_LOOSE)
+        {
+            fpi = "-//W3C//DTD XHTML 1.0 Transitional//EN";
+            sysid = voyager_loose;
         }
         else /* proprietary */
         {
