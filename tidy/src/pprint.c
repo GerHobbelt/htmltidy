@@ -321,7 +321,7 @@ static void PPrintChar(uint c, uint mode)
 {
     char *p, entity[128];
 
-    if (c == ' ' && !(mode & (PREFORMATTED | COMMENT | ATTRIBVALUE)))
+    if (c == ' ' && !(mode & (PREFORMATTED | COMMENT | ATTRIBVALUE | CDATA)))
     {
         /* coerce a space character to a non-breaking space */
         if (mode & NOWRAP)
@@ -352,7 +352,7 @@ static void PPrintChar(uint c, uint mode)
     }
 
     /* comment characters are passed raw */
-    if (mode & COMMENT)
+    if (mode & (COMMENT | CDATA))
     {
         AddC(c, linelen++);
         return;
