@@ -1463,7 +1463,7 @@ static void PPrintPI( TidyDocImpl* doc, uint indent, Node *node )
 
     s = node->element;
 
-    while (*s)
+    while (s && *s)
     {
         c = (unsigned char)*s;
         if (c > 0x7F)
