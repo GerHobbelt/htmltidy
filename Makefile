@@ -4,7 +4,7 @@
 #
 #     $Author$ 
 #     $Date$ 
-#     $Version$ 
+#     $Revision$ 
 #
 #  Copyright (c) 1998-2000 World Wide Web Consortium
 #  (Massachusetts Institute of Technology, Institut National de
