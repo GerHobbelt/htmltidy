@@ -12,17 +12,19 @@
 */
 
 /*
-  Uncomment and edit this #define if you want
-  to specify the config file at compile-time
-
-#define CONFIG_FILE "/etc/tidy_config.txt"
+  Uncomment and edit one of the following #defines if you
+  want to specify the config file at compile-time.
 */
 
+/* #define CONFIG_FILE "/etc/tidy_config.txt" */ /* original */
+/* #define CONFIG_FILE "/etc/tidyrc" */
+/* #define CONFIG_FILE "/etc/tidy.conf" */
+
 /*
-  Uncomment this if you are on a Unix system supporting
-  the call getpwnam() and the HOME environment variable.
-  It enables tidy to find config files named ~/.tidyrc
-  and ~your/.tidyrc etc if the HTML_TIDY environment
+  Uncomment the following #define if you are on a Unix system
+  supporting the call getpwnam() and the HOME environment variable.
+  It enables tidy to find config files named ~/.tidyrc and
+  ~your/.tidyrc etc if the HTML_TIDY environment
   variable is not set. Contributed by Todd Lewis.
 
 #define SUPPORT_GETPWNAM
