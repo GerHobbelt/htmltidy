@@ -2204,6 +2204,9 @@ int main(int argc, char **argv)
                     exit(1);
                 }
 
+                /* remember given doctype */
+                doctype = CloneNodeEx(lexer, FindDocType(document));
+
                 if (document->content)
                 {
                     if (xHTML)
@@ -2226,7 +2229,6 @@ int main(int argc, char **argv)
                 
                 if (!Quiet && document->content)
                 {
-                    doctype = FindDocType(document);
                     ReportVersion(errout, lexer, file, doctype);
                     /* ReportNumWarnings(errout, lexer); */
                 }

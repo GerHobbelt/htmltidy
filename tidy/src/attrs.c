@@ -1123,6 +1123,9 @@ void CheckTarget(Lexer *lexer, Node *node, AttVal *attval)
         return;
     }
 
+    /* No target attribute in strict HTML versions */
+    ConstrainVersion(lexer, ~VERS_HTML40_STRICT);
+
     /*
       target names must begin with A-Za-z or be one of
       _blank, _self, _parent and _top

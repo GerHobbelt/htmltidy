@@ -932,6 +932,26 @@ Node *CloneNode(Lexer *lexer, Node *element)
     return node;
 }
 
+/* Does, what CloneNode should do, clones the given node */
+/* Maybe CloneNode is just buggy and could be modified   */
+Node *CloneNodeEx(Lexer *lexer, Node *element)
+{
+    Node *node;
+
+    node = NewNode();
+    node->parent     = element->parent;
+    node->start      = element->start;
+    node->end        = element->end;
+    node->type       = element->type;
+    node->closed     = element->closed;
+    node->implicit   = element->implicit;
+    node->tag        = element->tag;
+    node->element    = wstrdup(element->element);
+    node->attributes = DupAttrs(element->attributes);
+
+    return node;
+}
+
 /* free node's attributes */
 void FreeAttrs(Node *node)
 {
