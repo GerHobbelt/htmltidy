@@ -104,6 +104,8 @@ void       ReleaseStreamOut( StreamOut* out );
 void WriteChar( uint c, StreamOut* out );
 void outBOM( StreamOut *out );
 
+ctmbstr GetEncodingNameFromTidyId(uint id);
+
 /************************
 ** Misc
 ************************/

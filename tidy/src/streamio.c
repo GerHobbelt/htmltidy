@@ -1181,8 +1181,6 @@ uint ReadCharFromStream( StreamIn* in )
     return n;
 }
 
-
-
 /* Output a Byte Order Mark if required */
 void outBOM( StreamOut *out )
 {
@@ -1197,4 +1195,43 @@ void outBOM( StreamOut *out )
         /* this will take care of encoding the BOM correctly */
         WriteChar( UNICODE_BOM, out );
     }
+}
+
+/* this is in intermediate fix for various problems in the */
+/* long term code and data in charsets.c should be used    */
+static struct _enc2iana
+{
+    uint id;
+    ctmbstr name;
+} enc2iana[] =
+{
+  { ASCII,    "us-ascii"     },
+  { LATIN0,   "iso-8859-15"  },
+  { LATIN1,   "iso-8859-1"   },
+  { UTF8,     "utf-8"        },
+  { MACROMAN, "macintosh"    },
+  { WIN1252,  "windows-1252" },
+  { IBM858,   "ibm00858"     },
+#if SUPPORT_UTF16_ENCODINGS
+  { UTF16LE,  "utf-16"       },
+  { UTF16BE,  "utf-16"       },
+  { UTF16,    "utf-16"       },
+#endif
+#if SUPPORT_ASIAN_ENCODINGS
+  { BIG5,     "big5"         },
+  { SHIFTJIS, "shift_jis"    },
+#endif
+  { ISO2022,  NULL           },
+  { RAW,      NULL           }
+};
+
+ctmbstr GetEncodingNameFromTidyId(uint id)
+{
+    uint i;
+
+    for (i = 0; enc2iana[i].name; ++i)
+        if (enc2iana[i].id == id)
+            return enc2iana[i].name;
+
+    return NULL;
 }

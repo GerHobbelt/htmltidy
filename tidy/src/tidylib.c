@@ -1149,7 +1149,8 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
     FixBrakes( doc, FindBody( doc ));
 
     /*  Reconcile http-equiv meta element with output encoding  */
-    if (RAW != cfg( doc, TidyOutCharEncoding))
+    if (cfg( doc, TidyOutCharEncoding) != RAW &&
+        cfg( doc, TidyOutCharEncoding) != ISO2022)
         VerifyHTTPEquiv( doc, FindHEAD( doc ));
 
     if ( !CheckNodeIntegrity(doc->root) )
