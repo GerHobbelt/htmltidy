@@ -280,6 +280,7 @@ static Dict *install(TidyTagImpl* tags, const Dict* old)
     np->model    = old->model;
     np->parser   = old->parser;
     np->chkattrs = old->chkattrs;
+    np->attrvers = old->attrvers;
 
     return np;
 }
@@ -347,6 +348,7 @@ static void declare( TidyTagImpl* tags,
           np->model   |= model;
           np->parser   = parser;
           np->chkattrs = chkattrs;
+          np->attrvers = NULL;
         }
     }
 }
@@ -477,6 +479,7 @@ void InitTags( TidyDocImpl* doc )
     xml->model = CM_BLOCK;
     xml->parser = NULL;
     xml->chkattrs = NULL;
+    xml->attrvers = NULL;
     tags->xml_tags = xml;
 }
 
