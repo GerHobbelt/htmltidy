@@ -142,7 +142,7 @@ struct _msgfmt
   { BAD_CDATA_CONTENT,            "'<' + '/' + letter not allowed here"                                     }, /* Error */
   { INCONSISTENT_NAMESPACE,       "HTML namespace doesn't match content"                                    }, /* Error */
   { SPACE_PRECEDING_XMLDECL,      "removing whitespace preceding XML Declaration"                           }, /* Error */
-  { MALFORMED_DOCTYPE,            "expected \"html PUBLIC\" or \"html SYSTEM\""                             }, /* Error (but defuncted) */
+  { MALFORMED_DOCTYPE,            "discarding malformed <!DOCTYPE>"                                         }, /* Error */
   { BAD_XML_COMMENT,              "XML comments can't contain --"                                           }, /* Error (but defuncted) */
   { DTYPE_NOT_UPPER_CASE,         "SYSTEM, PUBLIC, W3C, DTD, EN must be upper case"                         }, /* Error (but defuncted) */
   { ENCODING_IO_CONFLICT,         "Output encoding does not work with standard output"                      }, /* Error (but defuncted) */
