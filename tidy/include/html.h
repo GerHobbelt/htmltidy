@@ -984,6 +984,8 @@ CheckAttribs CheckMETA;
 /* used to control printing of null attributes */
 Bool IsBoolAttribute(AttVal *attval);
 
+Bool IsCSS1Selector(char *);
+
 extern Dict *tag_html;
 extern Dict *tag_head;
 extern Dict *tag_body;
