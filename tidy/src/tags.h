@@ -20,8 +20,6 @@
 #include "forward.h"
 #include "attrdict.h"
 
-#define TAG_HASHSIZE 357
-
 typedef void (Parser)( TidyDocImpl* doc, Node *node, uint mode );
 typedef void (CheckAttribs)( TidyDocImpl* doc, Node *node );
 
