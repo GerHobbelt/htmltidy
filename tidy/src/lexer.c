@@ -1770,10 +1770,10 @@ Bool ExpectsContent(Node *node)
 Node *GetCDATA( TidyDocImpl* doc, Node *container )
 {
     Lexer* lexer = doc->lexer;
-    int start = 0;
+    uint start = 0;
     int nested = 0;
     int state = CDATA_INTERMEDIATE;
-    int i;
+    uint i;
     Bool isEmpty = yes;
     Bool matches = no;
     uint c;
