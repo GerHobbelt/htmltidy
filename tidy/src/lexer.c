@@ -1265,16 +1265,18 @@ Node *FindBody(Node *root)
     while (node && node->tag != tag_body && node->tag != tag_frameset)
         node = node->next;
 
-    if (node->tag = tag_frameset)
+    if (node->tag == tag_frameset)
     {
         node = node->content;
 
-        while (node && node->tag != tag_noframes) node = node->next;
+        while (node && node->tag != tag_noframes)
+            node = node->next;
 
         if (node)
         {
             node = node->content;
-            while (node && node->tag != tag_body) node = node->next;
+            while (node && node->tag != tag_body) 
+                node = node->next;
         }
     }
 
