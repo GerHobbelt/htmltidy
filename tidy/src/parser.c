@@ -1864,6 +1864,11 @@ void ParseDefList(TidyDocImpl* doc, Node *list, uint mode)
             for (parent = list->parent;
                     parent != NULL; parent = parent->parent)
             {
+               /* Do not match across BODY to avoid infinite loop
+                  between ParseBody and this parser,
+                  See http://tidy.sf.net/bug/1098012. */
+                if (nodeIsBODY(parent))
+                    break;
                 if (node->tag == parent->tag)
                 {
                     ReportError(doc, list, node, MISSING_ENDTAG_BEFORE);
