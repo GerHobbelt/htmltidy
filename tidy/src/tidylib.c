@@ -1217,6 +1217,8 @@ int         tidyDocSaveStream( TidyDocImpl* doc, StreamOut* out )
 
     Bool dropComments = cfgBool(doc, TidyHideComments);
     Bool makeClean    = cfgBool(doc, TidyMakeClean);
+    Bool asciiChars   = cfgBool(doc, TidyAsciiChars);
+    Bool makeBare     = cfgBool(doc, TidyMakeBare);
 
     /* drop comments */
     if (dropComments)
@@ -1228,6 +1230,9 @@ int         tidyDocSaveStream( TidyDocImpl* doc, StreamOut* out )
         DropFontElements(doc, &doc->root, NULL);
         WbrToSpace(doc, &doc->root);
     }
+
+    if ((makeClean && asciiChars) || makeBare)
+        DowngradeTypography(doc, &doc->root);
 
     if ( showMarkup && (doc->errors == 0 || forceOutput) )
     {
