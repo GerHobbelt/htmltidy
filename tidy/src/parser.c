@@ -3136,9 +3136,17 @@ void ParseNoFrames(Lexer *lexer, Node *noframes, uint mode)
 
         if ((node->tag == tag_frame || node->tag == tag_frameset))
         {
-            ReportWarning(lexer, noframes, node, MISSING_ENDTAG_BEFORE);
             TrimSpaces(lexer, noframes);
-            UngetToken(lexer);
+            if (node->type == EndTag)
+            {
+                ReportWarning(lexer, noframes, node, DISCARDING_UNEXPECTED);
+                FreeNode(node);       /* Throw it away */
+            }
+            else
+            {
+                ReportWarning(lexer, noframes, node, MISSING_ENDTAG_BEFORE);
+                UngetToken(lexer);
+            }
             return;
         }
 
