@@ -3,7 +3,7 @@
 
 /* tags.h -- recognize HTML tags
 
-  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -28,10 +28,14 @@ typedef void (CheckAttribs)( TidyDocImpl* doc, Node *node );
 */
 
 /* types of tags that the user can define */
-#define tagtype_empty     1
-#define tagtype_inline    2
-#define tagtype_block     4
-#define tagtype_pre       8
+typedef enum
+{
+    tagtype_null = 0,
+    tagtype_empty = 1,
+    tagtype_inline = 2,
+    tagtype_block = 4,
+    tagtype_pre = 8
+} UserTagType;
 
 struct _Dict
 {
@@ -64,12 +68,12 @@ typedef struct _TidyTagImpl TidyTagImpl;
 const Dict* LookupTagDef( TidyTagId tid );
 Bool    FindTag( TidyDocImpl* doc, Node *node );
 Parser* FindParser( TidyDocImpl* doc, Node *node );
-void    DefineTag( TidyDocImpl* doc, int tagType, ctmbstr name );
-void    FreeDeclaredTags( TidyDocImpl* doc, int tagType ); /* 0 to free all */
+void    DefineTag( TidyDocImpl* doc, UserTagType tagType, ctmbstr name );
+void    FreeDeclaredTags( TidyDocImpl* doc, UserTagType tagType ); /* tagtype_null to free all */
 
 TidyIterator   GetDeclaredTagList( TidyDocImpl* doc );
 Dict*          GetNextDeclaredDict( TidyDocImpl* doc, TidyIterator* iter );
-ctmbstr        GetNextDeclaredTag( TidyDocImpl* doc, int tagType,
+ctmbstr        GetNextDeclaredTag( TidyDocImpl* doc, UserTagType tagType,
                                    TidyIterator* iter );
 
 void InitTags( TidyDocImpl* doc );

@@ -460,7 +460,7 @@ ctmbstr       tidyOptGetNextDeclTag( TidyDoc tdoc, TidyOptionId optId,
     ctmbstr tagnam = NULL;
     if ( impl )
     {
-        int tagtyp = 0;
+        UserTagType tagtyp = tagtype_null;
         if ( optId == TidyInlineTags )
             tagtyp = tagtype_inline;
         else if ( optId == TidyBlockTags )
@@ -469,7 +469,7 @@ ctmbstr       tidyOptGetNextDeclTag( TidyDoc tdoc, TidyOptionId optId,
             tagtyp = tagtype_empty;
         else if ( optId == TidyPreTags )
             tagtyp = tagtype_pre;
-        if ( tagtyp )
+        if ( tagtyp != tagtype_null )
             tagnam = GetNextDeclaredTag( impl, tagtyp, iter );
     }
     return tagnam;
