@@ -1069,13 +1069,13 @@ int main(int argc, char **argv)
 
             MemFree(lexer->in);
 
-            if (lexer->errors > 0)
+            if (lexer->errors > 0 && !ForceOutput)
                 NeedsAuthorIntervention(errout);
 
             out.state = FSM_ASCII;
             out.encoding = CharEncoding;
 
-            if (!OnlyErrors && lexer->errors == 0)
+            if (!OnlyErrors && (lexer->errors == 0 || ForceOutput))
             {
                 if (BurstSlides)
                 {

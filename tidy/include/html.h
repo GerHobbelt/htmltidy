@@ -843,6 +843,7 @@ extern Bool FixUri;
 extern Bool LowerLiterals;
 extern Bool HideComments;
 extern Bool IndentCdata;
+extern Bool ForceOutput;
 
 /* Parser methods for tags */
 
