@@ -3748,8 +3748,7 @@ static Node *ParseDocTypeDecl(TidyDocImpl* doc)
                 lexer->txtstart = start;
                 lexer->txtend = lexer->lexsize - 1;
                 subset = TextToken(lexer);
-                assert( node->content == NULL );
-                node->content = subset;
+                InsertNodeAtEnd(node, subset);
                 state = DT_INTERMEDIATE;
             }
             break;
