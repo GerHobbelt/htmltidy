@@ -1126,6 +1126,9 @@ static void PPrintCDATA(Out *fout, uint indent,
 {
     int savewraplen = wraplen;
 
+    if (!IndentCdata)
+        indent = 0;
+
     PCondFlushLine(fout, indent);
 
     /* disable wrapping */
