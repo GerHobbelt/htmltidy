@@ -3,7 +3,7 @@
 
 /* platform.h -- Platform specifics
 
-  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -160,6 +160,10 @@ extern "C" {
 
 #define strcasecmp _stricmp
 
+#endif
+
+#if defined(__BORLANDC__)
+#define strcasecmp stricmp
 #endif
 
 #define FILENAMES_CASE_SENSITIVE 0
