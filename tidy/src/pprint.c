@@ -798,9 +798,11 @@ static void PPrintChar( TidyDocImpl* doc, uint c, uint mode )
     switch ( outenc )
     {
     case UTF8:
+#if SUPPORT_UTF16_ENCODINGS
     case UTF16:
     case UTF16LE:
     case UTF16BE:
+#endif
         if (!(mode & PREFORMATTED) && cfg(doc, TidyPunctWrap))
         {
             WrapPoint wp = CharacterWrapPoint(c);

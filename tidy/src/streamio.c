@@ -145,7 +145,10 @@ StreamIn* UserInput( TidyDocImpl* doc, TidyInputSource* source, int encoding )
 
 int ReadBOMEncoding(StreamIn *in)
 {
-    uint c, c1, bom;
+    uint c, c1;
+#if SUPPORT_UTF16_ENCODINGS
+    uint bom;
+#endif;
 
     if (IsEOF(in))
         return -1;
