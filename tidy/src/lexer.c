@@ -1164,7 +1164,7 @@ Node* NewLiteralTextNode( Lexer *lexer, ctmbstr txt )
     return node;
 }
 
-static Node* TagToken( TidyDocImpl* doc, uint type )
+static Node* TagToken( TidyDocImpl* doc, NodeType type )
 {
     Lexer* lexer = doc->lexer;
     Node* node = NewNode( lexer );
@@ -1180,7 +1180,7 @@ static Node* TagToken( TidyDocImpl* doc, uint type )
     return node;
 }
 
-static Node* NewToken(TidyDocImpl* doc, uint type)
+static Node* NewToken(TidyDocImpl* doc, NodeType type)
 {
     Lexer* lexer = doc->lexer;
     Node* node = NewNode(lexer);

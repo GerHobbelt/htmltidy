@@ -56,20 +56,23 @@ extern "C" {
 
 /* node->type is one of these values
 */
-#define RootNode        0
-#define DocTypeTag      1
-#define CommentTag      2
-#define ProcInsTag      3
-#define TextNode        4
-#define StartTag        5
-#define EndTag          6
-#define StartEndTag     7
-#define CDATATag        8
-#define SectionTag      9
-#define AspTag          10
-#define JsteTag         11
-#define PhpTag          12
-#define XmlDecl         13
+typedef enum
+{
+  RootNode,
+  DocTypeTag,
+  CommentTag,
+  ProcInsTag,
+  TextNode,
+  StartTag,
+  EndTag,
+  StartEndTag,
+  CDATATag,
+  SectionTag,
+  AspTag,
+  JsteTag,
+  PhpTag,
+  XmlDecl
+} NodeType;
 
 
 
