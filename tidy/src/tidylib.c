@@ -918,7 +918,8 @@ int         tidyDocSaveStdout( TidyDocImpl* doc )
 #if defined(_WIN32) || defined(OS2_OS)
     oldstdoutmode = setmode( fileno(stdout), _O_BINARY );
     oldstderrmode = setmode( fileno(stderr), _O_BINARY );
-#if SUPPORT_UTF16_ENCODINGS
+
+#if SUPPORT_UTF16_ENCODINGS && 0 /* fix for bug 723948 */
     if ( out->encoding == UTF16   ||
          out->encoding == UTF16LE ||
          out->encoding == UTF16BE )
@@ -926,6 +927,7 @@ int         tidyDocSaveStdout( TidyDocImpl* doc )
       ReportWarning( doc, NULL, doc->root, ENCODING_IO_CONFLICT );
     }
 #endif
+
 #endif
 
     if ( 0 == status )
