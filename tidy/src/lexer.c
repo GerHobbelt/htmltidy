@@ -1314,8 +1314,8 @@ Bool AddGenerator( TidyDocImpl* doc )
         if ( cfg(doc, TidyAccessibilityCheckLevel) == 0 )
         {
             node = InferredTag( doc, "meta" );
-            AddAttribute( doc, node, "content", buf );
             AddAttribute( doc, node, "name", "generator" );
+            AddAttribute( doc, node, "content", buf );
             InsertNodeAtStart( head, node );
             return yes;
         }
