@@ -433,7 +433,7 @@ static void ParseEntity(Lexer *lexer, int mode)
     /* #433012 - fix by Randy Waki 17 Feb 01 */
     if (ch <= 0 || (ch >= 256 && c != ';'))
     {
-        /* set error position just before offending chararcter */
+        /* set error position just before offending character */
         lexer->lines = lexer->in->curline;
         lexer->columns = startcol;
 
