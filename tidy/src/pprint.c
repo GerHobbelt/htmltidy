@@ -1495,7 +1495,7 @@ static int TextEndsWithNewline(Lexer *lexer, Node *node)
             --ix;
 
         if ( lexer->lexbuf[ ix ] == '\n' )
-          return node->end - ix + 1;
+          return node->end - ix - 1; /* #543262 tidy eats all memory */
     }
     return -1;
 }
