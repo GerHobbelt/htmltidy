@@ -2344,7 +2344,7 @@ Node* GetToken( TidyDocImpl* doc, uint mode )
 
             case LEX_STARTTAG: /* first letter of tagname */
                 c = ReadChar(doc->docIn);
-                ChangeChar(lexer, c);
+                ChangeChar(lexer, (tmbchar)c);
                 lexer->txtstart = lexer->lexsize - 1; /* set txtstart to first letter */
                 c = ParseTagName( doc );
                 isempty = no;
