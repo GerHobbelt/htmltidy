@@ -391,6 +391,14 @@ static void ParseEntity(Lexer *lexer, int mode)
 
         if (first && c == '#')
         {
+	        /* #431953 - start RJ */
+            if ( NCR == no || CharEncoding == BIG5 || CharEncoding == SHIFTJIS )
+            {
+        	    UngetChar('#', lexer->in);
+                return;
+	        }
+            /* #431953 - end RJ */
+
             AddCharToLexer(lexer, c);
             first = no;
             continue;
