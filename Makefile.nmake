@@ -79,7 +79,7 @@ HFILES=	$(INCLDIR)platform.h $(INCLDIR)html.h
 tidy.exe:	$(OBJFILES)
 		$(CC) $(CFLAGS) $(OTHERCFLAGS) /Fetidy.exe $(OBJFILES) $(LIBS)
 
-$(OBJFILES):	$(HFILES) Makefile.IBM
+$(OBJFILES):	$(HFILES) $(CFILES) Makefile.nmake
 		$(CC) $(CFLAGS) $(OTHERCFLAGS) $(SRCDIR)$*.c -c
                 
 tab2space.exe:	$(SRCDIR)tab2space.c
