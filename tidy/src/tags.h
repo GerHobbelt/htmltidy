@@ -18,6 +18,7 @@
 */
 
 #include "forward.h"
+#include "attrdict.h"
 
 #define TAG_HASHSIZE 357
 
@@ -39,6 +40,7 @@ struct _Dict
     TidyTagId       id;
     tmbstr          name;
     uint            versions;
+    AttrVersion*    attrvers;
     uint            model;
     Parser*         parser;
     CheckAttribs*   chkattrs;
