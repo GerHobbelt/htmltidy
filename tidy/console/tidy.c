@@ -435,7 +435,7 @@ int main( int argc, char** argv )
 
             else if ( strcasecmp(arg, "indent") == 0 )
             {
-                tidyOptSetInt( tdoc, TidyIndentContent, TidyYesState );
+                tidyOptSetInt( tdoc, TidyIndentContent, TidyAutoState );
                 if ( tidyOptGetInt(tdoc, TidyIndentSpaces) == 0 )
                     tidyOptResetToDefault( tdoc, TidyIndentSpaces );
             }
@@ -626,7 +626,7 @@ int main( int argc, char** argv )
                     switch ( c )
                     {
                     case 'i':
-                        tidyOptSetInt( tdoc, TidyIndentContent, TidyYesState );
+                        tidyOptSetInt( tdoc, TidyIndentContent, TidyAutoState );
                         if ( tidyOptGetInt(tdoc, TidyIndentSpaces) == 0 )
                             tidyOptResetToDefault( tdoc, TidyIndentSpaces );
                         break;
