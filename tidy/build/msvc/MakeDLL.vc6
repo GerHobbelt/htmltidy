@@ -63,11 +63,11 @@ CC=cl
 RC=rc
 LD=link
 
-TOPDIR=../..
-BINDIR=$(TOPDIR)/bin
-INCLDIR=$(TOPDIR)/include/
-SRCDIR=$(TOPDIR)/src/
-APPDIR=$(TOPDIR)/console/
+TOPDIR=..\..
+BINDIR=$(TOPDIR)\bin
+INCLDIR=$(TOPDIR)\include\  
+SRCDIR=$(TOPDIR)\src\  
+APPDIR=$(TOPDIR)\console\  
 TIDYEXT=/D SUPPORT_ACCESSIBILITY_CHECKS=1 /D SUPPORT_UTF16_ENCODINGS=1 /D SUPPORT_ASIAN_ENCODINGS=1
 
 ## General flags for compilation
@@ -160,17 +160,17 @@ $(OBJDIR) :
 $(BINDIR) :
 		if not exist $(BINDIR) md $(BINDIR)
 
-$(BINDIR)/libtidy.dll:	$(OBJFILES) $(BINDIR)
-		$(LD) $(LIBFLAGS) $(OBJFILES) /OUT:$(BINDIR)/libtidy.dll
+$(BINDIR)\libtidy.dll:	$(OBJFILES) $(BINDIR)
+		$(LD) $(LIBFLAGS) $(OBJFILES) /OUT:$(BINDIR)\libtidy.dll
 
-$(BINDIR)/tidy.exe: $(APPDIR)tidy.c $(HFILES) $(BINDIR)/libtidy.dll MakeDLL.vc6
-		$(CC) /D "_CONSOLE" $(CFLAGS) $(APPDIR)tidy.c $(NAMEFLAG)$(OBJDIR)/
-		$(LD) /subsystem:console $(LDFLAGS) $(OBJDIR)\tidy.obj $(LIBS) $(OBJDIR)/libtidy.lib /OUT:$(BINDIR)/tidy.exe
+$(BINDIR)\tidy.exe: $(APPDIR)tidy.c $(HFILES) $(BINDIR)\libtidy.dll MakeDLL.vc6
+		$(CC) /D "_CONSOLE" $(CFLAGS) $(APPDIR)tidy.c $(NAMEFLAG)$(OBJDIR)\  
+		$(LD) /subsystem:console $(LDFLAGS) $(OBJDIR)\tidy.obj $(LIBS) $(OBJDIR)\libtidy.lib /OUT:$(BINDIR)\tidy.exe
 
 $(OBJFILES):	$(HFILES) $(LIBHFILES) $(CFILES) MakeDLL.vc6 $(OBJDIR)
-		$(CC) -c $(DLLFLAG) $(CFLAGS) $(CFILES) $(NAMEFLAG)$(OBJDIR)/
+		$(CC) -c $(DLLFLAG) $(CFLAGS) $(CFILES) $(NAMEFLAG)$(OBJDIR)\  
 
-all:		$(BINDIR)/libtidy.dll $(BINDIR)/tidy.exe
+all:		$(BINDIR)\libtidy.dll $(BINDIR)\tidy.exe
 
 clean:
 	del $(OBJFILES) $(OBJDIR)\*.* $(BINDIR)\*.*
