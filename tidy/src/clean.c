@@ -2473,11 +2473,15 @@ void FixLanguageInformation(TidyDocImpl* doc, Node* node, Bool wantXmlLang, Bool
             }
             else if (lang && wantXmlLang)
             {
-                RepairAttrValue(doc, node, "xml:lang", lang->value);
+                if (NodeAttributeVersions( node, TidyAttr_XML_LANG )
+                    & doc->lexer->versionEmitted)
+                    RepairAttrValue(doc, node, "xml:lang", lang->value);
             }
             else if (xmlLang && wantLang)
             {
-                RepairAttrValue(doc, node, "lang", xmlLang->value);
+                if (NodeAttributeVersions( node, TidyAttr_LANG )
+                    & doc->lexer->versionEmitted)
+                    RepairAttrValue(doc, node, "lang", xmlLang->value);
             }
 
             if (lang && !wantLang)
