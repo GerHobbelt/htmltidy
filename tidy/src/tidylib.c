@@ -1215,6 +1215,20 @@ int         tidyDocSaveStream( TidyDocImpl* doc, StreamOut* out )
     Bool xhtmlOut    = cfgBool( doc, TidyXhtmlOut );
     Bool bodyOnly    = cfgBool( doc, TidyBodyOnly );
 
+    Bool dropComments = cfgBool(doc, TidyHideComments);
+    Bool makeClean    = cfgBool(doc, TidyMakeClean);
+
+    /* drop comments */
+    if (dropComments)
+        DropComments(doc, &doc->root);
+
+    if (makeClean)
+    {
+        /* noop */
+        DropFontElements(doc, &doc->root, NULL);
+        WbrToSpace(doc, &doc->root);
+    }
+
     if ( showMarkup && (doc->errors == 0 || forceOutput) )
     {
 #if SUPPORT_UTF16_ENCODINGS

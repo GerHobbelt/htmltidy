@@ -77,4 +77,8 @@ void FixBrakes( TidyDocImpl* pDoc, Node *pParent );
 
 void VerifyHTTPEquiv( TidyDocImpl* pDoc, Node *pParent );
 
+void DropComments(TidyDocImpl* doc, Node* node);
+void DropFontElements(TidyDocImpl* doc, Node* node, Node **pnode);
+void WbrToSpace(TidyDocImpl* doc, Node* node);
+
 #endif /* __CLEAN_H__ */

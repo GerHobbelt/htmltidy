@@ -2193,3 +2193,70 @@ void VerifyHTTPEquiv(TidyDocImpl* pDoc, Node *head)
         pLastProp = NULL;
     }
 }
+
+void DropComments(TidyDocImpl* doc, Node* node)
+{
+    Node* next;
+
+    while (node)
+    {
+        next = node->next;
+
+        if (node->type == CommentTag)
+        {
+            RemoveNode(node);
+            FreeNode(doc, node);
+            node = next;
+            continue;
+        }
+
+        if (node->content)
+            DropComments(doc, node->content);
+
+        node = next;
+    }
+}
+
+void DropFontElements(TidyDocImpl* doc, Node* node, Node **pnode)
+{
+    Node* next;
+
+    while (node)
+    {
+        next = node->next;
+
+        if (nodeIsFONT(node))
+            DiscardContainer(doc, node, &next);
+
+        if (node->content)
+            DropFontElements(doc, node->content, &next);
+
+        node = next;
+    }
+}
+
+void WbrToSpace(TidyDocImpl* doc, Node* node)
+{
+    Node* next;
+
+    while (node)
+    {
+        next = node->next;
+
+        if (nodeIsWBR(node))
+        {
+            Node* text;
+            text = NewLiteralTextNode(doc->lexer, " ");
+            InsertNodeAfterElement(node, text);
+            RemoveNode(node);
+            FreeNode(doc, node);
+            node = next;
+            continue;
+        }
+
+        if (node->content)
+            WbrToSpace(doc, node->content);
+
+        node = next;
+   }
+}
