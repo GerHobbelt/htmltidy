@@ -1181,7 +1181,8 @@ static Bool NestedList( TidyDocImpl* doc, Node *node, Node **pnode )
 
         if (list->prev)
         {
-            if ( nodeIsUL(list->prev) || nodeIsOL(list->prev) )
+            if ( (nodeIsUL(list->prev) || nodeIsOL(list->prev))
+                 && list->prev->last )
             {
                 node = list;
                 list = node->prev;
