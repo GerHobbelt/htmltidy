@@ -767,6 +767,7 @@ void tidy_out(FILE *fp, const char* msg, ...);
 #define ENTITY_IN_ID            20
 #define JOINING_ATTRIBUTE       21
 #define UNEXPECTED_EQUALSIGN    22
+#define ATTR_VALUE_NOT_LCASE    23
 
 /* page transition effects */
 
