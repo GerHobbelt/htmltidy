@@ -455,6 +455,19 @@ void InitTags( TidyDocImpl* doc )
 {
     Dict* xml;
     TidyTagImpl* tags = &doc->tags;
+
+#ifdef _DEBUG
+    {
+        /* Tag ID is index position in element type lookup table */
+        uint ix;
+        for ( ix=0; ix < N_TIDY_TAGS; ++ix )
+        {
+          const Dict* dict = &tag_defs[ ix ];
+          assert( (uint) dict->id == ix );
+        }
+    }
+#endif
+
     ClearMemory( tags, sizeof(TidyTagImpl) );
 
     /* create dummy entry for all xml tags */
