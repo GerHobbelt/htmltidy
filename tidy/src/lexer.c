@@ -1410,6 +1410,12 @@ int FindGivenVersion( TidyDocImpl* doc, Node* doctype )
 
     vers = GetVersFromFPI(fpi->value);
 
+    if (VERS_XHTML & vers)
+    {
+        SetOptionBool(doc, TidyXhtmlOut, yes);
+        doc->lexer->isvoyager = yes;
+    }
+
     /* todo: add a warning if case does not match? */
     MemFree(fpi->value);
     fpi->value = tmbstrdup(GetFPIFromVers(vers));
