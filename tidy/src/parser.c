@@ -284,6 +284,10 @@ static Bool CanPrune( TidyDocImpl* doc, Node *element )
     if ( nodeIsIFRAME(element) )
         return no;
 
+    /* fix for bug 770297 */
+    if (nodeIsTEXTAREA(element))
+        return no;
+
     if ( attrGetID(element) || attrGetNAME(element) )
         return no;
 
