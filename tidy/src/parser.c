@@ -237,7 +237,8 @@ static Bool CanPrune( TidyDocImpl* doc, Node *element )
     if ( element->tag->model & CM_BLOCK && element->attributes != NULL )
         return no;
 
-    if ( nodeIsA(element) && element->attributes != NULL )
+    if ( element->attributes != NULL &&
+         (nodeIsA(element) || nodeIsSPAN(element)) )
         return no;
 
     if ( nodeIsP(element) && !cfgBool(doc, TidyDropEmptyParas) )
