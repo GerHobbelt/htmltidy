@@ -1465,7 +1465,7 @@ Node *GetToken(Lexer *lexer, uint mode)
 {
     uint map;
     int c, lastc, badcomment = 0;
-    Bool isempty;
+    Bool isempty, inDTDSubset = no;
     AttVal *attributes;
 
     if (lexer->pushed)
@@ -1989,7 +1989,14 @@ Node *GetToken(Lexer *lexer, uint mode)
                 else
                     lexer->waswhite = no;
 
-                if (c != '>')
+                if (inDTDSubset) {
+                    if (c == ']')
+                        inDTDSubset = no;
+                }
+                else if (c == '[')
+                    inDTDSubset = yes;
+
+                if (inDTDSubset || c != '>')
                     continue;
 
                 lexer->lexsize -= 1;
