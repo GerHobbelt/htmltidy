@@ -2270,7 +2270,11 @@ void DropFontElements(TidyDocImpl* doc, Node* node, Node **pnode)
         next = node->next;
 
         if (nodeIsFONT(node))
+        {
             DiscardContainer(doc, node, &next);
+            node = next;
+            continue;
+        }
 
         if (node->content)
             DropFontElements(doc, node->content, &next);
