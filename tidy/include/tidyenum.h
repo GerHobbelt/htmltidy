@@ -184,6 +184,9 @@ typedef enum
                                    0 (old style), or 1, 2, 3 */
 
   TidyVertSpace,       /**< degree to which markup is spread out vertically */
+#if SUPPORT_ASIAN_ENCODINGS
+  TidyPunctWrap,       /**< consider punctuation and breaking spaces for wrapping */
+#endif
   N_TIDY_OPTIONS       /**< Must be last */
 } TidyOptionId;
 

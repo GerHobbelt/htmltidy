@@ -251,6 +251,9 @@ static const TidyOptionImpl option_defs[] =
 
   { TidyAccessibilityCheckLevel, DG, "accessibility-check", IN, 0, ParseAcc, accessPicks },
   { TidyVertSpace,      PP, "vertical-space",       BL,   no, ParseBool,     boolPicks },
+#if SUPPORT_ASIAN_ENCODINGS
+  { TidyPunctWrap,      PP, "punctuation-wrap",     BL,   no, ParseBool,     boolPicks },
+#endif /* SUPPORT_ASIAN_ENCODINGS */
   { N_TIDY_OPTIONS,  0 }
 };
 
