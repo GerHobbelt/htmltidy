@@ -1698,7 +1698,8 @@ void DropSections(Lexer *lexer, Node *node)
         if (node->type == SectionTag)
         {
             /* prune up to matching endif */
-            if (wstrncmp(lexer->lexbuf + node->start, "if", 2) == 0)
+            if ((wstrncmp(lexer->lexbuf + node->start, "if", 2) == 0) &&
+                (wstrncmp(lexer->lexbuf + node->start, "if !vml", 7) != 0)) /* #444394 - fix 13 Sep 01 */
             {
                 node = PruneSection(lexer, node);
                 continue;
