@@ -56,7 +56,6 @@ void HelloMessage( TidyDocImpl* doc, ctmbstr date, ctmbstr filename );
 void ReportMarkupVersion( TidyDocImpl* doc );
 void ReportNumWarnings( TidyDocImpl* doc );
 
-void HelpText( TidyDocImpl* doc, ctmbstr prog );
 void GeneralInfo( TidyDocImpl* doc );
 void UnknownOption( TidyDocImpl* doc, char c );
 void UnknownFile( TidyDocImpl* doc, ctmbstr program, ctmbstr file );
