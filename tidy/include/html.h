@@ -78,6 +78,7 @@ void outc(uint c, Out *out);
 #define LEX_ASP         10
 #define LEX_JSTE        11
 #define LEX_PHP         12
+#define LEX_XMLDECL     13
 
 /* content model shortcut encoding */
 
@@ -174,6 +175,7 @@ typedef struct _attval AttVal;
 #define AspTag          10
 #define JsteTag         11
 #define PhpTag          12
+#define XmlDecl         13
 
 struct _node
 {

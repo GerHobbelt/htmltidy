@@ -1264,6 +1264,8 @@ void PPrintTree(Out *fout, uint mode, uint indent,
         PPrintDocType(fout, indent, lexer, node);
     else if (node->type == ProcInsTag)
         PPrintPI(fout, indent, lexer, node);
+    else if (node->type == XmlDecl)
+        PPrintPI(fout, indent, lexer, node);
     else if (node->type == CDATATag)
         PPrintCDATA(fout, indent, lexer, node);
     else if (node->type == SectionTag)
@@ -1499,6 +1501,8 @@ void PPrintXMLTree(Out *fout, uint mode, uint indent,
     else if (node->type == DocTypeTag)
         PPrintDocType(fout, indent, lexer, node);
     else if (node->type == ProcInsTag)
+        PPrintPI(fout, indent, lexer, node);
+    else if (node->type == XmlDecl)
         PPrintPI(fout, indent, lexer, node);
     else if (node->type == CDATATag)
         PPrintCDATA(fout, indent, lexer, node);

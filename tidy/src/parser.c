@@ -466,7 +466,8 @@ static Bool InsertMisc(Node *element, Node *node)
         node->type == SectionTag ||
         node->type == AspTag ||
         node->type == JsteTag ||
-        node->type == PhpTag)
+        node->type == PhpTag ||
+        node->type == XmlDecl)
     {
         InsertNodeAtEnd(element, node);
         return yes;
