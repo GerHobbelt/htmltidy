@@ -307,6 +307,12 @@ void ReportAttrError(Lexer *lexer, Node *node, AttVal *av, uint code)
             ReportTag(lexer, node);
             tidy_out(lexer->errout, " attribute \"%s\" has invalid value \"%s\"", name, value);
         }
+        else if (code == XML_ID_SYNTAX)
+        {
+            tidy_out(lexer->errout, "Warning: ");
+            ReportTag(lexer, node);
+            tidy_out(lexer->errout, " ID \"%s\" uses XML ID syntax", value, name);
+        }
         else if (code == XML_ATTRIBUTE_VALUE)
         {
             tidy_out(lexer->errout, "Warning: ");
