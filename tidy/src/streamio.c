@@ -36,7 +36,6 @@
 static uint ReadCharFromStream( StreamIn* in );
 
 static uint ReadByte( StreamIn* in );
-Bool IsEOF( StreamIn* in );
 static void UngetByte( StreamIn* in, uint byteValue );
 
 static void PutByte( uint byteValue, StreamOut* out );
@@ -45,8 +44,6 @@ static void EncodeWin1252( uint c, StreamOut* out );
 static void EncodeMacRoman( uint c, StreamOut* out );
 static void EncodeIbm858( uint c, StreamOut* out );
 static void EncodeLatin0( uint c, StreamOut* out );
-
-void outBOM( StreamOut *out );
 
 /******************************
 ** Static (duration) Globals
