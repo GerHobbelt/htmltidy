@@ -26,7 +26,7 @@ Bool CheckNodeIntegrity(Node *node);
 */
 Bool IsNewNode(Node *node);
 
-void CoerceNode( TidyDocImpl* doc, Node *node, TidyTagId tid );
+void CoerceNode(TidyDocImpl* doc, Node *node, TidyTagId tid, Bool obsolete, Bool expected);
 
 /* extract a node and its children from a markup tree */
 Node *RemoveNode(Node *node);

@@ -1852,7 +1852,7 @@ void CleanWord2000( TidyDocImpl* doc, Node *node)
             if (NoMargins(node))
             {
                 Node *pre, *next;
-                CoerceNode( doc, node, TidyTag_PRE );
+                CoerceNode(doc, node, TidyTag_PRE, no, yes);
 
                 PurgeWord2000Attributes( doc, node );
 
@@ -1941,7 +1941,7 @@ void CleanWord2000( TidyDocImpl* doc, Node *node)
                 if ( attr && tmbstrcmp(attr->value, "MsoListNumber") == 0 )
                     listType = TidyTag_OL;
 
-                CoerceNode( doc, node, TidyTag_LI );
+                CoerceNode(doc, node, TidyTag_LI, no, yes);
 
                 if ( !list || TagId(list) != listType )
                 {
