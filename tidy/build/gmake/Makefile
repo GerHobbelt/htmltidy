@@ -132,7 +132,7 @@ CFILES= \
         $(SRCDIR)/tidylib.c
 
 HFILES= $(INCDIR)/platform.h     $(INCDIR)/tidy.h         $(INCDIR)/tidyenum.h \
-        $(INCDIR)/fileio.h       $(INCDIR)/buffio.h       
+        $(INCDIR)/fileio.h       $(INCDIR)/buffio.h
 
 LIBHFILES= \
         $(SRCDIR)/access.h       $(SRCDIR)/attrs.h        $(SRCDIR)/attrdict.h \
@@ -150,7 +150,7 @@ $(LIBRARY): $(OBJFILES)
 	if [ ! -d $(LIBDIR) ]; then mkdir $(LIBDIR); fi
 	$(AR) $@ $(OBJFILES)
 ifdef RANLIB
-	$(RANLIB) $@ 
+	$(RANLIB) $@
 endif
 
 $(OBJDIR)/%.o:		$(SRCDIR)/%.c $(HFILES) $(LIBHFILES) Makefile
@@ -190,8 +190,8 @@ installexes: $(EXES)
 
 installmanpage:
 	if [ -f "$(TOPDIR)/htmldoc/man_page.txt" ] ; then \
-    	if [ ! -d "$(maninst)/man1" ]; then mkdir -p "$(maninst)/man1"; fi; \
-    	cp -f $(TOPDIR)/htmldoc/man_page.txt "$(maninst)/man1/tidy.1"; \
+	if [ ! -d "$(maninst)/man1" ]; then mkdir -p "$(maninst)/man1"; fi; \
+	cp -f $(TOPDIR)/htmldoc/man_page.txt "$(maninst)/man1/tidy.1"; \
 	fi
-   
+
 install: installhdrs installib installmanpage installexes
