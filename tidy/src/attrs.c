@@ -1491,6 +1491,11 @@ void CheckSCRIPT(Lexer *lexer, Node *node)
             {
                 AddAttribute(node, "type", "text/javascript");
             }
+            else if ( wstrcasecmp(buf, "vbscript") == 0 )
+            {
+               /* per Randy Waki 8/6/01 */
+                AddAttribute(node, "type", "text/vbscript");
+            }
         }
         else
             AddAttribute(node, "type", "text/javascript");
