@@ -366,6 +366,7 @@ struct _lexer
     uint txtend;    /* end of current node */
     uint state;     /* state of lexer's finite state machine */
     struct _node *token;
+    struct _node *root; /* remember root node of the document */
 
     Bool seenEndBody; /* true if a </body> tag has been encountered */
     Bool seenEndHtml; /* true if a </html> tag has been encountered */

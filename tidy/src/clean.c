@@ -2126,6 +2126,9 @@ void BumpObject(Lexer *lexer, Node *html)
 {
     Node *node, *next, *head = null, *body = null;
 
+    if (!html)
+        return;
+
     for (node = html->content; node != null; node = node->next)
     {
         if (node->tag == tag_head)
