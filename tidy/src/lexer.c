@@ -345,7 +345,8 @@ static void ParseEntity(Lexer *lexer, int mode)
     ch = EntityCode(lexer->lexbuf+start);
 
     /* deal with unrecognized entities */
-    if (ch <= 0)
+    /* #433012 - fix by Randy Waki 17 Feb 01 */
+    if (ch <= 0 || (ch >= 256 && c != ';'))
     {
         /* set error position just before offending chararcter */
         lexer->lines = lexer->in->curline;
