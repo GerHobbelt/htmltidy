@@ -3,7 +3,7 @@
 
 /* message.h -- general message writing routines
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
   
   CVS Info :
@@ -68,6 +68,13 @@ void ReportEncodingError(TidyDocImpl* doc, uint code, uint c, Bool discarded);
 void ReportEntityError( TidyDocImpl* doc, uint code, ctmbstr entity, int c );
 void ReportAttrError( TidyDocImpl* doc, Node* node, AttVal* av, uint code );
 void ReportMissingAttr( TidyDocImpl* doc, Node* node, ctmbstr name );
+
+#if SUPPORT_ACCESSIBILITY_CHECKS
+
+void ReportAccessWarning( TidyDocImpl* doc, Node* node, uint code );
+void ReportAccessError( TidyDocImpl* doc, Node* node, uint code );
+
+#endif
 
 void ReportNotice(TidyDocImpl* doc, Node *element, Node *node, uint code);
 void ReportWarning(TidyDocImpl* doc, Node *element, Node *node, uint code);
