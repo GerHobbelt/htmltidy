@@ -11,7 +11,7 @@
   this-equivalent as 1st arg.
 
 
-  Copyright (c) 1998-2004 World Wide Web Consortium
+  Copyright (c) 1998-2005 World Wide Web Consortium
   (Massachusetts Institute of Technology, European Research 
   Consortium for Informatics and Mathematics, Keio University).
   All Rights Reserved.
@@ -630,33 +630,30 @@ void dumpNode( TidyNode tnod, int indent )
 
   for ( child = tidyGetChild(tnod); child; child = tidyGetNext(child) )
   {
-    ctmbstr name = tidyNodeGetName( child );
-    if ( !name )
+    ctmbstr name;
+    switch ( tidyNodeGetType(child) )
     {
-      switch ( tidyNodeGetType(child) )
-      {
-      case TidyNode_Root:       name = "Root";                    break;
-      case TidyNode_DocType:    name = "DOCTYPE";                 break;
-      case TidyNode_Comment:    name = "Comment";                 break;
-      case TidyNode_ProcIns:    name = "Processing Instruction";  break;
-      case TidyNode_Text:       name = "Text";                    break;
-      case TidyNode_CDATA:      name = "CDATA";                   break;
-      case TidyNode_Section:    name = "XML Section";             break;
-      case TidyNode_Asp:        name = "ASP";                     break;
-      case TidyNode_Jste:       name = "JSTE";                    break;
-      case TidyNode_Php:        name = "PHP";                     break;
-      case TidyNode_XmlDecl:    name = "XML Declaration";         break;
+    case TidyNode_Root:       name = "Root";                    break;
+    case TidyNode_DocType:    name = "DOCTYPE";                 break;
+    case TidyNode_Comment:    name = "Comment";                 break;
+    case TidyNode_ProcIns:    name = "Processing Instruction";  break;
+    case TidyNode_Text:       name = "Text";                    break;
+    case TidyNode_CDATA:      name = "CDATA";                   break;
+    case TidyNode_Section:    name = "XML Section";             break;
+    case TidyNode_Asp:        name = "ASP";                     break;
+    case TidyNode_Jste:       name = "JSTE";                    break;
+    case TidyNode_Php:        name = "PHP";                     break;
+    case TidyNode_XmlDecl:    name = "XML Declaration";         break;
 
-      case TidyNode_Start:
-      case TidyNode_End:
-      case TidyNode_StartEnd:
-      default:
-        assert( name != NULL ); // Shouldn't get here
-        break;
-      }
+    case TidyNode_Start:
+    case TidyNode_End:
+    case TidyNode_StartEnd:
+    default:
+      ctmbstr name = tidyNodeGetName( child );
+      break;
     }
     assert( name != NULL );
-    printf( "\%*.*sNode: \%s\\n", indent, indent, tidy );
+    printf( "\%*.*sNode: \%s\\n", indent, indent, name );
     dumpNode( child, indent + 4 );
   }
 }
