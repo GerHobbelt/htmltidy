@@ -84,6 +84,7 @@ Dict *tag_object;
 Dict *tag_div;
 Dict *tag_span;
 Dict *tag_input;
+Dict *tag_q;
 
 Dict *xml_tags;  /* dummy for xml tags */
 
@@ -427,6 +428,7 @@ void InitTags(void)
     tag_div = lookup("div");
     tag_span = lookup("span");
     tag_input = lookup("input");
+    tag_q = lookup("q");
 
     /* create dummy entry for all xml tags */
     xml_tags = (Dict *)MemAlloc(sizeof(*xml_tags));

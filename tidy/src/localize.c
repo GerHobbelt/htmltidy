@@ -524,6 +524,10 @@ void ReportWarning(Lexer *lexer, Node *element, Node *node, uint code)
             tidy_out(lexer->errout, "Warning: unexpected end of file");
             ReportTag(lexer, element);
         }
+        else if (code == NESTED_QUOTATION)
+        {
+            tidy_out(lexer->errout, "Warning: nested q elements, possible typo.");
+        }
 
         tidy_out(lexer->errout, "\n");
     }
