@@ -1433,6 +1433,7 @@ int FindGivenVersion( TidyDocImpl* doc, Node* doctype )
 
     if (VERS_XHTML & vers)
     {
+        SetOptionBool(doc, TidyXmlOut, yes);
         SetOptionBool(doc, TidyXhtmlOut, yes);
         doc->lexer->isvoyager = yes;
     }
