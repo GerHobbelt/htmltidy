@@ -745,7 +745,7 @@ static void PPrintChar(uint c, uint mode)
     }
 
     /* default treatment for ASCII */
-    if (c > 126 || (c < ' ' && c != '\t'))
+    if ((outCharEncoding == ASCII) && (c > 126 || (c < ' ' && c != '\t')))
     {
         if (!NumEntities && (p = EntityName(c)) != null)
             sprintf(entity, "&%s;", p);
