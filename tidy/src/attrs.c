@@ -806,6 +806,7 @@ void RepairDuplicateAttributes( TidyDocImpl* doc, Node *node)
     for (first = node->attributes; first != NULL;)
     {
         AttVal *second;
+        Bool firstRedefined = no;
 
         if (!(first->asp == NULL && first->php == NULL))
         {
@@ -899,6 +900,7 @@ void RepairDuplicateAttributes( TidyDocImpl* doc, Node *node)
                 temp = first->next;
                 ReportAttrError( doc, node, first, REPEATED_ATTRIBUTE);
                 RemoveAttribute( doc, node, first );
+                firstRedefined = yes;
                 first = temp;
                 second = second->next;
             }
@@ -912,7 +914,8 @@ void RepairDuplicateAttributes( TidyDocImpl* doc, Node *node)
                 second = temp;
             }
         }
-        first = first->next;
+        if (!firstRedefined)
+            first = first->next;
     }
 }
 
