@@ -1105,7 +1105,7 @@ void FreeNode( TidyDocImpl* doc, Node *node )
         MemFree( node->element );
         FreeAttrs( doc, node );
         FreeNode( doc, node->content );
-        node->content = NULL;
+        /* node->content = NULL; */
         if (RootNode != node->type)
             MemFree( node );
 
