@@ -305,7 +305,7 @@ void AddClass(Node *node, char *classname)
     {
         int len = wstrlen(classattr->value) +
                             wstrlen(classname) + 2;
-        char *s = (char *)MemAlloc(len *sizeof(char));	/* #427668 - was malloc() - fix by Arnaud BERCEGEAY 05 Aug 00 */
+        char *s = (char *)MemAlloc(len *sizeof(char)); /* #427668 - was malloc() - fix by Arnaud BERCEGEAY 05 Aug 00 */
         wstrcpy(s, classattr->value);
         wstrcat(s, " ");
         wstrcat(s, classname);
@@ -345,7 +345,7 @@ static void Style2Rule(Lexer *lexer, Node *node)
         {
             int len = wstrlen(classattr->value) +
                                 wstrlen(classname) + 2;
-            char *s = (char *)MemAlloc(len *sizeof(char));	/* #427668 - was malloc() - fix by Arnaud BERCEGEAY 05 Aug 00 */
+            char *s = (char *)MemAlloc(len *sizeof(char)); /* #427668 - was malloc() - fix by Arnaud BERCEGEAY 05 Aug 00 */
             wstrcpy(s, classattr->value);
             wstrcat(s, " ");
             wstrcat(s, classname);
@@ -1709,7 +1709,7 @@ static void PurgeAttributes(Node *node)
             wstrcmp(attr->attribute, "style") == 0 ||
             wstrcmp(attr->attribute, "lang") == 0 ||
             wstrncmp(attr->attribute, "x:", 2) == 0 ||
-            ((wstrcmp(attr->attribute, "height") == 0 ||	/* #427669 - fix by skark 08 Aug 00 */
+            ((wstrcmp(attr->attribute, "height") == 0 || /* #427669 - fix by skark 08 Aug 00 */
               wstrcmp(attr->attribute, "width") == 0) &&
                 (node->tag == tag_td ||
                  node->tag == tag_tr ||
