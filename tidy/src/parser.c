@@ -4003,6 +4003,28 @@ void ParseDocument(TidyDocImpl* doc)
             continue;
         }
 
+        if (node->type == StartTag && nodeIsHTML(node))
+        {
+            AttVal *xmlns;
+
+            xmlns = AttrGetById(node, TidyAttr_XMLNS);
+
+            if (AttrValueIs(xmlns, XHTML_NAMESPACE))
+            {
+                Bool htmlOut = cfgBool( doc, TidyHtmlOut );
+                doc->lexer->isvoyager = yes;                  /* Unless plain HTML */
+                SetOptionBool( doc, TidyXhtmlOut, !htmlOut ); /* is specified, output*/
+                SetOptionBool( doc, TidyXmlOut, !htmlOut );   /* will be XHTML. */
+
+                /* adjust other config options, just as in config.c */
+                if ( !htmlOut )
+                {
+                    SetOptionBool( doc, TidyUpperCaseTags, no );
+                    SetOptionBool( doc, TidyUpperCaseAttrs, no );
+                }
+            }
+        }
+
         if ( node->type != StartTag || !nodeIsHTML(node) )
         {
             UngetToken( doc );
