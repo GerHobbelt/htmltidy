@@ -165,6 +165,7 @@
 #endif
 
 /* Convenience defines for RISCOS + gcc platforms */
+
 #if defined(__riscos__)
 #define RISC_OS
 #ifndef PLATFORM_NAME
@@ -173,10 +174,20 @@
 #endif
 
 /* Convenience defines for OS/2 + icc/gcc platforms */
+
 #if defined(__OS2__) || defined(__IBMC__) || defined(__EMX__)
 #define OS2_OS
 #ifndef PLATFORM_NAME
 #define PLATFORM_NAME "OS/2"
+#endif
+#endif
+
+/* Convenience defines for BeOS platforms */
+
+#if defined(__BEOS__)
+#define BE_OS
+#ifndef PLATFORM_NAME
+#define PLATFORM_NAME "BeOS"
 #endif
 #endif
 
@@ -235,7 +246,7 @@
 #if PRESERVE_FILE_TIMES
 
 #ifndef HAS_FUTIME
-#if defined(OS2_OS) || defined(HPUX_OS) || defined(SOLARIS_OS) || defined(LINUX_OS) || defined(BSD_BASED_OS) || defined(MAC_OS) || defined(__MSL__)
+#if defined(BE_OS) || defined(OS2_OS) || defined(HPUX_OS) || defined(SOLARIS_OS) || defined(LINUX_OS) || defined(BSD_BASED_OS) || defined(MAC_OS) || defined(__MSL__)
 #define HAS_FUTIME 0
 #else
 #define HAS_FUTIME 1
@@ -286,7 +297,7 @@
 /* you may need to delete the #ifndef and #endif on your system */
 
 #ifndef __USE_MISC
-#if defined(SOLARIS_OS) || defined(BSD_BASED_OS) || defined(MAC_OS_X)
+#if defined(BE_OS) || defined(SOLARIS_OS) || defined(BSD_BASED_OS) || defined(MAC_OS_X)
 #include <sys/types.h>
 #else
 #ifndef _INCLUDE_HPUX_SOURCE
