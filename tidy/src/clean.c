@@ -222,6 +222,7 @@ static tmbstr CreatePropString(StyleProp *props)
     }
 
     style = (tmbstr) MemAlloc(len+1);
+    style[0] = '\0';
 
     for (p = style, prop = props; prop; prop = prop->next)
     {
