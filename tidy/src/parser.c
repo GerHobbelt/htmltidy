@@ -770,8 +770,8 @@ static void InsertDocType( TidyDocImpl* doc, Node *element, Node *doctype )
 */
 void FixId( TidyDocImpl* doc, Node *node )
 {
-    AttVal *name = GetAttrByName(node, "name");
-    AttVal *id = GetAttrByName(node, "id");
+    AttVal *name = AttrGetById(node, TidyAttr_NAME);
+    AttVal *id = AttrGetById(node, TidyAttr_ID);
 
     if (name)
     {
