@@ -2835,9 +2835,8 @@ Bool IsJavaScript(Node *node)
 
     for (attr = node->attributes; attr; attr = attr->next)
     {
-        if ( (tmbstrcasecmp(attr->attribute, "language") == 0 ||
-              tmbstrcasecmp(attr->attribute, "type") == 0)
-             && tmbsubstr(attr->value, "javascript") )
+        if ((attrIsLANGUAGE(attr) || attrIsTYPE(attr))
+             && tmbsubstr(attr->value, "javascript"))
         {
             result = yes;
             break;
@@ -3706,10 +3705,10 @@ Bool XMLPreserveWhiteSpace( TidyDocImpl* doc, Node *element)
         return no;
         
     /* kludge for html docs without explicit xml:space attribute */
-    if ( tmbstrcasecmp(element->element, "pre") == 0
-         || tmbstrcasecmp(element->element, "script") == 0
-         || tmbstrcasecmp(element->element, "style") == 0
-         || FindParser(doc, element) == ParsePre )
+    if (nodeIsPRE(element)    ||
+        nodeIsSCRIPT(element) ||
+        nodeIsSTYLE(element)  ||
+        FindParser(doc, element) == ParsePre)
         return yes;
 
     /* kludge for XSL docs */

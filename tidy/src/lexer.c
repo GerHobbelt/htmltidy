@@ -1039,9 +1039,8 @@ void FreeAttrs( TidyDocImpl* doc, Node *node )
 
         if ( av->attribute )
         {
-            if ( ( tmbstrcasecmp(av->attribute, "id") == 0 ||
-                   tmbstrcasecmp(av->attribute, "name") == 0 )
-                 && IsAnchorElement(doc, node) )
+            if ((attrIsID(av) || attrIsNAME(av)) &&
+                IsAnchorElement(doc, node) )
             {
                 RemoveAnchorByNode( doc, node );
             }

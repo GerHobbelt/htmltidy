@@ -604,7 +604,7 @@ void CheckCaption( TidyDocImpl* doc, Node *node )
 
     for (attval = node->attributes; attval != NULL; attval = attval->next)
     {
-        if ( tmbstrcasecmp(attval->attribute, "align") == 0 )
+        if (attrIsALIGN(attval))
         {
             value = attval->value;
             break;

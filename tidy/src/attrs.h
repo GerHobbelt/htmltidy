@@ -224,6 +224,10 @@ AttVal* AttrGetById( Node* node, TidyAttrId id );
                                  tmbsubstr((attr)->value, val) != NULL)
 #define AttrVersions(attr)      ((attr) && (attr)->dict ? (attr)->dict->versions : VERS_PROPRIETARY)
 
+#define AttrsHaveSameId(a, b) (a && b && a->dict && b->dict && a->dict->id && \
+                               b->dict->id && a->dict->id == b->dict->id)
+
+
 
 #define attrIsABBR(av)              AttrIsId( av, TidyAttr_ABBR  )
 #define attrIsACCEPT(av)            AttrIsId( av, TidyAttr_ACCEPT  )
