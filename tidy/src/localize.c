@@ -41,11 +41,6 @@ void tidy_out(FILE *fp, const char* msg, ...)
     va_end(args);
 }
 
-void ReadingFromStdin(void)
-{
-    fprintf(stderr, "Reading markup from standard input ...\n");
-}
-
 void ShowVersion(FILE *fp)
 {
     /*
