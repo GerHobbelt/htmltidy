@@ -1175,7 +1175,11 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
     Bool xhtmlOut = cfgBool( doc, TidyXhtmlOut );
     Bool xmlDecl  = cfgBool( doc, TidyXmlDecl );
     Bool tidyMark = cfgBool( doc, TidyMark );
+    Bool tidyXmlTags = cfgBool( doc, TidyXmlTags );
     Node* node;
+
+    if (tidyXmlTags)
+       return tidyDocStatus( doc );
 
     /* simplifies <b><b> ... </b> ...</b> etc. */
     NestedEmphasis( doc, &doc->root );
