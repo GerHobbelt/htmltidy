@@ -306,11 +306,21 @@ uint ReadChar( StreamIn *in )
         /* #427663 - map '\r' to '\n' - Andy Quick 11 Aug 00 */
         if (c == '\r')
         {
+#ifdef TIDY_STORE_ORIGINAL_TEXT
+            added = yes;
+            AddCharToOriginalText(in, (tchar)c);
+#endif
             c = ReadCharFromStream(in);
-            if ( c != '\n' )
+            if (c != '\n')
             {
                 UngetChar( c, in );
                 c = '\n';
+            }
+            else
+            {
+#ifdef TIDY_STORE_ORIGINAL_TEXT
+                AddCharToOriginalText(in, (tchar)c);
+#endif
             }
             in->curcol = 1;
             in->curline++;
