@@ -1,6 +1,6 @@
 /* lexer.c -- Lexer for html parser
   
-  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
   
   CVS Info :
@@ -3660,5 +3660,7 @@ static Node *ParseDocTypeDecl(TidyDocImpl* doc)
     }
 
     /* document type declaration not finished */
+    ReportError(doc, NULL, NULL, MALFORMED_DOCTYPE);
+    FreeNode(doc, node);
     return NULL;
 }
