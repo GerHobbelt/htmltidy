@@ -1116,7 +1116,7 @@ static Bool MergeDivs( TidyDocImpl* doc, Node *node, Node **pnode)
     if (child->next != NULL)
         return no;
 
-    if (cfg(doc, TidyMergeDivs) == TidyAutoState
+    if (cfgAutoBool(doc, TidyMergeDivs) == TidyAutoState
         && CopyAttrs(doc, node, child) == no)
         return no;
 
@@ -1421,7 +1421,8 @@ Node* CleanNode( TidyDocImpl* doc, Node *node )
         if ( Center2Div(doc, node, &next) )
             continue;
 
-        if (cfg(doc, TidyMergeDivs) && MergeDivs(doc, node, &next))
+        if (cfgAutoBool(doc, TidyMergeDivs) != TidyNoState
+            && MergeDivs(doc, node, &next))
             continue;
 
         if ( BlockStyle(doc, node, &next) )

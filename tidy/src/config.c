@@ -462,6 +462,14 @@ Bool    _cfgGetBool( TidyDocImpl* doc, TidyOptionId optId )
   return (Bool) val;
 }
 
+TidyTriState    _cfgGetAutoBool( TidyDocImpl* doc, TidyOptionId optId )
+{
+  uint val = _cfgGet( doc, optId );
+  const TidyOptionImpl* opt = &option_defs[ optId ];
+  assert( opt && opt->type == TidyInteger );
+  return (TidyTriState) val;
+}
+
 ctmbstr _cfgGetString( TidyDocImpl* doc, TidyOptionId optId )
 {
   uint val = _cfgGet( doc, optId );
@@ -856,7 +864,7 @@ void AdjustConfig( TidyDocImpl* doc )
     if ( cfgBool(doc, TidyEncloseBlockText) )
         SetOptionBool( doc, TidyEncloseBodyText, yes );
 
-    if ( !cfg(doc, TidyIndentContent) )
+    if ( cfgAutoBool(doc, TidyIndentContent) == TidyNoState )
         SetOptionInt( doc, TidyIndentSpaces, 0 );
 
     /* disable wrapping */

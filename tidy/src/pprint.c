@@ -1,7 +1,7 @@
 /*
   pprint.c -- pretty print parse tree  
   
-  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
   
   CVS Info :
@@ -1822,7 +1822,8 @@ void PPrintScriptStyle( TidyDocImpl* doc, uint mode, uint indent, Node *node )
         pprint->indent[ 0 ].spaces = indent;
     }
     PPrintEndTag( doc, mode, indent, node );
-    if ( !cfg(doc, TidyIndentContent) && node->next != NULL &&
+    if ( cfgAutoBool(doc, TidyIndentContent) == TidyNoState
+         && node->next != NULL &&
          !( nodeHasCM(node, CM_INLINE) || nodeIsText(node) ) )
         PFlushLine( doc, indent );
 }
@@ -1831,8 +1832,8 @@ void PPrintScriptStyle( TidyDocImpl* doc, uint mode, uint indent, Node *node )
 
 static Bool ShouldIndent( TidyDocImpl* doc, Node *node )
 {
-    uint indentContent = cfg( doc, TidyIndentContent );
-    if ( indentContent == no )
+    TidyTriState indentContent = cfgAutoBool( doc, TidyIndentContent );
+    if ( indentContent == TidyNoState )
         return no;
 
     if ( nodeIsTEXTAREA(node) )
@@ -1991,7 +1992,8 @@ void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
             indent = indprev;
             PPrintEndTag( doc, mode, indent, node );
 
-            if ( !cfg(doc, TidyIndentContent) && node->next != NULL )
+            if ( cfgAutoBool(doc, TidyIndentContent) == TidyNoState
+                 && node->next != NULL )
                 PFlushLine( doc, indent );
         }
         else if ( nodeIsSTYLE(node) || nodeIsSCRIPT(node) )
@@ -2043,8 +2045,8 @@ void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
         }
         else /* other tags */
         {
-            Bool indcont  = ( cfg(doc, TidyIndentContent) > 0 );
-            Bool indsmart = ( cfg(doc, TidyIndentContent) == TidyAutoState );
+            Bool indcont  = ( cfgAutoBool(doc, TidyIndentContent) != TidyNoState );
+            Bool indsmart = ( cfgAutoBool(doc, TidyIndentContent) == TidyAutoState );
             Bool hideend  = cfgBool( doc, TidyHideEndTags );
             Bool classic  = cfgBool( doc, TidyVertSpace );
             uint contentIndent = indent;

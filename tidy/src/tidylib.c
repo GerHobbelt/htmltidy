@@ -1275,8 +1275,8 @@ int         tidyDocSaveStream( TidyDocImpl* doc, StreamOut* out )
     Bool showMarkup  = cfgBool( doc, TidyShowMarkup );
     Bool forceOutput = cfgBool( doc, TidyForceOutput );
 #if SUPPORT_UTF16_ENCODINGS
-    Bool outputBOM   = ( cfg(doc, TidyOutputBOM) == yes );
-    Bool smartBOM    = ( cfg(doc, TidyOutputBOM) == TidyAutoState );
+    Bool outputBOM   = ( cfgAutoBool(doc, TidyOutputBOM) == TidyYesState );
+    Bool smartBOM    = ( cfgAutoBool(doc, TidyOutputBOM) == TidyAutoState );
 #endif
     Bool xmlOut      = cfgBool( doc, TidyXmlOut );
     Bool xhtmlOut    = cfgBool( doc, TidyXhtmlOut );
