@@ -43,21 +43,22 @@ typedef enum
 /* non-raw input is cleaned up*/
 struct _StreamIn
 {
-    int  state;     /* FSM for ISO2022 */
-    Bool pushed;
-    uint charbuf[ CHARBUF_SIZE ];
-    int  bufpos;
-    int  tabs;
-    int  lastcol;
-    int  curcol;
-    int  curline;
-
-    int  encoding;
+    int    state;     /* FSM for ISO2022 */
+    Bool   pushed;
+    tchar* charbuf;
+    uint   bufpos;
+    uint   bufsize;
+    int    tabs;
+    int    lastcol;
+    int    curcol;
+    int    curline;
+    int    encoding;
     IOType iotype;
+
     TidyInputSource source;
 
 #ifdef TIDY_WIN32_MLANG_SUPPORT
-    ulong mlang;
+    ulong  mlang;
 #endif
 
 #ifdef TIDY_STORE_ORIGINAL_TEXT
