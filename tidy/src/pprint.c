@@ -88,11 +88,11 @@ uint CWrapLen(uint ind)
 /* the Unicode char is returned in *ch */
 uint GetUTF8(unsigned char *str, uint *ch)
 {
-    uint c, n, i;
+    uint n;
     int bytes;
 
 #if 0
-    c = str[0];
+    uint i, c = str[0];
 
     if ((c & 0xE0) == 0xC0)  /* 110X XXXX  two bytes */
     {
@@ -199,9 +199,9 @@ char *PutUTF8(char *buf, uint c)
         tidy_out(errout, "pprint UTF-8 encoding error for U+%x : ", c); /* debug */
 #endif
         /* replacement char 0xFFFD encoded as UTF-8 */
-        buf[0] = 0xEF;
-        buf[1] = 0xBF;
-        buf[2] = 0xBD;
+        buf[0] = (char) 0xEF;
+        buf[1] = (char) 0xBF;
+        buf[2] = (char) 0xBD;
         count = 3;
     }
     
