@@ -3616,6 +3616,12 @@ Node *ParseXMLDocument(Lexer *lexer)
             continue;
         }
 
+        if (node->type == StartEndTag)
+        {
+            InsertNodeAtEnd(document, node);
+            continue;
+        }
+
        /* if start tag then parse element's content */
         if (node->type == StartTag)
         {
