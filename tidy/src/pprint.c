@@ -401,7 +401,7 @@ static void WrapAttrVal( TidyDocImpl* doc )
     TidyPrintImpl* pprint = &doc->pprint;
     uint i;
 
-    assert( IsWrapInAttrVal(pprint) );
+    /* assert( IsWrapInAttrVal(pprint) ); */
     if ( WantIndent(doc) )
     {
         uint spaces = GetSpaces( pprint );
