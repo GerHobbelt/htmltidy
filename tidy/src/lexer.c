@@ -336,7 +336,8 @@ Bool IsXMLLetter(uint c)
         (c >= 0x3021 && c <= 0x3029));
 }
 
-IsXMLNamechar(uint c)
+/* #553058 Definition of IsXMLNameChar does not match Prototype (introduced by fix #516370) */
+Bool IsXMLNamechar(uint c)
 {
     return (IsXMLLetter(c) ||
         c == '.' || c == '_' ||
