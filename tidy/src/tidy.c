@@ -604,6 +604,18 @@ Bool wsubstr(char *s1, char *s2)
     return no;
 }
 
+/* transform string to lower case */
+char *wstrtolower(char *s)
+{
+    int i;
+    for (i = 0; i < wstrlen(s); ++i)
+        s[i] = ToLower(s[i]);
+
+    return s;
+}
+
+
+
 /* For mac users, should we map Unicode back to MacRoman? */
 void outc(uint c, Out *out)
 {
@@ -1096,7 +1108,7 @@ int main(int argc, char **argv)
                 {
                     out.fp = input;
 
-                    if (XmlOut /*XmlTags*/)	/* #427826 - fix by Dave Raggett 01 Sep 00 */
+                    if (XmlOut && !xHTML)	/* #427826 - fix by Dave Raggett 01 Sep 00 */
                         PPrintXMLTree(&out, null, 0, lexer, document);
                     /* Feature request #434940 - fix by Dave Raggett/Ignacio Vazquez-Abrams 21 Jun 01 */
                     else if (BodyOnly)
@@ -1117,7 +1129,7 @@ int main(int argc, char **argv)
                 {
                     out.fp = stdout;
 
-                    if (XmlOut /*XmlTags*/)	/* #427826 - fix by Dave Raggett 01 Sep 00 */
+                    if (XmlOut && !xHTML)	/* #427826 - fix by Dave Raggett 01 Sep 00 */
                         PPrintXMLTree(&out, null, 0, lexer, document);
                     /* Feature request #434940 - fix by Dave Raggett/Ignacio Vazquez-Abrams 21 Jun 01 */
                     else if (BodyOnly)
