@@ -1076,7 +1076,7 @@ static Bool CopyAttrs( TidyDocImpl* doc, Node *node, Node *child)
         /* Avoid duplicates in node */
         if ((id=AttrId(av2)) != TidyAttr_UNKNOWN
             && (av1=AttrGetById(node, id))!= NULL)
-        RemoveAttribute( doc, node, av1 );
+            RemoveAttribute( doc, node, av1 );
 
         /* Move attribute from child to node */
         DetachAttribute( doc, child, av2 );
@@ -2491,6 +2491,7 @@ void FixLanguageInformation(TidyDocImpl* doc, Node* node, Bool wantXmlLang, Bool
                   todo: check whether both attributes are in sync,
                   here or elsewhere, where elsewhere is probably
                   preferable.
+                  AD - March 2005: not mandatory according the standards.
                 */
             }
             else if (lang && wantXmlLang)
