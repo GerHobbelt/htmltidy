@@ -782,13 +782,22 @@ static void PPrintAttribute(Out *fout, uint indent,
 static void PPrintAttrs(Out *fout, uint indent,
                         Lexer *lexer, Node *node, AttVal *attr)
 {
+    Attribute *attribute;
+
     if (attr)
     {
         if (attr->next)
             PPrintAttrs(fout, indent, lexer, node, attr->next);
 
         if (attr->attribute != null)
+        {
+            attribute = attr->dict;
+
+            if (!DropPropAttrs ||
+                !(attribute == null ||
+                    (attribute->versions & VERS_PROPRIETARY)))
             PPrintAttribute(fout, indent, node, attr);
+        }
         else if (attr->asp != null)
         {
             AddC(' ', linelen++);

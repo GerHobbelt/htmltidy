@@ -746,6 +746,7 @@ extern Bool UpperCaseAttrs;
 extern Bool MakeClean;
 extern Bool LogicalEmphasis;
 extern Bool DropEmptyParas;
+extern Bool DropPropAttrs;
 extern Bool FixComments;
 extern Bool DropFontTags;
 extern Bool EncloseBodyText;
