@@ -2799,10 +2799,13 @@ Bool IsJavaScript(Node *node)
 
     for (attr = node->attributes; attr; attr = attr->next)
     {
-        if ( (tmbstrcasecmp(attr->attribute, "language") == 0
-                || tmbstrcasecmp(attr->attribute, "type") == 0)
-                && tmbsubstr(attr->value, "javascript"))
+        if ( (tmbstrcasecmp(attr->attribute, "language") == 0 ||
+              tmbstrcasecmp(attr->attribute, "type") == 0)
+             && tmbsubstr(attr->value, "javascript") )
+        {
             result = yes;
+            break;
+        }
     }
 
     return result;

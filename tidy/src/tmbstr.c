@@ -97,8 +97,11 @@ int tmbstrcmp( ctmbstr s1, ctmbstr s2 )
 uint tmbstrlen( ctmbstr str )
 {
     uint len = 0;
-    while ( *str++ )
-        ++len;
+    if ( str ) 
+    {
+        while ( *str++ )
+            ++len;
+    }
     return len;
 }
 
