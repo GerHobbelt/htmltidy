@@ -936,6 +936,7 @@ extern Bool NCR; /* #431953 - RJ */
 extern Bool OutputBOM;
 extern Bool SmartBOM;
 extern Bool ReplaceColor; /* #477643 - replace hex color attribute values with names */
+extern char *CSSPrefix;   /* #508936 - CSS class naming for -clean option */
 
 /* Parser methods for tags */
 

@@ -264,9 +264,9 @@ void FreeStyles(Lexer *lexer)
 static char *GensymClass(char *tag)
 {
     static int n = 1;
-    char buf[128];
+    char buf[512];                                             /* CSSPrefix is limited to 256 characters */
 
-    sprintf(buf, "c%d", n++);
+    sprintf(buf, "%s%d", (CSSPrefix ? CSSPrefix : "c"), n++); /* #508936 - CSS class naming for -clean option */
     return wstrdup(buf);
 }
 
