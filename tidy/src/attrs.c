@@ -948,7 +948,14 @@ const Attribute* CheckAttribute( TidyDocImpl* doc, Node *node, AttVal *attval )
     if ( attribute != NULL )
     {
         if (attribute->versions & VERS_XML)
+        {
             doc->lexer->isvoyager = yes;
+            if (!cfgBool(doc, TidyHtmlOut))
+            {
+                SetOptionBool(doc, TidyXhtmlOut, yes);
+                SetOptionBool(doc, TidyXmlOut, yes);
+            }
+        }
 
         ConstrainVersion(doc, AttributeVersions(node, attval));
         
