@@ -91,10 +91,10 @@ static const ctmbstr repeatAttrPicks[] =
 
 static const ctmbstr accessPicks[] = 
 {
-  "0 - Tidy Classic",
-  "1 - Priority 1 Checks",
-  "2 - Priority 2 Checks",
-  "3 - Priority 3 Checks",
+  "0 (Tidy Classic)",
+  "1 (Priority 1 Checks)",
+  "2 (Priority 2 Checks)",
+  "3 (Priority 3 Checks)",
   NULL
 };
 
