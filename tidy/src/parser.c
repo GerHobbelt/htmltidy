@@ -1084,7 +1084,8 @@ void ParseBlock( TidyDocImpl* doc, Node *element, uint mode)
                      nodeIsNOSCRIPT(element)
                     ))
                 {
-                    UngetToken( doc );
+                    /* fix for bug 722753 */
+                    /* UngetToken( doc ); */
                     node = InferredTag( doc, "p" );
                     InsertNodeAtEnd( element, node );
                     ParseTag( doc, node, MixedContent );
