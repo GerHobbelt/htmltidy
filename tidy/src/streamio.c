@@ -25,6 +25,10 @@
 #include "message.h"
 #include "utf8.h"
 
+#ifdef TIDY_WIN32_MLANG_SUPPORT
+#include "win32tc.h"
+#endif
+
 /************************
 ** Forward Declarations
 ************************/
@@ -54,6 +58,9 @@ static StreamOut stderrStreamOut =
     ASCII,
     FSM_ASCII,
     DEFAULT_NL_CONFIG,
+#ifdef TIDY_WIN32_MLANG_SUPPORT
+    (ulong)NULL,
+#endif
     FileIO,
     { 0, filesink_putByte }
 };
@@ -63,6 +70,9 @@ static StreamOut stdoutStreamOut =
     ASCII,
     FSM_ASCII,
     DEFAULT_NL_CONFIG,
+#ifdef TIDY_WIN32_MLANG_SUPPORT
+    (ulong)NULL,
+#endif
     FileIO,
     { 0, filesink_putByte }
 };
@@ -934,11 +944,16 @@ static void ReadRawBytesFromStream( StreamIn *in, byte* buf, int *count )
 uint ReadCharFromStream( StreamIn* in )
 {
     uint c, n;
+    uint bytesRead = 0;
 
     if ( IsEOF(in) )
         return EndOfStream;
     
     c = ReadByte( in );
+
+    if (c == EndOfStream)
+        return c;
+
     if ( in->lookingForBOM &&
          (
 #if SUPPORT_UTF16_ENCODINGS
@@ -1149,6 +1164,14 @@ uint ReadCharFromStream( StreamIn* in )
             n = (c << 8) + c1;
             return n;
         }
+    }
+#endif
+
+#ifdef TIDY_WIN32_MLANG_SUPPORT
+    else if (in->encoding > WIN32MLANG)
+    {
+        assert( in->mlang != 0 );
+        return Win32MLangGetChar((byte)c, in, &bytesRead);
     }
 #endif
 

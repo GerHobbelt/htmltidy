@@ -53,6 +53,10 @@ struct _StreamIn
     IOType iotype;
     TidyInputSource source;
 
+#ifdef TIDY_WIN32_MLANG_SUPPORT
+    ulong mlang;
+#endif
+
     /* Pointer back to document for error reporting */
     TidyDocImpl* doc;
 };
@@ -76,6 +80,10 @@ struct _StreamOut
     int   encoding;
     int   state;     /* for ISO 2022 */
     uint  nl;
+
+#ifdef TIDY_WIN32_MLANG_SUPPORT
+    ulong mlang;
+#endif
 
     IOType iotype;
     TidyOutputSink sink;
@@ -128,6 +136,10 @@ void outBOM( StreamOut *out );
 #endif
 #endif
 
+#ifdef TIDY_WIN32_MLANG_SUPPORT
+/* hack: windows code page numbers start at 37 */
+#define WIN32MLANG  36
+#endif
 
 /* states for ISO 2022
 

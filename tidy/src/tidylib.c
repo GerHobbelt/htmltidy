@@ -35,6 +35,10 @@
 #include "tmbstr.h"
 #include "utf8.h"
 
+#ifdef TIDY_WIN32_MLANG_SUPPORT
+#include "win32tc.h"
+#endif
+
 #ifdef NEVER
 TidyDocImpl* tidyDocToImpl( TidyDoc tdoc )
 {
@@ -1050,7 +1054,12 @@ int         tidyDocParseStream( TidyDocImpl* doc, StreamIn* in )
         else
             UngetChar( c, in );
     }
-            
+
+#ifdef TIDY_WIN32_MLANG_SUPPORT
+    if (in->encoding > WIN32MLANG)
+        Win32MLangInitInputTranscoder(in, in->encoding);
+#endif TIDY_WIN32_MLANG_SUPPORT
+
     /* Tidy doesn't alter the doctype for generic XML docs */
     if ( xmlIn )
     {
@@ -1065,6 +1074,10 @@ int         tidyDocParseStream( TidyDocImpl* doc, StreamIn* in )
         if ( !CheckNodeIntegrity(doc->root) )
             FatalError( integrity );
     }
+
+#ifdef TIDY_WIN32_MLANG_SUPPORT
+    Win32MLangUninitInputTranscoder(in);
+#endif TIDY_WIN32_MLANG_SUPPORT
 
     doc->docIn = NULL;
     return tidyDocStatus( doc );
