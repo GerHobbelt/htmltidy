@@ -907,7 +907,7 @@ static void AddAlign( TidyDocImpl* doc, Node *node, ctmbstr align )
     tmbchar buf[128], *p;
 
     tmbstrcpy( buf, "text-align: " );
-    for ( p = buf + 12; (NULL != (*p++ = (tmbchar)ToLower(*align++))); /**/ )
+    for ( p = buf + 12; (0 != (*p++ = (tmbchar)ToLower(*align++))); /**/ )
     {
     	/**/
 	}

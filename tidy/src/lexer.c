@@ -1247,7 +1247,7 @@ static Node *CDATAToken(Lexer *lexer)
 void AddStringLiteral( Lexer* lexer, ctmbstr str )
 {
     byte c;
-    while(NULL != (c = *str++) )
+    while(0 != (c = *str++) )
         AddCharToLexer( lexer, c );
 }
 
