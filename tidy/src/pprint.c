@@ -1270,6 +1270,7 @@ static void PPrintComment( TidyDocImpl* doc, uint indent, Node* node )
     AddString( pprint, "--" );
 #endif
 
+    AddString(pprint, "--");
     AddChar( pprint, '>' );
     if ( node->linebreak )
         PFlushLine( doc, indent );

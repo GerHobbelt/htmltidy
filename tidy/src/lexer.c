@@ -2551,6 +2551,8 @@ Node* GetToken( TidyDocImpl* doc, uint mode )
                     if (badcomment)
                         ReportWarning( doc, NULL, NULL, MALFORMED_COMMENT );
 
+                    /* do not store closing -- in lexbuf */
+                    lexer->lexsize -= 2;
                     lexer->txtend = lexer->lexsize;
                     lexer->lexbuf[lexer->lexsize] = '\0';
                     lexer->state = LEX_CONTENT;
