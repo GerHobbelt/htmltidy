@@ -730,7 +730,16 @@ void ParseBlock(Lexer *lexer, Node *element, uint mode)
               HTML4 strict doesn't allow mixed content for
               elements with %block; as their content model
             */
-            ConstrainVersion(lexer, ~VERS_HTML40_STRICT);
+            /*
+              But only body, map, blockquote, form and
+              noscript have content model %block;
+            */
+            if (element->tag == tag_body       ||
+                element->tag == tag_map        ||
+                element->tag == tag_blockquote ||
+                element->tag == tag_form       ||
+                element->tag == tag_noscript)
+                ConstrainVersion(lexer, ~VERS_HTML40_STRICT);
             continue;
         }
 
