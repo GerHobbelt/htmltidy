@@ -6,7 +6,7 @@
 #     $Date$ 
 #     $Revision$ 
 #
-#  Copyright (c) 1998-2002 World Wide Web Consortium
+#  Copyright (c) 1998-2003 World Wide Web Consortium
 #  (Massachusetts Institute of Technology, Institut National de
 #  Recherche en Informatique et en Automatique, Keio University).
 #  All Rights Reserved.
@@ -15,6 +15,7 @@
 #
 #     Dave Raggett <dsr@w3.org>
 #     Terry Teague <terry_teague@users.sourceforge.net>
+#     Pradeep Padala<ppadala@users.sourceforge.net>
 #
 #  The contributing author(s) would like to thank all those who
 #  helped with testing, bug fixes, and patience.  This wouldn't
@@ -52,58 +53,146 @@
 #  acknowledgment is not required but would be appreciated.
 #
 
+SHELL=/bin/sh
+
+PROJECT=tidy
+
+# Installation variables.  Spaces OK, only dir create and file copy operations.
+runinst_prefix=/usr/local
+devinst_prefix=/usr/local
+
+bininst = ${runinst_prefix}/bin
+libinst = ${devinst_prefix}/lib
+incinst = ${devinst_prefix}/include/$(PROJECT)
+maninst = ${devinst_prefix}/man
+
+# Internal variables. - No spaces allowed: libtool chokes on spaces in directory names.
+TOPDIR = .
+INCDIR = ${TOPDIR}/include
+APPDIR = ${TOPDIR}/console
+SRCDIR = ${TOPDIR}/src
+OBJDIR = ${TOPDIR}/obj
+LIBDIR = ${TOPDIR}/lib
+BINDIR = ${TOPDIR}/bin
+
+# CFLAGS etc..
 CC= gcc
+CFLAGS= -Wall -Wno-switch -Wno-parentheses -Wno-unused -I $(INCDIR)
 
-INCLDIR= ./include/
-SRCDIR= ./src/
-OBJDIR= ./
+# OTHERCFLAGS= -DSUPPORT_ACCESSIBILITY_CHECKS=1 -DSUPPORT_UTF16_ENCODINGS=1 -DSUPPORT_ASIAN_ENCODINGS=1
+ifdef SUPPORT_UTF16_ENCODINGS
+CFLAGS += -DSUPPORT_UTF16_ENCODINGS=$(SUPPORT_UTF16_ENCODINGS)
+endif
+ifdef SUPPORT_ASIAN_ENCODINGS
+CFLAGS += -DSUPPORT_ASIAN_ENCODINGS=$(SUPPORT_ASIAN_ENCODINGS)
+endif
+ifdef SUPPORT_ACCESSIBILITY_CHECKS
+CFLAGS += -DSUPPORT_ACCESSIBILITY_CHECKS=$(SUPPORT_ACCESSIBILITY_CHECKS)
+endif
 
-DEBUGFLAGS=-g -DDMALLOC
-CFLAGS= -I $(INCLDIR)
-OTHERCFLAGS=
+DEBUGFLAGS=-g
+ifdef DMALLOC
+DEBUGFLAGS += -DDMALLOC
+endif
+
 LIBS=-lc
 DEBUGLIBS=-ldmalloc
 
-INSTALLDIR= /usr/local/
-MANPAGESDIR= /usr/local/man/
+# Tidy lib related variables
+TIDY_MAJOR = 1
+TIDY_MINOR = 0
 
-OFILES=	$(OBJDIR)access.o \
-		$(OBJDIR)attrs.o         $(OBJDIR)istack.o        $(OBJDIR)parser.o        $(OBJDIR)tags.o \
-		$(OBJDIR)entities.o      $(OBJDIR)lexer.o         $(OBJDIR)pprint.o        $(OBJDIR)clean.o \
-		$(OBJDIR)localize.o      $(OBJDIR)config.o        $(OBJDIR)tidy.o
+# This will come from autoconf again
+LIBPREFIX = lib
+LIBSUFFIX = .a
 
-CFILES=	$(SRCDIR)access.c \
-		$(SRCDIR)attrs.c         $(SRCDIR)istack.c        $(SRCDIR)parser.c        $(SRCDIR)tags.c \
-		$(SRCDIR)entities.c      $(SRCDIR)lexer.c         $(SRCDIR)pprint.c        $(SRCDIR)clean.c \
-		$(SRCDIR)localize.c      $(SRCDIR)config.c        $(SRCDIR)tidy.c
+LIBRARY = $(LIBDIR)/$(LIBPREFIX)$(PROJECT)$(LIBSUFFIX)
+AR=ar -r
 
-HFILES=		$(INCLDIR)platform.h $(INCLDIR)html.h
+EXES = $(BINDIR)/$(PROJECT) $(BINDIR)/tab2space
 
-tidy:		$(OFILES)
-		$(CC) $(CFLAGS) $(OTHERCFLAGS) -o tidy $(OFILES) $(LIBS)
+OBJFILES=\
+        $(OBJDIR)/access.o     $(OBJDIR)/attrs.o      $(OBJDIR)/istack.o\
+        $(OBJDIR)/parser.o     $(OBJDIR)/tags.o       $(OBJDIR)/entities.o\
+        $(OBJDIR)/lexer.o      $(OBJDIR)/pprint.o     $(OBJDIR)/clean.o\
+        $(OBJDIR)/localize.o   $(OBJDIR)/config.o     $(OBJDIR)/alloc.o\
+        $(OBJDIR)/attrask.o    $(OBJDIR)/attrget.o    $(OBJDIR)/buffio.o\
+        $(OBJDIR)/fileio.o     $(OBJDIR)/streamio.o   $(OBJDIR)/tagask.o\
+        $(OBJDIR)/tmbstr.o     $(OBJDIR)/utf8.o\
+        $(OBJDIR)/tidylib.o
 
-%.o:		$(SRCDIR)%.c $(HFILES) Makefile
-		$(CC) -c $(CFLAGS) $(OTHERCFLAGS) $<
+CFILES= \
+        $(SRCDIR)/access.c       $(SRCDIR)/attrs.c        $(SRCDIR)/istack.c \
+        $(SRCDIR)/parser.c       $(SRCDIR)/tags.c         $(SRCDIR)/entities.c \
+        $(SRCDIR)/lexer.c        $(SRCDIR)/pprint.c       $(SRCDIR)/clean.c \
+        $(SRCDIR)/localize.c     $(SRCDIR)/config.c       $(SRCDIR)/alloc.c \
+        $(SRCDIR)/attrask.c      $(SRCDIR)/attrget.c      $(SRCDIR)/buffio.c \
+        $(SRCDIR)/fileio.c       $(SRCDIR)/streamio.c     $(SRCDIR)/tagask.c \
+        $(SRCDIR)/tagget.c       $(SRCDIR)/tmbstr.c       $(SRCDIR)/utf8.c \
+        $(SRCDIR)/tidylib.c
 
-tab2space:	$(SRCDIR)tab2space.c
-		$(CC) $(CFLAGS) $(OTHERCFLAGS) -o tab2space $(SRCDIR)tab2space.c $(LIBS)
+HFILES= $(INCDIR)/platform.h     $(INCDIR)/tidy.h         $(INCDIR)/tidyenum.h \
+        $(INCDIR)/fileio.h       $(INCDIR)/buffio.h       
 
-all:		tidy tab2space
+LIBHFILES= \
+        $(SRCDIR)/access.h \
+        $(SRCDIR)/attrs.h        $(SRCDIR)/clean.h \
+        $(SRCDIR)/config.h       $(SRCDIR)/entities.h \
+        $(SRCDIR)/forward.h      $(SRCDIR)/lexer.h        $(SRCDIR)/message.h \
+        $(SRCDIR)/parser.h       $(SRCDIR)/pprint.h       $(SRCDIR)/streamio.h \
+        $(SRCDIR)/tags.h \
+        $(SRCDIR)/tmbstr.h       $(SRCDIR)/utf8.h         $(SRCDIR)/tidy-int.h
+
+
+
+all:    $(LIBRARY) $(EXES)
+
+$(LIBRARY): $(OBJFILES)
+	if [ ! -d $(LIBDIR) ]; then mkdir $(LIBDIR); fi
+	$(AR) $@ $(OBJFILES)
+ifdef RANLIB
+	$(RANLIB) $@ 
+endif
+
+$(OBJDIR)/%.o:		$(SRCDIR)/%.c $(HFILES) $(LIBHFILES) Makefile
+	if [ ! -d $(OBJDIR) ]; then mkdir $(OBJDIR); fi
+	$(CC) -o $@ -c $(CFLAGS) $(OTHERCFLAGS) $<
+
+$(BINDIR)/$(PROJECT):	$(APPDIR)/tidy.c $(HFILES) $(LIBRARY)
+	if [ ! -d $(BINDIR) ]; then mkdir $(BINDIR); fi
+	$(CC) $(CFLAGS) $(OTHERCFLAGS) -o $@ $(APPDIR)/tidy.c -I$(INCDIR) -L$(LIBDIR) -l$(PROJECT)
+
+$(BINDIR)/tab2space: $(APPDIR)/tab2space.c
+	if [ ! -d $(BINDIR) ]; then mkdir $(BINDIR); fi
+	$(CC) $(CFLAGS) $(OTHERCFLAGS) -o $@ $(APPDIR)/tab2space.c $(LIBS)
 
 debug:
 	@$(MAKE) CFLAGS='$(CFLAGS) $(DEBUGFLAGS)' LIBS='$(LIBS) $(DEBUGLIBS)' all
 
 clean:
-		rm -f $(OFILES) tab2space.o  tidy tab2space
+	rm -f $(OBJFILES) $(EXES) $(LIBRARY) $(OBJDIR)/*.lo
+	if [ -d $(OBJDIR)/.libs ]; then rmdir $(OBJDIR)/.libs; fi
+	if [ -d $(LIBDIR)/.libs ]; then rmdir $(LIBDIR)/.libs; fi
+	if [ "$(OBJDIR)" != "$(TOPDIR)" -a -d $(OBJDIR) ]; then rmdir $(OBJDIR); fi
+	if [ "$(LIBDIR)" != "$(TOPDIR)" -a -d $(LIBDIR) ]; then rmdir $(LIBDIR); fi
+	if [ "$(BINDIR)" != "$(TOPDIR)" -a -d $(BINDIR) ]; then rmdir $(BINDIR); fi
 
-install: tidy
-	mkdir -p $(INSTALLDIR)bin
-	cp -f tidy $(INSTALLDIR)bin
+installhdrs: $(HFILES)
+	if [ ! -d "$(incinst)" ]; then mkdir -p "$(incinst)"; fi
+	cp -f $(HFILES) "$(incinst)/"
+
+installib: $(LIBRARY)
+	if [ ! -d "$(libinst)" ]; then mkdir -p "$(libinst)"; fi
+	cp -f $(LIBRARY) "$(libinst)/"
+
+installexes: $(EXES)
+	if [ ! -d "$(bininst)" ]; then mkdir -p "$(bininst)"; fi
+	cp -f $(EXES) "$(bininst)/"
+
+installmanpage:
 	if [ -f "man_page.txt" ] ; then \
-		mkdir -p $(MANPAGESDIR)man1; \
-		cp -f man_page.txt $(MANPAGESDIR)man1/tidy.1; \
+		if [ ! -d "$(maninst)/man1" ]; then mkdir -p "$(maninst)/man1"; fi; \
+		cp -f man_page.txt "$(maninst)/man1/tidy.1"; \
 	fi
-	-cd $(INSTALLDIR)bin; \
-	chmod 755 tidy; \
-	chgrp bin tidy; \
-	chown bin tidy;
+   
+install: installhdrs installib installmanpage installexes

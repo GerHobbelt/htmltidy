@@ -68,7 +68,7 @@ libtidy_la_SOURCES = \
 	tidylib.c
 
 libtidy_la_LDFLAGS = \
-	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
+	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_LITE_AGE) \
 	-release $(LT_RELEASE) -no-undefined -export-dynamic
 
 HFILES = \
