@@ -361,6 +361,12 @@ void ReportAttrError(Lexer *lexer, Node *node, AttVal *av, uint code)
             ReportTag(lexer, node);
             tidy_out(lexer->errout, " joining values of repeated attribute \"%s\"", name);
         }
+        else if (code == UNEXPECTED_EQUALSIGN)
+        {
+            tidy_out(lexer->errout, "Warning: ");
+            ReportTag(lexer, node);
+            tidy_out(lexer->errout, " unexpected '=', expected attribute name");
+        }
 
         tidy_out(lexer->errout, "\n");
     }

@@ -666,7 +666,6 @@ Node *NewLineNode(Lexer *lexer)
 Node *NewLiteralTextNode(Lexer *lexer, char* txt )
 {
     Node *node = NewNode();
-
     node->start = lexer->lexsize;
     AddStringToLexer(lexer, txt);
     node->end = lexer->lexsize;
@@ -2609,6 +2608,12 @@ static char  *ParseAttribute(Lexer *lexer, Bool *isempty,
             UngetChar('<', lexer->in);
             ReportAttrError(lexer, lexer->token, null, UNEXPECTED_GT);
             return null;
+        }
+
+        if (c == '=')
+        {
+            ReportAttrError(lexer, lexer->token, null, UNEXPECTED_EQUALSIGN);
+            continue;
         }
 
         if (c == '"' || c == '\'')
