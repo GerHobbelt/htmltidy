@@ -1814,12 +1814,12 @@ void PPrintTree(Out *fout, uint mode, uint indent,
     }
     else /* some kind of container element */
     {
+        if (node->type == StartEndTag)
+            node->type = StartTag;
+
         if (node->tag && node->tag->parser == ParsePre)
         {
             PCondFlushLine(fout, indent);
-
-            if (node->type == StartEndTag)
-                node->type = StartTag;
 
             indent = 0;
             PCondFlushLine(fout, indent);
