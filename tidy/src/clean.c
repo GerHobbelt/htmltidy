@@ -2542,11 +2542,12 @@ void FixAnchors(TidyDocImpl* doc, Node *node, Bool wantName, Bool wantId)
 
             if (name && id)
             {
-                /*
-                  todo: check whether both attributes are in sync,
-                  here or elsewhere, where elsewhere is probably
-                  preferable.
-                */
+                Bool NameHasValue = AttrHasValue(name);
+                Bool IdHasValue = AttrHasValue(id);
+                if ( (NameHasValue != IdHasValue) ||
+                     (NameHasValue && IdHasValue &&
+                     tmbstrcmp(name->value, id->value) != 0 ) )
+                    ReportAttrError( doc, node, name, ID_NAME_MISMATCH);
             }
             else if (name && wantId)
             {
