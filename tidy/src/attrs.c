@@ -1016,6 +1016,13 @@ void CheckTABLE(Lexer *lexer, Node *node)
         if (attval->value == null)
             attval->value = wstrdup("1");
     }
+
+    /* <table height="..."> is proprietary */
+    if (attval = GetAttrByName(node, "height"))
+    {
+        ReportAttrError(lexer, node, attval, PROPRIETARY_ATTRIBUTE);
+        ConstrainVersion(lexer, VERS_PROPRIETARY);
+    }
 }
 
 /* add missing type attribute when appropriate */
