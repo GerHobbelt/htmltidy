@@ -1109,3 +1109,18 @@ void CheckFORM(Lexer *lexer, Node *node)
     if (!action)
         ReportMissingAttr(lexer, node, "action");
 }
+
+/* reports missing content attribute */
+void CheckMETA(Lexer *lexer, Node *node)
+{
+    AttVal *content = GetAttrByName(node, "content");
+
+    CheckUniqueAttributes(lexer, node);
+    CheckAttributes(lexer, node);
+
+    if (!content)
+        ReportMissingAttr(lexer, node, "content");
+
+    /* name or http-equiv attribute must also be set */
+}
+

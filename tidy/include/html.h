@@ -846,6 +846,7 @@ CheckAttribs CheckSCRIPT;
 CheckAttribs CheckSTYLE;
 CheckAttribs CheckHTML;
 CheckAttribs CheckFORM;
+CheckAttribs CheckMETA;
 
 /* used to control printing of null attributes */
 Bool IsBoolAttribute(AttVal *attval);
