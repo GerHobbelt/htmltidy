@@ -1076,7 +1076,7 @@ void CheckUrl( TidyDocImpl* doc, Node *node, AttVal *attval)
             else
                 dest[pos++] = c;
         }
-        dest[pos++] = 0;
+        dest[pos] = 0;
 
         MemFree(attval->value);
         attval->value = dest;
@@ -1488,12 +1488,11 @@ void CheckColor( TidyDocImpl* doc, Node *node, AttVal *attval)
     /* 727851 - add hash to hash-less color values */
     if (given[0] != '#' && (valid = IsValidColorCode(given)))
     {
-        tmbstr cp;
-        tmbstr s = NULL;
+        tmbstr cp, s;
 
         cp = s = (tmbstr) MemAlloc(2 + tmbstrlen (given));
         *cp++ = '#';
-        while (0 != (*cp++ = *given++))
+        while ('\0' != (*cp++ = *given++))
             continue;
 
         ReportAttrError(doc, node, attval, BAD_ATTRIBUTE_VALUE_REPLACED);
