@@ -406,6 +406,12 @@ void ReportAttrError(Lexer *lexer, Node *node, AttVal *av, uint code)
             ReportTag(lexer, node);
             tidy_out(lexer->errout, " unexpected '=', expected attribute name");
         }
+        else if (code == ATTR_VALUE_NOT_LCASE)
+        {
+            tidy_out(lexer->errout, "Warning: ");
+            ReportTag(lexer, node);
+            tidy_out(lexer->errout, " attribute value \"%s\" must be lower case for XHTML", value);
+        }
 
         if ((code != UNEXPECTED_GT))
             tidy_out(lexer->errout, "\n");
