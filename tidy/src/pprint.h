@@ -61,11 +61,6 @@ typedef struct _TidyPrintImpl
     uint ixInd;
     TidyIndent indent[2];  /* Two lines worth of indent state */
 
-    /* Defunct
-    int     slide, count;
-    Node    *slidecontent;
-    */
-
 } TidyPrintImpl;
 
 void PPrintDocument( TidyDocImpl* doc );

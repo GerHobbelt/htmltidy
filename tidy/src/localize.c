@@ -906,16 +906,6 @@ void NeedsAuthorIntervention( TidyDocImpl* doc )
     tidy_out(doc, "using HTML Tidy to generate a tidied up version.\n\n");
 }
 
-void MissingBody( TidyDocImpl* doc )
-{
-    tidy_out( doc, "Can't create slides - document is missing a body element.\n" );
-}
-
-void ReportNumberOfSlides( TidyDocImpl* doc, int count)
-{
-    tidy_out( doc, "%d Slides found", count );
-}
-
 void GeneralInfo( TidyDocImpl* doc )
 {
     tidy_out(doc, "To learn more about HTML Tidy see http://tidy.sourceforge.net\n");

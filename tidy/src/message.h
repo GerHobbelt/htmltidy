@@ -51,8 +51,6 @@ void ShowVersion( TidyDocImpl* doc );
 void ReportUnknownOption( TidyDocImpl* doc, ctmbstr option );
 void ReportBadArgument( TidyDocImpl* doc, ctmbstr option );
 void NeedsAuthorIntervention( TidyDocImpl* doc );
-void MissingBody( TidyDocImpl* doc );
-void ReportNumberOfSlides( TidyDocImpl* doc, int count );
 
 void HelloMessage( TidyDocImpl* doc, ctmbstr date, ctmbstr filename );
 void ReportMarkupVersion( TidyDocImpl* doc );

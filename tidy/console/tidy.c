@@ -130,9 +130,9 @@ void optionhelp( TidyDoc tdoc, ctmbstr prog )
     printf( "\nHTML Tidy Configuration Settings\n\n" );
     printf( "Within a file, use the form:\n\n" ); 
     printf( "wrap: 72\n" );
-    printf( "split: no\n\n" );
+    printf( "indent: no\n\n" );
     printf( "When specified on the command line, use the form:\n\n" );
-    printf( "--wrap 72 --split no\n\n");
+    printf( "--wrap 72 --indent no\n\n");
 
     printf( fmt, "Name", "Type", "Allowable values" );
     printf( fmt, ul, ul, ul );
