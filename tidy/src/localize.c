@@ -787,7 +787,7 @@ void ReportWarning( TidyDocImpl* doc, Node *element, Node *node, uint code )
         break;
     case MISSING_DOCTYPE:
         messageNode( doc, TidyWarning, node,
-            "Missing <!DOCTYPE> declaration");
+            "missing <!DOCTYPE> declaration");
         break;
     }
 }
