@@ -58,10 +58,11 @@ INCLDIR= ./include/
 SRCDIR= ./src/
 OBJDIR= ./
 
-# DEBUGFLG=-g -DDMALLOC
-CFLAGS= -I $(INCLDIR) $(DEBUGFLG)
+DEBUGFLAGS=-g -DDMALLOC
+CFLAGS= -I $(INCLDIR)
 OTHERCFLAGS=
-LIBS=-lc # -ldmalloc
+LIBS=-lc
+DEBUGLIBS=-ldmalloc
 
 INSTALLDIR= /usr/local/
 MANPAGESDIR= /usr/local/man/
@@ -83,9 +84,12 @@ $(OFILES):	$(HFILES) Makefile
 		$(CC) $(CFLAGS) $(OTHERCFLAGS) $(SRCDIR)$*.c -c
                 
 tab2space:	$(SRCDIR)tab2space.c
-		$(CC) $(CFLAGS) $(OTHERCFLAGS) -o tab2space $(SRCDIR)tab2space.c -lc
+		$(CC) $(CFLAGS) $(OTHERCFLAGS) -o tab2space $(SRCDIR)tab2space.c $(LIBS)
 
 all:		tidy tab2space
+
+debug:
+	@$(MAKE) CFLAGS='$(CFLAGS) $(DEBUGFLAGS)' LIBS='$(LIBS) $(DEBUGLIBS)' all
 
 clean:
 		rm -f $(OFILES) tab2space.o  tidy tab2space
