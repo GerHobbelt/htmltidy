@@ -79,7 +79,9 @@ BINDIR = ${TOPDIR}/bin
 # For optimised builds, flags such as "-O2" should be added and -D_DEBUG=1
 # disabled.
 CC= gcc
-CFLAGS= -g -Wall -Wno-switch -Wno-parentheses -Wunused-parameter -I $(INCDIR)
+CFLAGS= -g -Wall -Wno-switch -Wno-parentheses -I $(INCDIR)
+# flags only supported with gcc 3.x
+# CFLAGS += -Wunused-parameter
 
 OTHERCFLAGS=
 OTHERCFLAGS+= -D_DEBUG=1 -DHAS_VSNPRINTF=1
