@@ -457,7 +457,10 @@ static void InsertDocType(Lexer *lexer, Node *element, Node *doctype)
     InsertNodeBeforeElement(element, doctype);
 }
 
-/* duplicate name attribute as an id */
+/*
+ duplicate name attribute as an id
+ and check if id and name match
+*/
 void FixId(Lexer *lexer, Node *node)
 {
     AttVal *name = GetAttrByName(node, "name");
