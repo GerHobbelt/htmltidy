@@ -103,6 +103,7 @@ Bool TidyMark = yes;        /* add meta element indicating tidied doc */
 Bool Emacs = no;            /* if true format error output for GNU Emacs */
 Bool LiteralAttribs = no;   /* if true attributes may use newlines */
 Bool BodyOnly = no;         /* #434940 - output BODY content only */
+Bool FixUri = yes;          /* applies URI encoding if necessary */
 
 typedef struct _lex PLex;
 
@@ -197,6 +198,7 @@ static struct Flag
     {"doctype",         {(int *)&doctype_str},      ParseDocType},
     {"fix-backslash",   {(int *)&FixBackslash},     ParseBool},
     {"gnu-emacs",       {(int *)&Emacs},            ParseBool},
+    {"fix-uri",         {(int *)&FixUri},           ParseBool},
 
   /* this must be the final entry */
     {0,          0,             0}
