@@ -1224,6 +1224,10 @@ void ReportMarkupVersion( TidyDocImpl* doc )
             apparentVers = HTMLVersion(doc);
 
         vers = HTMLVersionNameFromCode( apparentVers, isXhtml );
+
+        if (!vers)
+            vers = "HTML Proprietary";
+
         message( doc, TidyInfo, "Document content looks like %s", vers );
     }
 }
