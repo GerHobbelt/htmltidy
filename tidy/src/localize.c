@@ -24,7 +24,7 @@
 /* points to the Adaptive Technology Resource Centre at the University of Toronto */
 #define ATRC_ACCESS_URL  "http://www.aprompt.ca/Tidy/accessibilitychecks.html"
 
-char *release_date = "1st October 2002";
+char *release_date = "1st November 2002";
 
 static char *currentFile; /* sasdjb 01May00 for GNU Emacs error parsing */
 
