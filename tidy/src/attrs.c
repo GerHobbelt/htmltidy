@@ -1104,6 +1104,8 @@ void CheckClear(Lexer *lexer, Node *node, AttVal *attval)
     if (attval == null || attval->value == null)
     {
         ReportAttrError(lexer, node, attval, MISSING_ATTR_VALUE);
+        if (attval->value == null)
+            attval->value = wstrdup( "none" );
         return;
     }
 
