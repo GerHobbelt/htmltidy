@@ -1994,7 +1994,7 @@ int main(int argc, char **argv)
             {
                 if (argc >= 3)
                 {
-                    sscanf(argv[2], "%d", (int *)&wraplen); /* #578005 - fix by Anonymous 05 Jul 02 */
+                    sscanf(argv[2], "%u", &wraplen); /* #578005 - fix by Shane Turner 08 Jul 02 */
                     --argc;
                     ++argv;
                 }
