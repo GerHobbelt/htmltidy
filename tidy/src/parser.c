@@ -2981,11 +2981,13 @@ void ParseBody(Lexer *lexer, Node *body, uint mode)
             continue;
 
         /* #538536 Extra endtags not detected */
-//      if (lexer->seenEndBody == 1 && !iswhitenode)
-//      {
-//          ++lexer->seenEndBody;
-//          ReportWarning(lexer, body, node, CONTENT_AFTER_BODY);
-//      }
+#if 0
+        if (lexer->seenEndBody == 1 && !iswhitenode)
+        {
+            ++lexer->seenEndBody;
+            ReportWarning(lexer, body, node, CONTENT_AFTER_BODY);
+        }
+#endif
 
         /* mixed content model permits text */
         if (node->type == TextNode)
