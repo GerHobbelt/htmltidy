@@ -660,6 +660,8 @@ void tidy_out(FILE *fp, const char* msg, ...);
 #define UNEXPECTED_QUOTEMARK    11
 #define MISSING_QUOTEMARK       12
 #define ID_NAME_MISMATCH        13
+#define BACKSLASH_IN_URI        14
+#define ESCAPED_ILLEGAL_URI     15
 
 /* page transition effects */
 
