@@ -86,6 +86,12 @@
 #define LEX_PHP         12
 #define LEX_XMLDECL     13
 
+/* ParseDocTypeDecl state constants */
+#define DT_INTERMEDIATE 0
+#define DT_DOCTYPENAME  1
+#define DT_PUBLICSYSTEM 2
+#define DT_QUOTEDSTRING 3
+#define DT_INTSUBSET    4
 
 /* content model shortcut encoding
 */
