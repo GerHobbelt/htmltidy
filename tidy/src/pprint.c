@@ -1381,7 +1381,7 @@ static void PPrintComment( TidyDocImpl* doc, uint indent, Node* node )
     SetWrap( doc, indent );
 #endif
 
-    PPrintText( doc, COMMENT, indent, node );
+    PPrintText(doc, COMMENT, 0, node);
 
 #if 0
     SetWrap( doc, indent );
