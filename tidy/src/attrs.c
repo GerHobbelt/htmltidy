@@ -1329,7 +1329,6 @@ void CheckColor( TidyDocImpl* doc, Node *node, AttVal *attval)
             MemFree(attval->value);
             given = attval->value = s;
             valid = yes;
-            /* TODO: Emit warning */
         }
     }
     
