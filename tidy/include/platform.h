@@ -134,7 +134,9 @@
  
 #if defined(WINDOWS) || defined(_WIN32)
 #define WINDOWS_OS
+#ifndef PLATFORM_NAME
 #define PLATFORM_NAME "Windows"
+#endif
 #endif
 
 /* Convenience defines for Linux platforms */
