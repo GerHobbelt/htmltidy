@@ -20,7 +20,6 @@
 */
 
 #include "forward.h"
-#include "tidy.h"
 #include "buffio.h"
 #include "fileio.h"
 
@@ -82,9 +81,9 @@ struct _StreamOut
     TidyOutputSink sink;
 };
 
-StreamOut* FileOutput( FILE* fp, int encoding, uint newline );
-StreamOut* BufferOutput( TidyBuffer* buf, int encoding, uint newline );
-StreamOut* UserOutput( TidyOutputSink* sink, int encoding, uint newline );
+StreamOut* FileOutput( FILE* fp, int encoding, uint newln );
+StreamOut* BufferOutput( TidyBuffer* buf, int encoding, uint newln );
+StreamOut* UserOutput( TidyOutputSink* sink, int encoding, uint newln );
 
 StreamOut* StdErrOutput();
 StreamOut* StdOutOutput();
