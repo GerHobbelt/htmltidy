@@ -4259,8 +4259,11 @@ void ParseXMLDocument(TidyDocImpl* doc)
         {
             InsertNodeAtEnd( &doc->root, node );
             ParseXMLElement( doc, node, IgnoreWhitespace );
+            continue;
         }
 
+        ReportError(doc, RootNode, node, DISCARDING_UNEXPECTED);
+        FreeNode( doc, node);
     }
 
     /* ensure presence of initial <?xml version="1.0"?> */
