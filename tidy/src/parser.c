@@ -484,7 +484,7 @@ static void TrimInitialSpace( TidyDocImpl* doc, Node *element, Node *text )
 
             if (prev && prev->type == TextNode)
             {
-                if (lexer->lexbuf[prev->end - 1] != ' ')
+                if (prev->end == 0 || lexer->lexbuf[prev->end - 1] != ' ')
                     lexer->lexbuf[(prev->end)++] = ' ';
 
                 ++(element->start);
