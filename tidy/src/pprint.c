@@ -136,6 +136,20 @@ static Bool IsWrapInString( TidyPrintImpl* pprint )
              (ind->attrStringStart > 0 && ind->attrStringStart < wrap) );
 }
 
+static Bool HasMixedContent (Node *element)
+{
+    Node * node;
+
+    if (!element)
+        return no;
+
+    for (node = element->content; node; node = node->next)
+        if ( nodeIsText(node) )
+             return yes;
+
+    return no;
+}
+
 static void ClearInAttrVal( TidyPrintImpl* pprint )
 {
     TidyIndent *ind = pprint->indent + pprint->ixInd;
@@ -1842,6 +1856,16 @@ void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
              cfgBool(doc, TidyBreakBeforeBR) )
             PFlushLine( doc, indent );
 
+        if ( nodeIsHR(node) )
+        {
+            /* insert extra newline for classic formatting */
+            Bool classic = cfgBool( doc, TidyVertSpace );
+            if (classic && node->parent && node->parent->content != node)
+            {
+                PFlushLine( doc, indent );
+            }
+        }
+
         if ( cfgBool(doc, TidyMakeClean) && nodeIsWBR(node) )
             PPrintString( doc, indent, " " );
         else
@@ -1864,14 +1888,21 @@ void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
         if ( node->tag && 
              (node->tag->parser == ParsePre || nodeIsTEXTAREA(node)) )
         {
+            Bool classic  = cfgBool( doc, TidyVertSpace );
             uint indprev = indent;
             PCondFlushLine( doc, indent );
 
             PCondFlushLine( doc, indent );
+
+            /* insert extra newline for classic formatting */
+            if (classic && node->parent && node->parent->content != node)
+            {
+                PFlushLine( doc, indent );
+            }
             PPrintTag( doc, mode, indent, node );
 
             indent = 0;
-            PFlushLine( doc, indent);
+            PFlushLine( doc, indent );
 
             for ( content = node->content; content; content = content->next )
             {
@@ -1947,7 +1978,14 @@ void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
             Bool indcont  = ( cfg(doc, TidyIndentContent) > 0 );
             Bool indsmart = ( cfg(doc, TidyIndentContent) == TidyAutoState );
             Bool hideend  = cfgBool( doc, TidyHideEndTags );
+            Bool classic  = cfgBool( doc, TidyVertSpace );
             uint contentIndent = indent;
+
+            /* insert extra newline for classic formatting */
+            if (classic && node->parent && node->parent->content != node)
+            {
+                PFlushLine( doc, indent );
+            }
 
             if ( ShouldIndent(doc, node) )
                 contentIndent += spaces;
@@ -2003,8 +2041,12 @@ void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
             else
             {
                 if ( !hideend || !nodeHasCM(node, CM_OPT) )
+                {
+                    /* newline before endtag for classic formatting */
+                    if ( classic && !HasMixedContent(node) )
+                        PFlushLine( doc, indent );
                     PPrintEndTag( doc, mode, indent, node );
-                /* PFlushLine( doc, indent ); */
+                }
             }
 
             /*

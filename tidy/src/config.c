@@ -250,6 +250,7 @@ static const TidyOptionImpl option_defs[] =
   { TidyPreTags,        MU, "new-pre-tags",         ST,    0, ParseTagNames, NULL },
 
   { TidyAccessibilityCheckLevel, DG, "accessibility-check", IN, 0, ParseAcc, accessPicks },
+  { TidyVertSpace,      PP, "vertical-space",       BL,   no, ParseBool,     boolPicks },
   { N_TIDY_OPTIONS,  0 }
 };
 

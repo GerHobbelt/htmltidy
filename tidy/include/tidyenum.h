@@ -183,6 +183,7 @@ typedef enum
   TidyAccessibilityCheckLevel, /**< Accessibility check level 
                                    0 (old style), or 1, 2, 3 */
 
+  TidyVertSpace,       /**< degree to which markup is spread out vertically */
   N_TIDY_OPTIONS       /**< Must be last */
 } TidyOptionId;
 
