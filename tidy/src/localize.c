@@ -1226,12 +1226,7 @@ void ReportMarkupVersion( TidyDocImpl* doc )
         uint apparentVers;
         ctmbstr vers;
 
-        if ((doc->lexer->doctype == XH11 || 
-             doc->lexer->doctype == XB10) &&
-            (doc->lexer->versions & doc->lexer->doctype))
-            apparentVers = doc->lexer->doctype;
-        else
-            apparentVers = HTMLVersion(doc);
+        apparentVers = ApparentVersion( doc );
 
         vers = HTMLVersionNameFromCode( apparentVers, isXhtml );
 

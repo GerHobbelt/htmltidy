@@ -324,7 +324,7 @@ struct _Lexer
     Bool exiled;            /* true if moved out of table */
     Bool isvoyager;         /* true if xmlns attribute on html element */
     uint versions;          /* bit vector of HTML versions */
-    int  doctype;           /* version as given by doctype (if any) */
+    uint doctype;           /* version as given by doctype (if any) */
     Bool bad_doctype;       /* e.g. if html or PUBLIC is missing */
     uint txtstart;          /* start of current node */
     uint txtend;            /* end of current node */
@@ -472,8 +472,8 @@ Node* FindContainer( Node* node );
 Bool AddGenerator( TidyDocImpl* doc );
 
 /* examine <!DOCTYPE> to identify version */
-int FindGivenVersion( TidyDocImpl* doc, Node* doctype );
-int ApparentVersion( TidyDocImpl* doc );
+uint FindGivenVersion( TidyDocImpl* doc, Node* doctype );
+uint ApparentVersion( TidyDocImpl* doc );
 
 
 Bool CheckDocTypeKeyWords(Lexer *lexer, Node *doctype);
