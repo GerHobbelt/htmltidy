@@ -1152,6 +1152,10 @@ static Bool NestedList( TidyDocImpl* doc, Node *node, Node **pnode )
         if (list->tag != node->tag)
             return no;
 
+        /* check list has no peers */
+        if (list->next)
+	    return no;
+
         *pnode = list;  /* Set node to resume iteration */
 
         /* move inner list node into position of outer node */
