@@ -428,7 +428,8 @@ static void messagePos( TidyDocImpl* doc, TidyReportLevel level,
 
     if ( go )
     {
-        char buf[ 64 ], *cp;
+        char buf[ 64 ];
+        const char *cp;
         if ( line > 0 && col > 0 )
         {
             ReportPosition(doc, line, col, buf, sizeof(buf));
