@@ -1603,6 +1603,8 @@ static char indent_buf[32];
 void BQ2Div(Node *node)
 {
     int indent;
+    size_t len;
+    AttVal *attval;
 
     while (node)
     {
@@ -1621,12 +1623,32 @@ void BQ2Div(Node *node)
             if (node->content)
                 BQ2Div(node->content);
 
-            sprintf(indent_buf, "margin-left: %dem", 2*indent);
+            len = sprintf(indent_buf, "margin-left: %dem", 2*indent);
 
             MemFree(node->element);
             node->element = wstrdup(tag_div->name);
             node->tag = tag_div;
-            AddAttribute(node, "style", indent_buf);
+
+            attval = GetAttrByName(node, "style");
+
+            if (attval)
+            {
+                char *s;
+
+                s = (char *)MemAlloc(len + 3 + wstrlen(attval->value));
+
+                wstrcpy(s, indent_buf);
+                wstrcat(s, "; ");
+                wstrcat(s, attval->value);
+
+                MemFree(attval->value);
+
+                attval->value = s;
+            }
+            else
+            {
+                AddAttribute(node, "style", indent_buf);
+            }
         }
         else if (node->content)
             BQ2Div(node->content);
