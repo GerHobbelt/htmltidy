@@ -188,9 +188,9 @@ installexes: $(EXES)
 	cp -f $(EXES) "$(bininst)/"
 
 installmanpage:
-	if [ -f "man_page.txt" ] ; then \
+	if [ -f "$(TOPDIR)/htmldoc/man_page.txt" ] ; then \
     	if [ ! -d "$(maninst)/man1" ]; then mkdir -p "$(maninst)/man1"; fi; \
-    	cp -f man_page.txt "$(maninst)/man1/tidy.1"; \
+    	cp -f $(TOPDIR)/htmldoc/man_page.txt "$(maninst)/man1/tidy.1"; \
 	fi
    
 install: installhdrs installib installmanpage installexes
