@@ -464,7 +464,6 @@ Node *NewLineNode(Lexer *lexer);
 /* used for adding a &nbsp; for Word2000 */
 Node *NewLiteralTextNode(Lexer *lexer, char* txt );
 
-
 /* Parser calls this to create RootNode */
 Node *NewNode(void);
 AttVal *NewAttribute(void);
@@ -678,6 +677,7 @@ void tidy_out(FILE *fp, const char* msg, ...);
 #define UNKNOWN_ENTITY          2
 #define UNESCAPED_AMPERSAND     3
 #define APOS_UNDEFINED          4
+#define INVALID_ENTITY          5
 
 /* error codes for element messages */
 

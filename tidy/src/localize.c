@@ -97,7 +97,7 @@ static void NtoS(int n, char *str)
     {
         buf[i] = (n % 10) + '0';
 
-        n = n /10;
+        n = n / 10;
 
         if (n == 0)
             break;
@@ -185,7 +185,11 @@ void ReportEntityError(Lexer *lexer, uint code, char *entity, int c)
         }
         else if (code == APOS_UNDEFINED)
         {
-            tidy_out(lexer->errout, "Warning: Named Entity &apos; only defined in XML/XHTML");
+            tidy_out(lexer->errout, "Warning: named entity &apos; only defined in XML/XHTML");
+        }
+        else if (code == INVALID_ENTITY)
+        {
+            tidy_out(lexer->errout, "Warning: entity \"%s\" is invalid in HTML", entityname);
         }
 
         tidy_out(lexer->errout, "\n");
