@@ -2146,7 +2146,7 @@ void VerifyHTTPEquiv(TidyDocImpl* pDoc, Node *head)
             continue;
 
         pszBegin = s = tmbstrdup( metaContent->value );
-        while ('\0' != *pszBegin)
+        while (pszBegin && *pszBegin)
         {
             while (isspace( *pszBegin ))
                 pszBegin++;
