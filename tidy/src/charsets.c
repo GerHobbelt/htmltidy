@@ -1,13 +1,14 @@
 /* charsets.c -- character set information and mappings
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   $Id$
 */
 
-#include <tidy.h>
+#include "tidy.h"
 #include "tmbstr.h"
+#include "charsets.h"
 
 /* todo: documentation of table and data       */
 /* todo: integration of data and routines      */

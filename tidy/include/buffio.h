@@ -3,7 +3,7 @@
 
 /** @file buffio.h - Treat buffer as an I/O stream.
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -53,7 +53,7 @@ TIDY_EXPORT void tidyBufFree( TidyBuffer* buf );
 TIDY_EXPORT void tidyBufClear( TidyBuffer* buf );
 
 /** Attach to existing buffer */
-TIDY_EXPORT void tidyBufAttach( TidyBuffer* buf, void* bp, uint size );
+TIDY_EXPORT void tidyBufAttach( TidyBuffer* buf, byte* bp, uint size );
 
 /** Detach from buffer.  Caller must free. */
 TIDY_EXPORT void tidyBufDetach( TidyBuffer* buf );

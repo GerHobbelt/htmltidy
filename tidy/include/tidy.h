@@ -11,7 +11,7 @@
   this-equivalent as 1st arg.
 
 
-  Copyright (c) 1998-2003 World Wide Web Consortium
+  Copyright (c) 1998-2004 World Wide Web Consortium
   (Massachusetts Institute of Technology, European Research 
   Consortium for Informatics and Mathematics, Keio University).
   All Rights Reserved.
@@ -84,22 +84,22 @@ extern "C" {
 /** @struct TidyDoc
 **  Opaque document datatype
 */
-opaque( TidyDoc );
+opaque_type( TidyDoc );
 
 /** @struct TidyOption
 **  Opaque option datatype
 */
-opaque( TidyOption );
+opaque_type( TidyOption );
 
 /** @struct TidyNode
 **  Opaque node datatype
 */
-opaque( TidyNode );
+opaque_type( TidyNode );
 
 /** @struct TidyAttr
 **  Opaque attribute datatype
 */
-opaque( TidyAttr );
+opaque_type( TidyAttr );
 
 /** @} */
 

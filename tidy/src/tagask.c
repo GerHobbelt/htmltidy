@@ -1,6 +1,6 @@
 /* tagask.c -- Interrogate node type
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -18,12 +18,15 @@
 Bool tidyNodeIsText( TidyNode tnod )
 { return nodeIsText( tidyNodeToImpl(tnod) );
 }
+Bool tidyNodeCMIsBlock( TidyNode tnod ); /* not exported yet */
 Bool tidyNodeCMIsBlock( TidyNode tnod )
 { return nodeCMIsBlock( tidyNodeToImpl(tnod) );
 }
+Bool tidyNodeCMIsInline( TidyNode tnod ); /* not exported yet */
 Bool tidyNodeCMIsInline( TidyNode tnod )
 { return nodeCMIsInline( tidyNodeToImpl(tnod) );
 }
+Bool tidyNodeCMIsEmpty( TidyNode tnod ); /* not exported yet */
 Bool tidyNodeCMIsEmpty( TidyNode tnod )
 { return nodeCMIsEmpty( tidyNodeToImpl(tnod) );
 }

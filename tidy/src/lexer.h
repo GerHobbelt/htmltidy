@@ -3,7 +3,7 @@
 
 /* lexer.h -- Lexer for html parser
   
-   (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+   (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
    See tidy.h for the copyright notice.
   
    CVS Info:
@@ -185,14 +185,14 @@ extern "C" {
 /* Linked list of class names and styles
 */
 struct _Style;
-typedef struct _Style Style;
+typedef struct _Style TagStyle;
 
 struct _Style
 {
     tmbstr tag;
     tmbstr tag_class;
     tmbstr properties;
-    Style *next;
+    TagStyle *next;
 };
 
 
@@ -344,7 +344,7 @@ struct _Lexer
     uint istacksize;        /* used */
     uint istackbase;        /* start of frame */
 
-    Style *styles;          /* used for cleaning up presentation markup */
+    TagStyle *styles;          /* used for cleaning up presentation markup */
 
 #if 0
     TidyDocImpl* doc;       /* Pointer back to doc for error reporting */
