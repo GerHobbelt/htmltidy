@@ -719,6 +719,7 @@ int ParseConfigFileEnc( TidyDocImpl* doc, ctmbstr file, ctmbstr charenc )
         }
 
         fclose( fin );
+        MemFree( (void *)cfg->cfgIn->source.sourceData ); /* fix for bug #810259 */
         MemFree( cfg->cfgIn );
         cfg->cfgIn = NULL;
     }
