@@ -1107,7 +1107,7 @@ void ParseBlock( TidyDocImpl* doc, Node *element, uint mode)
                 {
                     UngetToken( doc );
                     node = InferredTag(doc, TidyTag_UL);
-                    AddClass( doc, node, "noindent" );
+                    /* AddClass( doc, node, "noindent" ); */
                     lexer->excludeBlocks = yes;
                 }
                 else if ( nodeHasCM(node, CM_DEFLIST) )
@@ -1192,7 +1192,7 @@ void ParseBlock( TidyDocImpl* doc, Node *element, uint mode)
                     }
 
                     node = InferredTag(doc, TidyTag_UL);
-                    AddClass( doc, node, "noindent" );
+                    /* AddClass( doc, node, "noindent" ); */
                 }
                 else if ( nodeHasCM(node, CM_DEFLIST) )
                 {
@@ -3363,7 +3363,7 @@ void ParseBody(TidyDocImpl* doc, Node *body, uint mode)
             {
                 UngetToken( doc );
                 node = InferredTag(doc, TidyTag_UL);
-                AddClass( doc, node, "noindent" );
+                /* AddClass( doc, node, "noindent" ); */
                 lexer->excludeBlocks = yes;
             }
             else if (node->tag->model & CM_DEFLIST)
