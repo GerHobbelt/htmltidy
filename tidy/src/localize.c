@@ -29,7 +29,7 @@
 */
 #define ATRC_ACCESS_URL  "http://www.aprompt.ca/Tidy/accessibilitychecks.html"
 
-const static char *release_date = "1st January 2004";
+const static char *release_date = "1st February 2004";
 
 ctmbstr ReleaseDate(void)
 {
