@@ -653,8 +653,8 @@ void PPrintTree(Out *out, uint mode, uint indent,
                     Lexer *lexer, Node *node);
 void PPrintXMLTree(Out *fout, uint mode, uint indent,
                     Lexer *lexer, Node *node);
-void PFlushLine(Out *out, uint indent);
-void PCondFlushLine(Out *out, uint indent);
+void PFlushLine(Out *out, uint indent, Lexer *lexer);
+void PCondFlushLine(Out *out, uint indent, Lexer *lexer);
 void PrintBody(Out *fout, Lexer *lexer, Node *root); /* Feature request #434940 - fix by Dave Raggett/Ignacio Vazquez-Abrams 21 Jun 01 */
 void AddTransitionEffect(Lexer *lexer, Node *root, int effect, float duration);
 

@@ -2337,7 +2337,7 @@ int main(int argc, char **argv)
                     else
                         PPrintTree(&out, null, 0, lexer, document);
 
-                    PFlushLine(&out, 0);
+                    PFlushLine(&out, 0, lexer);
 
 #if PRESERVE_FILE_TIMES
 
@@ -2384,7 +2384,7 @@ int main(int argc, char **argv)
                     else
                         PPrintTree(&out, null, 0, lexer, document);
 
-                    PFlushLine(&out, 0);
+                    PFlushLine(&out, 0, lexer);
                 }
 
             }
