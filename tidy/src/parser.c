@@ -2931,9 +2931,7 @@ void ParseHead(TidyDocImpl* doc, Node *head, uint mode)
     {
         if ( cfg(doc, TidyAccessibilityCheckLevel) == 0 )
         {
-            if ( !cfgBool(doc, TidyBodyOnly) )
-                ReportWarning( doc, head, NULL, MISSING_TITLE_ELEMENT);
- 
+            ReportWarning( doc, head, NULL, MISSING_TITLE_ELEMENT);
             InsertNodeAtEnd(head, InferredTag(doc, "title"));
         }
     }
