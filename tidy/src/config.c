@@ -109,6 +109,7 @@ Bool HideComments = no;     /* hides all (real) comments in output */
 Bool IndentCdata = no;      /* indent <!CDATA[ ... ]]> section */
 Bool ForceOutput = no;      /* output document even if errors were found */
 uint ShowErrors = 6;        /* number of errors to put out */
+Bool AsciiChars = yes;      /* convert quotes and dashes to nearest ASCII char */
 
 typedef struct _lex PLex;
 
@@ -209,6 +210,7 @@ static struct Flag
     {"indent-cdata",    {(int *)&IndentCdata},      ParseBool},
     {"force-output",    {(int *)&ForceOutput},      ParseBool},
     {"show-errors",     {(int *)&ShowErrors},       ParseInt},
+    {"ascii-chars",     {(int *)&AsciiChars},       ParseBool},
 
   /* this must be the final entry */
     {0,          0,             0}

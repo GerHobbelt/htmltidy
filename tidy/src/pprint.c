@@ -463,7 +463,7 @@ static void PPrintChar(uint c, uint mode)
      Andrzej Novosiolov for his help with this code.
     */
 
-    if (MakeClean)
+    if (MakeClean && AsciiChars)
     {
         if (c >= 0x2013 && c <= 0x201E)
         {

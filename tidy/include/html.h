@@ -847,6 +847,7 @@ extern Bool HideComments;
 extern Bool IndentCdata;
 extern Bool ForceOutput;
 extern uint ShowErrors;
+extern Bool AsciiChars;
 
 /* Parser methods for tags */
 
