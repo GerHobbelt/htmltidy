@@ -785,6 +785,10 @@ void ReportWarning( TidyDocImpl* doc, Node *element, Node *node, uint code )
         messageNode( doc, TidyWarning, node,
            "Output encoding does not work with standard output" );
         break;
+    case MISSING_DOCTYPE:
+        messageNode( doc, TidyWarning, node,
+            "Missing <!DOCTYPE> declaration");
+        break;
     }
 }
 

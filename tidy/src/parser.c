@@ -3651,6 +3651,9 @@ Node *ParseDocument(TidyDocImpl* doc)
         else
             html = node;
 
+        if (!FindDocType(doc))
+            ReportWarning(doc, NULL, NULL, MISSING_DOCTYPE);
+
         InsertNodeAtEnd(document, html);
         ParseHTML( doc, html, no );
         break;

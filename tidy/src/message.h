@@ -123,6 +123,7 @@ void ReportNonCompliantNode( TidyDocImpl* doc, Node* node, uint code, uint versW
 #define ELEMENT_NOT_EMPTY       36
 #define ENCODING_IO_CONFLICT    37
 #define MIXED_CONTENT_IN_BLOCK  38
+#define MISSING_DOCTYPE         39         
 
 /* error codes used for attribute messages */
 
