@@ -107,7 +107,7 @@ CFLAGS=$(CFLAGS) $(CNDEBUG)
 LDFLAGS=$(LDFLAGS) $(LDNDEBUG)
 !ENDIF
 
-OBJFILES=	$(OBJDIR)access.o \
+OBJFILES=	$(OBJDIR)access.obj \
 		$(OBJDIR)attrs.obj         $(OBJDIR)istack.obj        $(OBJDIR)parser.obj        $(OBJDIR)tags.obj \
 		$(OBJDIR)entities.obj      $(OBJDIR)lexer.obj         $(OBJDIR)pprint.obj        $(OBJDIR)clean.obj \
 		$(OBJDIR)localize.obj      $(OBJDIR)config.obj        $(OBJDIR)tidy.obj
