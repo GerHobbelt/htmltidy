@@ -60,6 +60,12 @@ struct _StreamIn
     ulong mlang;
 #endif
 
+#ifdef TIDY_STORE_ORIGINAL_TEXT
+    tmbstr otextbuf;
+    size_t otextsize;
+    uint   otextlen;
+#endif
+
     /* Pointer back to document for error reporting */
     TidyDocImpl* doc;
 };
