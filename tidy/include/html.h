@@ -640,6 +640,8 @@ int wstrncmp(char *s1, char *s2, int n);
 int wstrncasecmp(char *s1, char *s2, int n);   
 int wstrlen(char *str);
 Bool wsubstr(char *s1, char *s2);
+Bool wsubstrn(char *s1, int len1, char *s2 );
+Bool wsubstrncase(char *s1, int len1, char *s2 );
 char *wstrtolower(char *s);
 void ClearMemory(void *, uint size);
 
