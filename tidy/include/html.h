@@ -917,3 +917,4 @@ extern Dict *tag_applet;
 extern Dict *tag_object;
 extern Dict *tag_div;
 extern Dict *tag_span;
+extern Dict *tag_input;
