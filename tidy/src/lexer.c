@@ -1869,7 +1869,7 @@ Node *GetCDATA( TidyDocImpl* doc, Node *container )
     if (c == EndOfStream)
         ReportError(doc, container, NULL, MISSING_ENDTAG_FOR );
 
-    if (lexer->txtend > lexer->txtstart)
+    /* if (lexer->txtend > lexer->txtstart) */
         return TextToken(lexer);
 
     return NULL;
