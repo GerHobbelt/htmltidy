@@ -3055,6 +3055,9 @@ void ParseBody(TidyDocImpl* doc, Node *body, uint mode)
                 para = InferredTag(doc, "p");
                 InsertNodeAtEnd(body, para);
                 ParseTag(doc, para, mode);
+
+                /* fix for bug 505745 */
+                TrimSpaces(doc, para);
                 mode = MixedContent;
                 continue;
             }
