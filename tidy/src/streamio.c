@@ -24,6 +24,7 @@
 #include "lexer.h"
 #include "message.h"
 #include "utf8.h"
+#include "tmbstr.h"
 
 #ifdef TIDY_WIN32_MLANG_SUPPORT
 #include "win32tc.h"
