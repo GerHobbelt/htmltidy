@@ -88,4 +88,9 @@ void ReplacePreformattedSpaces(TidyDocImpl* doc, Node* node);
 void NormalizeSpaces(Lexer *lexer, Node *node);
 void ConvertCDATANodes(TidyDocImpl* doc, Node* node);
 
+void FixAnchors(TidyDocImpl* doc, Node *node, Bool wantName, Bool wantId, Bool xmlId);
+void FixXhtmlNamespace(TidyDocImpl* doc, Bool wantXmlns);
+void FixLanguageInformation(TidyDocImpl* doc, Node* node, Bool wantXmlLang, Bool wantLang);
+
+
 #endif /* __CLEAN_H__ */

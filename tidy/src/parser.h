@@ -58,10 +58,6 @@ Bool IsBlank(Lexer *lexer, Node *node);
  duplicate name attribute as an id
  and check if id and name match
 */
-void FixId( TidyDocImpl* doc, Node *node );
-
-void FixXmlLang(TidyDocImpl* doc, Node* node);
-
 /* acceptable content for pre elements */
 Bool PreContent( TidyDocImpl* doc, Node *node );
 
