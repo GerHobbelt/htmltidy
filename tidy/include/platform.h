@@ -1,9 +1,14 @@
 /* platform.h
 
-  (c) 1998-2000 (W3C) MIT, INRIA, Keio University
+  (c) 1998-2001 (W3C) MIT, INRIA, Keio University
   See tidy.c for the copyright notice.
 
-  $Id$
+  CVS Info :
+
+    $Author$ 
+    $Date$ 
+    $Revision$ 
+
 */
 
 /*
@@ -44,7 +49,9 @@
  cleans up. If your platform doesn't support <sys/utime.h>
  and the futime function, then set PRESERVEFILETIMES to 0
 */
-#define PRESERVEFILETIMES 0
+#ifndef PRESERVEFILETIMES
+#define PRESERVEFILETIMES 1
+#endif
 
 #if PRESERVEFILETIMES
 #include <sys/types.h> 

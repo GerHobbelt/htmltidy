@@ -737,7 +737,7 @@ void ReportError(Lexer *lexer, Node *element, Node *node, uint code);
 /* slide maker functions */
 Node *FindBody(Node *node);
 
-/* counts number of h1 children belonging to node */
+/* counts number of h2 children belonging to node */
 int CountSlides(Node *node);
 void PPrintSlide(Out *fout, uint mode, uint indent, Lexer *lexer);
 void CreateSlides(Lexer *lexer, Node *root);
