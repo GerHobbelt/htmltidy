@@ -367,6 +367,9 @@ struct _lexer
     uint state;     /* state of lexer's finite state machine */
     struct _node *token;
 
+    Bool seenEndBody; /* true if a </body> tag has been encountered */
+    Bool seenEndHtml; /* true if a </html> tag has been encountered */
+
     /* 
       lexer character buffer
 

@@ -241,6 +241,10 @@ Lexer *NewLexer(StreamIn *in)
         lexer->istacksize = 0;
         lexer->istackbase = 0;
         lexer->styles = null;
+
+        /* #538536 Extra endtags not detected */
+        lexer->seenEndBody = 0;
+        lexer->seenEndHtml = 0;
     }
 
 
