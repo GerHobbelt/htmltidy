@@ -424,7 +424,12 @@ extern "C" {
 #define fstat _fstat
 #define utimbuf _utimbuf /* Windows seems to want utimbuf */
 #define stat _stat
+
+#ifndef __WATCOMC__
 #define fileno _fileno
+#define setmode _setmode
+#endif
+
 #define access _access
 #define strcasecmp _stricmp
 #define utime _utime
