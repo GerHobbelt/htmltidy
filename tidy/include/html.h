@@ -719,6 +719,7 @@ void tidy_out(FILE *fp, const char* msg, ...);
 #define WINDOWS_CHARS           1
 #define NON_ASCII               2
 #define FOUND_UTF16             4
+#define INVALID_URI             8
 
 void HelpText(FILE *errout, char *prog);
 void GeneralInfo(FILE *errout);
