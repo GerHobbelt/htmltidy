@@ -482,7 +482,7 @@ Bool FixDocType( TidyDocImpl* doc );
 /* add encoding attribute if not using ASCII or UTF-8 output */
 Bool FixXmlDecl( TidyDocImpl* doc );
 
-Node* InferredTag( TidyDocImpl* doc, ctmbstr name );
+Node* InferredTag(TidyDocImpl* doc, TidyTagId id);
 
 Bool ExpectsContent(Node *node);
 
