@@ -55,7 +55,7 @@ ParseProperty ParseBOM;     /* specific to the output-bom option - Bool and 'aut
 
 uint spaces =  2;           /* default indentation */
 uint wraplen = 68;          /* default wrap margin */
-int tabsize = 4;
+int tabsize = 8;
 
 int CharEncoding = ASCII;
 int inCharEncoding = LATIN1;
