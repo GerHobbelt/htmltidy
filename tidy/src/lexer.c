@@ -2489,7 +2489,7 @@ Node* GetToken( TidyDocImpl* doc, uint mode )
                 lexer->waswhite = no;
 
                 /* make a note of the version named by the 1st doctype */
-                if (lexer->doctype == VERS_UNKNOWN && lexer->token)
+                if (lexer->doctype == VERS_UNKNOWN && lexer->token && !cfgBool(doc, TidyXmlTags))
                     lexer->doctype = FindGivenVersion(doc, lexer->token);
                 return lexer->token;
 
