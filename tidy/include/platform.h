@@ -30,6 +30,16 @@
 
 /* #define SUPPORT_GETPWNAM */
 
+/* Enable/disable support for Big5 and Shift_JIS character encodings */
+#ifndef SUPPORT_ASIAN_ENCODINGS
+#define SUPPORT_ASIAN_ENCODINGS 0
+#endif
+
+/* Enable/disable support for UTF-16 character encodings */
+#ifndef SUPPORT_UTF16_ENCODINGS
+#define SUPPORT_UTF16_ENCODINGS 0
+#endif
+
 /* Convenience defines for Mac platform */
 
 #if defined(macintosh)
