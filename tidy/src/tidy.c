@@ -1646,8 +1646,19 @@ int main(int argc, char **argv)
             }
             else if (wstrcasecmp(arg, "help-config") == 0)
             {
-                PrintConfigOptions(stdout);
-                break;
+                PrintConfigOptions(stdout, no);
+                /* break; */ /* should this be "return 1" like "-help"? */
+                --argc;
+                ++argv;
+                continue;
+            }
+            else if (wstrcasecmp(arg, "show-config") == 0)
+            {
+                AdjustConfig(); /* ensure config is self-consistent */
+                PrintConfigOptions(errout, yes);
+                --argc;
+                ++argv;
+                continue;
             }
             else if (wstrcasecmp(arg, "config") == 0)
             {
