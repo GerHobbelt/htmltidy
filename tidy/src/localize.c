@@ -332,6 +332,10 @@ void ReportAttrError(Lexer *lexer, Node *node, AttVal *av, uint code)
             ReportTag(lexer, node);
             tidy_out(lexer->errout, " Anchor \"%s\" already defined", av->value);
         }
+        else if (code == ENTITY_IN_ID)
+        {
+            tidy_out(lexer->errout, "Warning: No entities allowed in id attribute, discarding \"&\"");
+        }
 
         tidy_out(lexer->errout, "\n");
     }
