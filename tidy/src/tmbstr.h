@@ -74,6 +74,9 @@ tmbstr tmbstrtoupper(tmbstr s);
 
 Bool tmbsamefile( ctmbstr filename1, ctmbstr filename2 );
 
+int tmbvsnprintf(tmbstr buffer, size_t count, ctmbstr format, va_list args);
+int tmbsnprintf(tmbstr buffer, size_t count, ctmbstr format, ...);
+
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif

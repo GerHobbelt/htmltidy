@@ -1475,7 +1475,7 @@ static int  WriteOptionString( const TidyOptionImpl* option,
 static int  WriteOptionInt( const TidyOptionImpl* option, uint ival, StreamOut* out )
 {
   tmbchar sval[ 32 ] = {0};
-  sprintf( sval, "%d", ival );
+  tmbsnprintf(sval, sizeof(sval), "%d", ival );
   return WriteOptionString( option, sval, out );
 }
 

@@ -259,3 +259,32 @@ Bool tmbsamefile( ctmbstr filename1, ctmbstr filename2 )
     return ( tmbstrcasecmp( filename1, filename2 ) == 0 );
 #endif
 }
+
+int tmbvsnprintf(tmbstr buffer, size_t count, ctmbstr format, va_list args)
+{
+    int retval;
+#if HAS_VSNPRINTF
+    retval = vsnprintf(buffer, count - 1, format, args);
+    /* todo: conditionally null-terminate the string? */
+    buffer[count - 1] = 0;
+#else
+    retval = vsprintf(buffer, format, args);
+#endif /* HAS_VSNPRINTF */
+    return retval;
+}
+
+int tmbsnprintf(tmbstr buffer, size_t count, ctmbstr format, ...)
+{
+    int retval;
+    va_list args;
+    va_start(args, format);
+#if HAS_VSNPRINTF
+    retval = vsnprintf(buffer, count - 1, format, args);
+    /* todo: conditionally null-terminate the string? */
+    buffer[count - 1] = 0;
+#else
+    retval = vsprintf(buffer, format, args);
+#endif /* HAS_VSNPRINTF */
+    va_end(args);
+    return retval;
+}
