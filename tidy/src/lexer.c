@@ -578,7 +578,8 @@ Lexer* NewLexer()
 
 Bool EndOfInput( TidyDocImpl* doc )
 {
-    return doc->docIn->source.eof( doc->docIn->source.sourceData );
+    assert( doc->docIn != null );
+    return ( !doc->docIn->pushed && IsEOF(doc->docIn) );
 }
 
 void FreeLexer( TidyDocImpl* doc )
