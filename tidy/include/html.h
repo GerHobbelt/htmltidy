@@ -844,6 +844,7 @@ extern Bool LowerLiterals;
 extern Bool HideComments;
 extern Bool IndentCdata;
 extern Bool ForceOutput;
+extern uint ShowErrors;
 
 /* Parser methods for tags */
 

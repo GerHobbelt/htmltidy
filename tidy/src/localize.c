@@ -201,8 +201,8 @@ void ReportAttrError(Lexer *lexer, Node *node, AttVal *av, uint code)
 
     lexer->warnings++;
 
-    /* keep quiet after 6 errors */
-    if (lexer->errors > 6)
+    /* keep quiet after <ShowErrors> errors */
+    if (lexer->errors > ShowErrors)
         return;
 
     if (ShowWarnings)
