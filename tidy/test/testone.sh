@@ -59,6 +59,12 @@ then
   CFGFILE=./input/cfg_default.txt
 fi
 
+# Make sure output directory exists.
+if [ ! -d ./tmp ]
+then
+  mkdir ./tmp
+fi
+
 $TIDY -f $MSGFILE -config $CFGFILE "$@" --tidy-mark no -o $TIDYFILE $INFILE
 STATUS=$?
 
