@@ -2184,7 +2184,7 @@ void VerifyHTTPEquiv( TidyDocImpl* pDoc, Node *pHead )
                                     case RAW:       enc = "raw";          break;
                                     case ASCII:     enc = "us-ascii";     break;
                                     case LATIN1:    enc = "iso-8859-1";   break;
-                                    case UTF8:      enc = "UTF8";         break;
+                                    case UTF8:      enc = "UTF-8";        break;
                                     case ISO2022:   enc = "iso-2022";     break;
                                     case MACROMAN:  enc = "mac";          break;
                                     case WIN1252:   enc = "windows-1252"; break;
