@@ -122,6 +122,12 @@
 #define PLATFORM_NAME "FreeMiNT"
 #endif
 
+#elif defined(__bsdi__)
+#define BSD_BASED_OS
+#ifndef PLATFORM_NAME
+#define PLATFORM_NAME "BSD/OS"
+#endif
+
 #endif
 
 /* Convenience defines for Windows platforms */
