@@ -2076,7 +2076,7 @@ void PPrintXMLTree(Out *fout, uint mode, uint indent,
 
         PPrintTag(lexer, fout, mode, indent, node);
 
-        if (!mixed)
+        if ( !mixed && node->content )
             PFlushLine(fout, indent);
  
         for (content = node->content;
@@ -2084,7 +2084,7 @@ void PPrintXMLTree(Out *fout, uint mode, uint indent,
                 content = content->next)
             PPrintXMLTree(fout, mode, cindent, lexer, content);
 
-        if (!mixed)
+        if ( !mixed && node->content )
             PCondFlushLine(fout, cindent);
 
         PPrintEndTag(fout, mode, indent, node);
