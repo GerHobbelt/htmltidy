@@ -606,7 +606,16 @@ ctmbstr ExpandTilde( ctmbstr filename )
 Bool tidyFileExists( ctmbstr filename )
 {
   ctmbstr fname = (tmbstr) ExpandTilde( filename );
+#ifndef NO_ACCESS_SUPPORT
   Bool exists = ( access(fname, 0) == 0 );
+#else
+  Bool exists;
+  /* at present */
+  FILE* fin = fopen(fname, "r");
+  if (fin != NULL)
+      fclose(fin);
+  exists = ( fin != NULL );
+#endif
   if ( fname != filename )
       MemFree( (tmbstr) fname );
   return exists;
