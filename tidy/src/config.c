@@ -108,7 +108,7 @@ Bool LowerLiterals = yes;   /* folds known attribute values to lower case */
 Bool HideComments = no;     /* hides all (real) comments in output */
 Bool IndentCdata = no;      /* indent <!CDATA[ ... ]]> section */
 Bool ForceOutput = no;      /* output document even if errors were found */
-uint ShowErrors = 6;         /* number of errors to put out */
+uint ShowErrors = 6;        /* number of errors to put out */
 
 typedef struct _lex PLex;
 
@@ -891,16 +891,17 @@ void ParseDocType(Location location, char *option)
 
     buf[i] = '\0';
 
+    /* #443663 - fix by Terry Teague 23 Jul 01 */
+    if (wstrcasecmp(buf, "auto") == 0)
     doctype_mode = doctype_auto;
-
-    if (wstrcasecmp(buf, "omit") == 0)
+    else if (wstrcasecmp(buf, "omit") == 0)
         doctype_mode = doctype_omit;
     else if (wstrcasecmp(buf, "strict") == 0)
         doctype_mode = doctype_strict;
     else if (wstrcasecmp(buf, "loose") == 0 ||
              wstrcasecmp(buf, "transitional") == 0)
         doctype_mode = doctype_loose;
-    else if (i == 0)
+    else /* if (i == 0) */
         ReportBadArgument(option);
 
     NextProperty();
