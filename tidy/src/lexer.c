@@ -1496,6 +1496,7 @@ Node *GetCDATA(Lexer *lexer, Node *container)
                 wstrncasecmp(lexer->lexbuf+start, container->element, len) == 0)
             {
                 lexer->txtend = start - 2;
+                lexer->lexsize = start - 2; /* #433857 - fix by Huajun Zeng */
                 break;
             }
 
