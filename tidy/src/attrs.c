@@ -656,7 +656,7 @@ void FreeAnchors( TidyDocImpl* doc )
 void InitAttrs( TidyDocImpl* doc )
 {
     ClearMemory( &doc->attribs, sizeof(TidyAttribImpl) );
-
+#if 0
 #ifdef _DEBUG
     {
       ctmbstr prev = NULL;
@@ -670,6 +670,7 @@ void InitAttrs( TidyDocImpl* doc )
         prev = dict->name;
       }
     }
+#endif
 #endif
 }
 
