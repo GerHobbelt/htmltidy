@@ -26,9 +26,9 @@
   It enables tidy to find config files named ~/.tidyrc and
   ~your/.tidyrc etc if the HTML_TIDY environment
   variable is not set. Contributed by Todd Lewis.
-
-#define SUPPORT_GETPWNAM
 */
+
+/* #define SUPPORT_GETPWNAM */
 
 /* Convenience defines for Mac platform */
 
