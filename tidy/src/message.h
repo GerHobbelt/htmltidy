@@ -66,8 +66,8 @@ void ReportEncodingError(TidyDocImpl* doc, uint code, uint c, Bool discarded);
 void ReportEntityError( TidyDocImpl* doc, uint code, ctmbstr entity, int c );
 void ReportAttrError( TidyDocImpl* doc, Node* node, AttVal* av, uint code );
 void ReportMissingAttr( TidyDocImpl* doc, Node* node, ctmbstr name );
-void ReportWarning( TidyDocImpl* doc, Node* element, Node* node, uint code );
-void ReportError( TidyDocImpl* doc, Node* element, Node* node, uint code );
+void ReportError(TidyDocImpl* doc, Node* element, Node* node, uint code);
+void ReportFatal(TidyDocImpl* doc, Node* element, Node* node, uint code);
 
 /* error codes for entities/numeric character references */
 

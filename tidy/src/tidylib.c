@@ -926,7 +926,7 @@ int         tidyDocSaveStdout( TidyDocImpl* doc )
          out->encoding == UTF16LE ||
          out->encoding == UTF16BE )
     {
-      ReportWarning( doc, NULL, doc->root, ENCODING_IO_CONFLICT );
+      ReportError(doc, NULL, doc->root, ENCODING_IO_CONFLICT );
     }
 #endif
 
