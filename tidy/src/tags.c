@@ -233,7 +233,8 @@ int HTMLVersion(Lexer *lexer)
     if (versions & VERS_HTML20)
         return VERS_HTML20;
 
-    if (versions & VERS_HTML32)
+    if (!(XmlOut|XmlTags|lexer->isvoyager) &&
+        versions & VERS_HTML32)
         return VERS_HTML32;
 
     if (versions & VERS_HTML40_STRICT)
