@@ -329,7 +329,7 @@ static void TrimInitialSpace(Lexer *lexer, Node *element, Node *text)
 {
     Node *prev, *node;
 
-    if (text->type == TextNode && lexer->lexbuf[text->start] == ' ')
+    if (text->type == TextNode && lexer->lexbuf[text->start] == ' ' && text->start < text->end)	/* #427677 - fix by Gary Peskin 31 Oct 00 */
     {
         if ((element->tag->model & CM_INLINE) &&
             !(element->tag->model & CM_FIELD) &&
