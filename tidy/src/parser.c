@@ -2976,8 +2976,10 @@ void ParseScript(TidyDocImpl* doc, Node *script, uint mode)
 
     if (!(node && node->type == EndTag && node->tag->id == script->tag->id))
     {
-        ReportError(doc, script, node, MISSING_ENDTAG_BEFORE);
-        UngetToken(doc);
+        ReportError(doc, script, node, MISSING_ENDTAG_FOR);
+
+        if (node)
+            UngetToken(doc);
     }
     else
     {
