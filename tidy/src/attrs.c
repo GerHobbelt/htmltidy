@@ -271,6 +271,7 @@ static struct _attrlist
     {"wrap",             VERS_NETSCAPE,          TEXT},     /* textarea */
     {"xml:lang",         VERS_XML,               TEXT},     /* XML language */
     {"xmlns",            VERS_ALL,               TEXT},     /* name space */
+    {"rbspan",           VERS_XHTML11,           NUMBER},   /* ruby markup */
    
    /* this must be the final entry */
     {null,               0,                      0}
