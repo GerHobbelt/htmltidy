@@ -136,7 +136,9 @@ void          tidyDocRelease( TidyDocImpl* doc )
         FreeLexer( doc );
         FreeNode(doc, &doc->root);
         ClearMemory(&doc->root, sizeof(Node));
-        FreeNode( doc, doc->givenDoctype );
+
+        if (doc->givenDoctype)
+            MemFree(doc->givenDoctype);
 
         FreeConfig( doc );
         FreeAttrTable( doc );
@@ -1094,7 +1096,9 @@ int         tidyDocParseStream( TidyDocImpl* doc, StreamIn* in )
     FreeNode(doc, &doc->root);
     ClearMemory(&doc->root, sizeof(Node));
 
-    FreeNode( doc, doc->givenDoctype );
+    if (doc->givenDoctype)
+        MemFree(doc->givenDoctype);
+
     doc->givenDoctype = NULL;
 
     doc->lexer = NewLexer( doc );
@@ -1174,6 +1178,7 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
     Bool xhtmlOut = cfgBool( doc, TidyXhtmlOut );
     Bool xmlDecl  = cfgBool( doc, TidyXmlDecl );
     Bool tidyMark = cfgBool( doc, TidyMark );
+    Node* node;
 
     /* simplifies <b><b> ... </b> ...</b> etc. */
     NestedEmphasis( doc, &doc->root );
@@ -1219,7 +1224,13 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
         FatalError( integrity );
 
     /* remember given doctype for reporting */
-    doc->givenDoctype = CloneNodeEx( doc, FindDocType(doc) );
+    node = FindDocType(doc);
+    if (node)
+    {
+        AttVal* fpi = GetAttrByName(node, "PUBLIC");
+        if (AttrHasValue(fpi))
+            doc->givenDoctype = tmbstrdup(fpi->value);
+    }
 
     if ( doc->root.content )
     {

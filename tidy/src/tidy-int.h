@@ -82,7 +82,7 @@ struct _TidyDocImpl
 #if PRESERVE_FILE_TIMES
     struct utimbuf      filetimes;
 #endif
-    Node*               givenDoctype;
+    tmbstr              givenDoctype;
 };
 
 

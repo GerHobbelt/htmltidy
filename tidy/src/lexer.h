@@ -412,10 +412,6 @@ Node* NewNode( Lexer* lexer );
 /* used to clone heading nodes when split by an <HR> */
 Node *CloneNode( TidyDocImpl* doc, Node *element );
 
-/* clones the given node using source node attributes,
-** no lexer attributes */
-Node *CloneNodeEx( TidyDocImpl* doc, Node *element );
-
 /* free node's attributes */
 void FreeAttrs( TidyDocImpl* doc, Node *node );
 
