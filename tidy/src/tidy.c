@@ -6,6 +6,12 @@
   Recherche en Informatique et en Automatique, Keio University).
   All Rights Reserved.
 
+  CVS Info :
+
+    $Author$ 
+    $Date$ 
+    $Revision$ 
+
   Contributing Author(s):
 
      Dave Raggett <dsr@w3.org>
@@ -362,6 +368,20 @@ int ReadChar(StreamIn *in)
             in->tabs = tabsize - ((in->curcol - 1) % tabsize) - 1;
             in->curcol++;
             c = ' ';
+            break;
+        }
+
+        /* #427663 - map '\r' to '\n' - Andy Quick 11 Aug 00 */
+        if (c == '\r')
+        {
+            c = ReadCharFromStream(in);
+            if (c != '\n')
+            {
+                UngetChar(c, in);
+                c = '\n';
+            }
+            in->curcol = 1;
+            in->curline++;
             break;
         }
 
