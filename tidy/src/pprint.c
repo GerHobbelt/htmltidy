@@ -1271,7 +1271,6 @@ static void PPrintAttrs( TidyDocImpl* doc, uint indent, Node *node )
 static Bool AfterSpaceImp(Lexer *lexer, Node *node, Bool isEmpty)
 {
     Node *prev;
-    uint c;
 
     if ( !nodeCMIsInline(node) )
         return yes;
@@ -1281,9 +1280,15 @@ static Bool AfterSpaceImp(Lexer *lexer, Node *node, Bool isEmpty)
     {
         if (prev->type == TextNode && prev->end > prev->start)
         {
-            c = lexer->lexbuf[ prev->end - 1 ];
+            uint c, i;
+            for (i = prev->start; i < prev->end; ++i)
+            {
+                c = (byte) lexer->lexbuf[i];
+                if ( c > 0x7F )
+                    i += GetUTF8( lexer->lexbuf + i, &c );
+            }
 
-            if ( c == 160 || c == ' ' || c == '\n' )
+            if ( c == ' ' || c == '\n' )
                 return yes;
         }
         else if (nodeIsBR(prev))
