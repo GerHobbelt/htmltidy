@@ -177,6 +177,10 @@ void ReportEntityError(Lexer *lexer, uint code, char *entity, int c)
         {
             tidy_out(lexer->errout, "Warning: unescaped & which should be written as &amp;");
         }
+        else if (code == APOS_UNDEFINED)
+        {
+            tidy_out(lexer->errout, "Warning: Named Entity &apos; only defined in XML/XHTML");
+        }
 
         tidy_out(lexer->errout, "\n");
     }

@@ -635,6 +635,7 @@ void tidy_out(FILE *fp, const char* msg, ...);
 #define MISSING_SEMICOLON       1
 #define UNKNOWN_ENTITY          2
 #define UNESCAPED_AMPERSAND     3
+#define APOS_UNDEFINED          4
 
 /* error codes for element messages */
 

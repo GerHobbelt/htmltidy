@@ -388,6 +388,11 @@ static void ParseEntity(Lexer *lexer, int mode)
     /* make sure entity is null terminated */
     lexer->lexbuf[lexer->lexsize] = '\0';
 
+    if ((wstrcmp(lexer->lexbuf+start, "&apos") == 0)
+        && !XmlTags
+        && !lexer->isvoyager)
+        ReportEntityError(lexer, APOS_UNDEFINED, lexer->lexbuf+start, 39);
+
     ch = EntityCode(lexer->lexbuf+start);
 
     /* deal with unrecognized entities */
