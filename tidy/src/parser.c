@@ -2789,6 +2789,7 @@ void ParseHead(Lexer *lexer, Node *head, uint mode)
 
         if (node->type == TextNode)
         {
+            ReportWarning(lexer, head, node, TAG_NOT_ALLOWED_IN);
             UngetToken(lexer);
             break;
         }
@@ -2818,6 +2819,7 @@ void ParseHead(Lexer *lexer, Node *head, uint mode)
         */
         if (!(node->tag->model & CM_HEAD))
         {
+            ReportWarning(lexer, head, node, TAG_NOT_ALLOWED_IN);
             UngetToken(lexer);
             break;
         }
