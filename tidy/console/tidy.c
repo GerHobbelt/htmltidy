@@ -357,7 +357,8 @@ void optionvalues( TidyDoc tdoc, ctmbstr prog )
             }
         }
 
-        if ( *name || *type || *vals )
+        /* fix for http://tidy.sf.net/bug/873921 */
+        if ( *name || *type || (vals && *vals) )
         {
             if ( ! vals )
                 vals = "";
