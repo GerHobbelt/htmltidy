@@ -1051,7 +1051,7 @@ int         tidyDocParseStream( TidyDocImpl* doc, StreamIn* in )
     doc->givenDoctype = NULL;
 
     doc->lexer = NewLexer( doc );
-//    doc->lexer->root = &doc->root;
+    /* doc->lexer->root = &doc->root; */
     doc->root.line = doc->lexer->lines;
     doc->root.column = doc->lexer->columns;
     doc->inputHadBOM = no;
@@ -1350,6 +1350,23 @@ TidyNodeType tidyNodeGetType( TidyNode tnod )
   if ( nimp )
     ntyp = (TidyNodeType) nimp->type;
   return ntyp;
+}
+
+uint tidyNodeLine( TidyNode tnod )
+{
+  Node* nimp = tidyNodeToImpl( tnod );
+  uint line = 0;
+  if ( nimp )
+    line = nimp->line;
+  return line;
+}
+uint tidyNodeColumn( TidyNode tnod )
+{
+  Node* nimp = tidyNodeToImpl( tnod );
+  uint col = 0;
+  if ( nimp )
+    col = nimp->column;
+  return col;
 }
 
 ctmbstr        tidyNodeGetName( TidyNode tnod )

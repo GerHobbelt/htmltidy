@@ -721,6 +721,9 @@ TIDY_EXPORT Bool tidyNodeGetText( TidyDoc tdoc, TidyNode tnod, TidyBuffer* buf )
 
 TIDY_EXPORT TidyTagId tidyNodeGetId( TidyNode tnod );
 
+TIDY_EXPORT uint tidyNodeLine( TidyNode tnod );
+TIDY_EXPORT uint tidyNodeColumn( TidyNode tnod );
+
 TIDY_EXPORT Bool tidyNodeIsHTML( TidyNode tnod );
 TIDY_EXPORT Bool tidyNodeIsHEAD( TidyNode tnod );
 TIDY_EXPORT Bool tidyNodeIsTITLE( TidyNode tnod );
