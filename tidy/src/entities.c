@@ -20,8 +20,6 @@
 #include "tidy-int.h"
 #include "tmbstr.h"
 
-#define ENTITY_HASHSIZE 731
-
 struct _entity;
 typedef struct _entity entity;
 
@@ -321,14 +319,6 @@ static const entity* lookup( ctmbstr s )
         if ( ch == *np->name && tmbstrcmp(s, np->name) == 0 )
             return np;
     return NULL;
-}
-
-void InitEntities(void)
-{
-}
-
-void FreeEntities(void)
-{
 }
 
 /* entity starting with "&" returns zero on error */

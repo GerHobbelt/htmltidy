@@ -370,11 +370,14 @@ static void Style2Rule( TidyDocImpl* doc, Node *node)
             int len = tmbstrlen(classattr->value) +
                       tmbstrlen(classname) + 2;
             tmbstr s = (tmbstr) MemAlloc( len );
-            /* todo: tmbstrcpy() segfaults if class="" */
-            tmbstrcpy(s, classattr->value);
-            tmbstrcat(s, " ");
+            if (classattr->value)
+            {
+                tmbstrcpy(s, classattr->value);
+                tmbstrcat(s, " ");
+            }
             tmbstrcat(s, classname);
-            MemFree(classattr->value);
+            if (classattr->value)
+                MemFree(classattr->value);
             classattr->value = s;
             RemoveAttribute( node, styleattr);
         }

@@ -2204,8 +2204,7 @@ void PPrintXMLTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
     if (node == NULL)
         return;
 
-    if ( node->type == TextNode  ||
-         (node->type == CDATATag && cfgBool(doc, TidyEscapeCdata)) )
+    if ( node->type == TextNode)
     {
         PPrintText( doc, mode, indent, node );
     }

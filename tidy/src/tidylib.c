@@ -105,7 +105,6 @@ TidyDocImpl* tidyDocCreate(void)
     ClearMemory( doc, sizeof(*doc) );
 
     InitMap();
-    InitEntities();
     InitTags( doc );
     InitAttrs( doc );
     InitConfig( doc );
@@ -141,7 +140,6 @@ void          tidyDocRelease( TidyDocImpl* doc )
         FreeConfig( doc );
         FreeAttrTable( doc );
         FreeTags( doc );
-        FreeEntities();
         MemFree( doc );
     }
 }
