@@ -1865,7 +1865,9 @@ void ParseRow(Lexer *lexer, Node *row, uint mode)
             if ((node->tag == tag_form) ||
                 (node->tag && node->tag->model & (CM_BLOCK|CM_INLINE)))
             {
-                BadForm(lexer);
+                if (node->tag == tag_form)
+                    BadForm(lexer);
+
                 ReportWarning(lexer, row, node, DISCARDING_UNEXPECTED);
                 FreeNode(node);
                 continue;
@@ -2069,7 +2071,9 @@ void ParseRowGroup(Lexer *lexer, Node *rowgroup, uint mode)
             if ((node->tag == tag_form) ||
                 (node->tag && node->tag->model & (CM_BLOCK|CM_INLINE)))
             {
-                BadForm(lexer);
+                if (node->tag == tag_form)
+                    BadForm(lexer);
+
                 ReportWarning(lexer, rowgroup, node, DISCARDING_UNEXPECTED);
                 FreeNode(node);
                 continue;
