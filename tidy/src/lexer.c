@@ -938,6 +938,9 @@ Node *CloneNodeEx(Lexer *lexer, Node *element)
 {
     Node *node;
 
+    if (!element)
+        return null;
+
     node = NewNode();
     node->parent     = element->parent;
     node->start      = element->start;
