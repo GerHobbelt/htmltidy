@@ -2819,7 +2819,9 @@ void ParseHead(Lexer *lexer, Node *head, uint mode)
         */
         if (!(node->tag->model & CM_HEAD))
         {
-            ReportWarning(lexer, head, node, TAG_NOT_ALLOWED_IN);
+            /* #545067 Implicit closing of head broken - warn only for XHTML input */
+            if (lexer->isvoyager)
+                ReportWarning(lexer, head, node, TAG_NOT_ALLOWED_IN);
             UngetToken(lexer);
             break;
         }
