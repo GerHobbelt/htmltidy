@@ -1692,7 +1692,7 @@ void PPrintScriptStyle( Out* fout, uint mode, uint indent,
             /* Add spaces to last text node to align w/ indent */
             if ( contentIndent > 0 && linelen < (uint)contentIndent )
               linelen = contentIndent;
-            for ( ix=0; ix < (indent-contentIndent); ++ix )
+            for (ix=0; contentIndent<indent && ix < indent-contentIndent; ++ix)
               AddC( ' ', linelen++ );
 
             linelen = AddAsciiString( commentStart, linelen );
