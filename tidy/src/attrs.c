@@ -1443,7 +1443,7 @@ void CheckLINK(Lexer *lexer, Node *node)
 /* reports missing action attribute */
 void CheckFORM(Lexer *lexer, Node *node)
 {
-    AttVal *action = GetAttrByName(node, "rel");
+    AttVal *action = GetAttrByName(node, "action");
 
     CheckUniqueAttributes(lexer, node);
     CheckAttributes(lexer, node);
