@@ -1927,14 +1927,26 @@ Node* GetToken( TidyDocImpl* doc, uint mode )
 
     /* at start of block elements, unclosed inline
        elements are inserted into the token stream */
-     
+
     if (lexer->insert || lexer->inode)
-        return InsertedToken( doc );
+    {
+        if (lexer->pushed)
+        {
+            lexer->pushed = no;
+            FreeNode( doc, lexer->token );
+        }
+        return lexer->token = InsertedToken( doc );
+    }
 
     if (mode == CdataContent)
     {
         assert( lexer->parent != NULL );
-        return GetCDATA(doc, lexer->parent);
+        if (lexer->pushed)
+        {
+            lexer->pushed = no;
+            FreeNode( doc, lexer->token );
+        }
+        return lexer->token = GetCDATA(doc, lexer->parent);
     }
 
     lexer->lines = doc->docIn->curline;
