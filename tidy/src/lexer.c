@@ -1454,7 +1454,7 @@ Node *GetToken(Lexer *lexer, uint mode)
 
     while ((c = ReadChar(lexer->in)) != EndOfStream)
     {
-        if (lexer->insertspace && mode != IgnoreWhitespace)
+        if (lexer->insertspace && !(mode & IgnoreWhitespace))
         {
             AddCharToLexer(lexer, ' ');
             lexer->waswhite = yes;
