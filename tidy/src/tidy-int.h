@@ -70,7 +70,7 @@ struct _TidyDocImpl
     uint                badForm;     /* for badly placed form tags */
 
     /* Miscellaneous */
-    uint                appData;
+    ulong               appData;
     uint                nClassId;
     Bool                inputHadBOM;
 
