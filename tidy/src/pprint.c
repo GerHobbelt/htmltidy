@@ -482,7 +482,7 @@ static void PPrintChar(uint c, uint mode)
             {
                 AddC('&', linelen++);
 
-                if (NumEntities || XmlOut) /* #433604 - fix by Bjšrn Hšhrmann 15 Jun 01 */
+                if (NumEntities || XmlTags)
                 {
                     AddC('#', linelen++);
                     AddC('1', linelen++);
