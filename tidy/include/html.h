@@ -807,6 +807,7 @@ extern Bool LiteralAttribs;
 extern Bool BodyOnly; /* #434940 - output BODY content only */
 extern Bool FixUri;
 extern Bool LowerLiterals;
+extern Bool HideComments;
 
 /* Parser methods for tags */
 

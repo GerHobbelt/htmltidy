@@ -930,6 +930,9 @@ static void PPrintEndTag(Out *fout, uint mode, uint indent, Node *node)
 static void PPrintComment(Out *fout, uint indent,
                    Lexer *lexer, Node *node)
 {
+    if (HideComments)
+        return;
+
     if (indent + linelen < wraplen)
         wraphere = linelen;
 
