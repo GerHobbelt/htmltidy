@@ -3,7 +3,7 @@
 
 /* message.h -- general message writing routines
 
-  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
   
   CVS Info :
@@ -151,7 +151,7 @@ void ReportFatal(TidyDocImpl* doc, Node* element, Node* node, uint code);
 #define UNEXPECTED_ENDTAG_IN         47
 #define REPLACING_ELEMENT            83
 #define REPLACING_UNEX_ELEMENT       84
-#define COERCE_TO_ENDTAG_WARN        85 /* last */
+#define COERCE_TO_ENDTAG_WARN        85
 
 /* error codes used for attribute messages */
 
@@ -188,6 +188,7 @@ void ReportFatal(TidyDocImpl* doc, Node* element, Node* node, uint code);
 
 #define INVALID_XML_ID               74
 #define UNEXPECTED_END_OF_FILE_ATTR  75
+#define MISSING_ATTRIBUTE            86 /* last */
 
 
 /* character encoding errors */
