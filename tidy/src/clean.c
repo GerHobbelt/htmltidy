@@ -2023,7 +2023,7 @@ void CleanWord2000( TidyDocImpl* doc, Node *node)
             else if (AttrValueIs(attr, "Code"))
             {
                 Node *br = NewLineNode(lexer);
-                NormalizeSpaces(lexer, node);
+                NormalizeSpaces(lexer, node->content);
 
                 if ( !list || TagId(list) != TidyTag_PRE )
                 {
@@ -2434,7 +2434,7 @@ void ReplacePreformattedSpaces(TidyDocImpl* doc, Node* node)
 
         if (node->tag && node->tag->parser == ParsePre)
         {
-            NormalizeSpaces(doc->lexer, node);
+            NormalizeSpaces(doc->lexer, node->content);
             node = next;
             continue;
         }
