@@ -1243,6 +1243,10 @@ void CheckAlign( TidyDocImpl* doc, Node *node, AttVal *attval)
 
     CheckLowerCaseAttrValue( doc, node, attval);
 
+    /* currently CheckCaption(...) takes care of the remaining cases */
+    if (nodeIsCAPTION(node))
+        return;
+
     if (!(AttrValueIs(attval, "left")   ||
           AttrValueIs(attval, "right")  ||
           AttrValueIs(attval, "center") ||
