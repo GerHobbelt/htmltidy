@@ -2373,13 +2373,14 @@ static char  *ParseAttribute(Lexer *lexer, Bool *isempty,
         if (!XmlTags && (map & uppercase) != 0)
             c += (uint)('a' - 'A');
 
-        ++len;
+        /* ++len; */	/* #427672 - handle attribute names with multibyte chars - fix by Randy Waki - 10 Aug 00 */
         AddCharToLexer(lexer, c);
 
         c = ReadChar(lexer->in);
     }
 
-    attr = (len > 0 ? wstrndup(lexer->lexbuf+start, len) : null);
+    len = lexer->lexsize - start;	/* #427672 - handle attribute names with multibyte chars - fix by Randy Waki - 10 Aug 00 */
+	attr = (len > 0 ? wstrndup(lexer->lexbuf+start, len) : null);
     lexer->lexsize = start;
 
     return attr;
