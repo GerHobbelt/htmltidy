@@ -1351,9 +1351,9 @@ static void PPrintXmlDecl( TidyDocImpl* doc, uint indent, Node *node )
 
     /* Force order of XML declaration attributes */
     /* PPrintAttrs( doc, indent, node ); */
-    if ( att = AttrGetById(node, TidyAttr_VERSION) )
+    if ( att = AttrGetById(node, TidyAttr_version) )
       PPrintAttribute( doc, indent, node, att );
-    if ( att = AttrGetById(node, TidyAttr_ENCODING) )
+    if ( att = AttrGetById(node, TidyAttr_encoding) )
       PPrintAttribute( doc, indent, node, att );
     if ( att = GetAttrByName(node, "standalone") )
       PPrintAttribute( doc, indent, node, att );

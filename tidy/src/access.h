@@ -57,7 +57,7 @@ typedef struct AreaLinks
 } AreaLinks;
 */
 
-#define TEXTBUF_SIZE	128
+#define TEXTBUF_SIZE    128
 
 struct _TidyAccessImpl;
 typedef struct _TidyAccessImpl TidyAccessImpl;

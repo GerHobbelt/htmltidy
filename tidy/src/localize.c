@@ -816,7 +816,7 @@ void ReportError( TidyDocImpl* doc, Node *element, Node *node, uint code)
 #if defined(__arm)
         if (!element)
 #else
-	    else
+        else
 #endif
             messageNode( doc, TidyError, node, "unexpected </%s>",
                          node->element );
