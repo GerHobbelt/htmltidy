@@ -2319,7 +2319,7 @@ Node *GetToken(Lexer *lexer, uint mode)
                     av->next = attributes;
 
                     attributes = av;
-                    continue;
+                    /* continue; */
                 }
 
                 /* now look for '>' */
