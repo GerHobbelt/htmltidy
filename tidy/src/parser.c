@@ -471,7 +471,7 @@ void FixId(Lexer *lexer, Node *node)
         if (id)
         {
             if (wstrcmp(id->value, name->value) != 0)
-                ReportAttrError(lexer, node, "name", ID_NAME_MISMATCH);
+                ReportAttrError(lexer, node, name, ID_NAME_MISMATCH);
         }
         else if (XmlOut)
             AddAttribute(node, "id", name->value);
