@@ -670,6 +670,8 @@ void tidy_out(FILE *fp, const char* msg, ...);
 #define ILLEGAL_URI_REFERENCE   16
 #define ESCAPED_ILLEGAL_URI     17
 
+#define NEWLINE_IN_URI          18
+
 
 /* page transition effects */
 

@@ -2807,8 +2807,12 @@ static char *ParseValue(Lexer *lexer, char *name,
             {
                 /* discard line breaks in quoted URLs */ 
                 /* #438650 - fix by Randy Waki */
-                if (c == '\n' && IsUrl(name)) 
+                if (c == '\n' && IsUrl(name))
+                {
+                    /* warn that we discard this newline */
+                    ReportAttrError(lexer, lexer->token, null, NEWLINE_IN_URI);
                     continue;
+                }
                 
                 c = ' ';
 

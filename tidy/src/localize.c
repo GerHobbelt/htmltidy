@@ -316,6 +316,12 @@ void ReportAttrError(Lexer *lexer, Node *node, AttVal *av, uint code)
             ReportTag(lexer, node);
             tidy_out(lexer->errout, " escaping malformed URI reference");
         }
+        else if (code == NEWLINE_IN_URI)
+        {
+            tidy_out(lexer->errout, "Warning: ");
+            ReportTag(lexer, node);
+            tidy_out(lexer->errout, " discarding newline in URI reference");
+        }
 
         tidy_out(lexer->errout, "\n");
     }
