@@ -3610,7 +3610,14 @@ static Node *ParseDocTypeDecl(TidyDocImpl* doc)
             }
             else if (c == '>')
             {
+                AttVal* si;
+
                 node->end = --(lexer->lexsize);
+
+                si = GetAttrByName(node, "SYSTEM");
+                if (si)
+                    CheckUrl(doc, node, si);
+
                 return node;
             }
             else
