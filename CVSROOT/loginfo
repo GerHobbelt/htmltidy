@@ -25,6 +25,4 @@
 # or
 #DEFAULT (echo ""; id; echo %{sVv}; date; cat) >> $CVSROOT/CVSROOT/commitlog
 
-# DEFAULT $CVSROOT/CVSROOT/syncmail %{sVv} tidy-cvs@lists.sourceforge.net
-
-DEFAULT /bin/chmod +x /cvsroot/tidy/CVSROOT/syncmail
+DEFAULT $CVSROOT/CVSROOT/syncmail %{sVv} tidy-cvs@lists.sourceforge.net
