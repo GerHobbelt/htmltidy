@@ -353,7 +353,7 @@
 #if defined(BE_OS) || defined(SOLARIS_OS) || defined(BSD_BASED_OS) || defined(MAC_OS_X) || defined(OSF_OS)
 #include <sys/types.h>
 #else
-#if !HPUX_OS && !CYGWIN_OS
+#if !defined(HPUX_OS) && !defined(CYGWIN_OS)
 typedef unsigned int uint;
 #endif
 typedef unsigned long ulong;
