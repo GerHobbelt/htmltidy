@@ -815,6 +815,7 @@ extern Dict *tag_head;
 extern Dict *tag_body;
 extern Dict *tag_frameset;
 extern Dict *tag_frame;
+extern Dict *tag_iframe;	/* #433359 - fix by Randy Waki 12 Mar 01 */
 extern Dict *tag_noframes;
 extern Dict *tag_title;
 extern Dict *tag_base;

@@ -247,6 +247,10 @@ static Bool CanPrune(Node *element)
     if (element->tag == tag_object)
         return no;
 
+    /* #433359 - fix by Randy Waki 12 Mar 01 */
+    if (element->tag == tag_iframe)
+        return no;
+                                
     if ( element->attributes != null &&
             (GetAttrByName(element, "id") ||
                GetAttrByName(element, "name")) )
