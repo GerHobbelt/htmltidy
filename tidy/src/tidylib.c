@@ -937,7 +937,7 @@ int         tidyDocSaveStdout( TidyDocImpl* doc )
 #if defined(_WIN32) || defined(OS2_OS)
     if ( oldstdoutmode != -1 )
         oldstdoutmode = setmode( fileno(stdout), oldstdoutmode );
-    if ( oldstdoutmode != -1 )
+    if ( oldstderrmode != -1 )
         oldstderrmode = setmode( fileno(stderr), oldstderrmode );
 #endif
     MemFree( out );
