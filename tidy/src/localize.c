@@ -384,7 +384,7 @@ void ReportWarning(Lexer *lexer, Node *element, Node *node, uint code)
         }
         else if (code == DISCARDING_UNEXPECTED)
         {
-            tidy_out(lexer->errout, node->tag == tag_form ? "Error:" : "Warning");
+            tidy_out(lexer->errout, lexer->errors ? "Error:" : "Warning");
             tidy_out(lexer->errout, " discarding unexpected ");
             ReportTag(lexer, node);
         }

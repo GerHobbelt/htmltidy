@@ -41,8 +41,8 @@
 
 AttVal *ParseAttrs(Lexer *lexer, Bool *isempty);  /* forward references */
 Node *CommentToken(Lexer *lexer);
-char *ParseAttribute(Lexer *lexer, Bool *isempty, Node **asp, Node **php);
-char *ParseValue(Lexer *lexer, char *name, Bool foldCase, Bool *isempty, int *pdelim);
+static char *ParseAttribute(Lexer *lexer, Bool *isempty, Node **asp, Node **php);
+static char *ParseValue(Lexer *lexer, char *name, Bool foldCase, Bool *isempty, int *pdelim);
 
 /* used to classify chars for lexical purposes */
 #define MAP(c) ((unsigned)c < 128 ? lexmap[(unsigned)c] : 0)

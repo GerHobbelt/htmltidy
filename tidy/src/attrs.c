@@ -525,7 +525,7 @@ Node *GetNodeByAnchor(char *name)
 }
 
 /* free all anchors */
-FreeAnchors(void)
+void FreeAnchors(void)
 {
     Anchor *a;
     
@@ -780,7 +780,6 @@ void CheckName(Lexer *lexer, Node *node, AttVal *attval)
 void CheckId(Lexer *lexer, Node *node, AttVal *attval)
 {
     char *p = attval->value;
-    uint i = 0;
     Node *old;
     
     if (p == null)
