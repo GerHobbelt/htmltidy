@@ -751,6 +751,7 @@ int   tidyDocParseFile( TidyDocImpl* doc, ctmbstr filnam )
 #if PRESERVE_FILE_TIMES
     struct stat sbuf = {0};
     /* get last modified time */
+    ClearMemory( &doc->filetimes, sizeof(doc->filetimes) );
     if ( fin && cfgBool(doc,TidyKeepFileTimes) &&
          fstat(fileno(fin), &sbuf) != -1 )
     {

@@ -215,7 +215,7 @@ static const TidyOptionImpl option_defs[] =
   { TidyXmlSpace,       MU, "add-xml-space",        BL,   no, ParseBool,     boolPicks },
   { TidyEncloseBodyText,MU, "enclose-text",         BL,   no, ParseBool,     boolPicks },
   { TidyEncloseBlockText,MU,"enclose-block-text",   BL,   no, ParseBool,     boolPicks },
-  { TidyKeepFileTimes,  MS, "keep-time",            BL,  yes, ParseBool,     boolPicks },
+  { TidyKeepFileTimes,  MS, "keep-time",            BL,   no, ParseBool,     boolPicks },
   { TidyWord2000,       MU, "word-2000",            BL,   no, ParseBool,     boolPicks },
   { TidyMark,           MS, "tidy-mark",            BL,  yes, ParseBool,     boolPicks },
   { TidyEmacs,          MS, "gnu-emacs",            BL,   no, ParseBool,     boolPicks },
