@@ -3482,7 +3482,8 @@ void ParseNoFrames(TidyDocImpl* doc, Node *noframes, uint mode)
             InsertNodeAtEnd(noframes, node);
             ParseTag(doc, node, IgnoreWhitespace /*MixedContent*/);
 
-            if (seen_body)
+            /* fix for bug http://tidy.sf.net/bug/887259 */
+            if (seen_body && FindBody(doc) != node)
             {
                 CoerceNode(doc, node, TidyTag_DIV, no, no);
                 MoveNodeToBody(doc, node);
