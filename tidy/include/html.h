@@ -603,7 +603,6 @@ int HTMLVersion(Lexer *lexer);
 
 /* localize.c -- used for all message text */
 void ShowVersion(FILE *fp);
-void ReadingFromStdin(void);
 void ReportUnknownOption(char *option);
 void ReportBadArgument(char *option);
 void NeedsAuthorIntervention(FILE *errout);
