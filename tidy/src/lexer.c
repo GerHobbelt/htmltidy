@@ -2303,7 +2303,11 @@ Node* GetToken( TidyDocImpl* doc, uint mode )
 
                     /* if some text before < return it now */
                     if (lexer->txtend > lexer->txtstart)
-                        return lexer->token = TextToken(lexer);
+                    {
+                        lexer->token = TextToken(lexer);
+                        --(doc->docIn->curcol);
+                        return lexer->token;
+                    }
 
                     continue;       /* no text so keep going */
                 }
