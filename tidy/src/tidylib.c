@@ -134,12 +134,13 @@ void          tidyDocRelease( TidyDocImpl* doc )
 
         FreePrintBuf( doc );
         FreeLexer( doc );
+        FreeNode( doc, &doc->root );
+        FreeNode( doc, doc->givenDoctype );
+
         FreeConfig( doc );
         FreeAttrTable( doc );
         FreeTags( doc );
         FreeEntities();
-        FreeNode( doc, &doc->root );
-        FreeNode( doc, doc->givenDoctype );
         MemFree( doc );
     }
 }
