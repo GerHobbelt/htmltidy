@@ -863,7 +863,7 @@ static void PPrintTag(Lexer *lexer, Out *fout,
         AddC('/', linelen++);
     }
 
-    AddC('>', linelen++);;
+    AddC('>', linelen++);
 
     if (node->type != StartEndTag && !(mode & PREFORMATTED))
     {

@@ -2196,7 +2196,7 @@ void ParseTableTag(Lexer *lexer, Node *table, uint mode)
 
         if (node->type == StartTag || node->type == StartEndTag)
         {
-            InsertNodeAtEnd(table, node);;
+            InsertNodeAtEnd(table, node);
             ParseTag(lexer, node, IgnoreWhitespace);
             continue;
         }
