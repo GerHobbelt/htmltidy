@@ -271,6 +271,7 @@ static struct _attrlist
     {"width",            VERS_ALL,               LENGTH},   /* pixels only for TD/TH */
     {"wrap",             VERS_NETSCAPE,          TEXT},     /* textarea */
     {"xml:lang",         VERS_XML,               TEXT},     /* XML language */
+    {"xml:space",        VERS_XML,               TEXT},     /* XML language */
     {"xmlns",            VERS_ALL,               TEXT},     /* name space */
     {"rbspan",           VERS_XHTML11,           NUMBER},   /* ruby markup */
    
