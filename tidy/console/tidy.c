@@ -716,7 +716,7 @@ int main( int argc, char** argv )
 
         if ( status >= 0 )
         {
-            if ( tidyOptGetBool(tdoc, TidyWriteBack) )
+            if ( tidyOptGetBool(tdoc, TidyWriteBack) && argc > 1 )
                 status = tidySaveFile( tdoc, htmlfil );
             else
             {
