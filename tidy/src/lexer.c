@@ -1897,8 +1897,15 @@ Node *GetToken(Lexer *lexer, uint mode)
                     
                     if (lexer->token->tag->versions & VERS_PROPRIETARY)
                     {
-                        if (!MakeClean && (lexer->token->tag == tag_nobr ||
-                                                lexer->token->tag == tag_wbr))
+                        /* #427810 - fix by Gary Deschaines 24 May 00 */
+                        if (MakeClean && (lexer->token->tag != tag_nobr &&
+                                                lexer->token->tag != tag_wbr))
+                            ReportWarning(lexer, null, lexer->token, PROPRIETARY_ELEMENT);
+                        else
+                        /* #427810 - fix by Terry Teague 2 Jul 01 */
+                        if (!MakeClean)
+                        /* if (!MakeClean && (lexer->token->tag == tag_nobr ||
+                                                lexer->token->tag == tag_wbr)) */
                             ReportWarning(lexer, null, lexer->token, PROPRIETARY_ELEMENT);
                     }
 
