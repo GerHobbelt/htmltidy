@@ -193,6 +193,7 @@ typedef enum
 #if SUPPORT_ASIAN_ENCODINGS
   TidyPunctWrap,       /**< consider punctuation and breaking spaces for wrapping */
 #endif
+  TidyMergeDivs,
   N_TIDY_OPTIONS       /**< Must be last */
 } TidyOptionId;
 

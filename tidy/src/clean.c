@@ -1385,7 +1385,7 @@ Node* CleanNode( TidyDocImpl* doc, Node *node )
         if ( Center2Div(doc, node, &next) )
             continue;
 
-        if ( MergeDivs(doc, node, &next) )
+        if (cfgBool(doc, TidyMergeDivs) && MergeDivs(doc, node, &next))
             continue;
 
         if ( BlockStyle(doc, node, &next) )

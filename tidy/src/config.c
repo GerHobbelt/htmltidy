@@ -262,6 +262,7 @@ static const TidyOptionImpl option_defs[] =
 #if SUPPORT_ASIAN_ENCODINGS
   { TidyPunctWrap,               PP, "punctuation-wrap",            BL, no,              ParseBool,         boolPicks       },
 #endif
+  { TidyMergeDivs,               MU, "merge-divs",                  BL, yes,             ParseBool,         boolPicks       },
   { N_TIDY_OPTIONS,  			 XX, "unknown!",                    XY,	0,               NULL,              NULL            }
 };
 
