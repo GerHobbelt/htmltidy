@@ -1386,6 +1386,7 @@ void ParseInline( TidyDocImpl* doc, Node *element, uint mode )
              && !nodeIsBIG(node)
              && !nodeIsSMALL(node)
              && !nodeIsQ(node)
+             && !nodeIsSPAN(node)
            )
         {
             if (element->content != NULL && node->attributes == NULL)
@@ -1396,7 +1397,8 @@ void ParseInline( TidyDocImpl* doc, Node *element, uint mode )
                 continue;
             }
 
-            ReportWarning(doc, element, node, NESTED_EMPHASIS);
+            if (node->attributes == NULL || element->attributes == NULL)
+                ReportWarning(doc, element, node, NESTED_EMPHASIS);
         }
         else if ( IsPushed(doc, node) && node->type == StartTag && 
                   nodeIsQ(node) )
