@@ -2850,6 +2850,14 @@ void ParseHead(TidyDocImpl* doc, Node *head, uint mode)
             break;
         }
 
+        /* find and discard multiple <head> elements */
+        if (node->tag == head->tag && node->type == StartTag)
+        {
+            ReportWarning(doc, head, node, DISCARDING_UNEXPECTED);
+            FreeNode(doc, node);
+            continue;
+        }
+
         if (node->type == TextNode)
         {
             ReportWarning( doc, head, node, TAG_NOT_ALLOWED_IN);
@@ -2943,6 +2951,14 @@ void ParseBody(TidyDocImpl* doc, Node *body, uint mode)
 
     while ((node = GetToken(doc, mode)) != NULL)
     {
+        /* find and discard multiple <body> elements */
+        if (node->tag == body->tag && node->type == StartTag)
+        {
+            ReportWarning(doc, body, node, DISCARDING_UNEXPECTED);
+            FreeNode(doc, node);
+            continue;
+        }
+
         /* #538536 Extra endtags not detected */
         if ( nodeIsHTML(node) )
         {
