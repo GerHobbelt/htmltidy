@@ -1369,24 +1369,11 @@ static void PPrintTag( TidyDocImpl* doc,
 
         if ( indent + pprint->linelen < wraplen )
         {
-            /*
-             wrap after start tag if is <br/> or if it's not
-             inline or it is an empty tag followed by </a>
-            */
-            if ( AfterSpace(doc->lexer, node) )
+            /* wrap after start tag if is <br/> or if it's not inline */
+            if (!(mode & NOWRAP) && (!nodeCMIsInline(node) || nodeIsBR(node))
+                && AfterSpace(doc->lexer, node))
             {
-                if ( !(mode & NOWRAP) &&
-                     ( !nodeCMIsInline(node) ||
-                       nodeIsBR(node) ||
-                       ( nodeCMIsEmpty(node) && 
-                         node->next == NULL &&
-                         nodeIsA(node->parent)
-                       )
-                     )
-                   )
-                {
                     pprint->wraphere = pprint->linelen;
-                }
             }
         }
         else
