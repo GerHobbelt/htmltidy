@@ -248,6 +248,8 @@ static char* TagToString( Node* tag, char* buf )
           strcpy( buf, "<!DOCTYPE>" );
       else if ( tag->type == TextNode )
           strcpy( buf, "plain text" );
+      else if (tag->type == XmlDecl)
+          strcpy(buf, "XML declaration");
       else if ( tag->element )
         strcpy( buf, tag->element );
     }
@@ -795,6 +797,10 @@ void ReportWarning( TidyDocImpl* doc, Node *element, Node *node, uint code )
     case MISSING_DOCTYPE:
         messageNode( doc, TidyWarning, node,
             "missing <!DOCTYPE> declaration");
+        break;
+    case SPACE_PRECEDING_XMLDECL:
+        messageNode(doc, TidyWarning, node,
+            "removing whitespace preceding XML Declaration");
         break;
     }
 }

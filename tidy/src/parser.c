@@ -3696,7 +3696,19 @@ void ParseDocument(TidyDocImpl* doc)
 
     while ((node = GetToken(doc, IgnoreWhitespace)) != NULL)
     {
-
+        if (node->type == XmlDecl)
+        {
+            if (FindXmlDecl(doc) && doc->root.content)
+            {
+                ReportWarning(doc, &doc->root, node, DISCARDING_UNEXPECTED);
+                FreeNode(doc, node);
+                continue;
+            }
+            if (node->line != 1 || (node->line == 1 && node->column != 1))
+            {
+                ReportWarning(doc, &doc->root, node, SPACE_PRECEDING_XMLDECL);
+            }
+        }
 #ifdef AUTO_INPUT_ENCODING
         if (node->type == XmlDecl)
         {

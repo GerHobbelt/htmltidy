@@ -448,6 +448,7 @@ Node* FindHTML( TidyDocImpl* doc );
 Node* FindHEAD( TidyDocImpl* doc );
 Node* FindTITLE(TidyDocImpl* doc);
 Node* FindBody( TidyDocImpl* doc );
+Node* FindXmlDecl(TidyDocImpl* doc);
 
 /* Returns containing block element, if any */
 Node* FindContainer( Node* node );
