@@ -371,7 +371,7 @@ static void Style2Rule( TidyDocImpl* doc, Node *node)
                       tmbstrlen(classname) + 2;
             tmbstr s = (tmbstr) MemAlloc( len );
             tmbstrcpy(s, classattr->value);
-            tmbstrcat(s, "_");
+            tmbstrcat(s, " ");
             tmbstrcat(s, classname);
             MemFree(classattr->value);
             classattr->value = s;
