@@ -965,6 +965,8 @@ int main(int argc, char **argv)
             */
             lexer->in->lexer = lexer;
 
+            SetFilename(file);	/* #431895 - fix by Dave Bryan 04 Jan 01 */
+            
             /* Tidy doesn't alter the doctype for generic XML docs */
             if (XmlTags)
                 document = ParseXMLDocument(lexer);
