@@ -1818,6 +1818,9 @@ void PPrintTree(Out *fout, uint mode, uint indent,
         {
             PCondFlushLine(fout, indent);
 
+            if (node->type == StartEndTag)
+                node->type = StartTag;
+
             indent = 0;
             PCondFlushLine(fout, indent);
             PPrintTag(lexer, fout, mode, indent, node);
