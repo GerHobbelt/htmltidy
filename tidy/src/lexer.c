@@ -1226,6 +1226,18 @@ Node *FindHEAD( TidyDocImpl* doc )
     return node;
 }
 
+Node *FindTITLE(TidyDocImpl* doc)
+{
+    Node *node = FindHEAD(doc);
+
+    if (node)
+        for (node = node->content;
+             node && !nodeIsTITLE(node);
+             node = node->next);
+
+    return node;
+}
+
 Node *FindBody( TidyDocImpl* doc )
 {
     Node *node = ( doc->root ? doc->root->content : NULL );

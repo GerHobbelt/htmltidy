@@ -451,6 +451,7 @@ void AddStringLiteralLen( Lexer* lexer, ctmbstr str, int len );
 Node* FindDocType( TidyDocImpl* doc );
 Node* FindHTML( TidyDocImpl* doc );
 Node* FindHEAD( TidyDocImpl* doc );
+Node* FindTITLE(TidyDocImpl* doc);
 Node* FindBody( TidyDocImpl* doc );
 
 /* Returns containing block element, if any */
