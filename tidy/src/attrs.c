@@ -452,7 +452,8 @@ AttVal* RepairAttrValue(TidyDocImpl* doc, Node* node, ctmbstr name, ctmbstr valu
 
     if (old)
     {
-        MemFree(old->value);
+        if (old->value)
+            MemFree(old->value);
         old->value = tmbstrdup(value);
         return old;
     }

@@ -769,10 +769,9 @@ void CheckSTYLE( TidyDocImpl* doc, Node *node )
 
     CheckAttributes( doc, node );
 
-    if ( !type )
+    if ( !type || !type->value || !tmbstrlen(type->value) )
     {
-        AddAttribute( doc, node, "type", "text/css" );
-        type = GetAttrByName( node, "type" );
+        type = RepairAttrValue(doc, node, "type", "text/css");
         ReportAttrError( doc, node, type, INSERTING_ATTRIBUTE );
     }
 }
