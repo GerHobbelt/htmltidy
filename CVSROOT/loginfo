@@ -26,3 +26,4 @@
 #DEFAULT (echo ""; id; echo %{sVv}; date; cat) >> $CVSROOT/CVSROOT/commitlog
 
 DEFAULT $CVSROOT/CVSROOT/mysyncmail -u %{sVv} tidy-cvs@lists.sourceforge.net cvs.tidy@bjoernsworld.de derhoermi@gmx.net
+ALL $CVSROOT/CVSROOT/mysyncmail -u %{sVv} derhoermi@gmx.net
