@@ -220,8 +220,7 @@ void FreeLexer(Lexer *lexer)
 
     MemFree(lexer);
 }
-
-static void AddByte(Lexer *lexer, uint c)
+void AddByte(Lexer *lexer, uint c)
 {
     if (lexer->lexsize + 1 >= lexer->lexlength)
     {

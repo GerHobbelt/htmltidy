@@ -390,6 +390,8 @@ typedef struct _tagdict Dict;
 void FatalError(char *msg);
 void FileError(FILE *fp, const char *file);
 
+void AddByte(Lexer *lexer, uint c);
+
 Node *GetToken(Lexer *lexer, uint mode);
 
 /* one level unget only */
