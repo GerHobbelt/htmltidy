@@ -74,7 +74,11 @@ tmbstr tmbstrtoupper(tmbstr s);
 
 Bool tmbsamefile( ctmbstr filename1, ctmbstr filename2 );
 
-int tmbvsnprintf(tmbstr buffer, size_t count, ctmbstr format, va_list args);
+int tmbvsnprintf(tmbstr buffer, size_t count, ctmbstr format, va_list args)
+#ifdef __GNUC__
+__attribute__((format(printf, 3, 0)))
+#endif
+;
 int tmbsnprintf(tmbstr buffer, size_t count, ctmbstr format, ...)
 #ifdef __GNUC__
 __attribute__((format(printf, 3, 4)))

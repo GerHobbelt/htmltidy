@@ -404,6 +404,12 @@ static char* ReportPosition(TidyDocImpl* doc, int line, int col, char* buf, size
 
 static void messagePos( TidyDocImpl* doc, TidyReportLevel level,
                         int line, int col, ctmbstr msg, va_list args )
+#ifdef __GNUC__
+__attribute__((format(printf, 5, 0)))
+#endif
+;
+static void messagePos( TidyDocImpl* doc, TidyReportLevel level,
+                        int line, int col, ctmbstr msg, va_list args )
 {
     char messageBuf[ 2048 ];
     Bool go = UpdateCount( doc, level );
