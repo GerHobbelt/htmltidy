@@ -3401,8 +3401,8 @@ static tmbstr ParseValue( TidyDocImpl* doc, ctmbstr name,
 
         if (c == '&')
         {
-            /* no entities in ID attributes */
-            if (tmbstrcasecmp(name, "id") == 0)
+            /* no entities in ID attributes for XHTML/HTML */
+            if (tmbstrcasecmp(name, "id") == 0 && !cfgBool(doc, TidyXmlTags))
             {
                 ReportAttrError( doc, NULL, NULL, ENTITY_IN_ID );
                 continue;
