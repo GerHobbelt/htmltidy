@@ -1102,12 +1102,13 @@ void FreeNode( TidyDocImpl* doc, Node *node )
     {
         Node* next = node->next;
 
-        MemFree( node->element );
         FreeAttrs( doc, node );
         FreeNode( doc, node->content );
-        /* node->content = NULL; */
+        MemFree( node->element );
         if (RootNode != node->type)
             MemFree( node );
+        else
+            node->content = NULL;
 
         node = next;
     }
