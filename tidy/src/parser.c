@@ -1,6 +1,6 @@
 /* parser.c -- HTML Parser
 
-  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
   
   CVS Info :
@@ -2360,9 +2360,10 @@ void ParseRowGroup(TidyDocImpl* doc, Node *rowgroup, uint mode)
         if (node->tag->model & CM_ROWGRP)
         {
             if (node->type != EndTag)
+            {
                 UngetToken( doc );
-
-            return;
+                return;
+            }
         }
 
         if (node->type == EndTag)
