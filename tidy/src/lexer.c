@@ -2268,9 +2268,10 @@ Node *GetToken(Lexer *lexer, uint mode)
                     }
                 }
 
-                if  (lexer->lexsize - lexer->txtstart == 3)
+                if  (lexer->lexsize - lexer->txtstart == 4)
                 {
-                    if (wstrncmp(lexer->lexbuf + lexer->txtstart, "xml", 3) == 0)
+                    if (wstrncmp(lexer->lexbuf + lexer->txtstart, "xml", 3) == 0 &&
+                        IsWhite(lexer->lexbuf[lexer->txtstart + 3]))
                     {
                         lexer->state = LEX_XMLDECL;
                         attributes = null;
