@@ -135,7 +135,7 @@ void InsertNodeAtStart(Node *element, Node *node)
         element->last = node;
 #if 1
     else
-        element->content->prev = node; // AQ added 13 Apr 2000
+        element->content->prev = node; /* AQ added 13 Apr 2000 */
 #endif
     
     node->next = element->content;
@@ -213,13 +213,13 @@ void InsertNodeAfterElement(Node *element, Node *node)
     parent = element->parent;
     node->parent = parent;
 
-    // AQ - 13Jan2000 fix for parent == null
+    /* AQ - 13 Jan 2000 fix for parent == null */
     if (parent != null && parent->last == element)
         parent->last = node;
     else
     {
         node->next = element->next;
-        // AQ - 13Jan2000 fix for node->next == null
+        /* AQ - 13 Jan 2000 fix for node->next == null */
         if (node->next != null)
             node->next->prev = node;
     }
