@@ -2188,7 +2188,7 @@ void VerifyHTTPEquiv(TidyDocImpl* pDoc, Node *head)
             metaContent->value = s;
             break;
         }
+        /* #718127, prevent memory leakage */
+        FreeStyleProps(pFirstProp);
     }
-    /* #718127, prevent memory leakage */
-    FreeStyleProps(pFirstProp);
 }
