@@ -1349,25 +1349,16 @@ void ParseInline( TidyDocImpl* doc, Node *element, uint mode )
                     child->next = element->next;
                     child->prev = element->prev;
 
-                    if (child->prev)
-                        child->prev->next = child;
-                    else
-                        child->parent->content = child;
-
-                    if (child->next)
-                        child->next->prev = child;
-                    else
-                        child->parent->last = child;
-
                     element->next = NULL;
                     element->prev = NULL;
                     element->parent = child;
+
                     element->content = child->content;
                     element->last = child->last;
-                    child->content = child->last = element;
+                    child->content = element;
 
-                    for (child = element->content; child; child = child->next)
-                        child->parent = element;
+		    FixNodeLinks(child);
+		    FixNodeLinks(element);
                 }
             }
 

@@ -3,7 +3,7 @@
 
 /* clean.h -- clean up misuse of presentation markup
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info:
@@ -14,6 +14,8 @@
 */
 
 void RenameElem( Node* node, TidyTagId tid );
+
+void FixNodeLinks(Node *node);
 
 Node* CleanNode( TidyDocImpl* doc, Node* node );
 

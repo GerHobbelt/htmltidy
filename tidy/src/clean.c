@@ -577,7 +577,7 @@ static void CreateStyleElement( TidyDocImpl* doc )
 
 
 /* ensure bidirectional links are consistent */
-static void FixNodeLinks(Node *node)
+void FixNodeLinks(Node *node)
 {
     Node *child;
 
