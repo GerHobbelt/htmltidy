@@ -3,7 +3,7 @@
 
 /* config.h -- read config file and manage config properties
   
-  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -116,6 +116,7 @@ Bool  ConfigDiffThanSnapshot( TidyDocImpl* doc );
 
 int CharEncodingId( ctmbstr charenc );
 ctmbstr CharEncodingName( int encoding );
+ctmbstr CharEncodingOptName( int encoding );
 
 void SetEmacsFilename( TidyDocImpl* doc, ctmbstr filename );
 

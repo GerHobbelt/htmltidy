@@ -3,7 +3,7 @@
 
 /* streamio.h -- handles character stream I/O
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -135,6 +135,8 @@ void WriteChar( uint c, StreamOut* out );
 void outBOM( StreamOut *out );
 
 ctmbstr GetEncodingNameFromTidyId(uint id);
+ctmbstr GetEncodingOptNameFromTidyId(uint id);
+int GetCharEncodingFromOptName(ctmbstr charenc);
 
 /************************
 ** Misc

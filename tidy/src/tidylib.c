@@ -1,6 +1,6 @@
 /* tidylib.c -- internal library definitions
 
-  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -425,7 +425,7 @@ Bool        tidyOptSetBool( TidyDoc tdoc, TidyOptionId optId, Bool val )
 ctmbstr       tidyOptGetEncName( TidyDoc tdoc, TidyOptionId optId )
 {
   uint enc = tidyOptGetInt( tdoc, optId );
-  return CharEncodingName( enc );
+  return CharEncodingOptName( enc );
 }
 
 ctmbstr       tidyOptGetCurrPick( TidyDoc tdoc, TidyOptionId optId )
