@@ -1527,6 +1527,7 @@ static void outcUTF8Bytes(Out *out, unsigned char *buf, int *count)
 /* For mac users, should we map Unicode back to MacRoman? */
 void outc(uint c, Out *out)
 {
+    uint ch;
 
 #if 1
     if (out->encoding == MACROMAN)
@@ -1571,7 +1572,6 @@ void outc(uint c, Out *out)
     if (out->encoding == UTF8)
 #if 0
     {
-        uint ch;
         if (c < 128)
             putc(c, out->fp);
         else if (c <= 0x7FF)
