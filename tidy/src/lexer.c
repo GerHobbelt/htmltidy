@@ -3121,7 +3121,24 @@ static char *ParseValue(Lexer *lexer, char *name,
 
 
     if (len > 0 || delim)
-        value = wstrndup(lexer->lexbuf+start, len);
+    {
+        /* ignore leading and trailing white space for all but title and */
+        /* alt attributes unless --literal-attributes is set to yes      */
+
+        if (munge && wstrcasecmp(name, "alt") && wstrcasecmp(name, "title"))
+        {
+            while (IsWhite(lexer->lexbuf[start+len-1]))
+                --len;
+
+            while (IsWhite(lexer->lexbuf[start]) && start < len)
+            {
+                ++start;
+                --len;
+            }
+        }
+
+        value = wstrndup(lexer->lexbuf + start, len);
+    }
     else
         value = null;
 
