@@ -3543,7 +3543,10 @@ void ParseNoFrames(TidyDocImpl* doc, Node *noframes, uint mode)
                     node = InferredTag(doc, TidyTag_P);
                     ReportError(doc, noframes, node, CONTENT_AFTER_BODY );
                 }
-                InsertNodeAtEnd( body, node );
+                if ( body )
+                {
+                    InsertNodeAtEnd( body, node );
+                }
             }
             else
             {
