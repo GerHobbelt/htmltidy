@@ -1347,13 +1347,12 @@ Bool AddGenerator( TidyDocImpl* doc )
             {
                 attval = AttrGetById(node, TidyAttr_NAME);
 
-                if ( attval && attval->value &&
-                     tmbstrcasecmp(attval->value, "generator") == 0 )
+                if (AttrValueIs(attval, "generator"))
                 {
                     attval = AttrGetById(node, TidyAttr_CONTENT);
 
-                    if ( attval && attval->value &&
-                         tmbstrncasecmp(attval->value, "HTML Tidy", 9) == 0 )
+                    if (AttrHasValue(attval) &&
+                        tmbstrncasecmp(attval->value, "HTML Tidy", 9) == 0)
                     {
                         /* update the existing content to reflect the */
                         /* actual version of Tidy currently being used */

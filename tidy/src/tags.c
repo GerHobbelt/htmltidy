@@ -761,8 +761,8 @@ void CheckLINK( TidyDocImpl* doc, Node *node )
 
     CheckAttributes( doc, node );
 
-    if ( rel && rel->value &&
-         tmbstrcmp(rel->value, "stylesheet") == 0 )
+    /* todo: <link rel="alternate stylesheet"> */
+    if (AttrValueIs(rel, "stylesheet"))
     {
         AttVal *type = AttrGetById(node, TidyAttr_TYPE);
         if (!type)
