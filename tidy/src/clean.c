@@ -2092,10 +2092,15 @@ void FixBrakes( TidyDocImpl* pDoc, Node *pParent )
         return;
 
     /*  First, check the status of All My Children  */
-    for ( pNode = pParent->content; NULL != pNode; pNode = pNode->next )
+    pNode = pParent->content;
+    while (NULL != pNode )
     {
+        /* The node may get trimmed, so save the next pointer, if any */
+        Node *pNext = pNode->next;
         FixBrakes( pDoc, pNode );
+        pNode = pNext;
     }
+
 
     /*  As long as my last child is a <br />, move it to my last peer  */
     if ( nodeCMIsBlock( pParent ))
