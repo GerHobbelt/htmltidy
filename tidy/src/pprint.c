@@ -1059,7 +1059,7 @@ static void PPrintAttrValue( TidyDocImpl* doc, uint indent,
     AddChar( pprint, '=' );
 
     /* don't wrap after "=" for xml documents */
-    if ( !cfgBool(doc, TidyXmlOut) )
+    if ( !cfgBool(doc, TidyXmlOut) || cfgBool(doc, TidyXhtmlOut) )
     {
         SetWrap( doc, indent );
         CheckWrapIndent( doc, indent );
@@ -1217,11 +1217,14 @@ static void PPrintAttribute( TidyDocImpl* doc, uint indent,
         AddChar( pprint, FoldCase(doc, *name++, ucAttrs) );
     }
 
+/* fix for bug 732038 */
+#if 0
     /* If not indenting attributes, bump up indent for 
     ** value after putting out name.
     */
     if ( !indAttrs )
         indent += xtra;
+#endif
 
     CheckWrapIndent( doc, indent );
  
