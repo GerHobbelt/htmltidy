@@ -1885,7 +1885,7 @@ void PrintBody( TidyDocImpl* doc )
     if ( node )
     {
         for ( node = node->content; node != NULL; node = node->next )
-            PPrintTree( doc, 0, 0, node );
+            PPrintTree( doc, NORMAL, 0, node );
     }
 }
 
