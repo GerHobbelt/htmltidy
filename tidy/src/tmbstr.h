@@ -69,6 +69,9 @@ ctmbstr tmbsubstr( ctmbstr s1, ctmbstr s2 );
 /* transform string to lower case */
 tmbstr tmbstrtolower( tmbstr s );
 
+/* Transform ASCII chars in string to upper case */
+tmbstr tmbstrtoupper(tmbstr s);
+
 Bool tmbsamefile( ctmbstr filename1, ctmbstr filename2 );
 
 #ifdef __cplusplus
