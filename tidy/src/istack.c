@@ -246,7 +246,12 @@ Node *InsertedToken(Lexer *lexer)
         lexer->columns = lexer->in->curcol;
     }
 
+/* TRT */
+#if SUPPORT_ACCESSIBILITY_CHECKS
+    node = NewNode(lexer);
+#else
     node = NewNode();
+#endif
     node->type = StartTag;
     node->implicit = yes;
     node->start = lexer->txtstart;

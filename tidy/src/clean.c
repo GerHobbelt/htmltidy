@@ -507,7 +507,12 @@ static void CreateStyleElement(Lexer *lexer, Node *doc)
     if (lexer->styles == null && NiceBody(lexer, doc))
         return;
 
+/* TRT */
+#if SUPPORT_ACCESSIBILITY_CHECKS
+    node = NewNode(lexer);
+#else
     node = NewNode();
+#endif
     node->type = StartTag;
     node->implicit = yes;
     node->element = wstrdup("style");
@@ -981,7 +986,7 @@ static void TextAlign(Lexer *lexer, Node *node)
 
 /*
    The clean up rules use the pnode argument to return the
-   next node when the orignal node has been deleted
+   next node when the original node has been deleted
 */
 
 /*

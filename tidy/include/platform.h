@@ -40,6 +40,24 @@
 #define SUPPORT_UTF16_ENCODINGS 0
 #endif
 
+/* Enable/disable support for additional accessibility checks */
+#ifndef SUPPORT_ACCESSIBILITY_CHECKS
+#define SUPPORT_ACCESSIBILITY_CHECKS 1
+#endif
+
+/* Enable/disable original accessibility checks */
+
+/* Also at runtime : 
+   if !USE_ORIGINAL_ACCESSIBILITY_CHECKS
+       if (AccessibilityCheckLevel == 0) then
+           do the original accessibility checks anyway
+*/
+
+/* If additional accessibility checks are enabled, disable the original accessibility checks by default */
+#ifndef USE_ORIGINAL_ACCESSIBILITY_CHECKS
+#define USE_ORIGINAL_ACCESSIBILITY_CHECKS 0
+#endif
+
 /* Convenience defines for Mac platforms */
 
 #if defined(macintosh)
