@@ -3,7 +3,7 @@
 
 /* lexer.h -- Lexer for html parser
   
-   (c) 1998-2002 (W3C) MIT, INRIA, Keio University
+   (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
    See tidy.h for the copyright notice.
   
    CVS Info:

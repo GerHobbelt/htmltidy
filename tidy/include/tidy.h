@@ -11,9 +11,9 @@
   this-equivalent as 1st arg.
 
 
-  Copyright (c) 1998-2002 World Wide Web Consortium
-  (Massachusetts Institute of Technology, Institut National de
-  Recherche en Informatique et en Automatique, Keio University).
+  Copyright (c) 1998-2003 World Wide Web Consortium
+  (Massachusetts Institute of Technology, European Research 
+  Consortium for Informatics and Mathematics, Keio University).
   All Rights Reserved.
 
   CVS Info :
