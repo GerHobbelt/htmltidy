@@ -305,7 +305,7 @@ void AddClass(Node *node, char *classname)
     {
         int len = wstrlen(classattr->value) +
                             wstrlen(classname) + 2;
-        char *s = (char *)malloc(len *sizeof(char));
+        char *s = (char *)MemAlloc(len *sizeof(char));	/* #427668 - was malloc() - fix by Arnaud BERCEGEAY 05 Aug 00 */
         wstrcpy(s, classattr->value);
         wstrcat(s, " ");
         wstrcat(s, classname);
@@ -345,7 +345,7 @@ static void Style2Rule(Lexer *lexer, Node *node)
         {
             int len = wstrlen(classattr->value) +
                                 wstrlen(classname) + 2;
-            char *s = (char *)malloc(len *sizeof(char));
+            char *s = (char *)MemAlloc(len *sizeof(char));	/* #427668 - was malloc() - fix by Arnaud BERCEGEAY 05 Aug 00 */
             wstrcpy(s, classattr->value);
             wstrcat(s, " ");
             wstrcat(s, classname);
