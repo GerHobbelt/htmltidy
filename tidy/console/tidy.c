@@ -432,7 +432,8 @@ void printXMLOption( TidyDoc tdoc, TidyOption topt, const OptionDesc *d )
 
 static void XMLoptionhelp( TidyDoc tdoc )
 {
-    printf( "<?xml version=\"1.0\"?>\n<config>\n" );
+    printf( "<?xml version=\"1.0\"?>\n<config version=\"%s\">\n"
+            , tidyReleaseDate());
     ForEachOption( tdoc, printXMLOption );
     printf( "</config>\n" );
 }
