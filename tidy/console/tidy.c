@@ -721,12 +721,16 @@ int main( int argc, char** argv )
             break;
     }
 
-    if ( contentErrors + contentWarnings > 0 && 
-         !tidyOptGetBool(tdoc, TidyQuiet) )
-    {
-        tidyErrorSummary( tdoc );
-        tidyGeneralInfo( tdoc );
-    }
+    if (!tidyOptGetBool(tdoc, TidyQuiet) &&
+        errout == stderr && !contentErrors)
+        fprintf(errout, "\n");
+
+    if (contentErrors + contentWarnings > 0 && 
+         !tidyOptGetBool(tdoc, TidyQuiet))
+        tidyErrorSummary(tdoc);
+
+    if (!tidyOptGetBool(tdoc, TidyQuiet))
+        tidyGeneralInfo(tdoc);
 
     /* called to free hash tables etc. */
     tidyRelease( tdoc );
