@@ -2637,7 +2637,9 @@ void ParseText(Lexer *lexer, Node *field, uint mode)
         /* for textarea should all cases of < and & be escaped? */
 
         /* discard inline tags e.g. font */
-        if (node->tag && (node->tag == tag_textarea))
+        if (   node->tag 
+            && node->tag->model & CM_INLINE
+            && !(node->tag->model & CM_FIELD))
         {
             ReportWarning(lexer, field, node, DISCARDING_UNEXPECTED);
             FreeNode(node);
