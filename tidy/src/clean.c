@@ -2203,10 +2203,11 @@ void VerifyHTTPEquiv(TidyDocImpl* pDoc, Node *head)
             s = CreatePropString( pFirstProp );
             MemFree( metaContent->value );
             metaContent->value = s;
-            FreeStyleProps(prop);
             break;
         }
     }
+    /* #718127, prevent memory leakage */
+    FreeStyleProps(pFirstProp);
 }
 
 #define MissingVersion(ver, verWanted)  (!(ver & verWanted) && !(ver & VERS_PROPRIETARY))
