@@ -62,7 +62,7 @@ then
   CFGFILE=./input/cfg_default.txt
 fi
 
-../tidy -f $MSGFILE -config $CFGFILE "$@" $INFILE > $TIDYFILE
+../tidy -f $MSGFILE -config $CFGFILE "$@" --tidy-mark no $INFILE > $TIDYFILE
 STATUS=$?
 
 if [ $STATUS -gt 1 ]
