@@ -2410,6 +2410,10 @@ Bool  HTMLVersionCompliance( TidyDocImpl* doc )
     uint  contver = (uint) doc->lexer->versions;
     uint  dtver = (uint) doc->lexer->doctype;
 
+    /* we cannot validate against an unknown HTML version */
+    if (dtver == VERS_UNKNOWN)
+        return no;
+
     if ( TidyDoctypeStrict == dtmode || VERS_HTML40_STRICT == dtver )
         versWanted = VERS_HTML40_STRICT;
     else if ( TidyDoctypeLoose == dtmode || VERS_HTML40_LOOSE == dtver )
