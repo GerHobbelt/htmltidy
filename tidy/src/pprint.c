@@ -2086,7 +2086,7 @@ void PPrintXMLTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
     else if ( node->type == CommentTag )
     {
         PCondFlushLine( doc, indent );
-        PPrintComment( doc, 0, node);
+        PPrintComment( doc, indent, node);
         /* PCondFlushLine( doc, 0 ); */
     }
     else if ( node->type == RootNode )
