@@ -58,10 +58,10 @@ INCLDIR= ./include/
 SRCDIR= ./src/
 OBJDIR= ./
 
-DEBUGFLG=-g -DDMALLOC
+# DEBUGFLG=-g -DDMALLOC
 CFLAGS= -I $(INCLDIR) $(DEBUGFLG)
 OTHERCFLAGS=
-LIBS=-lc -ldmalloc
+LIBS=-lc # -ldmalloc
 
 INSTALLDIR= /usr/local/
 MANPAGESDIR= /usr/local/man/
