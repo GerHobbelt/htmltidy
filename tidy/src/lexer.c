@@ -377,6 +377,8 @@ static void ParseEntity(Lexer *lexer, int mode)
 
         if (first && c == '#')
         {
+#if SUPPORT_ASIAN_ENCODINGS
+
             /* #431953 - start RJ */
             if ( NCR == no || inCharEncoding == BIG5 || inCharEncoding == SHIFTJIS )
             {
@@ -384,6 +386,8 @@ static void ParseEntity(Lexer *lexer, int mode)
                 return;
             }
             /* #431953 - end RJ */
+
+#endif
 
             AddCharToLexer(lexer, c);
             first = no;
