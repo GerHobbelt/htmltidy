@@ -1,7 +1,7 @@
 /*
   config.c -- read config file and manage config properties
   
-  (c) 1998-2002 (W3C) MIT, INRIA, Keio University
+  (c) 1998-2003 (W3C) MIT, INRIA, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -1377,7 +1377,7 @@ const TidyOptionImpl*  getNextOption( TidyDocImpl* doc, TidyIterator* iter )
   const TidyOptionImpl* option = null;
   TidyOptionId optId;
   assert( iter != null );
-  optId = (TidyOptionId) *iter;
+  optId = *(TidyOptionId *) iter;
   if ( optId > TidyUnknownOption && optId < N_TIDY_OPTIONS )
   {
     option = &option_defs[ optId ];
