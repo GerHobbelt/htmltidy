@@ -505,6 +505,7 @@ void CheckAttributes(Lexer *lexer, Node *node);
 Attribute *CheckAttribute(Lexer *lexer, Node *node, AttVal *attval);
 Bool IsUrl(char *attrname);
 Bool IsScript(char *attrname);
+Bool IsBool(char *attrname);
 void DeclareLiteralAttrib(char *name);
 Bool IsLiteralAttribute(char *attrname);
 

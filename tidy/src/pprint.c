@@ -768,7 +768,9 @@ static void PPrintAttribute(Out *fout, uint indent,
     if (attr->value == null)
     {
         if (XmlTags || XmlOut)
-            PPrintAttrValue(fout, indent, attr->attribute, attr->delim, yes);
+            PPrintAttrValue(fout, indent,
+              IsBool(attr->attribute) ? attr->attribute : "",
+              attr->delim, yes);
         else if (!IsBoolAttribute(attr) && !IsNewNode(node))
             PPrintAttrValue(fout, indent, "", attr->delim, yes);
         else if (indent + linelen < wraplen)

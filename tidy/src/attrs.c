@@ -395,6 +395,13 @@ Bool IsUrl(char *attrname)
     return (Bool)((np = lookup(attrname)) && np->attrchk == URL);
 }
 
+Bool IsBool(char *attrname)
+{
+    Attribute *np;
+
+    return (Bool)((np = lookup(attrname)) && np->attrchk == BOOL);
+}
+
 Bool IsScript(char *attrname)
 {
     Attribute *np;
