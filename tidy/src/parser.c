@@ -3042,7 +3042,7 @@ void ParseHead(TidyDocImpl* doc, Node *head, uint mode)
             break;
         }
 
-        if (node->type == ProcInsTag &&
+        if (node->type == ProcInsTag && node->element &&
             tmbstrcmp(node->element, "xml-stylesheet") == 0)
         {
             ReportError(doc, head, node, TAG_NOT_ALLOWED_IN);
