@@ -968,15 +968,10 @@ static void TextAlign( TidyDocImpl* doc, Node* node )
             else
                 node->attributes = av->next;
 
-            MemFree(av->attribute);
-
             if (av->value)
-            {
                 AddAlign( doc, node, av->value );
-                MemFree(av->value);
-            }
 
-            MemFree(av);
+	    FreeAttribute(doc, av);
             break;
         }
 
