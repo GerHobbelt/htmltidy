@@ -1462,13 +1462,15 @@ Bool tidyNodeIsProp( TidyDoc tdoc, TidyNode tnod )
   return isProprietary;
 }
 
-TidyTagId tidyNodeGetId( TidyNode tnod )
+TidyTagId tidyNodeGetId(TidyNode tnod)
 {
-  Node* nimp = tidyNodeToImpl( tnod );
-  TidyTagId tagId = TidyTag_UNKNOWN;
-  if ( nimp )
-    tagId = nimp->tag->id;
-  return tagId;
+    Node* nimp = tidyNodeToImpl(tnod);
+
+    TidyTagId tagId = TidyTag_UNKNOWN;
+    if (nimp && nimp->tag)
+        tagId = nimp->tag->id;
+
+    return tagId;
 }
 
 
