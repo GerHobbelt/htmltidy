@@ -566,7 +566,7 @@ typedef struct _##typenam* typenam
 ** and forth to keep current position in a
 ** list or other collection.
 */
-opaque( TidyIterator );
+opaque_type( TidyIterator );
 
 #ifdef __cplusplus
 } /* extern "C" */
