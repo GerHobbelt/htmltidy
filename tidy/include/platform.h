@@ -88,9 +88,7 @@ typedef unsigned long ulong;
 #endif /* BSDs */
 #endif  /* __USE_MISC */
 typedef unsigned char byte;
-
-typedef char *UTF8;
-
+           
 /*
   bool is a reserved word in some but
   not all C++ compilers depending on age
@@ -126,3 +124,9 @@ typedef enum
 #if defined(DMALLOC)
 #include "dmalloc.h"
 #endif
+
+/* were defined in html.h - TRT */
+void *MemAlloc(uint size);
+void *MemRealloc(void *mem, uint newsize);
+void MemFree(void *mem);
+void ClearMemory(void *, uint size);
