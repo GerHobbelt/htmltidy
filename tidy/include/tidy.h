@@ -223,6 +223,9 @@ TIDY_EXPORT int         tidyLoadConfig( TidyDoc tdoc, ctmbstr configFile );
 TIDY_EXPORT int         tidyLoadConfigEnc( TidyDoc tdoc, ctmbstr configFile,
                                            ctmbstr charenc );
 
+TIDY_EXPORT Bool        tidyFileExists( ctmbstr filename );
+
+
 /** Set the input/output character encoding for parsing markup.
 **  Values include: ascii, latin1, raw, utf8, iso2022, mac,
 **  win1252, utf16le, utf16be, utf16, big5 and shiftjis.  Case in-sensitive.

@@ -27,6 +27,8 @@
   line continuation.
 */
 
+#include <io.h>
+
 #include "config.h"
 #include "tidy-int.h"
 #include "message.h"
@@ -528,37 +530,38 @@ static uint NextProperty( TidyConfigImpl* config )
 /*
  Tod Lewis contributed this code for expanding
  ~/foo or ~your/foo according to $HOME and your
- user name. This will only work on Unix systems.
+ user name. This will work partially on any system 
+ which defines $HOME.  Support for ~user/foo will
+ work on systems that support getpwnam(userid), 
+ namely Unix/Linux.
 */
-ctmbstr ExpandTilde(ctmbstr filename)
+ctmbstr ExpandTilde( ctmbstr filename )
 {
-#ifdef SUPPORT_GETPWNAM
-    static char *expanded_filename;
+    char *home_dir = null;
 
-    char *home_dir, *p;
-    struct passwd *passwd = null;
+    if ( !filename )
+        return null;
 
-    if (!filename) return(null);
-
-    if (filename[0] != '~')
-        return(filename);
+    if ( filename[0] != '~' )
+        return filename;
 
     if (filename[1] == '/')
     {
         home_dir = getenv("HOME");
-        if ( ! home_dir )
-            return filename;
-        filename++;
+        if ( home_dir )
+            ++filename;
     }
+#ifdef SUPPORT_GETPWNAM
     else
     {
+        struct passwd *passwd = null;
         ctmbstr s = filename + 1;
         tmbstr t;
 
-        while(*s && *s != '/')
+        while ( *s && *s != '/' )
             s++;
 
-        if (t = MemAlloc(s - filename))
+        if ( t = MemAlloc(s - filename) )
         {
             memcpy(t, filename+1, s-filename-1);
             t[s-filename-1] = 0;
@@ -568,23 +571,34 @@ ctmbstr ExpandTilde(ctmbstr filename)
             MemFree(t);
         }
 
-        if (!passwd)
-            return(filename);
-
-        filename = s;
-        home_dir = passwd->pw_dir;
-    }
-
-    if ( p=MemRealloc(expanded_filename, tmbstrlen(filename)+tmbstrlen(home_dir)+1) )
-    {
-        tmbstrcpy( expanded_filename = p, home_dir );
-        tmbstrcat( expanded_filename, filename );
-        return expanded_filename;
+        if ( passwd )
+        {
+            filename = s;
+            home_dir = passwd->pw_dir;
+        }
     }
 #endif /* SUPPORT_GETPWNAM */
 
+    if ( home_dir )
+    {
+        uint len = tmbstrlen(filename) + tmbstrlen(home_dir) + 1;
+        tmbstr p = MemAlloc( len );
+        tmbstrcpy( p, home_dir );
+        tmbstrcat( p, filename );
+        return (ctmbstr) p;
+    }
     return (ctmbstr) filename;
 }
+
+Bool tidyFileExists( ctmbstr filename )
+{
+  ctmbstr fname = (tmbstr) ExpandTilde( filename );
+  Bool exists = ( access(fname, 0) == 0 );
+  if ( fname != filename )
+      MemFree( (tmbstr) fname );
+  return exists;
+}
+
 
 #ifndef TIDY_MAX_NAME
 #define TIDY_MAX_NAME 64
@@ -813,6 +827,8 @@ void AdjustConfig( TidyDocImpl* doc )
 
     if ( !cfg(doc, TidyIndentContent) )
         SetOptionInt( doc, TidyIndentSpaces, 0 );
+    else if ( cfg(doc, TidyIndentSpaces) == 0 )
+        ResetOptionToDefault( doc, TidyIndentSpaces );
 
     /* disable wrapping */
     if ( cfg(doc, TidyWrapLen) == 0 )

@@ -232,7 +232,7 @@ void ShowVersion( TidyDocImpl* doc )
 
 void FileError( TidyDocImpl* doc, ctmbstr file )
 {
-    message( doc, TidyError, "Can't open \"%s\"\n", file );
+    message( doc, TidyConfig, "Can't open \"%s\"\n", file );
 }
 
 static char* TagToString( Node* tag, char* buf )

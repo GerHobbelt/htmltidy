@@ -400,7 +400,8 @@ int main( int argc, char** argv )
     errout = stderr;  /* initialize to stderr */
 
 #ifdef CONFIG_FILE
-    tidyLoadConfig( tdoc, CONFIG_FILE );
+    if ( tidyFileExists(CONFIG_FILE) )
+      tidyLoadConfig( tdoc, CONFIG_FILE );
 #endif /* CONFIG_FILE */
 
     /* look for env var "HTML_TIDY" */
@@ -408,10 +409,10 @@ int main( int argc, char** argv )
 
     if ( cfgfil = getenv("HTML_TIDY") )
         tidyLoadConfig( tdoc, cfgfil );
-#ifdef SUPPORT_GETPWNAM
-    else
-        tidyLoadConfig( tdoc, "~/.tidyrc" );
-#endif /* SUPPORT_GETPWNAM */
+#ifdef USER_CONFIG_FILE
+    else if ( tidyFileExists(USER_CONFIG_FILE) )
+        tidyLoadConfig( tdoc, USER_CONFIG_FILE );
+#endif /* USER_CONFIG_FILE */
 
     /* read command line */
     while ( argc > 0 )
