@@ -62,7 +62,7 @@ void HelpText( TidyDocImpl* doc, ctmbstr prog );
 void GeneralInfo( TidyDocImpl* doc );
 void UnknownOption( TidyDocImpl* doc, char c );
 void UnknownFile( TidyDocImpl* doc, ctmbstr program, ctmbstr file );
-void FileError( TidyDocImpl* doc, ctmbstr file );
+void FileError( TidyDocImpl* doc, ctmbstr file, TidyReportLevel level );
 
 void ErrorSummary( TidyDocImpl* doc );
 void ReportEncodingError( TidyDocImpl* doc, uint code, uint c );

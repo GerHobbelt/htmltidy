@@ -230,9 +230,9 @@ void ShowVersion( TidyDocImpl* doc )
               helper, platform, release_date, __DATE__, __TIME__ );
 }
 
-void FileError( TidyDocImpl* doc, ctmbstr file )
+void FileError( TidyDocImpl* doc, ctmbstr file, TidyReportLevel level )
 {
-    message( doc, TidyConfig, "Can't open \"%s\"\n", file );
+    message( doc, level, "Can't open \"%s\"\n", file );
 }
 
 static char* TagToString( Node* tag, char* buf )
