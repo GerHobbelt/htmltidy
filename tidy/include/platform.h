@@ -172,8 +172,8 @@
 #endif
 #endif
 
-/* Convenience defines for OS/2 + gcc platforms */
-#if defined(__EMX__)
+/* Convenience defines for OS/2 + icc/gcc platforms */
+#if defined(__OS2__) || defined(__IBMC__) || defined(__EMX__)
 #define OS2_OS
 #ifndef PLATFORM_NAME
 #define PLATFORM_NAME "OS/2"
