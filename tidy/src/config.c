@@ -749,7 +749,7 @@ Bool ParseConfigValue( TidyDocImpl* doc, TidyOptionId optId, ctmbstr optval )
     else
     {
         TidyBuffer inbuf = {0};            /* Set up input source */
-        tidyBufAttach( &inbuf, (void*)optval, strlen(optval)+1 );
+        tidyBufAttach( &inbuf, (void*)optval, tmbstrlen(optval)+1 );
         doc->config.cfgIn = BufferInput( doc, &inbuf, ASCII );
         doc->config.c = GetC( &doc->config );
 

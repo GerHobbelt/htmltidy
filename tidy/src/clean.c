@@ -1524,7 +1524,7 @@ void BQ2Div( TidyDocImpl* doc, Node *node )
 {
     tmbchar indent_buf[ 32 ];
     int indent;
-    size_t len;
+    uint len;
     AttVal *attval;
 
     while (node)
