@@ -105,21 +105,16 @@ Parser ParseMap;
 /* Attribute checking methods */
 
 CheckAttribs CheckAttributes;
-CheckAttribs CheckHR;
 CheckAttribs CheckIMG;
-CheckAttribs CheckAnchor;
 CheckAttribs CheckLINK;
-CheckAttribs CheckMap;
 CheckAttribs CheckAREA;
 CheckAttribs CheckTABLE;
-CheckAttribs CheckTableCell;
 CheckAttribs CheckCaption;
 CheckAttribs CheckSCRIPT;
 CheckAttribs CheckSTYLE;
 CheckAttribs CheckHTML;
 CheckAttribs CheckFORM;
 CheckAttribs CheckMETA;
-
 
 /* 0 == TidyTag_UNKNOWN */
 #define TagId(node)        ((node) && (node)->tag ? (node)->tag->id : TidyTag_UNKNOWN)

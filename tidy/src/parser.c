@@ -3893,6 +3893,9 @@ void AttributeChecks(TidyDocImpl* doc, Node* node)
 
             if (!cfgBool(doc, TidyXmlTags) && cfgBool(doc, TidyXhtmlOut))
                 FixXmlLang(doc, node);
+
+            if (IsAnchorElement(doc, node))
+                FixId(doc, node);
         }
 
         if (node->content)
