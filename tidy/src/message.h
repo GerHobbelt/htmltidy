@@ -159,6 +159,7 @@ void ReportNonCompliantNode( TidyDocImpl* doc, Node* node, uint code, uint versW
 
 #define BAD_ATTRIBUTE_VALUE_REPLACED     26
 
+#define INVALID_XML_ID          27
 
 /* page transition effects */
 

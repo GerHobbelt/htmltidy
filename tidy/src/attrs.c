@@ -1197,7 +1197,7 @@ void CheckName( TidyDocImpl* doc, Node *node, AttVal *attval)
 
     if ( IsAnchorElement(doc, node) )
     {
-        if (doc->lexer->isvoyager && !IsValidNMTOKEN(attval->value))
+        if (cfgBool(doc, TidyXmlOut) && !IsValidNMTOKEN(attval->value))
             ReportAttrError( doc, node, attval, BAD_ATTRIBUTE_VALUE);
 
         if ((old = GetNodeByAnchor(doc, attval->value)) &&  old != node)

@@ -546,6 +546,11 @@ void ReportAttrError( TidyDocImpl* doc, Node *node, AttVal *av, uint code)
         messageNode( doc, TidyWarning, node,
                      "%s missing '>' for end of tag", tagdesc );
         break;
+
+    case INVALID_XML_ID:
+        messageNode( doc, TidyWarning, node,
+                     "%s cannot copy name attribute to id", tagdesc );
+        break;
     }
 }
 
