@@ -1185,12 +1185,11 @@ static Bool NestedList( TidyDocImpl* doc, Node *node, Node **pnode )
             {
                 node = list;
                 list = node->prev;
-                list->next = node->next;
-
-                if (list->next)
-                    list->next->prev = list;
 
                 child = list->last;  /* <li> */
+
+                list->next = node->next;
+                FixNodeLinks(list);
 
                 node->parent = child;
                 node->next = NULL;
