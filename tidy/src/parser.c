@@ -272,6 +272,10 @@ static Bool CanPrune( TidyDocImpl* doc, Node *element )
     if ( attrGetID(element) || attrGetNAME(element) )
         return no;
 
+    /* fix for bug 723772, don't trim new-...-tags */
+    if (element->tag->id == TidyTag_UNKNOWN)
+        return no;
+
     return yes;
 }
 
