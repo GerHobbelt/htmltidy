@@ -11,6 +11,7 @@
 #include "forward.h"
 #include "streamio.h"
 #include "tmbstr.h"
+#include "utf8.h"
 
 #ifdef TIDY_WIN32_MLANG_SUPPORT
 
@@ -659,7 +660,17 @@ int Win32MLangGetChar(byte firstByte, StreamIn * in, uint * bytesRead)
         hr = IMLangConvertCharset_DoConversionToUnicode(p, inbuf, &readNow, outbuf, &outbufsize);
 
         assert( hr == S_OK );
-        assert( outbufsize <= 1 );
+        assert( outbufsize <= 2 );
+
+        if (outbufsize == 2)
+        {
+            /* U+10000-U+10FFFF are returned as a pair of surrogates */
+            tchar m = (tchar)outbuf[0];
+            tchar n = (tchar)outbuf[1];
+            assert( IsHighSurrogate(n) && IsLowSurrogate(m) );
+            *bytesRead = readNow;
+            return (int)CombineSurrogatePair(n, m);
+        }
 
         if (outbufsize == 1)
         {
