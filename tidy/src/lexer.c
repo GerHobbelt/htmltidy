@@ -2236,7 +2236,7 @@ Node *GetToken(Lexer *lexer, uint mode)
                     char *name;
                     Node *asp, *php;
                     AttVal *av = NewAttribute();
-                    uint pdelim;
+                    int pdelim;
                     isempty = no;
 
                     UngetChar(c, lexer->in);
