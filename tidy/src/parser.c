@@ -560,7 +560,7 @@ static Bool CleanLeadingWhitespace(TidyDocImpl* doc, Node* node)
         return yes;
 
     /* <h4>...</h4> <em>...</em> */
-    if (node->prev && !nodeHasCM(node->parent, CM_INLINE) &&
+    if (node->prev && !nodeHasCM(node->prev, CM_INLINE) &&
         (node->prev->type == StartTag || node->prev->type == StartEndTag))
         return yes;
 
