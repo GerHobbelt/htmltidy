@@ -1357,8 +1357,8 @@ void ParseInline( TidyDocImpl* doc, Node *element, uint mode )
                     element->last = child->last;
                     child->content = element;
 
-		    FixNodeLinks(child);
-		    FixNodeLinks(element);
+                    FixNodeLinks(child);
+                    FixNodeLinks(element);
                 }
             }
 
