@@ -1280,7 +1280,7 @@ static Bool AfterSpaceImp(Lexer *lexer, Node *node, Bool isEmpty)
     {
         if (prev->type == TextNode && prev->end > prev->start)
         {
-            uint c, i;
+            uint i, c = '\0'; /* initialised to avoid warnings */
             for (i = prev->start; i < prev->end; ++i)
             {
                 c = (byte) lexer->lexbuf[i];

@@ -1073,7 +1073,7 @@ static void DeclareUserTag( TidyDocImpl* doc, TidyOptionId optId,
                             UserTagType tagType, ctmbstr name )
 {
   ctmbstr prvval = cfgStr( doc, optId );
-  tmbstr catval;
+  tmbstr catval = NULL;
   ctmbstr theval = name;
   if ( prvval )
   {
@@ -1085,7 +1085,7 @@ static void DeclareUserTag( TidyDocImpl* doc, TidyOptionId optId,
   }
   DefineTag( doc, tagType, name );
   SetOptionValue( doc, optId, theval );
-  if ( prvval )
+  if ( catval )
     MemFree( catval );
 }
 
