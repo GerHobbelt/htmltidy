@@ -26,6 +26,7 @@
   the line, as whitespace at the start of a line signifies a
   line continuation.
 */
+#include "platform.h"
 
 #ifdef WINDOWS_OS
 #include <io.h>
