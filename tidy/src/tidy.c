@@ -1142,6 +1142,10 @@ int ReadChar(StreamIn *in)
         if (c == '\033')
             break;
 
+        /* Form Feed is allowed in HTML */
+        if ((c == '\015') && !XmlTags)
+            break;
+            
         if (0 <= c && c < 32)
             continue; /* discard control char */
 
