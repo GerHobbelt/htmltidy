@@ -2955,7 +2955,11 @@ void ParseScript(TidyDocImpl* doc, Node *script, uint mode)
 {
 #pragma unused(mode)
 
-    Node *node = GetCDATA(doc, script);
+    Node *node;
+    
+    doc->lexer->parent = script;
+    node = GetToken(doc, CdataContent);
+    doc->lexer->parent = NULL;
 
     if (node)
         InsertNodeAtEnd(script, node);
