@@ -931,6 +931,8 @@ extern Bool JoinStyles;
 extern DupAttrMode DuplicateAttrs;
 extern Bool EscapeCdata;
 extern Bool NCR; /* #431953 - RJ */
+extern Bool OutputBOM;
+extern Bool SmartBOM;
 
 /* Parser methods for tags */
 
