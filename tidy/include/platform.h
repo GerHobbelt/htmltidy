@@ -120,6 +120,7 @@ typedef enum
 
 #if  defined(WINDOWS) || defined(_WIN32)
 #define unlink _unlink
+#define fileno _fileno
 #endif
 
 #if defined(DMALLOC)
