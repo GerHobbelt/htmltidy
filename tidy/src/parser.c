@@ -2589,6 +2589,13 @@ void ParsePre( TidyDocImpl* doc, Node *pre, uint mode )
         if (InsertMisc(pre, node))
             continue;
 
+        if (node->tag == NULL)
+        {
+            ReportWarning(doc, pre, node, DISCARDING_UNEXPECTED);
+            FreeNode(doc, node);
+            continue;
+        }
+
         /* strip unexpected tags */
         if ( !PreContent(doc, node) )
         {
