@@ -27,4 +27,4 @@
 
 # DEFAULT $CVSROOT/CVSROOT/syncmail %{sVv} tidy-cvs@lists.sourceforge.net
 
-DEFAULT /bin/chmod +x syncmail
+DEFAULT /bin/chmod +x /cvsroot/tidy/CVSROOT/syncmail
