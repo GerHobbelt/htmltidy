@@ -2755,6 +2755,11 @@ static char *ParseValue(Lexer *lexer, char *name,
 
             if (munge)
             {
+                /* discard line breaks in quoted URLs */ 
+                /* #438650 - fix by Randy Waki */
+                if (c == '\n' && IsUrl(name)) 
+                    continue;
+                
                 c = ' ';
 
                 if (lastc == ' ')
