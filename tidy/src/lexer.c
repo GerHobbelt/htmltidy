@@ -1224,6 +1224,9 @@ Bool SetXHTMLDocType(Lexer *lexer, Node *root)
         {
             fpi = null;
             sysid = "";
+        
+            if (doctype)/* #473490 - fix by Bjšrn Hšhrmann 10 Oct 01 */
+                DiscardElement(doctype);
         }
     }
     else if (doctype_mode == doctype_strict)
