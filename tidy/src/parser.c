@@ -480,7 +480,7 @@ static void TrimSpaces( TidyDocImpl* doc, Node *element)
         TrimInitialSpace( doc, element, text );
 
     text = element->last;
-    if ( nodeIsText(text) )
+    if ( nodeIsText(text) && !nodeIsPRE(element))
         TrimTrailingSpace( doc, element, text );
 }
 
