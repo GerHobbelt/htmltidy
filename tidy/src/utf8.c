@@ -422,7 +422,7 @@ int EncodeCharToUTF8Bytes( uint c, tmbstr encodebuf,
     {
         int i;
         fprintf( stderr, "UTF-8 encoding error for U+%x : ", c );
-        for (i = 0; 0 < bytes; i++)
+        for (i = 0; i < bytes; i++)
             fprintf( stderr, "0x%02x ", buf[i] );
         fprintf( stderr, "\n" );
     }
