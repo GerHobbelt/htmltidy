@@ -1,6 +1,6 @@
 /* tidylib.c -- internal library definitions
 
-  (c) 1998-2002 (W3C) MIT, INRIA, Keio University
+  (c) 1998-2003 (W3C) MIT, INRIA, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -1065,10 +1065,12 @@ int         tidyDocRunDiagnostics( TidyDocImpl* doc )
     Bool force = cfgBool( doc, TidyForceOutput );
 
     HTMLVersionCompliance( doc );
-    ReportMarkupVersion( doc );
 
     if ( !quiet )
+    {
+        ReportMarkupVersion( doc );
         ReportNumWarnings( doc );
+    }
     
     if ( doc->errors > 0 && !force )
         NeedsAuthorIntervention( doc );
