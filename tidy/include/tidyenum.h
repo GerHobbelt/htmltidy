@@ -410,6 +410,8 @@ typedef enum
   TidyElem_VAR,      /**< VAR */
   TidyElem_WBR,      /**< WBR */
   TidyElem_XMP,      /**< XMP */
+  TidyElem_NEXTID,   /**< NEXTID */
+
   N_TIDY_TAGS       /**< Must be last */
 } TidyTagId;
 
@@ -575,6 +577,15 @@ typedef enum
   TidyAttr_xml_lang,          /**< XML_LANG= */
   TidyAttr_xml_space,         /**< XML_SPACE= */
   TidyAttr_xmlns,             /**< XMLNS= */
+
+  TidyAttr_event,             /**< EVENT= */
+  TidyAttr_methods,           /**< METHODS= */
+  TidyAttr_n,                 /**< N= */
+  TidyAttr_sdaform,           /**< SDAFORM= */
+  TidyAttr_sdapref,           /**< SDAPREF= */
+  TidyAttr_sdasuff,           /**< SDASUFF= */
+  TidyAttr_urn,               /**< URN= */
+
   N_TIDY_ATTRIBS              /**< Must be last */
 } TidyAttrId;
 
