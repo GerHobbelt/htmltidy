@@ -1657,6 +1657,7 @@ Node *GetCDATA(Lexer *lexer, Node *container)
             }
 
             start = -1;
+            endtag = no;
         }
         /* #427844 - fix by Markus Hoenicka 21 Oct 00 */
         else if (c == '\r')
