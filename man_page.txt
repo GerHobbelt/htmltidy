@@ -1,0 +1,141 @@
+.TH TIDY 1 "November 26, 1999"
+.SH NAME
+tidy \- validate, correct, and pretty-print HTML files
+.SH SYNOPSIS
+.B tidy
+.RB [ -ioucnmeqh ]
+.RB [ -config
+.IR configuration-file ]
+.RB [ -indent ]
+.RB [ -omit ]
+.RB [ -wrap
+.IR column ]
+.RB [ -upper ]
+.RB [ -clean ]
+.RB [ -raw
+|
+.B -ascii
+|
+.B -latin1
+|
+.B -iso2022
+|
+.B -utf8
+|
+.BR -mac ]
+.RB [ -numeric ]
+.RB [ -modify ]
+.RB [ -errors ]
+.RB [ -quiet ]
+.RB [ -f
+.IR error-file ]
+.RB [ -xml ]
+.RB [ -asxml ]
+.RB [ -slides ]
+.RB [ -help ]
+.RB [ --\c
+.IR "configuration-option value" ]
+.IR file ...
+.SH OPTIONS
+.TP
+.BI -config " configuration-file"
+Set options from
+.IR configuration-file .
+.TP
+.BR -indent ", " -i
+Indent contents of elements (by default using 2 spaces).
+.TP
+.BR -omit ", " -o
+Omit optional endtags.
+.TP
+.BI -wrap " column"
+Wrap output at column
+.IR column .
+(The default is 68.)
+.TP
+.BR -upper ", " -u
+Output tags in upper case (the default is lower case).  If
+.B -xml
+is specified, the original case is preserved, and this option has no effect.
+Also note that it doesn't affect attribute names.
+.TP
+.BR -clean ", " -c
+Replace <FONT>, <NOBR>, and <CENTER> tags with style properties and rules
+using CSS (Cascaded Style Sheets).
+.TP
+.B -raw
+Output characters with values higher than 127 unchanged.
+.TP
+.B -ascii
+Use Latin-1 (ISO 8859-1) for input, and US ASCII for output.
+.TP
+.B -latin1
+Use Latin-1 (ISO 8859-1) for both input and output.
+.TP
+.B -iso2022
+Use ISO 2022 for both input and output.
+.TP
+.B -utf8
+Use UTF-8 for both input and output.
+.TP
+.B -mac
+Use MacRoman for input.
+.TP
+.BR -numeric ", " -n
+Output numeric rather than named entities.
+.TP
+.BR -modify ", " -m
+Modify original files in place.
+.TP
+.BR -errors ", " -e
+Only show errors.  The original files will not be modified.
+.TP
+.BR -quiet ", " -q
+Supress non-essential output (i.e. the welcome message and the summary
+report).
+.TP
+.BI -f " error-file"
+Write errors to
+.IR error-file .
+.TP
+.B -xml
+Input is well-formed XML.
+.TP
+.B -asxml
+Convert HTML to well-formed XML.
+.TP
+.B -slides
+Burst into slides on <H2> elements.
+.TP
+.BR -help ", " -h
+List command-line options.
+.TP
+.BI -- "configuration-option value"
+Set
+.I configuration-option
+to
+.IR value .
+.SH ENVIRONMENT
+.TP
+.B HTML_TIDY
+Name of the default configuration file.  This should be an absolute path,
+since you will probably invoke
+.B tidy
+from different directories.  The value of HTML_TIDY will be parsed after the
+compiled-in default (defined with -DCONFIG_FILE), but before any of the
+files specified using
+.BR -config .
+.SH "EXIT STATUS"
+.IP 0
+All input files were processed successfully.
+.IP 1
+There were warnings.
+.IP 2
+There were errors.
+.SH "SEE ALSO"
+Tidy HTML documentation.
+.SH AUTHORS
+Dave Raggett <dsr@w3.org>.
+.PP
+This manual page was written by Matej Vela <vela@debian.org>.
+
