@@ -1252,7 +1252,7 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
             AddGenerator(doc);
     }
 
-    /* ensure presence of initial <?XML version="1.0"?> */
+    /* ensure presence of initial <?xml version="1.0"?> */
     if ( xmlOut && xmlDecl )
         FixXmlDecl( doc );
 

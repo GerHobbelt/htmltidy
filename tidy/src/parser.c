@@ -4228,7 +4228,7 @@ void ParseXMLDocument(TidyDocImpl* doc)
 
     }
 
-    /* ensure presence of initial <?XML version="1.0"?> */
+    /* ensure presence of initial <?xml version="1.0"?> */
     if ( cfgBool(doc, TidyXmlDecl) )
         FixXmlDecl( doc );
 }
