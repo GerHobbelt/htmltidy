@@ -2901,6 +2901,14 @@ void ParseHead(TidyDocImpl* doc, Node *head, uint mode)
             break;
         }
 
+        if (node->type == ProcInsTag &&
+            tmbstrcmp(node->element, "xml-stylesheet") == 0)
+        {
+            ReportWarning(doc, head, node, TAG_NOT_ALLOWED_IN);
+            InsertNodeBeforeElement(FindHTML(doc), node);
+            continue;
+        }
+
         /* deal with comments etc. */
         if (InsertMisc(head, node))
             continue;
