@@ -77,6 +77,4 @@ void FixBrakes( TidyDocImpl* pDoc, Node *pParent );
 
 void VerifyHTTPEquiv( TidyDocImpl* pDoc, Node *pParent );
 
-Bool  HTMLVersionCompliance( TidyDocImpl* doc );
-
 #endif /* __CLEAN_H__ */

@@ -1098,8 +1098,6 @@ int         tidyDocRunDiagnostics( TidyDocImpl* doc )
     Bool quiet = cfgBool( doc, TidyQuiet );
     Bool force = cfgBool( doc, TidyForceOutput );
 
-    HTMLVersionCompliance( doc );
-
     if ( !quiet )
     {
 
