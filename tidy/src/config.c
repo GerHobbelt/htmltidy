@@ -65,13 +65,6 @@ static const ctmbstr boolPicks[] =
   NULL
 };
 
-static const ctmbstr invBoolPicks[] = 
-{
-  "yes",
-  "no",
-  NULL
-};
-
 static const ctmbstr autoBoolPicks[] = 
 {
   "no",
@@ -1026,7 +1019,7 @@ Bool ParseName( TidyDocImpl* doc, const TidyOptionImpl* option )
 Bool ParseCSS1Selector( TidyDocImpl* doc, const TidyOptionImpl* option )
 {
     char buf[256] = {0};
-    int i = 0;
+    uint i = 0;
     uint c = SkipWhite( &doc->config );
 
     while ( i < sizeof(buf)-2 && c != EndOfStream && !IsWhite(c) )

@@ -46,7 +46,6 @@ static void EncodeMacRoman( uint c, StreamOut* out );
 static void EncodeIbm858( uint c, StreamOut* out );
 static void EncodeLatin0( uint c, StreamOut* out );
 
-void outcUTF8Bytes( StreamOut *out, byte* buf, int* count );
 void outBOM( StreamOut *out );
 
 /******************************

@@ -1,6 +1,6 @@
 /* istack.c -- inline stack for compatibility with Mosaic
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
   
   CVS Info :
@@ -16,10 +16,6 @@
 #include "attrs.h"
 #include "streamio.h"
 #include "tmbstr.h"
-
-extern Bool   debug_flag;
-extern Node  *debug_element;
-extern Lexer *debug_lexer;
 
 /* duplicate attributes */
 AttVal *DupAttrs( TidyDocImpl* doc, AttVal *attrs)

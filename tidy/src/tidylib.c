@@ -952,7 +952,14 @@ int         tidyDocSaveFile( TidyDocImpl* doc, ctmbstr filnam )
 
 int         tidyDocSaveStdout( TidyDocImpl* doc )
 {
-    int oldstdoutmode = -1, oldstderrmode = -1, status = 0;
+#if !defined(NO_SETMODE_SUPPORT)
+
+#if defined(_WIN32) || defined(OS2_OS)
+    int oldstdoutmode = -1, oldstderrmode = -1;
+#endif
+
+#endif
+    int status = 0;
     uint outenc = cfg( doc, TidyOutCharEncoding );
     uint nl = cfg( doc, TidyNewline );
     StreamOut* out = FileOutput( stdout, outenc, nl );
