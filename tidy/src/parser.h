@@ -64,6 +64,7 @@ void FixId( TidyDocImpl* doc, Node *node );
 Bool PreContent( TidyDocImpl* doc, Node *node );
 
 Bool IsJavaScript(Node *node);
+Bool DescendantOf(Node *element, TidyTagId tid);
 
 /*
   HTML is the top level element
