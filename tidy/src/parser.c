@@ -2664,6 +2664,14 @@ void ParsePre( TidyDocImpl* doc, Node *pre, uint mode )
         if ( !PreContent(doc, node) )
         {
             Node *newnode;
+
+            /* fix for http://tidy.sf.net/bug/772205 */
+            if (node->type == EndTag)
+            {
+               ReportError(doc, pre, node, DISCARDING_UNEXPECTED);
+               FreeNode(doc, node);
+               continue;
+            }
             /*
               This is basically what Tidy 04 August 2000 did and far more accurate
               with respect to browser behaivour than the code commented out above.
