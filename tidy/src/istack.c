@@ -132,7 +132,7 @@ void PopInline( TidyDocImpl* doc, Node *node )
                     MemFree(av);
                 }
 
-                if ( istack->tag->id == TidyElem_A )
+                if ( istack->tag->id == TidyTag_A )
                 {
                     MemFree(istack->element);
                     break;
