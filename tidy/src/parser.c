@@ -2956,8 +2956,20 @@ void ParseScript(TidyDocImpl* doc, Node *script, uint mode)
 #pragma unused(mode)
 
     Node *node = GetCDATA(doc, script);
-    if ( node )
+
+    if (node)
         InsertNodeAtEnd(script, node);
+
+    node = GetToken(doc, IgnoreWhitespace);
+
+    if (!(node && node->type == EndTag && node->tag->id == script->tag->id))
+    {
+        /* todo: report error for missing endtag */
+    }
+    else
+    {
+        FreeNode(doc, node);
+    }
 }
 
 Bool IsJavaScript(Node *node)
