@@ -1553,6 +1553,11 @@ Bool SetXHTMLDocType( TidyDocImpl* doc )
                 RepairAttrValue(doc, doctype, sys, GetSIFromVers(XH11));
             return yes;
         }
+        else if (lexer->versions & XH11 && !(lexer->versions & VERS_HTML40))
+        {
+            RepairAttrValue(doc, doctype, pub, GetFPIFromVers(XH11));
+            RepairAttrValue(doc, doctype, sys, GetSIFromVers(XH11));
+        }
         else if (lexer->versions & XB10 && lexer->doctype == XB10)
         {
             if (!GetAttrByName(doctype, sys))
