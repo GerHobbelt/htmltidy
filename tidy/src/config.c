@@ -468,7 +468,7 @@ const char *ExpandTilde(const char *filename)
         home_dir = passwd->pw_dir;
     }
 
-    if (p = realloc(expanded_filename, strlen(filename)+strlen(home_dir)+1))
+    if (p = MemRealloc/*realloc*/(expanded_filename, strlen(filename)+strlen(home_dir)+1)) /* #503226 - fix by Nick Efthymiou 14 Jan 02 */
     {
         strcat(strcpy(expanded_filename = p, home_dir), filename);
         return(expanded_filename);
