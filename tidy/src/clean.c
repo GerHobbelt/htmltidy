@@ -870,23 +870,27 @@ static void AddFontSize( TidyDocImpl* doc, Node* node, ctmbstr size )
     tmbchar work[ 32 ] = {0};
     ctmbstr value = NULL;
 
-    if ( nodeIsP(node) )
+    if (nodeIsP(node))
     {
-        if ( tmbstrcmp(size, "6") == 0 )
+        if (tmbstrcmp(size, "6") == 0)
             value = "h1";
-        else if (tmbstrcmp(size, "5") == 0 )
+        else if (tmbstrcmp(size, "5") == 0)
             value = "h2";
-        else if (tmbstrcmp(size, "4") == 0 )
+        else if (tmbstrcmp(size, "4") == 0)
             value = "h3";
 
-        if ( value )
+        if (value)
         {
-            MemFree( node->element );
-            node->element = tmbstrdup( value );
-            FindTag( doc, node );
+            MemFree(node->element);
+            node->element = tmbstrdup(value);
+            FindTag(doc, node);
+            return;
         }
     }
-    else if ( NULL != (value = FontSize2Name(size, work)) )
+
+    value = FontSize2Name(size, work);
+
+    if (value)
     {
         tmbchar buf[64];
         sprintf(buf, "font-size: %s", value);
