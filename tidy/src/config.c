@@ -539,6 +539,17 @@ void AdjustConfig(void)
         XmlPIs = yes;
     }
 
+ /*
+   #427837 - fix by Dave Raggett 02 Jun 01
+   generate <?xml version="1.0" encoding="iso-8859-1"?>
+   if the character encoding is Latin-1 etc.
+ */
+    if (CharEncoding == LATIN1 || CharEncoding == ISO2022)
+    {
+        if (XmlOut)
+            XmlPi = yes;
+    }
+
  /* XML requires end tags */
     if (XmlOut)
     {

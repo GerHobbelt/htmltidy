@@ -1303,6 +1303,7 @@ Bool FixDocType(Lexer *lexer, Node *root)
 }
 
 /* ensure XML document starts with <?XML version="1.0"?> */
+/* add encoding attribute if not using ASCII or UTF-8 */
 Bool FixXMLPI(Lexer *lexer, Node *root)
 {
     Node *xml;
@@ -1330,6 +1331,13 @@ Bool FixXMLPI(Lexer *lexer, Node *root)
 
     lexer->txtstart = lexer->txtend = lexer->lexsize;
     AddStringLiteral(lexer, "xml version=\"1.0\"");
+
+    /* #427837 - fix by Dave Raggett 02 Jun 01 */
+    if (CharEncoding == LATIN1)
+        AddStringLiteral(lexer, " encoding=\"iso-8859-1\"");
+    else if (CharEncoding == ISO2022)
+        AddStringLiteral(lexer, " encoding=\"iso-2022\"");
+
     lexer->txtend = lexer->lexsize;
 
     xml->start = lexer->txtstart;
