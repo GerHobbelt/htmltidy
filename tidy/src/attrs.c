@@ -536,7 +536,7 @@ Bool IsCSS1Selector( ctmbstr buf )
         {
             esclen = 1;  /* ab\555\444 is 4 chars {'a', 'b', \555, \444} */
         }
-        else if ( isxdigit( c ) )
+        else if ( isdigit( c ) )
         {
             /* Digit not 1st, unless escaped (Max length "\112F") */
             if ( esclen > 0 )
