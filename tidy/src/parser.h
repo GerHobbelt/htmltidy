@@ -60,6 +60,8 @@ Bool IsBlank(Lexer *lexer, Node *node);
 */
 void FixId( TidyDocImpl* doc, Node *node );
 
+void FixXmlLang(TidyDocImpl* doc, Node* node);
+
 /* acceptable content for pre elements */
 Bool PreContent( TidyDocImpl* doc, Node *node );
 

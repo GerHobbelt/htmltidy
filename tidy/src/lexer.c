@@ -2412,6 +2412,9 @@ Node* GetToken( TidyDocImpl* doc, uint mode )
                     else
                         CheckAttributes( doc, curr );
 
+                    if (!cfgBool(doc, TidyXmlTags) && cfgBool(doc, TidyXhtmlOut))
+                        FixXmlLang(doc, curr);
+
                     /* should this be called before attribute checks? */
                     RepairDuplicateAttributes( doc, curr );
                 }
