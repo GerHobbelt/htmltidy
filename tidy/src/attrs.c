@@ -973,6 +973,7 @@ void CheckId(Lexer *lexer, Node *node, AttVal *attval)
 
     p = attval->value;
     s = *p++;
+
     
     if (!IsLetter(s))
     {
@@ -983,11 +984,11 @@ void CheckId(Lexer *lexer, Node *node, AttVal *attval)
     }
     else
     {
-        while(*p++)
+        while(s = *p++)         /* #559774 tidy version rejects all id values */
         {
-            if (!IsNamechar(*p))
+            if (!IsNamechar(s))
             {
-                if (lexer->isvoyager && IsXMLNamechar(*p))
+                if (lexer->isvoyager && IsXMLNamechar(s))
                     ReportAttrError(lexer, node, attval, XML_ID_SYNTAX);
                 else
                     ReportAttrError(lexer, node, attval, BAD_ATTRIBUTE_VALUE);
