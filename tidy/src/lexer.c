@@ -1043,7 +1043,7 @@ void FreeAttribute( TidyDocImpl* doc, AttVal *av )
 
 /* detach attribute from node
 */
-void DetachAttribute( TidyDocImpl* doc, Node *node, AttVal *attr )
+void DetachAttribute( Node *node, AttVal *attr )
 {
     AttVal *av, *prev = NULL;
 
@@ -1065,7 +1065,7 @@ void DetachAttribute( TidyDocImpl* doc, Node *node, AttVal *attr )
 */
 void RemoveAttribute( TidyDocImpl* doc, Node *node, AttVal *attr )
 {
-    DetachAttribute( doc, node, attr );
+    DetachAttribute( node, attr );
     FreeAttribute( doc, attr );
 }
 

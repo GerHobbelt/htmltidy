@@ -1077,7 +1077,7 @@ static Bool CopyAttrs( TidyDocImpl* doc, Node *node, Node *child)
             RemoveAttribute( doc, node, av1 );
 
         /* Move attribute from child to node */
-        DetachAttribute( doc, child, av2 );
+        DetachAttribute( child, av2 );
         av1 = av2;
         av2 = av2->next;
         av1->next = NULL;
