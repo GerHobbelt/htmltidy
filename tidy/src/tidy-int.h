@@ -31,6 +31,11 @@
 
 struct _TidyDocImpl
 {
+    /* The Document Tree (and backing store buffer) */
+    Node                root;       /* This MUST remain the first declared 
+                                       variable in this structure */
+    Lexer*              lexer;
+
     /* Config + Markup Declarations */
     TidyConfigImpl      config;
     TidyTagImpl         tags;
@@ -43,10 +48,6 @@ struct _TidyDocImpl
 
     /* The Pretty Print buffer */
     TidyPrintImpl       pprint;
-
-    /* The Document Tree (and backing store buffer) */
-    Node*               root;
-    Lexer*              lexer;
 
     /* I/O */
     StreamIn*           docIn;

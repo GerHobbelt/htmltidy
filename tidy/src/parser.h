@@ -71,7 +71,7 @@ Bool DescendantOf(Node *element, TidyTagId tid);
 /*
   HTML is the top level element
 */
-Node *ParseDocument( TidyDocImpl* doc );
+void ParseDocument( TidyDocImpl* doc );
 
 
 
@@ -80,6 +80,6 @@ Node *ParseDocument( TidyDocImpl* doc );
 */
 Bool XMLPreserveWhiteSpace( TidyDocImpl* doc, Node *element );
 
-Node* ParseXMLDocument( TidyDocImpl* doc );
+void ParseXMLDocument( TidyDocImpl* doc );
 
 #endif /* __PARSER_H__ */

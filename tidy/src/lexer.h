@@ -380,7 +380,7 @@ uint ToUpper(uint c);
 char FoldCase( TidyDocImpl* doc, tmbchar c, Bool tocaps );
 
 
-Lexer* NewLexer(void);
+Lexer* NewLexer( TidyDocImpl* doc );
 Bool EndOfInput( TidyDocImpl* doc );
 void FreeLexer( TidyDocImpl* doc );
 

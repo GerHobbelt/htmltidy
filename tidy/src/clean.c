@@ -1390,7 +1390,7 @@ Node* CleanNode( TidyDocImpl* doc, Node *node )
 ** call stack until we have a valid node reference.
 */
 
-static Node* CleanTree( TidyDocImpl* doc, Node *node, Node** prepl)
+static Node* CleanTree( TidyDocImpl* doc, Node *node, Node** prepl )
 {
     if (node->content)
     {
@@ -1429,12 +1429,12 @@ void CleanDocument( TidyDocImpl* doc )
     /* placeholder.  CleanTree()/CleanNode() will not
     ** zap root element 
     */
-    Node* repl = doc->root;  
-    CleanTree( doc, doc->root, &repl );
+    Node* repl = &doc->root;  
+    CleanTree( doc, &doc->root, &repl );
 
     if ( cfgBool(doc, TidyMakeClean) )
     {
-        DefineStyleRules( doc, doc->root );
+        DefineStyleRules( doc, &doc->root );
         CreateStyleElement( doc );
     }
 }
@@ -2411,6 +2411,6 @@ Bool  HTMLVersionCompliance( TidyDocImpl* doc )
 
     compliant = ( (versWanted & contver) != 0 );
     if ( !compliant )
-        NodeCompliance( doc, doc->root, versWanted );
+        NodeCompliance( doc, &doc->root, versWanted );
     return compliant;
 }
