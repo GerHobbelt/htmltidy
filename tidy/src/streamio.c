@@ -124,6 +124,15 @@ static StreamIn* initStreamIn( TidyDocImpl* doc, int encoding )
     return in;
 }
 
+void freeStreamIn(StreamIn* in)
+{
+#ifdef TIDY_STORE_ORIGINAL_TEXT
+    if (in->otextbuf)
+        MemFree(in->otextbuf);
+#endif
+    MemFree(in);
+}
+
 StreamIn* FileInput( TidyDocImpl* doc, FILE *fp, int encoding )
 {
     StreamIn *in = initStreamIn( doc, encoding );

@@ -70,6 +70,8 @@ struct _StreamIn
     TidyDocImpl* doc;
 };
 
+void freeStreamIn(StreamIn* in);
+
 StreamIn* FileInput( TidyDocImpl* doc, FILE* fp, int encoding );
 StreamIn* BufferInput( TidyDocImpl* doc, TidyBuffer* content, int encoding );
 StreamIn* UserInput( TidyDocImpl* doc, TidyInputSource* source, int encoding );
