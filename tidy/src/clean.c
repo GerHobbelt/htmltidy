@@ -1873,9 +1873,9 @@ Bool SingleSpace(Lexer *lexer, Node *node)
 
         if ((node->end - node->start) == 2)
         {
-            unsigned int c;
+            uint c;
 
-            GetUTF8(lexer->lexbuf + node->start, &c);
+            GetUTF8((unsigned char *)lexer->lexbuf + node->start, &c);
 
             if (c == 160)
                 return yes;
