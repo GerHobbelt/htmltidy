@@ -148,6 +148,10 @@ ParseProperty ParseInt;
 /* parser for 't'/'f', 'true'/'false', 'y'/'n', 'yes'/'no' or '1'/'0' */
 ParseProperty ParseBool;
 
+/* parser for 't'/'f', 'true'/'false', 'y'/'n', 'yes'/'no', '1'/'0'
+   or 'auto' */
+ParseProperty ParseAutoBool;
+
 /* a string excluding whitespace */
 ParseProperty ParseName;
 
@@ -166,16 +170,10 @@ ParseProperty ParseTagNames;
 ParseProperty ParseCharEnc;
 ParseProperty ParseNewline;
 
-/* specific to the indent option - Bool and 'auto' */
-ParseProperty ParseIndent;
-
 /* omit | auto | strict | loose | <fpi> */
 ParseProperty ParseDocType;
 
 /* keep-first or keep-last? */
 ParseProperty ParseRepeatAttr;
-
-/* specific to the output-bom option - Bool and 'auto' */
-ParseProperty ParseBOM;
 
 #endif /* __CONFIG_H__ */
