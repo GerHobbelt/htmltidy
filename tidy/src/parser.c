@@ -21,6 +21,7 @@
 
 Bool CheckNodeIntegrity(Node *node)
 {
+#ifndef NO_NODE_INTEGRITY_CHECK
     if (node->prev)
     {
         if (node->prev->next != node)
@@ -55,6 +56,7 @@ Bool CheckNodeIntegrity(Node *node)
         if ( !CheckNodeIntegrity(node) )
             return no;
 
+#endif
     return yes;
 }
 
