@@ -3,7 +3,7 @@
 
 /* parser.h -- HTML Parser
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
   
   CVS Info :
@@ -34,10 +34,12 @@ Node *RemoveNode(Node *node);
 /* remove node from markup tree and discard it */
 Node *DiscardElement( TidyDocImpl* doc, Node *element);
 
-/* insert node into markup tree */
+/* insert node into markup tree as the firt element
+ of content of element */
 void InsertNodeAtStart(Node *element, Node *node);
 
-/* insert node into markup tree */
+/* insert node into markup tree as the last element
+ of content of "element" */
 void InsertNodeAtEnd(Node *element, Node *node);
 
 /* insert node into markup tree before element */
