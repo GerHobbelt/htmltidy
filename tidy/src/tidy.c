@@ -353,6 +353,26 @@ static int ReadCharFromStream(StreamIn *in)
         return c;
     }
 
+    if (in->encoding == UTF16LE)
+    {
+        if (feof(in->file))
+            return -1;
+
+        c = (getc(in->file) << 8) + c;
+
+        return c;
+    }
+
+    if (in->encoding == UTF16BE)
+    {
+        if (feof(in->file))
+            return -1;
+
+        c = (c << 8) + getc(in->file);
+
+        return c;
+    }
+
     if (in->encoding != UTF8)
         return c;
 
@@ -890,6 +910,10 @@ int main(int argc, char **argv)
                 CharEncoding = ISO2022;
             else if (strcmp(arg, "mac") == 0)
                 CharEncoding = MACROMAN;
+            else if (strcmp(arg, "utf16le") == 0)
+                CharEncoding = UTF16LE;
+            else if (strcmp(arg, "utf16be") == 0)
+                CharEncoding = UTF16BE;
             else if (strcmp(arg, "numeric") == 0)
                 NumEntities = yes;
             else if (strcmp(arg, "modify") == 0)
@@ -1063,6 +1087,17 @@ int main(int argc, char **argv)
             lexer->in->lexer = lexer;
 
             SetFilename(file);	/* #431895 - fix by Dave Bryan 04 Jan 01 */
+
+            /* skip byte order mark */
+            if (lexer->in->encoding == UTF8 ||
+                lexer->in->encoding == UTF16LE ||
+                lexer->in->encoding == UTF16BE)
+            {
+                uint c = ReadChar(lexer->in);
+                
+                if (c != 0xfeff)
+                    UngetChar(c, lexer->in);
+            }
             
             /* Tidy doesn't alter the doctype for generic XML docs */
             if (XmlTags)

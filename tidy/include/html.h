@@ -25,6 +25,9 @@
 #define UTF8        3
 #define ISO2022     4
 #define MACROMAN    5
+#define UTF16LE     6
+#define UTF16BE     7
+#define WIN1252     8
 
 typedef struct
 {
