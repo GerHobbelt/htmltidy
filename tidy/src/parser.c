@@ -736,6 +736,34 @@ void ParseBlock(Lexer *lexer, Node *element, uint mode)
                 continue;
             }
 
+            /* #427671 - Fix by Randy Waki - 10 Aug 00 */
+            /*
+             If an LI contains an illegal FRAME, FRAMESET, OPTGROUP, or OPTION
+             start tag, discard the start tag and let the subsequent content get
+             parsed as content of the enclosing LI.  This seems to mimic IE and
+             Netscape, and avoids an infinite loop: without this check,
+             ParseBlock (which is parsing the LI's content) and ParseList (which
+             is parsing the LI's parent's content) repeatedly defer to each
+             other to parse the illegal start tag, each time inferring a missing
+             </li> or <li> respectively.
+
+             NOTE: This check is a bit fragile.  It specifically checks for the
+             four tags that happen to weave their way through the current series
+             of tests performed by ParseBlock and ParseList to trigger the
+             infinite loop.
+            */
+            if (element->tag == tag_li)
+            {
+                if (node->tag == tag_frame ||
+                    node->tag == tag_frameset ||
+                    node->tag == tag_optgroup ||
+                    node->tag == tag_option)
+                {
+                    ReportWarning(lexer, element, node, DISCARDING_UNEXPECTED);
+                    continue;
+                }
+            }
+
             if (element->tag == tag_td || element->tag == tag_th)
             {
                 /* if parent is a table cell, avoid inferring the end of the cell */
