@@ -3571,8 +3571,26 @@ static tmbstr ParseValue( TidyDocImpl* doc, ctmbstr name,
 
             if (c == '"' || c == '\'')
             {
+                uint q = c;
+
                 ReportAttrError( doc, lexer->token, NULL, UNEXPECTED_QUOTEMARK );
-                break;
+
+                /* handle <input onclick=s("btn1")> and <a title=foo""">...</a> */
+                /* this doesn't handle <a title=foo"/> which browsers treat as  */
+                /* 'foo"/' nor  <a title=foo" /> which browser treat as 'foo"'  */
+                
+                c = ReadChar(doc->docIn);
+                if (c == '>')
+                {
+                    AddCharToLexer(lexer, q);
+                    UngetChar(c, doc->docIn);
+                    break;
+                }
+                else
+                {
+                    UngetChar(c, doc->docIn);
+                    c = q;
+                }
             }
 
             if (c == '<')
