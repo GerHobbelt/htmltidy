@@ -2068,9 +2068,11 @@ static void MoveBeforeTable( TidyDocImpl* doc, Node *row, Node *node )
         if ( nodeIsTABLE(table) )
         {
             InsertNodeBeforeElement( table, node );
-            break;
+            return;
         }
     }
+    /* No table element */
+    InsertNodeBeforeElement( row->parent, node );
 }
 
 /*
