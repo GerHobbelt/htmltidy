@@ -358,6 +358,13 @@ static void Style2Rule( TidyDocImpl* doc, Node *node)
 
     if (styleattr)
     {
+		/* fix for http://tidy.sf.net/bug/850215 */
+        if (!styleattr->value)
+        {
+            RemoveAttribute(doc, node, styleattr);
+            return;
+        }
+
         classname = FindStyle( doc, node->element, styleattr->value );
         classattr = AttrGetById(node, TidyAttr_CLASS);
 
