@@ -633,10 +633,9 @@ void ReportEncodingError(TidyDocImpl* doc, uint code, uint c, Bool discarded)
         messageLexer( doc, TidyWarning, fmt, action, buf );
 }
 
-void ReportEntityError( TidyDocImpl* doc, uint code, ctmbstr entity, int c )
+void ReportEntityError( TidyDocImpl* doc, uint code, ctmbstr entity,
+                        int ARG_UNUSED(c) )
 {
-#pragma unused(c)
-
     ctmbstr entityname = ( entity ? entity : "NULL" );
     ctmbstr fmt = GetFormatFromCode(code);
 

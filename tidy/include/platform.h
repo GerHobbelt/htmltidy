@@ -480,7 +480,6 @@ extern "C" {
 #pragma warning( disable : 4189 ) /* local variable is initialized but not referenced */
 #pragma warning( disable : 4100 ) /* unreferenced formal parameter */
 #pragma warning( disable : 4706 ) /* assignment within conditional expression */
-#pragma warning( disable : 4068 ) /* unknown #pragma unused(...) */
 #endif
 
 #endif /* _WIN32 */
@@ -524,7 +523,12 @@ typedef const tmbchar* ctmbstr; /* Ditto, but const */
 #define TMBSTR_DEFINED
 #endif
 
-           
+#if defined(__GNUC__) || defined(__INTEL_COMPILER)
+# define ARG_UNUSED(x) x __attribute__((unused))
+#else
+# define ARG_UNUSED(x) x
+#endif
+
 /*
   bool is a reserved word in some but
   not all C++ compilers depending on age

@@ -430,11 +430,9 @@ TidyIterator   GetDeclaredTagList( TidyDocImpl* doc )
     return (TidyIterator) doc->tags.declared_tag_list;
 }
 
-ctmbstr        GetNextDeclaredTag( TidyDocImpl* doc, UserTagType tagType,
-                                   TidyIterator* iter )
+ctmbstr        GetNextDeclaredTag( TidyDocImpl* ARG_UNUSED(doc),
+                                   UserTagType tagType, TidyIterator* iter )
 {
-#pragma unused(doc)
-
     ctmbstr name = NULL;
     Dict* curr;
     for ( curr = (Dict*) *iter; name == NULL && curr != NULL; curr = curr->next )

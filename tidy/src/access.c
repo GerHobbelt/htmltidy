@@ -3217,10 +3217,8 @@ static void InitAccessibilityChecks( TidyDocImpl* doc, int level123 )
 ************************************************************/
 
 
-static void FreeAccessibilityChecks( TidyDocImpl* doc )
+static void FreeAccessibilityChecks( TidyDocImpl* ARG_UNUSED(doc) )
 {
-#pragma unused(doc)
-
     /* free any memory allocated for the lists
 
     Linked List of Links not used.  Just search document as 

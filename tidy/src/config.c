@@ -1379,19 +1379,17 @@ Bool ParseRepeatAttr( TidyDocImpl* doc, const TidyOptionImpl* option )
 /* Use TidyOptionId as iterator.
 ** Send index of 1st option after TidyOptionUnknown as start of list.
 */
-TidyIterator getOptionList( TidyDocImpl* doc )
+TidyIterator getOptionList( TidyDocImpl* ARG_UNUSED(doc) )
 {
-#pragma unused(doc)
   return (TidyIterator) 1;
 }
 
 /* Check if this item is last valid option.
 ** If so, zero out iterator.
 */
-const TidyOptionImpl*  getNextOption( TidyDocImpl* doc, TidyIterator* iter )
+const TidyOptionImpl*  getNextOption( TidyDocImpl* ARG_UNUSED(doc),
+                                      TidyIterator* iter )
 {
-#pragma unused(doc)
-
   const TidyOptionImpl* option = NULL;
 /*  TidyOptionId optId; */
   int optId;

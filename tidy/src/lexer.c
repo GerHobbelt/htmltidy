@@ -1422,10 +1422,8 @@ uint ApparentVersion( TidyDocImpl* doc )
         return HTMLVersion(doc);
 }
 
-ctmbstr HTMLVersionNameFromCode( uint vers, Bool isXhtml )
+ctmbstr HTMLVersionNameFromCode( uint vers, Bool ARG_UNUSED(isXhtml) )
 {
-#pragma unused(isXhtml)
-
     ctmbstr name = GetNameFromVers(vers);
 
     /* this test has moved to ReportMarkupVersion() in localize.c, for localization reasons */
