@@ -1147,7 +1147,7 @@ void HelpText( TidyDocImpl* doc, ctmbstr prog )
 {
     tidy_out(doc, "%s [option...] [file...] [option...] [file...]\n", prog );
     tidy_out(doc, "Utility to clean up and pretty print HTML/XHTML/XML\n");
-    tidy_out(doc, "see http://tidy.sourgeforge.net/\n");
+    tidy_out(doc, "see http://tidy.sourceforge.net/\n");
     tidy_out(doc, "\n");
 
 #ifdef PLATFORM_NAME

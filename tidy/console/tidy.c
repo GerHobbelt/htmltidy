@@ -1,5 +1,5 @@
 /*
-  cmmdline.c - HTML Tidy command line driver
+  tidy.c - HTML TidyLib command line driver
 
   Copyright (c) 1998-2003 World Wide Web Consortium
   (Massachusetts Institute of Technology, Institut National de
@@ -36,7 +36,7 @@ void help( TidyDoc tdoc, ctmbstr prog )
 {
     printf( "%s [option...] [file...] [option...] [file...]\n", prog );
     printf( "Utility to clean up and pretty print HTML/XHTML/XML\n");
-    printf( "see http://tidy.sourgeforge.net/\n");
+    printf( "see http://tidy.sourceforge.net/\n");
     printf( "\n");
 
 #ifdef PLATFORM_NAME
