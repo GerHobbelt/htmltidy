@@ -2190,5 +2190,6 @@ void VerifyHTTPEquiv(TidyDocImpl* pDoc, Node *head)
         }
         /* #718127, prevent memory leakage */
         FreeStyleProps(pFirstProp);
+        pLastProp = NULL;
     }
 }
