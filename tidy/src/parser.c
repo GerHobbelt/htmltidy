@@ -284,11 +284,17 @@ static void TrimEmptyElement(Lexer *lexer, Node *element)
     }
     else if (element->tag == tag_p && element->content == null)
     {
+#ifdef ORIGINAL
         /* replace <p></p> by <br><br> to preserve formatting */
         Node *node = InferredTag(lexer, "br");
         CoerceNode(lexer, element, tag_br);
         FreeAttrs(element); /* discard align attribute etc. */
         InsertNodeAfterElement(element, node);
+#else
+        char onesixty[2] = { (char) 160, (char)0 };
+        InsertNodeAtStart( element, NewLiteralTextNode( lexer, onesixty ));
+
+#endif
     }
 }
 
@@ -2844,7 +2850,7 @@ void ParseHead(Lexer *lexer, Node *head, uint mode)
         
         /*
          if it doesn't belong in the head then
-         treat as implicit head of head and deal
+         treat as implicit end of head and deal
          with as part of the body
         */
         if (!(node->tag->model & CM_HEAD))
