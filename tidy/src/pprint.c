@@ -858,6 +858,17 @@ static void PPrintText( TidyDocImpl* doc, uint mode, uint indent,
       end -= ixNL;
     start = IncrWS( start, end, indent, ixWS );
 
+    /* skip space on beginning of line as fix for bug 578216   */
+    /* an alternative solution would be to search for missing  */
+    /* calls to TrimSpaces in parser.c and (thus) discarding   */
+    /* more white space text nodes, but this could introduce   */
+    /* more serious rendering issues; this is safe, since user */
+    /* agents will convert the preceding newline to visual     */
+    /* white space when significant and otherwise discard it   */
+    while (mode == NORMAL && doc->pprint.linelen == 0 &&
+           start < end && doc->lexer->lexbuf[start] == ' ')
+       ++start;
+
     for ( ix = start; ix < end; ++ix )
     {
         CheckWrapIndent( doc, indent );
