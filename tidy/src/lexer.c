@@ -333,7 +333,7 @@ void AddCharToLexer(Lexer *lexer, uint c)
     int i, err, count = 0;
     unsigned char buf[10];
     
-    err = EncodeCharToUTF8Bytes(c, buf, NULL, NULL, &count);
+    err = EncodeCharToUTF8Bytes(c, buf, null, null, &count);
     if (err)
     {
 #if 0
