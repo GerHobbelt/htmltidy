@@ -521,7 +521,7 @@ static char* TagToString(Node* tag, char* buf, size_t count)
     *buf = 0;
     if (tag)
     {
-        if (tag->type == StartTag || tag->type == StartEndTag)
+        if (nodeIsElement(tag))
             tmbsnprintf(buf, count, "<%s>", tag->element);
         else if (tag->type == EndTag)
             tmbsnprintf(buf, count, "</%s>", tag->element);

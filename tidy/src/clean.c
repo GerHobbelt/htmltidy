@@ -1393,11 +1393,6 @@ static Bool Font2Span( TidyDocImpl* doc, Node *node, Node **pnode )
     return no;
 }
 
-static Bool IsElement(Node *node)
-{
-    return (node->type == StartTag || node->type == StartEndTag ? yes : no);
-}
-
 /*
   Applies all matching rules to a node.
 */
@@ -1405,7 +1400,7 @@ Node* CleanNode( TidyDocImpl* doc, Node *node )
 {
     Node *next = NULL;
 
-    for (next = node; node && IsElement(node); node = next)
+    for (next = node; nodeIsElement(node); node = next)
     {
         if ( Dir2Div(doc, node, &next) )
             continue;
@@ -2048,7 +2043,7 @@ void CleanWord2000( TidyDocImpl* doc, Node *node)
             return;
 
         /* strip out style and class attributes */
-        if (node->type == StartTag || node->type == StartEndTag)
+        if (nodeIsElement(node))
             PurgeWord2000Attributes( doc, node );
 
         if (node->content)
