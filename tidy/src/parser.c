@@ -2962,7 +2962,15 @@ void ParseScript(TidyDocImpl* doc, Node *script, uint mode)
     doc->lexer->parent = NULL;
 
     if (node)
+    {
         InsertNodeAtEnd(script, node);
+    }
+    else
+    {
+        /* handle e.g. a document like "<script>" */
+        ReportError(doc, script, NULL, MISSING_ENDTAG_FOR);
+        return;
+    }
 
     node = GetToken(doc, IgnoreWhitespace);
 
