@@ -714,10 +714,12 @@ int main( int argc, char** argv )
         if ( status >= 0 )
             status = tidyRunDiagnostics( tdoc );
 
-        if ( status >= 0 )
+        if ( status > 1 ) /* If errors, do we want to force output? */
+            status = ( tidyOptGetBool(tdoc, TidyForceOutput) ? status : -1 );
+
+        if ( status >= 0 && tidyOptGetBool(tdoc, TidyShowMarkup) )
         {
-            if ( tidyOptGetBool(tdoc, TidyWriteBack) &&
-                 tidyOptGetBool(tdoc, TidyShowMarkup) && argc > 1 )
+            if ( tidyOptGetBool(tdoc, TidyWriteBack) && argc > 1 )
                 status = tidySaveFile( tdoc, htmlfil );
             else
             {
