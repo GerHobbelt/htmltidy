@@ -263,7 +263,7 @@ static const TidyOptionImpl option_defs[] =
   { TidyPunctWrap,               PP, "punctuation-wrap",            BL, no,              ParseBool,         boolPicks       },
 #endif
   { TidyMergeDivs,               MU, "merge-divs",                  BL, yes,             ParseBool,         boolPicks       },
-  { N_TIDY_OPTIONS,  			 XX, "unknown!",                    XY,	0,               NULL,              NULL            }
+  { N_TIDY_OPTIONS,              XX, NULL,                          XY, 0,               NULL,              NULL            }
 };
 
 /* Should only be called by options set by name
