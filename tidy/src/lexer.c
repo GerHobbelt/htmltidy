@@ -2073,7 +2073,7 @@ void UngetToken( TidyDocImpl* doc )
 Node* GetToken( TidyDocImpl* doc, uint mode )
 {
     Lexer* lexer = doc->lexer;
-    int c, lastc, badcomment = 0;
+    uint c, lastc, badcomment = 0;
     Bool isempty, inDTDSubset = no;
     AttVal *attributes = null;
 

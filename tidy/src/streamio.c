@@ -177,14 +177,9 @@ uint ReadChar( StreamIn *in )
         if (c == '\r')
         {
             c = ReadCharFromStream(in);
-            if (c != '\n')
+            if ( c != '\n' )
             {
-                if (c == EndOfStream) /* EOF fix by Terry Teague 12 Aug 01 */
-                {
-                    /* c = EndOfStream; */ /* debug */
-                }
-                else
-                    UngetChar(c, in);
+                UngetChar( c, in );
                 c = '\n';
             }
             in->curcol = 1;
@@ -1146,6 +1141,8 @@ uint ReadCharFromStream( StreamIn* in )
         else
         {
             uint c1 = ReadByte( in );
+            if ( EndOfStream == c1 )
+                return EndOfStream;
             n = (c << 8) + c1;
             return n;
         }
