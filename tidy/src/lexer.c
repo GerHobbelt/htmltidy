@@ -1943,10 +1943,7 @@ Node *GetToken(Lexer *lexer, uint mode)
                     }
 
                     if (lexer->token->tag->chkattrs)
-                    {
-                        CheckUniqueAttributes(lexer, lexer->token);
                         lexer->token->tag->chkattrs(lexer, lexer->token);
-                    }
                     else
                         CheckAttributes(lexer, lexer->token);
                 }
