@@ -426,11 +426,18 @@ void ReportAttrError( TidyDocImpl* doc, Node *node, AttVal *av, uint code)
                      tagdesc, name, value );
         break;
 
+    case BAD_ATTRIBUTE_VALUE_REPLACED:
+        messageNode( doc, TidyWarning, node,
+                     "%s attribute \"%s\" had invalid value \"%s\" and has been replaced",
+                     tagdesc, name, value );
+        break;
+
     case INVALID_ATTRIBUTE:
         messageNode( doc, TidyWarning, node,
                      "%s attribute name \"%s\" (value=\"%s\") is invalid",
                      tagdesc, name, value );
         break;
+
     case XML_ID_SYNTAX:
         messageNode( doc, TidyWarning, node,
                      "%s ID \"%s\" uses XML ID syntax", tagdesc, value );

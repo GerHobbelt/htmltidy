@@ -156,6 +156,9 @@ void ReportNonCompliantNode( TidyDocImpl* doc, Node* node, uint code, uint versW
 
 #define INVALID_ATTRIBUTE       25
 
+#define BAD_ATTRIBUTE_VALUE_REPLACED     26
+
+
 /* page transition effects */
 
 #define EFFECT_BLEND               -1
