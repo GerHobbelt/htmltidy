@@ -2026,6 +2026,12 @@ Node *GetCDATA(Lexer *lexer, Node *container)
             endtag = no;
             begtag = yes;
         }
+        else if (c == '!' && lastc == '<') /* Cancel start tag */
+        {
+            start = -1;
+            endtag = no;
+            begtag = no;
+        }
         else if (c == '/' && lastc == '<')
         {
             start = lexer->lexsize + 1;  /* to first letter */
