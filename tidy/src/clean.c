@@ -843,7 +843,8 @@ static ctmbstr FontSize2Name(ctmbstr size, tmbstr buf, size_t count)
             x *= 1.2;
 
         x *= 100;
-        tmbsnprintf(buf, count, "%d%%", (int)(x));
+        /* Add 0.001 to avoid roundoff error - see #1004512 */
+        tmbsnprintf(buf, count, "%d%%", (int)(x+0.001));
         return buf;
     }
 
