@@ -112,7 +112,7 @@
 #endif
 
 #ifndef UTIME_NEEDS_CLOSED_FILE
-#if defined(sun) || defined(__ATARI__) || defined(BSD_BASED_OS) || defined(MAC_OS)
+#if defined(sun) || defined(__MINT__) || defined(BSD_BASED_OS) || defined(MAC_OS)
 #define UTIME_NEEDS_CLOSED_FILE 1
 #else
 #define UTIME_NEEDS_CLOSED_FILE 0
