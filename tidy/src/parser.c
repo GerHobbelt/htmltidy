@@ -1639,7 +1639,8 @@ void ParseEmpty(TidyDocImpl* doc, Node *element, uint mode)
     if ( lexer->isvoyager )
     {
         Node *node = GetToken( doc, mode);
-        if (!(node->type == EndTag && node->tag == element->tag))
+        if ( node &&
+             !(node->type == EndTag && node->tag == element->tag) )
         {
             ReportWarning( doc, element, node, ELEMENT_NOT_EMPTY);
             UngetToken( doc );
