@@ -211,6 +211,34 @@ int         tidySetCharEncoding( TidyDoc tdoc, ctmbstr encnam )
     return -EINVAL;
 }
 
+int		tidySetInCharEncoding( TidyDoc tdoc, ctmbstr encnam )
+{
+    TidyDocImpl* impl = tidyDocToImpl( tdoc );
+    if ( impl )
+    {
+        int enc = CharEncodingId( encnam );
+        if ( enc >= 0 && SetOptionInt( impl, TidyInCharEncoding, enc ) )
+            return 0;
+
+        ReportBadArgument( impl, "in-char-encoding" );
+    }
+    return -EINVAL;
+}
+
+int		tidySetOutCharEncoding( TidyDoc tdoc, ctmbstr encnam )
+{
+    TidyDocImpl* impl = tidyDocToImpl( tdoc );
+    if ( impl )
+    {
+        int enc = CharEncodingId( encnam );
+        if ( enc >= 0 && SetOptionInt( impl, TidyOutCharEncoding, enc ) )
+            return 0;
+
+        ReportBadArgument( impl, "out-char-encoding" );
+    }
+    return -EINVAL;
+}
+
 TidyOptionId  tidyOptGetIdForName( ctmbstr optnam )
 {
     const TidyOptionImpl* option = lookupOption( optnam );
@@ -1192,7 +1220,7 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
             {
               AttVal* av = AttrGetById( node, TidyAttr_XMLNS );
               if ( av )
-                  RemoveAttribute( node, av );
+                  RemoveAttribute( doc, node, av );
             }
         }
 
@@ -1417,9 +1445,9 @@ Bool  tidyNodeGetText( TidyDoc tdoc, TidyNode tnod, TidyBuffer* outbuf )
 
       PFlushLine( doc, 0 );
       doc->docOut = NULL;
-
   
       MemFree( out );
+      return yes;
   }
   return no;
 }

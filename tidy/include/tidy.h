@@ -232,6 +232,15 @@ TIDY_EXPORT Bool        tidyFileExists( ctmbstr filename );
 */
 TIDY_EXPORT int         tidySetCharEncoding( TidyDoc tdoc, ctmbstr encnam );
 
+/** Set the input encoding for parsing markup.
+** As for tidySetCharEncoding but only affects the input encoding
+**/
+TIDY_EXPORT int         tidySetInCharEncoding( TidyDoc tdoc, ctmbstr encnam );
+
+/** Set the output encoding.
+**/
+TIDY_EXPORT int         tidySetOutCharEncoding( TidyDoc tdoc, ctmbstr encnam );
+
 /** @} end Basic group */
 
 

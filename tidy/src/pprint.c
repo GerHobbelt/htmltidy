@@ -982,11 +982,13 @@ static void PPrintText( TidyDocImpl* doc, uint mode, uint indent,
     }
 }
 
+#if 0
 static void PPrintString( TidyDocImpl* doc, uint indent, ctmbstr str )
 {
     while ( *str != '\0' )
         AddChar( &doc->pprint, *str++ );
 }
+#endif /* 0 */
 
 
 static void PPrintAttrValue( TidyDocImpl* doc, uint indent,
