@@ -827,6 +827,9 @@ static ctmbstr FontSize2Name(ctmbstr size, tmbstr buf, size_t count)
         "120%", "150%", "200%"
     };
 
+    if (size[0] == '\0')
+        return NULL;
+
     if ('0' <= size[0] && size[0] <= '6')
     {
         int n = size[0] - '0';
