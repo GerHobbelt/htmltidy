@@ -39,6 +39,8 @@
 #include "platform.h"
 #include "html.h"
 
+extern char *release_date;
+
 AttVal *ParseAttrs(Lexer *lexer, Bool *isempty);  /* forward references */
 Node *CommentToken(Lexer *lexer);
 static char *ParseAttribute(Lexer *lexer, Bool *isempty, Node **asp, Node **php);
@@ -927,9 +929,16 @@ Bool AddGenerator(Lexer *lexer, Node *root)
     AttVal *attval;
     Node *node;
     Node *head = FindHEAD(root);
-
+    char buf[256];
+    
     if (head)
     {
+#ifdef PLATFORM_NAME
+        sprintf(buf, "HTML Tidy for "PLATFORM_NAME" (vers %s), see www.w3.org", release_date);
+#else
+        sprintf(buf, "HTML Tidy (vers %s), see www.w3.org", release_date);
+#endif
+
         for (node = head->content; node; node = node->next)
         {
             if (node->tag == tag_meta)
@@ -944,6 +953,12 @@ Bool AddGenerator(Lexer *lexer, Node *root)
                     if (attval && attval->value &&
                         wstrncasecmp(attval->value, "HTML Tidy", 9) == 0)
                     {
+                        /* update the existing content to reflect the */
+                        /* actual version of Tidy currently being used */
+                        
+                        MemFree(attval->value);
+                        attval->value = wstrdup(buf);
+                        
                         return no;
                     }
                 }
@@ -951,11 +966,7 @@ Bool AddGenerator(Lexer *lexer, Node *root)
         }
 
         node = InferredTag(lexer, "meta");
-#ifdef PLATFORM_NAME
-        AddAttribute(node, "content", "HTML Tidy for "PLATFORM_NAME", see www.w3.org");
-#else
-        AddAttribute(node, "content", "HTML Tidy, see www.w3.org");
-#endif
+        AddAttribute(node, "content", buf);
         AddAttribute(node, "name", "generator");
         InsertNodeAtStart(head, node);
         return yes;
