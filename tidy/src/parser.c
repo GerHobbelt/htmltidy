@@ -1582,7 +1582,7 @@ void ParseEmpty(Lexer *lexer, Node *element, uint mode)
 {
     if (lexer->isvoyager)
     {
-        Node *node = GetToken(lexer, MixedContent);
+        Node *node = GetToken(lexer, mode);
         if (!(node->type == EndTag && node->tag == element->tag))
         {
             ReportWarning(lexer, element, node, ELEMENT_NOT_EMPTY);
