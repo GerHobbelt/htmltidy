@@ -947,12 +947,8 @@ const Attribute* CheckAttribute( TidyDocImpl* doc, Node *node, AttVal *attval )
 
     if ( attribute != NULL )
     {
-        /* if attribute looks like <foo/> check XML is ok */
-        if ( attribute->versions & VERS_XML )
-        {
-            if ( !(cfgBool(doc, TidyXmlTags) || cfgBool(doc, TidyXmlOut)) )
-                ReportAttrError( doc, node, attval, XML_ATTRIBUTE_VALUE);
-        }
+        if (attribute->versions & VERS_XML)
+            doc->lexer->isvoyager = yes;
 
         ConstrainVersion(doc, AttributeVersions(node, attval));
         
