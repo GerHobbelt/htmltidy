@@ -1122,7 +1122,7 @@ Bool IsValidHTMLID(tmbstr id)
     if (!IsLetter(*s++))
         return no;
 
-    while (s)
+    while (*s)
         if (!IsNamechar(*s++))
             return no;
 
