@@ -776,7 +776,7 @@ Bool ParseConfigValue( TidyDocImpl* doc, TidyOptionId optId, ctmbstr optval )
 
         status = option->parser( doc, option );
 
-        MemFree( doc->config.cfgIn );       /* Release input source */
+        freeStreamIn(doc->config.cfgIn);  /* Release input source */
         doc->config.cfgIn  = NULL;
         tidyBufDetach( &inbuf );
     }
