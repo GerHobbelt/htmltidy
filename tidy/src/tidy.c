@@ -961,7 +961,7 @@ static int ReadCharFromStream(StreamIn *in)
         int err, count = 0;
         
         /* first byte "c" is passed in separately */
-        err = DecodeUTF8BytesToChar(&n, c, NULL, in, ReadRawBytesFromStream, &count);
+        err = DecodeUTF8BytesToChar(&n, c, null, in, ReadRawBytesFromStream, &count);
         if (!err && (n == (uint)EndOfStream) && (count == 1)) /* EOF */
             return EndOfStream;
         else if (err)
@@ -1425,7 +1425,7 @@ void outc(uint c, Out *out)
     {
         int count = 0;
         
-        EncodeCharToUTF8Bytes(c, NULL, out, outcUTF8Bytes, &count);
+        EncodeCharToUTF8Bytes(c, null, out, outcUTF8Bytes, &count);
         if (count <= 0)
         {
             /* ReportEncodingError(in->lexer, ILLEGAL_UTF8, c); */
