@@ -148,7 +148,7 @@ int ReadBOMEncoding(StreamIn *in)
     uint c, c1;
 #if SUPPORT_UTF16_ENCODINGS
     uint bom;
-#endif;
+#endif
 
     if (IsEOF(in))
         return -1;
