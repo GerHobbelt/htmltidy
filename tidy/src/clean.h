@@ -81,5 +81,8 @@ void DropComments(TidyDocImpl* doc, Node* node);
 void DropFontElements(TidyDocImpl* doc, Node* node, Node **pnode);
 void WbrToSpace(TidyDocImpl* doc, Node* node);
 void DowngradeTypography(TidyDocImpl* doc, Node* node);
+void ReplacePreformattedSpaces(TidyDocImpl* doc, Node* node);
+void NormalizeSpaces(Lexer *lexer, Node *node);
+void ConvertCDATANodes(TidyDocImpl* doc, Node* node);
 
 #endif /* __CLEAN_H__ */
