@@ -1542,7 +1542,19 @@ Bool SetXHTMLDocType( TidyDocImpl* doc )
         RepairAttrValue(doc, doctype, sys, "");
         break;
     case TidyDoctypeAuto:
-        if (lexer->versions & VERS_HTML40_STRICT)
+        if (lexer->versions & XH11 && lexer->doctype == XH11)
+        {
+            if (!GetAttrByName(doctype, sys))
+                RepairAttrValue(doc, doctype, sys, GetSIFromVers(XH11));
+            return yes;
+        }
+        else if (lexer->versions & XB10 && lexer->doctype == XB10)
+        {
+            if (!GetAttrByName(doctype, sys))
+                RepairAttrValue(doc, doctype, sys, GetSIFromVers(XB10));
+            return yes;
+        }
+        else if (lexer->versions & VERS_HTML40_STRICT)
         {
             RepairAttrValue(doc, doctype, pub, GetFPIFromVers(X10S));
             RepairAttrValue(doc, doctype, sys, GetSIFromVers(X10S));
