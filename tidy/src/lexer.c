@@ -2431,7 +2431,7 @@ Node* GetToken( TidyDocImpl* doc, uint mode )
                                 doc->badLayout |= USING_NOBR;
                         }
                     }
-
+#if 0
                     if ( curr->tag->chkattrs )
                         curr->tag->chkattrs( doc, curr );
                     else
@@ -2439,6 +2439,7 @@ Node* GetToken( TidyDocImpl* doc, uint mode )
 
                     if (!cfgBool(doc, TidyXmlTags) && cfgBool(doc, TidyXhtmlOut))
                         FixXmlLang(doc, curr);
+#endif
 
                     /* should this be called before attribute checks? */
                     RepairDuplicateAttributes( doc, curr );
