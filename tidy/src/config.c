@@ -27,7 +27,11 @@
   line continuation.
 */
 
+#ifdef WINDOWS_OS
 #include <io.h>
+#else
+#include <unistd.h>
+#endif
 
 #include "config.h"
 #include "tidy-int.h"
