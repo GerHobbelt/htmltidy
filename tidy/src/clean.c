@@ -1,7 +1,7 @@
 /*
   clean.c -- clean up misuse of presentation markup
 
-  (c) 1998-2001 (W3C) MIT, INRIA, Keio University
+  (c) 1998-2002 (W3C) MIT, INRIA, Keio University
   See tidy.c for the copyright notice.
 
   CVS Info :
@@ -2029,7 +2029,7 @@ void CleanWord2000(Lexer *lexer, Node *node)
                 (atrStyle && (strstr(atrStyle->value,"mso-list:") != null))) /* 463066 - fix by Joel Shafer 19 Sep 01 */
             {
                 Dict* listType = tag_ul;
-                if ( wstrcmp(attr->value, "MsoListNumber") == 0 )
+                if ( attr && wstrcmp(attr->value, "MsoListNumber") == 0 ) /* 570027 - fix by Anonymous 17 Jun 02 */
                     listType = tag_ol;
 
                 CoerceNode(lexer, node, tag_li);
