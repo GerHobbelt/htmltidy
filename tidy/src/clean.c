@@ -322,7 +322,7 @@ void AddClass( TidyDocImpl* doc, Node* node, ctmbstr classname )
 
     /*
      if there already is a class attribute
-     then append class name after an underscore.
+     then append class name after a space.
     */
     if (classattr)
     {
