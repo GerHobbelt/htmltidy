@@ -261,10 +261,11 @@ uint ReadChar( StreamIn *in )
             break;
         }
 
+#ifndef NO_NATIVE_ISO2022_SUPPORT
         /* strip control characters, except for Esc */
-
         if (c == '\033')
             break;
+#endif
 
         /* Form Feed is allowed in HTML */
         if ( c == '\015' && !cfgBool(in->doc, TidyXmlTags) )
