@@ -36,6 +36,15 @@
 #ifdef WINDOWS_OS
 #include <io.h>
 #else
+#ifdef DMALLOC
+/*
+   macro for valloc() in dmalloc.h may conflict with declaration for valloc() in unistd.h -
+   we don't need (debugging for) valloc() here. dmalloc.h should come last but it doesn't.
+*/
+#ifdef valloc
+#undef valloc
+#endif
+#endif
 #include <unistd.h>
 #endif
 
