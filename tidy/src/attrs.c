@@ -1345,7 +1345,7 @@ void CheckColor( TidyDocImpl* doc, Node *node, AttVal *attval)
         if (newName)
         {
             MemFree(attval->value);
-            attval->value = tmbstrdup(newName);
+            given = attval->value = tmbstrdup(newName);
         }
     }
 
@@ -1353,13 +1353,13 @@ void CheckColor( TidyDocImpl* doc, Node *node, AttVal *attval)
     if (!valid)
         valid = GetColorCode(given) != NULL;
 
-    if (!valid)
-        ReportAttrError( doc, node, attval, BAD_ATTRIBUTE_VALUE);
-
     if (valid && given[0] == '#')
         attval->value = tmbstrtoupper(attval->value);
     else if (valid)
         attval->value = tmbstrtolower(attval->value);
+
+    if (!valid)
+        ReportAttrError( doc, node, attval, BAD_ATTRIBUTE_VALUE);
 }
 
 /* check valuetype attribute for element param */
