@@ -2305,6 +2305,13 @@ Node* GetToken( TidyDocImpl* doc, uint mode )
                     continue;       /* no text so keep going */
                 }
 
+                /* fix for bug 762102 */
+                if (c == '&')
+                {
+                    UngetChar(c, doc->docIn);
+                    --(lexer->lexsize);
+                }
+
                 /* otherwise treat as CDATA */
                 lexer->state = LEX_CONTENT;
                 lexer->waswhite = no;
