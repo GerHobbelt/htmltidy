@@ -3399,6 +3399,14 @@ void ParseHTML(TidyDocImpl* doc, Node *html, uint mode)
             continue;
         }
 
+        /* find and discard multiple <html> elements */
+        if (node->tag == html->tag && node->type == StartTag)
+        {
+            ReportWarning(doc, html, node, DISCARDING_UNEXPECTED);
+            FreeNode(doc, node);
+            continue;
+        }
+
         /* deal with comments etc. */
         if (InsertMisc(html, node))
             continue;
