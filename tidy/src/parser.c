@@ -254,6 +254,10 @@ static Bool CanPrune(Node *element)
     if (element->tag == tag_object)
         return no;
 
+    /* #540555 Empty title tag is trimmed */
+    if (element->tag == tag_title)
+        return no;
+
     /* #433359 - fix by Randy Waki 12 Mar 01 */
     if (element->tag == tag_iframe)
         return no;
