@@ -3,7 +3,7 @@
 
 /* lexer.h -- Lexer for html parser
   
-   (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
+   (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
    See tidy.h for the copyright notice.
   
    CVS Info:
@@ -521,6 +521,9 @@ AttVal *NewAttribute(void);
 
 /* create a new attribute with given name and value */
 AttVal *NewAttributeEx(ctmbstr name, ctmbstr value);
+
+/* insert attribute at the end of attribute list of node */
+void InsertAttributeAtEnd( Node *node, AttVal *av );
 
 /*************************************
   In-line Stack functions

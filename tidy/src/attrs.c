@@ -1,6 +1,6 @@
 /* attrs.c -- recognize HTML attributes
 
-  (c) 1998-2004 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
   
   CVS Info :
@@ -528,15 +528,7 @@ AttVal* AddAttribute( TidyDocImpl* doc,
 
     av->dict = lookup(&doc->attribs, name);
 
-    if ( node->attributes == NULL )
-        node->attributes = av;
-    else /* append to end of attributes */
-    {
-        AttVal *here = node->attributes;
-        while (here->next)
-            here = here->next;
-        here->next = av;
-    }
+    InsertAttributeAtEnd(node, av);
     return av;
 }
 

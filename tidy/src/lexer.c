@@ -3428,6 +3428,11 @@ static void AddAttrToList( AttVal** list, AttVal* av )
   }
 }
 
+void InsertAttributeAtEnd( Node *node, AttVal *av)
+{
+    AddAttrToList(&node->attributes, av);
+}
+
 static AttVal* ParseAttrs( TidyDocImpl* doc, Bool *isempty )
 {
     Lexer* lexer = doc->lexer;
