@@ -206,6 +206,8 @@ Bool attrIsEvent( AttVal* attval );
 
 AttVal* AttrGetById( Node* node, TidyAttrId id );
 
+uint NodeAttributeVersions( Node* node, TidyAttrId id );
+
 /* 0 == TidyAttr_UNKNOWN  */
 #define AttrId(av) ((av) && (av)->dict ? (av)->dict->id : TidyAttr_UNKNOWN)
 #define AttrIsId(av, atid) ((av) && (av)->dict && ((av)->dict->id == atid))

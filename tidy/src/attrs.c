@@ -208,6 +208,22 @@ static uint AttributeVersions(Node* node, AttVal* attval)
 
 }
 
+
+/* return the version of the attribute "id" of element "node" */
+uint NodeAttributeVersions( Node* node, TidyAttrId id )
+{
+    uint i;
+
+    if (!node || !node->tag || !node->tag->attrvers)
+        return VERS_UNKNOWN;
+
+    for (i = 0; node->tag->attrvers[i].attribute; ++i)
+        if (node->tag->attrvers[i].attribute == id)
+            return node->tag->attrvers[i].versions;
+
+    return VERS_UNKNOWN;
+}
+
 /* returns true if the element is a W3C defined element */
 /* but the element/attribute combination is not         */
 static Bool AttributeIsProprietary(Node* node, AttVal* attval)

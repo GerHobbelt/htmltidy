@@ -325,6 +325,7 @@ struct _Lexer
     Bool isvoyager;         /* true if xmlns attribute on html element */
     uint versions;          /* bit vector of HTML versions */
     uint doctype;           /* version as given by doctype (if any) */
+    uint versionEmitted;    /* version of doctype emitted */
     Bool bad_doctype;       /* e.g. if html or PUBLIC is missing */
     uint txtstart;          /* start of current node */
     uint txtend;            /* end of current node */

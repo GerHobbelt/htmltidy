@@ -2546,19 +2546,25 @@ void FixAnchors(TidyDocImpl* doc, Node *node, Bool wantName, Bool wantId)
             }
             else if (name && wantId)
             {
-                if (IsValidHTMLID(name->value))
+                if (NodeAttributeVersions( node, TidyAttr_ID )
+                    & doc->lexer->versionEmitted)
                 {
-                    RepairAttrValue(doc, node, "id", name->value);
-                }
-                else
-                {
-                    ReportAttrError(doc, node, name, INVALID_XML_ID);
-                }
+                    if (IsValidHTMLID(name->value))
+                    {
+                        RepairAttrValue(doc, node, "id", name->value);
+                    }
+                    else
+                    {
+                        ReportAttrError(doc, node, name, INVALID_XML_ID);
+                    }
+                 }
             }
             else if (id && wantName)
             {
-                /* todo: do not assume id is valid */
-                RepairAttrValue(doc, node, "name", id->value);
+                if (NodeAttributeVersions( node, TidyAttr_NAME )
+                    & doc->lexer->versionEmitted)
+                    /* todo: do not assume id is valid */
+                    RepairAttrValue(doc, node, "name", id->value);
             }
 
             if (id && !wantId)
