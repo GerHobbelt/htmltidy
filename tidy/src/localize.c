@@ -543,6 +543,12 @@ void ReportWarning(Lexer *lexer, Node *element, Node *node, uint code)
         {
             tidy_out(lexer->errout, "Warning: nested q elements, possible typo.");
         }
+        else if (code == ELEMENT_NOT_EMPTY)
+        {
+            tidy_out(lexer->errout, "Warning: ");
+            ReportTag(lexer, element);
+            tidy_out(lexer->errout, " element not empty or not closed");
+        }
 
         tidy_out(lexer->errout, "\n");
     }

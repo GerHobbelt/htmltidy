@@ -688,6 +688,7 @@ void tidy_out(FILE *fp, const char* msg, ...);
 #define TOO_MANY_ELEMENTS       33
 #define UNESCAPED_ELEMENT       34
 #define NESTED_QUOTATION        35
+#define ELEMENT_NOT_EMPTY       36
 
 /* error codes used for attribute messages */
 
@@ -876,6 +877,7 @@ Parser ParseLI;
 Parser ParseDefList;
 Parser ParseBlock;
 Parser ParseInline;
+Parser ParseEmpty;
 Parser ParseTableTag;
 Parser ParseColGroup;
 Parser ParseRowGroup;
