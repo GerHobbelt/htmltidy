@@ -99,7 +99,7 @@ AttrCheck CheckScroll;
 AttrCheck CheckTextDir;
 AttrCheck CheckLang;
 
-#define TEXT        NULL
+#define PCDATA      NULL
 #define CHARSET     NULL
 #define TYPE        NULL
 #define CHARACTER   NULL
