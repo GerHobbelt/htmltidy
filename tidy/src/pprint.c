@@ -2038,7 +2038,7 @@ void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
             uint contentIndent = indent;
 
             /* insert extra newline for classic formatting */
-            if (classic && node->parent && node->parent->content != node)
+            if (classic && node->parent && node->parent->content != node && !nodeIsHTML(node))
             {
                 PFlushLine( doc, indent );
             }
@@ -2112,6 +2112,8 @@ void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
             }
 
             if (!indcont && !hideend && !nodeIsHTML(node) && !classic)
+                PFlushLine( doc, indent );
+            else if (classic && node->next != NULL && nodeHasCM(node, CM_LIST|CM_DEFLIST|CM_TABLE|CM_BLOCK/*|CM_HEADING*/))
                 PFlushLine( doc, indent );
         }
     }
