@@ -1,6 +1,6 @@
 /* tags.c -- recognize HTML tags
 
-  (c) 1998-2002 (W3C) MIT, INRIA, Keio University
+  (c) 1998-2003 (W3C) MIT, INRIA, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -10,6 +10,7 @@
     $Revision$ 
 
   The HTML tags are stored as 8 bit ASCII strings.
+
 */
 
 #include "tags.h"
@@ -338,7 +339,7 @@ ctmbstr        GetNextDeclaredTag( TidyDocImpl* doc, int tagType,
             break;
         }
     }
-    *iter = (TidyIterator) ( curr ? curr->next : null );
+    *iter = (TidyIterator) ( curr ? curr : null );
     return name;
 }
 
