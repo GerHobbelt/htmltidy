@@ -1826,7 +1826,7 @@ void CleanWord2000(Lexer *lexer, Node *node)
                 /* remove node and append to contents of list */
                 RemoveNode(node);
                 InsertNodeAtEnd(list, node);
-                node = list->next;
+                node = list;
             }
             /* map sequence of <p class="Code"> to <pre>...</pre> */
             else if (attr && wstrcmp(attr->value, "Code") == 0)
