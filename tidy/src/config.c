@@ -691,6 +691,12 @@ void AdjustConfig(void)
         DefineTag(tagtype_inline, "o:p");
     }
 
+ /* #480701 disable XHTML output flag if both output-xhtml and xml are set */
+    if (XmlTags)
+    {
+        xHTML = no;
+    }
+
  /* XHTML is written in lower case */
     if (xHTML)
     {
