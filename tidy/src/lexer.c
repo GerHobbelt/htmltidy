@@ -2794,9 +2794,18 @@ static char *ParseValue(Lexer *lexer, char *name,
 
         if (c == '&')
         {
-            AddCharToLexer(lexer, c);
-            ParseEntity(lexer, null);
-            continue;
+            /* no entities in ID attributes */
+            if (wstrcasecmp(name, "id") == 0)
+            {
+                ReportAttrError(lexer, null, null, ENTITY_IN_ID);
+                continue;
+            }
+            else
+            {
+                AddCharToLexer(lexer, c);
+                ParseEntity(lexer, null);
+                continue;
+            }
         }
 
         /*
