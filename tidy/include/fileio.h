@@ -30,7 +30,7 @@ void freeFileSource( TidyInputSource* source, Bool closeIt );
 void initFileSink( TidyOutputSink* sink, FILE* fp );
 
 /* Needed for internal declarations */
-void filesink_putByte( uint sinkData, byte bv );
+void filesink_putByte( ulong sinkData, byte bv );
 
 #ifdef __cplusplus
 }
