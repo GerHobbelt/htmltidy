@@ -2585,6 +2585,19 @@ Node* GetToken( TidyDocImpl* doc, uint mode )
 
                     name = ParseAttribute( doc, &isempty, &asp, &php );
 
+                    if (!name)
+                    {
+                        /* fix for http://tidy.sf.net/bug/788031 */
+                        lexer->lexsize -= 1;
+                        lexer->txtend = lexer->txtstart;
+                        lexer->lexbuf[lexer->txtend] = '\0';
+                        lexer->state = LEX_CONTENT;
+                        lexer->waswhite = no;
+                        lexer->token = XmlDeclToken(doc);
+                        lexer->token->attributes = attributes;
+                        return lexer->token;
+                    }
+
                     av = NewAttribute();
                     av->attribute = name;
                     av->value = ParseValue( doc, name, yes, &isempty, &pdelim );
