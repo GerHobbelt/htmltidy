@@ -7,6 +7,7 @@
 */
 
 #include <tidy.h>
+#include "tmbstr.h"
 
 /* todo: documentation of table and data       */
 /* todo: integration of data and routines      */
@@ -958,7 +959,7 @@ uint GetEncodingIdFromName(ctmbstr name)
     uint i;
 
     for (i = 0; charsetInfo[i].id; ++i)
-        if (stricmp(name, charsetInfo[i].charset) == 0)
+        if (tmbstrcasecmp(name, charsetInfo[i].charset) == 0)
             return charsetInfo[i].id;
 
     return 0;
@@ -980,7 +981,7 @@ uint GetEncodingCodePageFromName(ctmbstr name)
     uint i;
 
     for (i = 0; charsetInfo[i].id; ++i)
-        if (stricmp(name, charsetInfo[i].charset) == 0)
+        if (tmbstrcasecmp(name, charsetInfo[i].charset) == 0)
             return charsetInfo[i].codepage;
 
     return 0;
