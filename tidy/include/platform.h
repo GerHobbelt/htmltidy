@@ -58,6 +58,12 @@
 #define USE_ORIGINAL_ACCESSIBILITY_CHECKS 0
 #endif
 
+/* If additional accessibility checks are disabled, always enable the original accessibility checks */
+#if !SUPPORT_ACCESSIBILITY_CHECKS
+#undef USE_ORIGINAL_ACCESSIBILITY_CHECKS
+#define USE_ORIGINAL_ACCESSIBILITY_CHECKS 1
+#endif
+
 /* Convenience defines for Mac platforms */
 
 #if defined(macintosh)
@@ -252,6 +258,8 @@
 #include <pwd.h>
 #endif
 
+/* #define __USE_MISC */
+
 #ifdef NEEDS_UNISTD_H
 #include <unistd.h>  /* needed for unlink on some Unix systems */
 #endif
@@ -345,11 +353,11 @@
 #if defined(BE_OS) || defined(SOLARIS_OS) || defined(BSD_BASED_OS) || defined(MAC_OS_X) || defined(OSF_OS)
 #include <sys/types.h>
 #else
-#ifndef _INCLUDE_HPUX_SOURCE
+#if !HPUX_OS && !CYGWIN_OS
 typedef unsigned int uint;
-#endif /* _INCLUDE_HPUX_SOURCE */
+#endif
 typedef unsigned long ulong;
-#endif /* BSDs */
+#endif
 #endif /* __USE_MISC */
 
 typedef unsigned char byte;
