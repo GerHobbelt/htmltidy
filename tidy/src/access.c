@@ -1888,7 +1888,7 @@ static void CheckASCII( TidyDocImpl* doc, Node* node )
     int matchingCount = 0;
     AttVal* av;
     
-    if (Level1_Enabled( doc ))
+    if (Level1_Enabled( doc ) && node->content)
     {
         /* 
            Checks the text within the PRE and XMP tags to see if ascii 
