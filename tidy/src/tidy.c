@@ -1226,7 +1226,9 @@ int main(int argc, char **argv)
 
             }
 
-            ErrorSummary(lexer);
+            if (!Quiet)
+                ErrorSummary(lexer);
+
             FreeNode(document);
             FreeLexer(lexer);
         }
