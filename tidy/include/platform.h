@@ -537,6 +537,13 @@ typedef const tmbchar* ctmbstr; /* Ditto, but const */
 # define ARG_UNUSED(x) x
 #endif
 
+/* HAS_VSNPRINTF triggers the use of "vsnprintf", which is safe related to
+   buffer overflow. Therefore, we make it the default unless HAS_VSNPRINTF
+   has been defined. */
+#ifndef HAS_VSNPRINTF
+# define HAS_VSNPRINTF 1
+#endif
+
 /*
   bool is a reserved word in some but
   not all C++ compilers depending on age
