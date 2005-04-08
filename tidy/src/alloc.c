@@ -1,6 +1,6 @@
 /* alloc.c -- Default memory allocation routines.
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -18,22 +18,22 @@ static TidyRealloc g_realloc = NULL;
 static TidyFree    g_free    = NULL;
 static TidyPanic   g_panic   = NULL;
 
-Bool        tidySetMallocCall( TidyMalloc fmalloc )
+Bool TIDY_CALL tidySetMallocCall( TidyMalloc fmalloc )
 {
   g_malloc  = fmalloc;
   return yes;
 }
-Bool        tidySetReallocCall( TidyRealloc frealloc )
+Bool TIDY_CALL tidySetReallocCall( TidyRealloc frealloc )
 {
   g_realloc = frealloc;
   return yes;
 }
-Bool        tidySetFreeCall( TidyFree ffree )
+Bool TIDY_CALL tidySetFreeCall( TidyFree ffree )
 {
   g_free    = ffree;
   return yes;
 }
-Bool        tidySetPanicCall( TidyPanic fpanic )
+Bool TIDY_CALL tidySetPanicCall( TidyPanic fpanic )
 {
   g_panic   = fpanic;
   return yes;

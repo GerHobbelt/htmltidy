@@ -614,7 +614,7 @@ ctmbstr ExpandTilde( ctmbstr filename )
     return (ctmbstr) filename;
 }
 
-Bool tidyFileExists( ctmbstr filename )
+Bool TIDY_CALL tidyFileExists( ctmbstr filename )
 {
   ctmbstr fname = (tmbstr) ExpandTilde( filename );
 #ifndef NO_ACCESS_SUPPORT
