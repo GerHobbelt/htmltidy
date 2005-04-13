@@ -117,6 +117,8 @@ OBJSUF = .o
 LIBRARY = $(LIBDIR)/$(LIBPREFIX)$(PROJECT)$(LIBSUFFIX)
 AR=ar -r
 
+XSLTPROC = xsltproc
+
 EXES = $(BINDIR)/$(PROJECT) $(BINDIR)/tab2space
 
 DOCS = $(DOCDIR)/quickref.html $(DOCDIR)/tidy-config.7
@@ -180,10 +182,10 @@ $(CONFIGXML): $(BINDIR)/$(PROJECT)
 	$(BINDIR)/$(PROJECT) -xml-config > $@
 
 $(DOCDIR)/quickref.html: $(DOCDIR)/quickref-html.xsl $(CONFIGXML)
-	xsltproc -o $@ $(DOCDIR)/quickref-html.xsl $(CONFIGXML)
+	$(XSLTPROC) -o $@ $(DOCDIR)/quickref-html.xsl $(CONFIGXML)
 
 $(DOCDIR)/tidy-config.7: $(DOCDIR)/quickref-man.xsl $(CONFIGXML)
-	xsltproc -o $@ $(DOCDIR)/quickref-man.xsl $(CONFIGXML)
+	$(XSLTPROC) -o $@ $(DOCDIR)/quickref-man.xsl $(CONFIGXML)
 
 debug:
 	@$(MAKE) CFLAGS='$(CFLAGS) $(DEBUGFLAGS)' LIBS='$(LIBS) $(DEBUGLIBS)' all
