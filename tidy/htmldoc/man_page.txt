@@ -146,11 +146,14 @@ show the version of Tidy
 .B -help, -h, -?
 list the command line options
 .TP 15
-.B -xml-config
-list all configuration options in XML format
+.B -xml-help
+list the command line options in XML format
 .TP 15
 .B -help-config
 list all configuration options
+.TP 15
+.B -xml-config
+list all configuration options in XML format
 .TP 15
 .B -show-config
 list the current configuration settings
