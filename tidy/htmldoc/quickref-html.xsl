@@ -239,9 +239,9 @@
 
 <!-- Regular Templates: -->
 <xsl:template match="a | code | em | strong | br">
-  <xsl:copy-of select=".">
-   <xsl:apply-templates select="@* | node()" />
-  </xsl:copy-of>
+    <xsl:element name="{local-name(.)}">
+        <xsl:copy-of select="@* | node()" />
+    </xsl:element>
 </xsl:template>
 
 </xsl:stylesheet>
