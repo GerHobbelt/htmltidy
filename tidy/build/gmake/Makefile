@@ -200,7 +200,7 @@ debug:
 	@$(MAKE) CFLAGS='$(CFLAGS) $(DEBUGFLAGS)' LIBS='$(LIBS) $(DEBUGLIBS)' all
 
 clean:
-	rm -f $(OBJFILES) $(EXES) $(LIBRARY) $(DOCS) $(CONFIGXML) $(OBJDIR)/*.lo
+	rm -f $(OBJFILES) $(EXES) $(LIBRARY) $(DOCS) $(HELPXML) $(CONFIGXML) $(OBJDIR)/*.lo
 	if [ -d $(OBJDIR)/.libs ]; then rmdir $(OBJDIR)/.libs; fi
 	if [ -d $(LIBDIR)/.libs ]; then rmdir $(LIBDIR)/.libs; fi
 	if [ "$(OBJDIR)" != "$(TOPDIR)" -a -d $(OBJDIR) ]; then rmdir $(OBJDIR); fi
