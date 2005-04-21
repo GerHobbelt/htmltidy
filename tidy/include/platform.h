@@ -550,6 +550,11 @@ typedef const tmbchar* ctmbstr; /* Ditto, but const */
   work around is to avoid bool altogether
   by introducing a new enum called Bool
 */
+/* We could use the C99 definition where supported
+typedef _Bool Bool;
+#define no (_Bool)0
+#define yes (_Bool)1
+*/
 typedef enum
 {
    no,
