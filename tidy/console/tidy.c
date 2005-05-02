@@ -344,7 +344,7 @@ static void print_help_option( void )
     {
         size_t len =  strlen(cmdopt_catname[cat].name);
         printf("%s\n", cmdopt_catname[cat].name );
-        printf("%*.*s\n", len, len, helpul );
+        printf("%*.*s\n", (int)len, (int)len, helpul );
         for( pos=cmdopt_defs; pos->name1; ++pos)
         {
             tmbstr name;
