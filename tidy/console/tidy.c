@@ -456,6 +456,7 @@ ctmbstr ConfigCategoryName( TidyConfigCategory id )
     case TidyMiscellaneous:
         return "misc";
     }
+    fprintf(stderr, "Fatal error: impossible value for id='%d'.\n", id);
     assert(0);
     abort();
 }
