@@ -584,8 +584,8 @@ typedef struct {
 static
 int cmpOpt(const void* e1_, const void *e2_)
 {
-    const TidyOption* e1 = e1_;
-    const TidyOption* e2 = e2_;
+    const TidyOption* e1 = (const TidyOption*)e1_;
+    const TidyOption* e2 = (const TidyOption*)e2_;
     return strcmp(tidyOptGetName(*e1), tidyOptGetName(*e2));
 }
 
