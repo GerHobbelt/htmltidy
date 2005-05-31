@@ -1391,15 +1391,15 @@ const TidyOptionImpl*  getNextOption( TidyDocImpl* ARG_UNUSED(doc),
                                       TidyIterator* iter )
 {
   const TidyOptionImpl* option = NULL;
-  TidyOptionId optId;
+  ulong optId;
   assert( iter != NULL );
-  optId = *(TidyOptionId *) iter;
+  optId = (ulong) *iter;
   if ( optId > TidyUnknownOption && optId < N_TIDY_OPTIONS )
   {
     option = &option_defs[ optId ];
     optId++;
   }
-  *iter = (TidyIterator) ( optId < N_TIDY_OPTIONS ? (ulong) optId : 0 );
+  *iter = (TidyIterator) ( optId < N_TIDY_OPTIONS ? optId : 0 );
   return option;
 }
 
