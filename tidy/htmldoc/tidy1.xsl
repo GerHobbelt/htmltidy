@@ -258,17 +258,17 @@ For each option in one of the 5 categories/classes, provide its
   <xsl:param name="category" />
     <xsl:for-each select='$CONFIG/config/option[@class=$category]'>
        <xsl:sort select="name" order="ascending" />
-.P
+.TP
 \fB<xsl:apply-templates select="name" />\fR
-.LP
-.in 1i
+
 Type:    \fI<xsl:apply-templates select="type" />\fR
 .br
 <xsl:call-template name="provide-default" />
 .br
 <xsl:call-template name="provide-example" />
-.LP
-.in 1i
+<xsl:text>
+
+</xsl:text>
 <xsl:apply-templates select="description" />
 <xsl:call-template name="seealso" />
     </xsl:for-each>
@@ -278,7 +278,9 @@ Type:    \fI<xsl:apply-templates select="type" />\fR
 <!-- Used only in the config options section: -->
 <xsl:template name="seealso">
   <xsl:if test="seealso">
-.P
+     <xsl:text>
+
+</xsl:text>
 .rj 1
 \fBSee also\fR: <xsl:text />
     <xsl:for-each select="seealso">
