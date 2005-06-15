@@ -581,9 +581,6 @@ void FatalError( ctmbstr msg );
 *  This will reduce inter-dependencies/conflicts w/ application code.
 */
 #if 1
-/*
-*  Please note - this definition assumes your compiler uses 'int' for enums.
-*/
 #define opaque_type( typenam )\
 struct _##typenam { int _opaque; };\
 typedef struct _##typenam* typenam
