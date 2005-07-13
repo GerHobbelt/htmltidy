@@ -1372,7 +1372,7 @@ void ParseInline( TidyDocImpl* doc, Node *element, uint mode )
 
         /* <u>...<u>  map 2nd <u> to </u> if 1st is explicit */
         /* otherwise emphasis nesting is probably unintentional */
-        /* big and small have cumulative effect to leave them alone */
+        /* big, small, sub, sup have cumulative effect to leave them alone */
         if ( node->type == StartTag
              && node->tag == element->tag
              && IsPushed( doc, node )
@@ -1383,6 +1383,8 @@ void ParseInline( TidyDocImpl* doc, Node *element, uint mode )
              && !nodeIsFONT(node)
              && !nodeIsBIG(node)
              && !nodeIsSMALL(node)
+             && !nodeIsSUB(node)
+             && !nodeIsSUP(node)
              && !nodeIsQ(node)
              && !nodeIsSPAN(node)
            )

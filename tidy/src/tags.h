@@ -224,6 +224,8 @@ uint nodeHeaderLevel( Node* node );  /* 1, 2, ..., 6 */
 #define nodeIsISINDEX( node )    TagIsId( node, TidyTag_ISINDEX )
 #define nodeIsS( node )          TagIsId( node, TidyTag_S )
 #define nodeIsSTRIKE( node )     TagIsId( node, TidyTag_STRIKE )
+#define nodeIsSUB( node )        TagIsId( node, TidyTag_SUB )
+#define nodeIsSUP( node )        TagIsId( node, TidyTag_SUP )
 #define nodeIsU( node )          TagIsId( node, TidyTag_U )
 #define nodeIsMENU( node )       TagIsId( node, TidyTag_MENU )
 
