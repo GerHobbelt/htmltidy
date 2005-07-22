@@ -1475,7 +1475,7 @@ Bool SetXHTMLDocType( TidyDocImpl* doc )
 {
     Lexer *lexer = doc->lexer;
     Node *doctype = FindDocType( doc );
-    TidyDoctypeModes dtmode = cfg(doc, TidyDoctypeMode);
+    TidyDoctypeModes dtmode = (TidyDoctypeModes)cfg(doc, TidyDoctypeMode);
     ctmbstr pub = "PUBLIC";
     ctmbstr sys = "SYSTEM";
 

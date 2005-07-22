@@ -114,7 +114,7 @@ static StreamIn* initStreamIn( TidyDocImpl* doc, int encoding )
     in->state = FSM_ASCII;
     in->doc = doc;
     in->bufsize = CHARBUF_SIZE;
-    in->charbuf = MemAlloc(sizeof(tchar) * in->bufsize);
+    in->charbuf = (tchar*)MemAlloc(sizeof(tchar) * in->bufsize);
 #ifdef TIDY_STORE_ORIGINAL_TEXT
     in->otextbuf = NULL;
     in->otextlen = 0;
@@ -494,7 +494,7 @@ void UngetChar( uint c, StreamIn *in )
     in->pushed = yes;
 
     if (in->bufpos + 1 >= in->bufsize)
-        in->charbuf = MemRealloc(in->charbuf, sizeof(tchar) * ++(in->bufsize));
+        in->charbuf = (tchar*)MemRealloc(in->charbuf, sizeof(tchar) * ++(in->bufsize));
 
     in->charbuf[(in->bufpos)++] = c;
 

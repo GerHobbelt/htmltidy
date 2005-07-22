@@ -869,7 +869,7 @@ int   tidyDocParseString( TidyDocImpl* doc, ctmbstr content )
 
     if ( content )
     {
-        tidyBufAttach( &inbuf, (void*)content, tmbstrlen(content)+1 );
+        tidyBufAttach( &inbuf, (byte*)content, tmbstrlen(content)+1 );
         in = BufferInput( doc, &inbuf, cfg( doc, TidyInCharEncoding ));
         status = tidyDocParseStream( doc, in );
         tidyBufDetach( &inbuf );

@@ -606,7 +606,7 @@ ctmbstr ExpandTilde( ctmbstr filename )
     if ( home_dir )
     {
         uint len = tmbstrlen(filename) + tmbstrlen(home_dir) + 1;
-        tmbstr p = MemAlloc( len );
+        tmbstr p = (tmbstr)MemAlloc( len );
         tmbstrcpy( p, home_dir );
         tmbstrcat( p, filename );
         return (ctmbstr) p;
