@@ -180,7 +180,7 @@ Bool TIDY_CALL        tidySetOptionCallback( TidyDoc tdoc, TidyOptCallback pOptC
     impl->pOptCallback = pOptCallback;
     return yes;
   }
-  return -EINVAL;
+  return no;
 }
 
 
@@ -612,7 +612,7 @@ Bool TIDY_CALL        tidySetReportFilter( TidyDoc tdoc, TidyReportFilter filt )
     impl->mssgFilt = filt;
     return yes;
   }
-  return -EINVAL;
+  return no;
 }
 
 #if 0   /* Not yet */

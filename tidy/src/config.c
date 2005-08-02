@@ -1007,7 +1007,7 @@ Bool ParseBool( TidyDocImpl* doc, const TidyOptionImpl* entry )
     ulong flag = 0;
     Bool status = ParseTriState( TidyNoState, doc, entry, &flag );
     if ( status )
-        SetOptionBool( doc, entry->id, (Bool) flag );
+        SetOptionBool( doc, entry->id, flag != 0 );
     return status;
 }
 

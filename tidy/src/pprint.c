@@ -997,7 +997,7 @@ static void PPrintAttrValue( TidyDocImpl* doc, uint indent,
                              ctmbstr value, uint delim, Bool wrappable, Bool scriptAttr )
 {
     TidyPrintImpl* pprint = &doc->pprint;
-    Bool scriptlets = cfg(doc, TidyWrapScriptlets);
+    Bool scriptlets = cfgBool(doc, TidyWrapScriptlets);
 
     int mode = PREFORMATTED | ATTRIBVALUE;
     if ( wrappable )

@@ -42,7 +42,7 @@ static Bool TIDY_CALL filesrc_eof( ulong sourceData )
   FileSource* fin = (FileSource*) sourceData;
   Bool isEOF = ( fin->unget.size == 0 );
   if ( isEOF )
-    isEOF = feof( fin->fp );
+    isEOF = feof( fin->fp ) != 0;
   return isEOF;
 }
 
