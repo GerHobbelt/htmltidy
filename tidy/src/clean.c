@@ -1940,6 +1940,15 @@ void CleanWord2000( TidyDocImpl* doc, Node *node)
             }
         }
 
+        /* discards <o:p> which encodes the paragraph mark */
+        if ( node->tag && tmbstrcmp(node->tag->name,"o:p")==0)
+        {
+            Node* next;
+            DiscardContainer( doc, node, &next );
+            node = next;
+            continue;
+        }
+
         /* discard empty paragraphs */
 
         if ( node->content == NULL && nodeIsP(node) )

@@ -49,7 +49,7 @@ void InsertNodeBeforeElement(Node *element, Node *node);
 void InsertNodeAfterElement(Node *element, Node *node);
 
 Node *TrimEmptyElement( TidyDocImpl* doc, Node *element );
-
+Node* DropEmptyElements(TidyDocImpl* doc, Node* node);
 
 
 /* assumes node is a text node */

@@ -1222,6 +1222,7 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
 
         /* drop style & class attributes and empty p, span elements */
         CleanWord2000( doc, &doc->root );
+        DropEmptyElements(doc, &doc->root);
     }
 
     /* replaces presentational markup by style rules */

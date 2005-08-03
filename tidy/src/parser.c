@@ -327,13 +327,13 @@ Node *TrimEmptyElement( TidyDocImpl* doc, Node *element )
         ** Contrary to intent, replacing empty paragraphs
         ** with two <br><br> does not preserve formatting.
         */
-        char onesixty[2] = { '\240', 0 };
+        const char onesixty[2] = { '\240', '\0' };
         InsertNodeAtStart( element, NewLiteralTextNode(doc->lexer, onesixty) );
     }
     return element;
 }
 
-static Node* DropEmptyElements(TidyDocImpl* doc, Node* node)
+Node* DropEmptyElements(TidyDocImpl* doc, Node* node)
 {
     Node* next;
 
