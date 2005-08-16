@@ -909,6 +909,7 @@ void AdjustConfig( TidyDocImpl* doc )
          cfg(doc, TidyOutCharEncoding) != UTF16BE &&
          cfg(doc, TidyOutCharEncoding) != UTF16LE &&
 #endif
+         cfg(doc, TidyOutCharEncoding) != RAW &&
          cfgBool(doc, TidyXmlOut) )
     {
         SetOptionBool( doc, TidyXmlDecl, yes );
