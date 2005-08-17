@@ -100,10 +100,12 @@ AttrCheck CheckVType;
 AttrCheck CheckScroll;
 AttrCheck CheckTextDir;
 AttrCheck CheckLang;
+AttrCheck CheckType;
 
 #define PCDATA      NULL
 #define CHARSET     NULL
-#define TYPE        NULL
+#define TYPE        CheckType
+#define XTYPE       NULL
 #define CHARACTER   NULL
 #define URLS        NULL
 #define URL         CheckUrl
