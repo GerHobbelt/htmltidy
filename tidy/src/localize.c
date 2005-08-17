@@ -346,6 +346,8 @@ static const TidyOptionId TidyMergeDivsLinks[] =
   { TidyMakeClean, TidyUnknownOption };
 static const TidyOptionId TidyAsciiCharsLinks[] =
   { TidyMakeClean, TidyUnknownOption };
+static const TidyOptionId TidyNumEntitiesLinks[] =
+  { TidyDoctype, TidyUnknownOption };
 
 /* Documentation of options */
 static const TidyOptionDoc option_docs[] =
@@ -531,6 +533,7 @@ static const TidyOptionDoc option_docs[] =
    "This option specifies if Tidy should output entities other than the "
    "built-in HTML entities (&amp;amp;, &amp;lt;, &amp;gt; and &amp;quot;) in "
    "the numeric rather than the named entity form. "
+    ,TidyNumEntitiesLinks
   },
   {TidyHtmlOut,
    "This option specifies if Tidy should generate pretty printed output, "
