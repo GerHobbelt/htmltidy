@@ -128,7 +128,7 @@ static const Dict tag_defs[] =
   { TidyTag_A,          "a",          VERS_ELEM_A,          &W3CAttrsFor_A[0],          (CM_INLINE),                                   ParseInline,   NULL           },
   { TidyTag_ABBR,       "abbr",       VERS_ELEM_ABBR,       &W3CAttrsFor_ABBR[0],       (CM_INLINE),                                   ParseInline,   NULL           },
   { TidyTag_ACRONYM,    "acronym",    VERS_ELEM_ACRONYM,    &W3CAttrsFor_ACRONYM[0],    (CM_INLINE),                                   ParseInline,   NULL           },
-  { TidyTag_ADDRESS,    "address",    VERS_ELEM_ADDRESS,    &W3CAttrsFor_ADDRESS[0],    (CM_BLOCK),                                    ParseBlock,    NULL           },
+  { TidyTag_ADDRESS,    "address",    VERS_ELEM_ADDRESS,    &W3CAttrsFor_ADDRESS[0],    (CM_BLOCK),                                    ParseInline,   NULL           },
   { TidyTag_APPLET,     "applet",     VERS_ELEM_APPLET,     &W3CAttrsFor_APPLET[0],     (CM_OBJECT|CM_IMG|CM_INLINE|CM_PARAM),         ParseBlock,    NULL           },
   { TidyTag_AREA,       "area",       VERS_ELEM_AREA,       &W3CAttrsFor_AREA[0],       (CM_BLOCK|CM_EMPTY),                           ParseEmpty,    CheckAREA      },
   { TidyTag_B,          "b",          VERS_ELEM_B,          &W3CAttrsFor_B[0],          (CM_INLINE),                                   ParseInline,   NULL           },

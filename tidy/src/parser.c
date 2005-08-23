@@ -1462,6 +1462,17 @@ void ParseInline( TidyDocImpl* doc, Node *element, uint mode )
             continue;
         }
 
+        /* <p> allowed within <address> in HTML 4.01 Transitional */
+        if ( nodeIsP(node) &&
+             node->type == StartTag &&
+             nodeIsADDRESS(element) )
+        {
+            ConstrainVersion( doc, ~VERS_HTML40_STRICT );
+            InsertNodeAtEnd(element, node);
+            (*node->tag->parser)( doc, node, mode );
+            continue;
+        }
+
         /* ignore unknown and PARAM tags */
         if ( node->tag == NULL || nodeIsPARAM(node) )
         {
