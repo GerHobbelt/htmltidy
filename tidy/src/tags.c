@@ -645,6 +645,7 @@ void CheckAREA( TidyDocImpl* doc, Node *node )
 {
     Bool HasAlt = AttrGetById(node, TidyAttr_ALT) != NULL;
     Bool HasHref = AttrGetById(node, TidyAttr_HREF) != NULL;
+    Bool HasNohref = AttrGetById(node, TidyAttr_NOHREF) != NULL;
 
     CheckAttributes(doc, node);
 
@@ -657,7 +658,7 @@ void CheckAREA( TidyDocImpl* doc, Node *node )
         }
     }
 
-    if ( !HasHref )
+    if ( !HasHref && !HasNohref )
         ReportMissingAttr( doc, node, "href" );
 }
 
