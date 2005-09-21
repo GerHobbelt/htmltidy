@@ -91,19 +91,21 @@ void TIDY_CALL tidyBufClear( TidyBuffer* buf )
 
 /* Avoid thrashing memory by doubling buffer size
 ** until larger than requested size.
+   buf->allocated is bigger than allocSize+1 so that a trailing null byte is
+   always available.
 */
 void TIDY_CALL tidyBufCheckAlloc( TidyBuffer* buf, uint allocSize, uint chunkSize )
 {
     assert( buf != NULL );
     if ( 0 == chunkSize )
         chunkSize = 256;
-    if ( allocSize > buf->allocated )
+    if ( allocSize+1 > buf->allocated )
     {
         byte* bp;
         uint allocAmt = chunkSize;
         if ( buf->allocated > 0 )
             allocAmt = buf->allocated;
-        while ( allocAmt < allocSize )
+        while ( allocAmt < allocSize+1 )
             allocAmt *= 2;
 
         bp = (byte*)MemRealloc( buf->bp, allocAmt );
