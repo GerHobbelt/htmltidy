@@ -408,8 +408,8 @@ static const TidyOptionDoc option_docs[] =
   },
   {TidyDropEmptyParas,
    "This option specifies if Tidy should discard empty paragraphs. If set "
-   "to no, empty paragraphs are replaced by a pair of &lt;BR&gt; elements as "
-   "HTML4 precludes empty paragraphs. "
+   "to no, empty paragraphs are replaced by paragraphs containing a non "
+   "breaking space as HTML4 precludes empty paragraphs. "
   },
   {TidyDropFontTags,
    "This option specifies if Tidy should discard &lt;FONT&gt; and "
