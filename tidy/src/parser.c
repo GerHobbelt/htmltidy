@@ -321,15 +321,6 @@ Node *TrimEmptyElement( TidyDocImpl* doc, Node *element )
 
         return DiscardElement(doc, element);
     }
-    else if ( nodeIsP(element) && element->content == NULL )
-    {
-        /* Put a non-breaking space into empty paragraphs.
-        ** Contrary to intent, replacing empty paragraphs
-        ** with two <br><br> does not preserve formatting.
-        */
-        const char onesixty[2] = { '\240', '\0' };
-        InsertNodeAtStart( element, NewLiteralTextNode(doc->lexer, onesixty) );
-    }
     return element;
 }
 
