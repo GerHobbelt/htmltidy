@@ -156,7 +156,8 @@ static const CmdOptDesc cmdopt_defs[] =  {
       "indent element content",
       "indent: auto", CmdOptProcDir, "-i" },
     { "-wrap <column>",
-      "wrap text at the specified <column> (default is 68)",
+      "wrap text at the specified <column> (default is 68)"
+      ". 0 is assumed if <column> is missing.",
       "wrap: <column>", CmdOptProcDir, "-w <column>" },
     { "-upper",
       "force tags to upper case (default is lower case)",
@@ -190,7 +191,8 @@ static const CmdOptDesc cmdopt_defs[] =  {
       "output-html: yes", CmdOptProcDir },
 #if SUPPORT_ACCESSIBILITY_CHECKS
     { "-access <level>",
-      "do additional accessibility checks (<level> = 1, 2, 3)",
+      "do additional accessibility checks (<level> = 0, 1, 2, 3)"
+      ". 0 is assumed if <level> is missing.",
       "accessibility-check: <level>", CmdOptProcDir },
 #endif
     { "-raw",

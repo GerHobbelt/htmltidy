@@ -63,6 +63,7 @@
 Tidy reads HTML, XHTML and XML files and writes cleaned up markup.  For HTML variants, it detects and corrects many common coding errors and strives to produce visually equivalent markup that is both W3C compliant and works on most browsers. A common use of Tidy is to convert plain HTML to XHTML.  For generic XML files, Tidy is limited to correcting basic well-formedness errors and pretty printing.
 .LP
 If no input file is specified, Tidy reads the standard input.  If no output file is specified, Tidy writes the tidied markup to the standard output.  If no error file is specified, Tidy writes messages to the standard error.
+For command line options that expect a numerical argument, a default is assumed if no meaningful value can be found. 
 .SH OPTIONS
 <xsl:call-template name="show-cmdline-options" />
 .SH USAGE
