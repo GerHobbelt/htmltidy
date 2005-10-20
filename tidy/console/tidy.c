@@ -1103,10 +1103,13 @@ int main( int argc, char** argv )
                 if ( argc >= 3 )
                 {
                     uint wraplen = 0;
-                    sscanf( argv[2], "%u", &wraplen );
+                    int nfields = sscanf( argv[2], "%u", &wraplen );
                     tidyOptSetInt( tdoc, TidyWrapLen, wraplen );
-                    --argc;
-                    ++argv;
+                    if (nfields > 0)
+                    {
+                        --argc;
+                        ++argv;
+                    }
                 }
             }
             else if ( strcasecmp(arg,  "version") == 0 ||
@@ -1141,10 +1144,13 @@ int main( int argc, char** argv )
                 if ( argc >= 3 )
                 {
                     uint acclvl = 0;
-                    sscanf( argv[2], "%u", &acclvl );
+                    int nfields = sscanf( argv[2], "%u", &acclvl );
                     tidyOptSetInt( tdoc, TidyAccessibilityCheckLevel, acclvl );
-                    --argc;
-                    ++argv;
+                    if (nfields > 0)
+                    {
+                        --argc;
+                        ++argv;
+                    }
                 }
             }
 #endif
