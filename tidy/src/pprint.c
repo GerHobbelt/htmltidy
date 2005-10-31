@@ -1981,7 +1981,8 @@ void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
         {
           if (nodeIsPARAM(node) || nodeIsAREA(node))
               PCondFlushLine(doc, indent);
-          else if (nodeIsBR(node) || nodeIsHR(node))
+          else if ((nodeIsBR(node) && !(mode & PREFORMATTED))
+                   || nodeIsHR(node))
               PFlushLine(doc, indent);
         }
     }
