@@ -45,13 +45,13 @@ extern "C" {
 
 /* lexer character types
 */
-#define digit       1
-#define letter      2
-#define namechar    4
-#define white       8
-#define newline     16
-#define lowercase   32
-#define uppercase   64
+#define digit       1u
+#define letter      2u
+#define namechar    4u
+#define white       8u
+#define newline     16u
+#define lowercase   32u
+#define uppercase   64u
 
 
 /* node->type is one of these values

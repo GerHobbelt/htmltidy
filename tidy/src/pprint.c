@@ -999,7 +999,7 @@ static void PPrintAttrValue( TidyDocImpl* doc, uint indent,
     TidyPrintImpl* pprint = &doc->pprint;
     Bool scriptlets = cfgBool(doc, TidyWrapScriptlets);
 
-    int mode = PREFORMATTED | ATTRIBVALUE;
+    uint mode = PREFORMATTED | ATTRIBVALUE;
     if ( wrappable )
         mode = NORMAL | ATTRIBVALUE;
 
@@ -2211,7 +2211,7 @@ void PPrintXMLTree( TidyDocImpl* doc, uint mode, uint indent, Node *node )
         uint spaces = cfg( doc, TidyIndentSpaces );
         Node *content;
         Bool mixed = no;
-        int cindent;
+        uint cindent;
 
         for ( content = node->content; content; content = content->next )
         {
