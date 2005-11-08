@@ -1188,6 +1188,10 @@ void ParseBlock( TidyDocImpl* doc, Node *element, uint mode)
                 }
                 else if ( nodeHasCM(node, CM_TABLE) || nodeHasCM(node, CM_ROW) )
                 {
+                    /* In exiled mode, return so table processing can
+                       continue. */
+                    if (lexer->exiled)
+                        return;
                     node = InferredTag(doc, TidyTag_TABLE);
                 }
                 else if ( nodeHasCM(element, CM_OBJECT) )
