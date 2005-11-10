@@ -81,6 +81,9 @@ DOCDIR = ${TOPDIR}/htmldoc
 # "-fvisibility=hidden -DTIDY_EXPORT=__attribute_((visibility("default")))" or
 # using a linker map (see GNU ld "--version-script").
 
+# Lookup based on hash table can be disabled with 
+# "-DELEMENT_HASH_LOOKUP=0 -DATTRIBUTE_HASH_LOOKUP=0"
+
 # CFLAGS etc..
 # For optimised builds, flags such as "-O2" should be added and -D_DEBUG=1
 # disabled.

@@ -49,8 +49,13 @@ struct _Dict
     Dict*           next;
 };
 
-#ifdef ELEMENT_HASH_LOOKUP
-enum {
+#if !defined(ELEMENT_HASH_LOOKUP)
+#define ELEMENT_HASH_LOOKUP 1
+#endif
+
+#if ELEMENT_HASH_LOOKUP
+enum
+{
     ELEMENT_HASH_SIZE=178u
 };
 
@@ -67,7 +72,7 @@ struct _TidyTagImpl
 {
     Dict* xml_tags;                /* placeholder for all xml tags */
     Dict* declared_tag_list;       /* User declared tags */
-#ifdef ELEMENT_HASH_LOOKUP
+#if ELEMENT_HASH_LOOKUP
     DictHash* hashtab[ELEMENT_HASH_SIZE];
 #endif
 };
