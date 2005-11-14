@@ -528,13 +528,35 @@ static void removeFromHash( TidyAttribImpl * attribs, ctmbstr s )
         prev = p;
     }
 }
+
+static void emptyHash( TidyAttribImpl * attribs )
+{
+    AttrHash *dict, *next;
+    uint i;
+
+    for (i = 0; i < ATTRIBUTE_HASH_SIZE; ++i)
+    {
+        dict = attribs->hashtab[i];
+
+        while(dict)
+        {
+            next = dict->next;
+            MemFree(dict);
+            dict = next;
+        }
+
+        attribs->hashtab[i] = NULL;
+    }
+}
 #endif
 
 static const Attribute* lookup(TidyAttribImpl* ARG_UNUSED(attribs),
                                ctmbstr atnam)
 {
     const Attribute *np;
+#if ATTRIBUTE_HASH_LOOKUP
     const AttrHash *p;
+#endif
 
     if (!atnam)
         return NULL;
@@ -842,24 +864,8 @@ static void FreeDeclaredAttributes( TidyDocImpl* doc )
 void FreeAttrTable( TidyDocImpl* doc )
 {
 #if ATTRIBUTE_HASH_LOOKUP
-    AttrHash *dict, *next;
-    uint i;
-
-    for (i = 0; i < ATTRIBUTE_HASH_SIZE; ++i)
-    {
-        dict = doc->attribs.hashtab[i];
-
-        while(dict)
-        {
-            next = dict->next;
-            MemFree(dict);
-            dict = next;
-        }
-
-        doc->attribs.hashtab[i] = NULL;
-    }
+    emptyHash( &doc->attribs );
 #endif
-
     FreeAnchors( doc );
     FreeDeclaredAttributes( doc );
 }
