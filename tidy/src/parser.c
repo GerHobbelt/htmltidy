@@ -2121,7 +2121,8 @@ void ParseRow(TidyDocImpl* doc, Node *row, uint ARG_UNUSED(mode))
         */
         if ( node->type == EndTag )
         {
-            if ( DescendantOf(row, TagId(node)) )
+            if ( (nodeHasCM(node, CM_HTML|CM_TABLE) || nodeIsTABLE(node))
+                 && DescendantOf(row, TagId(node)) )
             {
                 UngetToken( doc );
                 return;
