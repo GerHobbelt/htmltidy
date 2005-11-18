@@ -1954,7 +1954,8 @@ void CleanWord2000( TidyDocImpl* doc, Node *node)
         if ( node->content == NULL && nodeIsP(node) )
         {
             /*  Use the existing function to ensure consistency */
-            node = TrimEmptyElement( doc, node );
+            Node *next = TrimEmptyElement( doc, node );
+            node = node == next ? node->next : next;
             continue;
         }
 
