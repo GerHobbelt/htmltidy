@@ -4101,7 +4101,7 @@ Bool XMLPreserveWhiteSpace( TidyDocImpl* doc, Node *element)
     /* search attributes for xml:space */
     for (attribute = element->attributes; attribute; attribute = attribute->next)
     {
-        if (AttrValueIs(attribute, "xml:space"))
+        if (attrIsXML_SPACE(attribute))
         {
             if (AttrValueIs(attribute, "preserve"))
                 return yes;
