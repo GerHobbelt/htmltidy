@@ -9,9 +9,9 @@ REM <URL:http://tidy.sourceforge.net/>
 REM
 REM CVS Info:
 REM
-REM    %Author: creitzel %
-REM    %Date: 2003/02/16 19:33:12 %
-REM    %Revision: 1.6 %
+REM    $Author$
+REM    $Date$
+REM    $Revision$
 
 set VERSION='%Id'
 
