@@ -1,7 +1,7 @@
 /*
   clean.c -- clean up misuse of presentation markup
 
-  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -1955,7 +1955,7 @@ void CleanWord2000( TidyDocImpl* doc, Node *node)
         {
             /*  Use the existing function to ensure consistency */
             Node *next = TrimEmptyElement( doc, node );
-            node = node == next ? node->next : next;
+            node = next;
             continue;
         }
 
@@ -2591,3 +2591,12 @@ void FixAnchors(TidyDocImpl* doc, Node *node, Bool wantName, Bool wantId)
         node = next;
     }
 }
+
+/*
+ * local variables:
+ * mode: c
+ * indent-tabs-mode: nil
+ * c-basic-offset: 4
+ * eval: (c-set-offset 'substatement-open 0)
+ * end:
+ */
