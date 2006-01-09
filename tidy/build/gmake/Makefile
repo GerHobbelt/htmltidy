@@ -228,4 +228,4 @@ installmanpage: $(DOCDIR)/tidy.1
 	if [ ! -d "$(maninst)/man1" ]; then mkdir -p "$(maninst)/man1"; fi;
 	cp -f $(DOCDIR)/tidy.1 "$(maninst)/man1/tidy.1";
 
-install: installhdrs installib installmanpage installexes
+install: installhdrs installib installexes installmanpage
