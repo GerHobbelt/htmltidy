@@ -1,6 +1,6 @@
 /* attrget.c -- Locate attribute value by type
 
-  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
   
   CVS Info:
@@ -15,6 +15,11 @@
 #include "attrs.h"
 #include "tidy.h"
 
+TidyAttr TIDY_CALL tidyAttrGetById( TidyNode tnod, TidyAttrId attId )
+{
+    Node* nimp = tidyNodeToImpl(tnod);
+    return tidyImplToAttr( AttrGetById( nimp, attId ) );
+}
 TidyAttr TIDY_CALL tidyAttrGetHREF( TidyNode tnod )
 {
     return tidyImplToAttr( attrGetHREF( tidyNodeToImpl(tnod) ) );
