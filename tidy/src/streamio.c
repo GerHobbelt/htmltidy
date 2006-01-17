@@ -1,6 +1,6 @@
 /* streamio.c -- handles character stream I/O
 
-  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -429,8 +429,11 @@ uint ReadChar( StreamIn *in )
                                   ReplacementCharEncoding == MACROMAN );
             
             /* set error position just before offending character */
-            in->doc->lexer->lines = in->curline;
-            in->doc->lexer->columns = in->curcol;
+            if (in->doc->lexer)
+            {
+                in->doc->lexer->lines = in->curline;
+                in->doc->lexer->columns = in->curcol;
+            }
                 
             if ( isWinChar )
                 c1 = DecodeWin1252( c );
@@ -1336,3 +1339,12 @@ int GetCharEncodingFromOptName( ctmbstr charenc )
 
     return -1;
 }
+
+/*
+ * local variables:
+ * mode: c
+ * indent-tabs-mode: nil
+ * c-basic-offset: 4
+ * eval: (c-set-offset 'substatement-open 0)
+ * end:
+ */
