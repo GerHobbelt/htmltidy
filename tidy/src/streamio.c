@@ -306,7 +306,9 @@ uint ReadChar( StreamIn *in )
             added = yes;
             AddCharToOriginalText(in, (tchar)c);
 #endif
-            in->tabs = tabsize - ((in->curcol - 1) % tabsize) - 1;
+            in->tabs = tabsize > 0 ?
+                tabsize - ((in->curcol - 1) % tabsize) - 1
+                : 0;
             in->curcol++;
             c = ' ';
             break;
