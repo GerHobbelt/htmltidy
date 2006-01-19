@@ -538,7 +538,8 @@ static const TidyOptionDoc option_docs[] =
   {TidyNumEntities,
    "This option specifies if Tidy should output entities other than the "
    "built-in HTML entities (&amp;amp;, &amp;lt;, &amp;gt; and &amp;quot;) in "
-   "the numeric rather than the named entity form. "
+   "the numeric rather than the named entity form. Only entities compatible "
+   "with the DOCTYPE declaration generated are used. "
     ,TidyNumEntitiesLinks
   },
   {TidyHtmlOut,
