@@ -6,7 +6,7 @@
   Implementation of a FILE* based TidyInputSource and 
   TidyOutputSink.
 
-  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info:
@@ -30,7 +30,7 @@ void TIDY_CALL freeFileSource( TidyInputSource* source, Bool closeIt );
 void TIDY_CALL initFileSink( TidyOutputSink* sink, FILE* fp );
 
 /* Needed for internal declarations */
-void TIDY_CALL filesink_putByte( ulong sinkData, byte bv );
+void TIDY_CALL filesink_putByte( void* sinkData, byte bv );
 
 #ifdef __cplusplus
 }

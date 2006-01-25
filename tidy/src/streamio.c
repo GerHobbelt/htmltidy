@@ -77,14 +77,14 @@ static StreamOut stdoutStreamOut =
 StreamOut* StdErrOutput(void)
 {
   if ( stderrStreamOut.sink.sinkData == 0 )
-      stderrStreamOut.sink.sinkData = (ulong) stderr;
+      stderrStreamOut.sink.sinkData = stderr;
   return &stderrStreamOut;
 }
 
 StreamOut* StdOutOutput(void)
 {
   if ( stdoutStreamOut.sink.sinkData == 0 )
-      stdoutStreamOut.sink.sinkData = (ulong) stdout;
+      stdoutStreamOut.sink.sinkData = stdout;
   return &stdoutStreamOut;
 }
 
@@ -985,7 +985,7 @@ Bool TIDY_CALL tidyInitSource( TidyInputSource*  source,
 
   if ( status )
   {
-    source->sourceData = (ulong) srcData;
+    source->sourceData = srcData;
     source->getByte    = gbFunc;
     source->ungetByte  = ugbFunc;
     source->eof        = endFunc;
@@ -1001,7 +1001,7 @@ Bool TIDY_CALL tidyInitSink( TidyOutputSink* sink,
   Bool status = ( sink && snkData && pbFunc );
   if ( status )
   {
-    sink->sinkData = (ulong) snkData;
+    sink->sinkData = snkData;
     sink->putByte  = pbFunc;
   }
   return status;

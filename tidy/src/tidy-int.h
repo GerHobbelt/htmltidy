@@ -3,7 +3,7 @@
 
 /* tidy-int.h -- internal library declarations
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -71,7 +71,7 @@ struct _TidyDocImpl
     uint                badForm;     /* for badly placed form tags */
 
     /* Miscellaneous */
-    ulong               appData;
+    void*               appData;
     uint                nClassId;
     Bool                inputHadBOM;
 
