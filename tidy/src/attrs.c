@@ -1381,7 +1381,7 @@ void CheckAlign( TidyDocImpl* doc, Node *node, AttVal *attval)
         /* align="char" is allowed for elements with CM_TABLE|CM_ROW
            except CAPTION which is excluded above, */
         if( !(AttrValueIs(attval, "char")
-              && node->tag && (node->tag->model & CM_TABLE|CM_ROW)))
+              && nodeHasCM(node, CM_TABLE|CM_ROW)) )
              ReportAttrError( doc, node, attval, BAD_ATTRIBUTE_VALUE);
     }
 }
