@@ -16,9 +16,9 @@
 
 #include "tidy.h"
 #include "config.h"
+#include "lexer.h"
 #include "tags.h"
 #include "attrs.h"
-#include "lexer.h"
 #include "pprint.h"
 #include "access.h"
 

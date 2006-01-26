@@ -3,7 +3,7 @@
 
 /* lexer.h -- Lexer for html parser
   
-   (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
+   (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
    See tidy.h for the copyright notice.
   
    CVS Info:
@@ -535,13 +535,16 @@ void UngetToken( TidyDocImpl* doc );
   Preformatted   -- white space preserved as is
   IgnoreMarkup   -- for CDATA elements such as script, style
 */
-#define IgnoreWhitespace    0
-#define MixedContent        1
-#define Preformatted        2
-#define IgnoreMarkup        3
-#define CdataContent        4
+typedef enum
+{
+  IgnoreWhitespace,
+  MixedContent,
+  Preformatted,
+  IgnoreMarkup,
+  CdataContent
+} GetTokenMode;
 
-Node* GetToken( TidyDocImpl* doc, uint mode );
+Node* GetToken( TidyDocImpl* doc, GetTokenMode mode );
 
 void InitMap(void);
 

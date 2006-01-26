@@ -3,7 +3,7 @@
 
 /* tags.h -- recognize HTML tags
 
-  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -20,7 +20,7 @@
 #include "forward.h"
 #include "attrdict.h"
 
-typedef void (Parser)( TidyDocImpl* doc, Node *node, uint mode );
+typedef void (Parser)( TidyDocImpl* doc, Node *node, GetTokenMode mode );
 typedef void (CheckAttribs)( TidyDocImpl* doc, Node *node );
 
 /*
