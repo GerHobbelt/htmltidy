@@ -3727,6 +3727,11 @@ void ParseHTML(TidyDocImpl* doc, Node *html, GetTokenMode mode)
                         InsertNodeAtEnd(frameset, noframes);
                         ReportError(doc, html, noframes, INSERTING_TAG);
                     }
+                    else
+                    {
+                        if (noframes->type == StartEndTag)
+                            noframes->type = StartTag;
+                    }
 
                     ParseTag(doc, noframes, mode);
                     continue;
@@ -3827,7 +3832,11 @@ void ParseHTML(TidyDocImpl* doc, Node *html, GetTokenMode mode)
                 InsertNodeAtEnd(frameset, noframes);
             }
             else
+            {
                 ReportError(doc, html, node, NOFRAMES_CONTENT);
+                if (noframes->type == StartEndTag)
+                    noframes->type = StartTag;
+            }
 
             ConstrainVersion(doc, VERS_FRAMESET);
             ParseTag(doc, noframes, mode);
