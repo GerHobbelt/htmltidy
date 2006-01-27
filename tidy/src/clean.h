@@ -24,6 +24,8 @@ void FreeStyles( TidyDocImpl* doc );
 /* Add class="foo" to node
 */
 void AddClass( TidyDocImpl* doc, Node* node, ctmbstr classname );
+void AddStyleAsClass( TidyDocImpl* doc, Node *node, ctmbstr stylevalue );
+void AddStyleProperty(TidyDocImpl* doc, Node *node, ctmbstr property );
 
 void CleanDocument( TidyDocImpl* doc );
 
