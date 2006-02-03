@@ -810,8 +810,8 @@ static const TidyOptionDoc option_docs[] =
    "before tidying them, as on rare occasions the result may not be what you "
    "expect. "
   },
-  {TidyDecorateOrphanUL,
-   "This option specifies if Tidy should decorate orphan UL elements with "
+  {TidyInferredUL,
+   "This option specifies if Tidy should decorate inferred UL elements with "
    "some CSS markup to avoid indentation to the right. "
   },
   {N_TIDY_OPTIONS,

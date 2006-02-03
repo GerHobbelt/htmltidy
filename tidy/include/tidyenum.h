@@ -199,7 +199,7 @@ typedef enum
   TidyPunctWrapNotUsed,
 #endif
   TidyMergeDivs,       /**< Merge multiple DIVs */
-  TidyDecorateOrphanUL, /**< Mark orphan ULs with no indent CSS */
+  TidyInferredUL,      /**< Mark inferred UL elements with no indent CSS */
   N_TIDY_OPTIONS       /**< Must be last */
 } TidyOptionId;
 

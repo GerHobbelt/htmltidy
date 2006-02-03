@@ -263,7 +263,7 @@ static const TidyOptionImpl option_defs[] =
   { TidyPunctWrap,               PP, "punctuation-wrap",            BL, no,              ParseBool,         boolPicks       },
 #endif
   { TidyMergeDivs,               MU, "merge-divs",                  IN, TidyAutoState,   ParseAutoBool,     autoBoolPicks   },
-  { TidyDecorateOrphanUL,        MU, "decorate-orphan-ul",          BL, no,              ParseBool,         boolPicks       },
+  { TidyInferredUL,              MU, "decorate-inferred-ul",        BL, no,              ParseBool,         boolPicks       },
   { N_TIDY_OPTIONS,              XX, NULL,                          XY, 0,               NULL,              NULL            }
 };
 
