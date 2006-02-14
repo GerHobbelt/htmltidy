@@ -11,4 +11,4 @@
 
 */
 
-static const char release_date[] = "3 February 2006";
+static const char release_date[] = "14 February 2006";
