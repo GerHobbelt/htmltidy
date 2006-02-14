@@ -1,7 +1,7 @@
 /*
   tidy.c - HTML TidyLib command line driver
 
-  Copyright (c) 1998-2005 World Wide Web Consortium
+  Copyright (c) 1998-2006 World Wide Web Consortium
   (Massachusetts Institute of Technology, European Research 
   Consortium for Informatics and Mathematics, Keio University).
   All Rights Reserved.
@@ -460,7 +460,7 @@ ctmbstr ConfigCategoryName( TidyConfigCategory id )
     case TidyMiscellaneous:
         return "misc";
     }
-    fprintf(stderr, "Fatal error: impossible value for id='%d'.\n", id);
+    fprintf(stderr, "Fatal error: impossible value for id='%d'.\n", (int)id);
     assert(0);
     abort();
 }
