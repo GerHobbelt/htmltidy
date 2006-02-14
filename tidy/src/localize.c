@@ -1762,7 +1762,7 @@ void ReportNumWarnings( TidyDocImpl* doc )
 {
     if ( doc->warnings > 0 || doc->errors > 0 )
     {
-        tidy_out( doc, "%d %s, %d %s were found!",
+        tidy_out( doc, "%u %s, %u %s were found!",
                   doc->warnings, doc->warnings == 1 ? "warning" : "warnings",
                   doc->errors, doc->errors == 1 ? "error" : "errors" );
 
