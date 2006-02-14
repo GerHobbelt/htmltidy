@@ -802,7 +802,7 @@ static void AddClassNoIndent( TidyDocImpl* doc, Node *node )
     ctmbstr sprop =
         "padding-left: 2ex; margin-left: 0ex"
         "; margin-top: 0ex; margin-bottom: 0ex";
-    if ( !cfgBool(doc, TidyInferredUL) )
+    if ( !cfgBool(doc, TidyDecorateInferredUL) )
         return;
     if ( cfgBool(doc, TidyMakeClean) )
         AddStyleAsClass( doc, node, sprop );
