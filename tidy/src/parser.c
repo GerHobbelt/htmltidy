@@ -3533,9 +3533,9 @@ void ParseNoFrames(TidyDocImpl* doc, Node *noframes, GetTokenMode mode)
         /* implicit body element inferred */
         if (nodeIsText(node) || (node->tag && node->type != EndTag))
         {
-            if ( lexer->seenEndBody )
+            Node *body = FindBody( doc );
+            if ( body || lexer->seenEndBody )
             {
-                Node *body = FindBody( doc );
                 if ( body == NULL )
                 {
                     ReportError(doc, noframes, node, DISCARDING_UNEXPECTED);
