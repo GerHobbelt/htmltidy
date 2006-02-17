@@ -594,6 +594,7 @@ void PushInline( TidyDocImpl* doc, Node* node );
 void PopInline( TidyDocImpl* doc, Node* node );
 
 Bool IsPushed( TidyDocImpl* doc, Node* node );
+Bool IsPushedLast( TidyDocImpl* doc, Node *element, Node *node );
 
 /*
   This has the effect of inserting "missing" inline

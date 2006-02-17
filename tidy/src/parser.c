@@ -1714,7 +1714,8 @@ void ParseInline( TidyDocImpl* doc, Node *element, GetTokenMode mode )
                     if (!(element->tag->model & CM_OPT) && !element->implicit)
                         ReportError(doc, element, node, MISSING_ENDTAG_BEFORE);
 
-                    PopInline( doc, element );
+                    if( IsPushedLast( doc, element, node ) ) 
+                        PopInline( doc, element );
                     UngetToken( doc );
 
                     if (!(mode & Preformatted))
