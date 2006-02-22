@@ -374,7 +374,7 @@ static void Style2Rule( TidyDocImpl* doc, Node *node)
         */
         if (classattr)
         {
-            AppendToClassAttr( classattr, classattr->value );
+            AppendToClassAttr( classattr, classname );
             RemoveAttribute( doc, node, styleattr );
         }
         else /* reuse style attribute for class attribute */
