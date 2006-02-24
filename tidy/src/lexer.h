@@ -510,6 +510,8 @@ Bool CheckDocTypeKeyWords(Lexer *lexer, Node *doctype);
 ctmbstr HTMLVersionName( TidyDocImpl* doc );
 ctmbstr HTMLVersionNameFromCode( uint vers, Bool isXhtml );
 
+Bool WarnMissingSIInEmittedDocType( TidyDocImpl* doc );
+
 Bool SetXHTMLDocType( TidyDocImpl* doc );
 
 

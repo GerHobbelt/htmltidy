@@ -1755,6 +1755,10 @@ void ReportMarkupVersion( TidyDocImpl* doc )
             vers = "HTML Proprietary";
 
         message( doc, TidyInfo, "Document content looks like %s", vers );
+
+        /* Warn about missing sytem identifier (SI) in emitted doctype */
+        if ( WarnMissingSIInEmittedDocType( doc ) )
+            message( doc, TidyInfo, "No system identifier in emitted doctype" );
     }
 }
 

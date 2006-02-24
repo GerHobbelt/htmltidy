@@ -1435,6 +1435,31 @@ ctmbstr HTMLVersionNameFromCode( uint vers, Bool ARG_UNUSED(isXhtml) )
     return name;
 }
 
+Bool WarnMissingSIInEmittedDocType( TidyDocImpl* doc )
+{
+    Bool isXhtml = doc->lexer->isvoyager;
+    Node* doctype;
+    
+    /* Do not warn in XHTML mode */
+    if ( isXhtml )
+        return no;
+
+    /* Do not warn if emitted doctype is proprietary */
+    if ( HTMLVersionNameFromCode(doc->lexer->versionEmitted, isXhtml ) == NULL )
+        return no;
+
+    /* Do not warn if no SI is possible */
+    if ( GetSIFromVers(doc->lexer->versionEmitted) == NULL )
+        return no;
+
+    if ( (doctype = FindDocType( doc )) != NULL
+         && GetAttrByName(doctype, "SYSTEM") == NULL )
+        return yes;
+
+    return no;
+}
+
+
 /* Put DOCTYPE declaration between the
 ** <?xml version "1.0" ... ?> declaration, if any,
 ** and the <html> tag.  Should also work for any comments, 
