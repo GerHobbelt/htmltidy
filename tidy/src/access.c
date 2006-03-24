@@ -2862,10 +2862,10 @@ static void CheckDocType( TidyDocImpl* doc )
     if (Level2_Enabled( doc ))
     {
         Node* DTnode = FindDocType(doc);
-        if (DTnode)
+
+        /* If the doctype has been added by tidy, DTnode->end will be 0. */
+        if (DTnode && DTnode->end != 0)
         {
-            /* If the doctype has been added by tidy, word
-               will be NULL as DTnode->end will be 0. */
             ctmbstr word = textFromOneNode( doc, DTnode);
             if ((strstr (word, "HTML PUBLIC") == NULL) &&
                 (strstr (word, "html PUBLIC") == NULL))
@@ -3325,3 +3325,12 @@ void AccessibilityChecks( TidyDocImpl* doc )
 }
 
 #endif
+
+/*
+ * local variables:
+ * mode: c
+ * indent-tabs-mode: nil
+ * c-basic-offset: 4
+ * eval: (c-set-offset 'substatement-open 0)
+ * end:
+ */
