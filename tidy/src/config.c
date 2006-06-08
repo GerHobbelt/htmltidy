@@ -493,7 +493,8 @@ TidyTriState    _cfgGetAutoBool( TidyDocImpl* doc, TidyOptionId optId )
 {
   ulong val = _cfgGet( doc, optId );
   const TidyOptionImpl* opt = &option_defs[ optId ];
-  assert( opt && opt->type == TidyInteger );
+  assert( opt && opt->type == TidyInteger
+          && opt->parser == ParseAutoBool );
   return (TidyTriState) val;
 }
 
