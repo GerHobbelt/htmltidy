@@ -523,7 +523,7 @@ static Bool CleanTrailingWhitespace(TidyDocImpl* doc, Node* node)
     if (IsPreDescendant(node))
         return no;
 
-    if (node->parent->tag->parser == ParseScript)
+    if (node->parent->tag && node->parent->tag->parser == ParseScript)
         return no;
 
     next = node->next;
@@ -572,7 +572,7 @@ static Bool CleanLeadingWhitespace(TidyDocImpl* ARG_UNUSED(doc), Node* node)
     if (IsPreDescendant(node))
         return no;
 
-    if (node->parent->tag->parser == ParseScript)
+    if (node->parent->tag && node->parent->tag->parser == ParseScript)
         return no;
 
     /* <p>...<br> <em>...</em>...</p> */
