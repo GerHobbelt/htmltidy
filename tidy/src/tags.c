@@ -17,6 +17,18 @@
 #include "message.h"
 #include "tmbstr.h"
 
+/* Attribute checking methods */
+static CheckAttribs CheckIMG;
+static CheckAttribs CheckLINK;
+static CheckAttribs CheckAREA;
+static CheckAttribs CheckTABLE;
+static CheckAttribs CheckCaption;
+static CheckAttribs CheckSCRIPT;
+static CheckAttribs CheckSTYLE;
+static CheckAttribs CheckHTML;
+static CheckAttribs CheckFORM;
+static CheckAttribs CheckMETA;
+
 #define VERS_ELEM_A          (HT20|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10)
 #define VERS_ELEM_ABBR       (xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10)
 #define VERS_ELEM_ACRONYM    (xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10)
@@ -850,6 +862,7 @@ Bool nodeIsElement( Node* node )
            (node->type == StartTag || node->type == StartEndTag) );
 }
 
+#if 0
 /* Compare & result to operand.  If equal, then all bits
 ** requested are set.
 */
@@ -858,6 +871,7 @@ Bool nodeMatchCM( Node* node, uint contentModel )
   return ( node && node->tag && 
            (node->tag->model & contentModel) == contentModel );
 }
+#endif
 
 /* True if any of the bits requested are set.
 */

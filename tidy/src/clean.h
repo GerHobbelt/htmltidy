@@ -3,7 +3,7 @@
 
 /* clean.h -- clean up misuse of presentation markup
 
-  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info:
@@ -13,17 +13,12 @@
 
 */
 
-void RenameElem( Node* node, TidyTagId tid );
-
 void FixNodeLinks(Node *node);
-
-Node* CleanNode( TidyDocImpl* doc, Node* node );
 
 void FreeStyles( TidyDocImpl* doc );
 
 /* Add class="foo" to node
 */
-void AddClass( TidyDocImpl* doc, Node* node, ctmbstr classname );
 void AddStyleAsClass( TidyDocImpl* doc, Node *node, ctmbstr stylevalue );
 void AddStyleProperty(TidyDocImpl* doc, Node *node, ctmbstr property );
 
@@ -52,12 +47,7 @@ void List2BQ( TidyDocImpl* doc, Node* node );
 void BQ2Div( TidyDocImpl* doc, Node* node );
 
 
-Node *FindEnclosingCell( TidyDocImpl* doc, Node* node );
-
 void DropSections( TidyDocImpl* doc, Node* node );
-
-/* used to hunt for hidden preformatted sections */
-Bool NoMargins(Node *node);
 
 /* does element have a single space as its content? */
 Bool IsSingleSpace(Lexer *lexer, Node *node);

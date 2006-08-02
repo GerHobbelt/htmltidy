@@ -655,7 +655,7 @@ static void TrimSpaces( TidyDocImpl* doc, Node *element)
         TrimTrailingSpace(doc, element, text);
 }
 
-Bool DescendantOf( Node *element, TidyTagId tid )
+static Bool DescendantOf( Node *element, TidyTagId tid )
 {
     Node *parent;
     for ( parent = element->parent;
@@ -2608,7 +2608,7 @@ void ParseTableTag(TidyDocImpl* doc, Node *table, GetTokenMode ARG_UNUSED(mode))
 }
 
 /* acceptable content for pre elements */
-Bool PreContent( TidyDocImpl* ARG_UNUSED(doc), Node* node )
+static Bool PreContent( TidyDocImpl* ARG_UNUSED(doc), Node* node )
 {
     /* p is coerced to br's, Text OK too */
     if ( nodeIsP(node) || nodeIsText(node) )

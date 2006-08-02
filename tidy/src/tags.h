@@ -121,19 +121,7 @@ Parser ParseText;
 Parser ParseObject;
 Parser ParseMap;
 
-/* Attribute checking methods */
-
 CheckAttribs CheckAttributes;
-CheckAttribs CheckIMG;
-CheckAttribs CheckLINK;
-CheckAttribs CheckAREA;
-CheckAttribs CheckTABLE;
-CheckAttribs CheckCaption;
-CheckAttribs CheckSCRIPT;
-CheckAttribs CheckSTYLE;
-CheckAttribs CheckHTML;
-CheckAttribs CheckFORM;
-CheckAttribs CheckMETA;
 
 /* 0 == TidyTag_UNKNOWN */
 #define TagId(node)        ((node) && (node)->tag ? (node)->tag->id : TidyTag_UNKNOWN)
@@ -144,10 +132,12 @@ Bool nodeIsElement( Node* node );
 
 Bool nodeHasText( TidyDocImpl* doc, Node* node );
 
+#if 0
 /* Compare & result to operand.  If equal, then all bits
 ** requested are set.
 */
 Bool nodeMatchCM( Node* node, uint contentModel );
+#endif
 
 /* True if any of the bits requested are set.
 */

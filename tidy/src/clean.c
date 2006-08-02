@@ -59,7 +59,9 @@
 #include "tmbstr.h"
 #include "utf8.h"
 
-void RenameElem( Node* node, TidyTagId tid )
+static Node* CleanNode( TidyDocImpl* doc, Node *node );
+
+static void RenameElem( Node* node, TidyTagId tid )
 {
     const Dict* dict = LookupTagDef( tid );
     MemFree( node->element );
@@ -319,7 +321,7 @@ static ctmbstr FindStyle( TidyDocImpl* doc, ctmbstr tag, ctmbstr properties )
 /*
  Add class="foo" to node
 */
-void AddClass( TidyDocImpl* doc, Node* node, ctmbstr classname )
+static void AddClass( TidyDocImpl* doc, Node* node, ctmbstr classname )
 {
     AttVal *classattr = AttrGetById(node, TidyAttr_CLASS);;
 
@@ -1585,7 +1587,7 @@ void BQ2Div( TidyDocImpl* doc, Node *node )
 }
 
 
-Node* FindEnclosingCell( TidyDocImpl* ARG_UNUSED(doc), Node *node)
+static Node* FindEnclosingCell( TidyDocImpl* ARG_UNUSED(doc), Node *node)
 {
     Node *check;
 
@@ -1786,7 +1788,7 @@ void NormalizeSpaces(Lexer *lexer, Node *node)
 }
 
 /* used to hunt for hidden preformatted sections */
-Bool NoMargins(Node *node)
+static Bool NoMargins(Node *node)
 {
     AttVal *attval = AttrGetById(node, TidyAttr_STYLE);
 
