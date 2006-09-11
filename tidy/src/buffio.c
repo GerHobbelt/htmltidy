@@ -38,7 +38,7 @@ static void TIDY_CALL insrc_ungetByte( void* appData, byte bv )
   tidyBufUngetByte( buf, bv );
 }
 
-void TIDY_CALL initInputBuffer( TidyInputSource* inp, TidyBuffer* buf )
+void TIDY_CALL tidyInitInputBuffer( TidyInputSource* inp, TidyBuffer* buf )
 {
   inp->getByte    = insrc_getByte;
   inp->eof        = insrc_eof;
@@ -52,7 +52,7 @@ static void TIDY_CALL outsink_putByte( void* appData, byte bv )
   tidyBufPutByte( buf, bv );
 }
 
-void TIDY_CALL initOutputBuffer( TidyOutputSink* outp, TidyBuffer* buf )
+void TIDY_CALL tidyInitOutputBuffer( TidyOutputSink* outp, TidyBuffer* buf )
 {
   outp->putByte  = outsink_putByte;
   outp->sinkData = buf;

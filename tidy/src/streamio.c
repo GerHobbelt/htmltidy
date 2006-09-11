@@ -151,7 +151,7 @@ StreamIn* FileInput( TidyDocImpl* doc, FILE *fp, int encoding )
 StreamIn* BufferInput( TidyDocImpl* doc, TidyBuffer* buf, int encoding )
 {
     StreamIn *in = initStreamIn( doc, encoding );
-    initInputBuffer( &in->source, buf );
+    tidyInitInputBuffer( &in->source, buf );
     in->iotype = BufferIO;
     return in;
 }
@@ -542,7 +542,7 @@ StreamOut* FileOutput( FILE* fp, int encoding, uint nl )
 StreamOut* BufferOutput( TidyBuffer* buf, int encoding, uint nl )
 {
     StreamOut* out = initStreamOut( encoding, nl );
-    initOutputBuffer( &out->sink, buf );
+    tidyInitOutputBuffer( &out->sink, buf );
     out->iotype = BufferIO;
     return out;
 }
