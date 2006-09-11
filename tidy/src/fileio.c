@@ -52,7 +52,7 @@ static void TIDY_CALL filesrc_ungetByte( void* sourceData, byte bv )
   tidyBufPutByte( &fin->unget, bv );
 }
 
-void TIDY_CALL initFileSource( TidyInputSource* inp, FILE* fp )
+void initFileSource( TidyInputSource* inp, FILE* fp )
 {
   FileSource* fin = NULL;
 
@@ -66,7 +66,7 @@ void TIDY_CALL initFileSource( TidyInputSource* inp, FILE* fp )
   inp->sourceData = fin;
 }
 
-void TIDY_CALL freeFileSource( TidyInputSource* inp, Bool closeIt )
+void freeFileSource( TidyInputSource* inp, Bool closeIt )
 {
     FileSource* fin = (FileSource*) inp->sourceData;
     if ( closeIt && fin && fin->fp )
@@ -81,7 +81,7 @@ void TIDY_CALL filesink_putByte( void* sinkData, byte bv )
   fputc( bv, fout );
 }
 
-void TIDY_CALL initFileSink( TidyOutputSink* outp, FILE* fp )
+void initFileSink( TidyOutputSink* outp, FILE* fp )
 {
   outp->putByte  = filesink_putByte;
   outp->sinkData = fp;

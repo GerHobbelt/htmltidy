@@ -155,7 +155,7 @@ CFILES= \
         $(SRCDIR)/tidylib.c
 
 HFILES= $(INCDIR)/platform.h     $(INCDIR)/tidy.h         $(INCDIR)/tidyenum.h \
-        $(INCDIR)/fileio.h       $(INCDIR)/buffio.h
+        $(INCDIR)/buffio.h
 
 LIBHFILES= \
         $(SRCDIR)/access.h       $(SRCDIR)/attrs.h        $(SRCDIR)/attrdict.h \
