@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 
+#include "forward.h"
 #include "fileio.h"
 #include "tidy.h"
 
@@ -52,7 +53,7 @@ static void TIDY_CALL filesrc_ungetByte( void* sourceData, byte bv )
   tidyBufPutByte( &fin->unget, bv );
 }
 
-void initFileSource( TidyInputSource* inp, FILE* fp )
+void TY_(initFileSource)( TidyInputSource* inp, FILE* fp )
 {
   FileSource* fin = NULL;
 
@@ -66,7 +67,7 @@ void initFileSource( TidyInputSource* inp, FILE* fp )
   inp->sourceData = fin;
 }
 
-void freeFileSource( TidyInputSource* inp, Bool closeIt )
+void TY_(freeFileSource)( TidyInputSource* inp, Bool closeIt )
 {
     FileSource* fin = (FileSource*) inp->sourceData;
     if ( closeIt && fin && fin->fp )
@@ -75,15 +76,15 @@ void freeFileSource( TidyInputSource* inp, Bool closeIt )
     MemFree( fin );
 }
 
-void TIDY_CALL filesink_putByte( void* sinkData, byte bv )
+void TIDY_CALL TY_(filesink_putByte)( void* sinkData, byte bv )
 {
   FILE* fout = (FILE*) sinkData;
   fputc( bv, fout );
 }
 
-void initFileSink( TidyOutputSink* outp, FILE* fp )
+void TY_(initFileSink)( TidyOutputSink* outp, FILE* fp )
 {
-  outp->putByte  = filesink_putByte;
+  outp->putByte  = TY_(filesink_putByte);
   outp->sinkData = fp;
 }
 

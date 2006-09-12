@@ -3,7 +3,7 @@
 
 /* forward.h -- Forward declarations for major Tidy structures
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -23,6 +23,9 @@
 
 #include "platform.h"
 #include "tidy.h"
+
+#define TYDYAPPEND(str1,str2) str1##str2
+#define TY_(str) TYDYAPPEND(prvTidy,str)
 
 struct _StreamIn;
 typedef struct _StreamIn StreamIn;

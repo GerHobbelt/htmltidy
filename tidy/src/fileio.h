@@ -21,16 +21,16 @@ extern "C" {
 #endif
 
 /** Allocate and initialize file input source */
-void initFileSource( TidyInputSource* source, FILE* fp );
+void TY_(initFileSource)( TidyInputSource* source, FILE* fp );
 
 /** Free file input source */
-void freeFileSource( TidyInputSource* source, Bool closeIt );
+void TY_(freeFileSource)( TidyInputSource* source, Bool closeIt );
 
 /** Initialize file output sink */
-void initFileSink( TidyOutputSink* sink, FILE* fp );
+void TY_(initFileSink)( TidyOutputSink* sink, FILE* fp );
 
 /* Needed for internal declarations */
-void TIDY_CALL filesink_putByte( void* sinkData, byte bv );
+void TIDY_CALL TY_(filesink_putByte)( void* sinkData, byte bv );
 
 #ifdef __cplusplus
 }

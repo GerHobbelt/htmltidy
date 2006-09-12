@@ -316,7 +316,7 @@ static const entity* lookup( ctmbstr s )
     tmbchar ch = (tmbchar)( s ? *s : 0 );
     const entity *np;
     for ( np = entities; ch && np && np->name; ++np )
-        if ( ch == *np->name && tmbstrcmp(s, np->name) == 0 )
+        if ( ch == *np->name && TY_(tmbstrcmp)(s, np->name) == 0 )
             return np;
     return NULL;
 }
@@ -355,7 +355,7 @@ uint EntityCode( ctmbstr name, uint versions )
 }
 #endif
 
-Bool EntityInfo( ctmbstr name, Bool isXml, uint* code, uint* versions )
+Bool TY_(EntityInfo)( ctmbstr name, Bool isXml, uint* code, uint* versions )
 {
     const entity* np;
     assert( name && name[0] == '&' );
@@ -392,7 +392,7 @@ Bool EntityInfo( ctmbstr name, Bool isXml, uint* code, uint* versions )
 }
 
 
-ctmbstr EntityName( uint ch, uint versions )
+ctmbstr TY_(EntityName)( uint ch, uint versions )
 {
     ctmbstr entnam = NULL;
     const entity *ep;

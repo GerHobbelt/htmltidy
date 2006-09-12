@@ -18,7 +18,7 @@
 TidyAttr TIDY_CALL tidyAttrGetById( TidyNode tnod, TidyAttrId attId )
 {
     Node* nimp = tidyNodeToImpl(tnod);
-    return tidyImplToAttr( AttrGetById( nimp, attId ) );
+    return tidyImplToAttr( TY_(AttrGetById)( nimp, attId ) );
 }
 TidyAttr TIDY_CALL tidyAttrGetHREF( TidyNode tnod )
 {
@@ -202,3 +202,12 @@ TidyAttr TIDY_CALL tidyAttrGetROWSPAN( TidyNode tnod )
 {
     return tidyImplToAttr( attrGetROWSPAN( tidyNodeToImpl(tnod) ) );
 }
+
+/*
+ * local variables:
+ * mode: c
+ * indent-tabs-mode: nil
+ * c-basic-offset: 4
+ * eval: (c-set-offset 'substatement-open 0)
+ * end:
+ */

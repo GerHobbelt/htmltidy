@@ -69,10 +69,10 @@ typedef struct _TidyPrintImpl
 uint CWrapLen( TidyDocImpl* doc, uint ind );
 #endif
 
-void InitPrintBuf( TidyDocImpl* doc );
-void FreePrintBuf( TidyDocImpl* doc );
+void TY_(InitPrintBuf)( TidyDocImpl* doc );
+void TY_(FreePrintBuf)( TidyDocImpl* doc );
 
-void PFlushLine( TidyDocImpl* doc, uint indent );
+void TY_(PFlushLine)( TidyDocImpl* doc, uint indent );
 
 
 /* print just the content of the body element.
@@ -82,14 +82,12 @@ void PFlushLine( TidyDocImpl* doc, uint indent );
 ** -- Sebastiano Vigna <vigna@dsi.unimi.it>
 */
 
-void PrintPreamble( TidyDocImpl* doc );   /* Between these 3, */
-void PrintBody( TidyDocImpl* doc );       /* you can print an entire document */
-void PrintPostamble( TidyDocImpl* doc );  /* or you can substitute another */
+void TY_(PrintBody)( TidyDocImpl* doc );       /* you can print an entire document */
                                           /* node as body using PPrintTree() */
 
-void PPrintTree( TidyDocImpl* doc, uint mode, uint indent, Node *node );
+void TY_(PPrintTree)( TidyDocImpl* doc, uint mode, uint indent, Node *node );
 
-void PPrintXMLTree( TidyDocImpl* doc, uint mode, uint indent, Node *node );
+void TY_(PPrintXMLTree)( TidyDocImpl* doc, uint mode, uint indent, Node *node );
 
 
 #endif /* __PPRINT_H__ */
