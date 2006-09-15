@@ -1,6 +1,5 @@
-#ifndef __WIN32TC_H__
-#define __WIN32TC_H__
-#ifdef TIDY_WIN32_MLANG_SUPPORT
+#ifndef __TIDY_MAPPED_IO_H__
+#define __TIDY_MAPPED_IO_H__
 
 /* Interface to mmap style I/O
 
@@ -14,5 +13,4 @@
 int TY_(DocParseFileWithMappedFile)( TidyDocImpl* doc, ctmbstr filnam );
 #endif
 
-#endif /* TIDY_WIN32_MLANG_SUPPORT */
-#endif /* __WIN32TC_H__ */
+#endif /* __TIDY_MAPPED_IO_H__ */
