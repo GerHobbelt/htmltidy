@@ -143,7 +143,11 @@ void TY_(freeStreamIn)(StreamIn* in)
 StreamIn* TY_(FileInput)( TidyDocImpl* doc, FILE *fp, int encoding )
 {
     StreamIn *in = initStreamIn( doc, encoding );
-    TY_(initFileSource)( &in->source, fp );
+    if ( TY_(initFileSource)( &in->source, fp ) != 0 )
+    {
+        TY_(freeStreamIn)( in );
+        return NULL;
+    }
     in->iotype = FileIO;
     return in;
 }

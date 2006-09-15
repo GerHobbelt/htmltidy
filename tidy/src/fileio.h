@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 /** Allocate and initialize file input source */
-void TY_(initFileSource)( TidyInputSource* source, FILE* fp );
+int TY_(initFileSource)( TidyInputSource* source, FILE* fp );
 
 /** Free file input source */
 void TY_(freeFileSource)( TidyInputSource* source, Bool closeIt );
