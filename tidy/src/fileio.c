@@ -20,7 +20,7 @@
 #include "fileio.h"
 #include "tidy.h"
 
-#ifndef _POSIX_MAPPED_FILES
+#ifndef SUPPORT_POSIX_MAPPED_FILES
 typedef struct _fp_input_source
 {
     FILE*        fp;
