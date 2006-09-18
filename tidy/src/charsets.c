@@ -6,6 +6,7 @@
   $Id$
 */
 
+#include "forward.h"
 #include "tidy.h"
 #include "tmbstr.h"
 #include "charsets.h"

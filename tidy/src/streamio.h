@@ -92,6 +92,7 @@ struct _StreamIn
     TidyDocImpl* doc;
 };
 
+StreamIn* TY_(initStreamIn)( TidyDocImpl* doc, int encoding );
 void TY_(freeStreamIn)(StreamIn* in);
 
 StreamIn* TY_(FileInput)( TidyDocImpl* doc, FILE* fp, int encoding );
