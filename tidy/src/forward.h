@@ -24,6 +24,7 @@
 #include "platform.h"
 #include "tidy.h"
 
+/* Internal symbols are prefixed to avoid clashes with other libraries */
 #define TYDYAPPEND(str1,str2) str1##str2
 #define TY_(str) TYDYAPPEND(prvTidy,str)
 
