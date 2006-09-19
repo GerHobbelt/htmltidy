@@ -35,6 +35,7 @@
 #include "entities.h"
 #include "tmbstr.h"
 #include "utf8.h"
+#include "mappedio.h"
 
 #ifdef TIDY_WIN32_MLANG_SUPPORT
 #include "win32tc.h"
