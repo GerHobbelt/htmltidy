@@ -1264,7 +1264,11 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
     {
         AttVal* fpi = TY_(GetAttrByName)(node, "PUBLIC");
         if (AttrHasValue(fpi))
+        {
+            if (doc->givenDoctype)
+                MemFree(doc->givenDoctype);
             doc->givenDoctype = TY_(tmbstrdup)(fpi->value);
+        }
     }
 
     if ( doc->root.content )
