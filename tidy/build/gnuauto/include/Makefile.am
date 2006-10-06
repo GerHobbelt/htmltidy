@@ -6,7 +6,7 @@
 #     $Date$ 
 #     $Revision$ 
 #
-#  Copyright (c) 1998-2003 World Wide Web Consortium
+#  Copyright (c) 1998-2006 World Wide Web Consortium
 #  (Massachusetts Institute of Technology, European Research 
 #  Consortium for Informatics and Mathematics, Keio University).
 #  All Rights Reserved.
@@ -58,4 +58,4 @@ tidyincdir = $(includedir)
 
 tidyinc_HEADERS = \
 	platform.h \
-	tidy.h		tidyenum.h	fileio.h	buffio.h
+	tidy.h		tidyenum.h	buffio.h

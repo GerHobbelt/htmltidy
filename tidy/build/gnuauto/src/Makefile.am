@@ -6,7 +6,7 @@
 #     $Date$ 
 #     $Revision$ 
 #
-#  Copyright (c) 1998-2003 World Wide Web Consortium
+#  Copyright (c) 1998-2006 World Wide Web Consortium
 #  (Massachusetts Institute of Technology, European Research 
 #  Consortium for Informatics and Mathematics, Keio University).
 #  All Rights Reserved.
@@ -65,7 +65,7 @@ libtidy_la_SOURCES = \
 	clean.c		localize.c	config.c	alloc.c \
 	attrask.c	attrdict.c	attrget.c	buffio.c \
 	fileio.c	streamio.c	tagask.c	tmbstr.c \
-	utf8.c		tidylib.c
+	utf8.c		tidylib.c	mappedio.c
 
 libtidy_la_LDFLAGS = \
 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
@@ -73,8 +73,9 @@ libtidy_la_LDFLAGS = \
 
 HFILES = \
 	access.h	attrdict.h	attrs.h		clean.h \
-	config.h	entities.h	forward.h	lexer.h \
-	message.h	parser.h	pprint.h	streamio.h \
-	tags.h		tmbstr.h	utf8.h		tidy-int.h
+	config.h	entities.h	fileio.h 	forward.h \
+	lexer.h		mappedio.h	message.h	parser.h \
+	pprint.h	streamio.h	tags.h		tmbstr.h \
+	utf8.h		tidy-int.h	version.h
 
 EXTRA_DIST = $(HFILES)
