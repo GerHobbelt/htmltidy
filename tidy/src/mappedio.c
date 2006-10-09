@@ -273,19 +273,16 @@ int TY_(DocParseFileWithMappedFile)( TidyDocImpl* doc, ctmbstr filnam ) {
     if ( fin != INVALID_HANDLE_VALUE && cfgBool(doc,TidyKeepFileTimes) &&
          GetFileTime(fin, NULL, (FILETIME*)&actime, (FILETIME*)&modtime) )
     {
-#if _MSC_VER < 1300  /* less than msvc++ 7.0 */
-        doc->filetimes.actime =
-            (time_t)( ( actime - 116444736000000000i64) / 10000000 );
-
-        doc->filetimes.modtime =
-            (time_t)( ( modtime - 116444736000000000i64) / 10000000 );
-#else
-        doc->filetimes.actime =
-            (time_t)( ( actime - 116444736000000000LL) / 10000000LL );
-
-        doc->filetimes.modtime =
-            (time_t)( ( modtime - 116444736000000000LL) / 10000000LL );
+#define TY_I64(str) TYDYAPPEND(str,LL)
+#if _MSC_VER < 1300  && !defined(__GNUC__) /* less than msvc++ 7.0 */
+# undef TY_I64
+# define TY_I64(str) TYDYAPPEND(str,i64)
 #endif
+        doc->filetimes.actime =
+            (time_t)( ( actime  - TY_I64(116444736000000000)) / 10000000 );
+
+        doc->filetimes.modtime =
+            (time_t)( ( modtime - TY_I64(116444736000000000)) / 10000000 );
     }
 #endif
 
