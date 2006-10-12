@@ -26,7 +26,7 @@
 
 typedef struct
 {
-    const char *base;
+    const byte *base;
     size_t pos, size;
 } MappedFileSource;
 
