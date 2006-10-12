@@ -39,7 +39,7 @@ static int TIDY_CALL mapped_getByte( void* sourceData )
 static Bool TIDY_CALL mapped_eof( void* sourceData )
 {
     MappedFileSource* fin = (MappedFileSource*) sourceData;
-    return (fin->pos+1 >= fin->size);
+    return (fin->pos >= fin->size);
 }
 
 static void TIDY_CALL mapped_ungetByte( void* sourceData, byte bv )
