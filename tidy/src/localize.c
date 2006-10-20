@@ -1615,7 +1615,7 @@ void TY_(ErrorSummary)( TidyDocImpl* doc )
       {
         tidy_out(doc, "For further advice on how to make your pages accessible, see\n");
         tidy_out(doc, "%s", ACCESS_URL );
-        tidy_out(doc, "and\n" );
+        tidy_out(doc, " and\n" );
         tidy_out(doc, "%s", ATRC_ACCESS_URL );
         tidy_out(doc, ".\n" );
         tidy_out(doc, "You may also want to try \"http://www.cast.org/bobby/\" which is a free Web-based\n");
