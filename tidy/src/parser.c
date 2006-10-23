@@ -4101,6 +4101,12 @@ void TY_(ParseDocument)(TidyDocImpl* doc)
         break;
     }
 
+#if SUPPORT_ACCESSIBILITY_CHECKS
+    /* do this before any more document fixes */
+    if ( cfg( doc, TidyAccessibilityCheckLevel ) > 0 )
+        TY_(AccessibilityChecks)( doc );
+#endif /* #if SUPPORT_ACCESSIBILITY_CHECKS */
+
     if (!TY_(FindHTML)(doc))
     {
         /* a later check should complain if <body> is empty */

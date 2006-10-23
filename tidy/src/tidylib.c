@@ -1175,7 +1175,6 @@ int         tidyDocParseStream( TidyDocImpl* doc, StreamIn* in )
 
 int         tidyDocRunDiagnostics( TidyDocImpl* doc )
 {
-    uint acclvl = cfg( doc, TidyAccessibilityCheckLevel );
     Bool quiet = cfgBool( doc, TidyQuiet );
     Bool force = cfgBool( doc, TidyForceOutput );
 
@@ -1188,11 +1187,6 @@ int         tidyDocRunDiagnostics( TidyDocImpl* doc )
     
     if ( doc->errors > 0 && !force )
         TY_(NeedsAuthorIntervention)( doc );
-
-#if SUPPORT_ACCESSIBILITY_CHECKS
-     if ( acclvl > 0 )
-         TY_(AccessibilityChecks)( doc );
-#endif
 
      return tidyDocStatus( doc );
 }
