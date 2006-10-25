@@ -3349,7 +3349,11 @@ static tmbstr ParseValue( TidyDocImpl* doc, ctmbstr name,
                 c = ' ';
 
                 if (lastc == ' ')
+                {
+                    if (TY_(IsUrl)(doc, name) )
+                        TY_(ReportAttrError)( doc, lexer->token, NULL, WHITE_IN_URI);
                     continue;
+                }
             }
         }
         else if (foldCase && TY_(IsUpper)(c))
