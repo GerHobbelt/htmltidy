@@ -1169,7 +1169,7 @@ void TY_(CheckUrl)( TidyDocImpl* doc, Node *node, AttVal *attval)
 
     p = attval->value;
     
-    for (i = 0; 0 != (c = p[i]); ++i)
+    for (i = 0; '\0' != (c = p[i]); ++i)
     {
         if (c == '\\')
         {
