@@ -581,7 +581,6 @@ static void WrapLine( TidyDocImpl* doc )
     if ( pprint->wraphere == 0 )
         return;
 
-    // xxx
     if ( WantIndent(doc) )
     {
         uint spaces = GetSpaces( pprint );
