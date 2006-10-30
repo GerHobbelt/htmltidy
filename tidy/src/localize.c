@@ -1263,7 +1263,7 @@ void TY_(ReportAttrError)(TidyDocImpl* doc, Node *node, AttVal *av, uint code)
         break;
 
 
-    case MISSING_IMAGEMAP:  /* this is not used anywhere */
+    case MISSING_IMAGEMAP:
         messageNode(doc, TidyWarning, node, fmt, tagdesc);
         doc->badAccess |= MISSING_IMAGE_MAP;
         break;

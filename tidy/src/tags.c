@@ -651,7 +651,7 @@ void CheckIMG( TidyDocImpl* doc, Node *node )
     if ( cfg(doc, TidyAccessibilityCheckLevel) == 0 )
     {
         if ( HasIsMap && !HasUseMap )
-            TY_(ReportMissingAttr)( doc, node, "ismap" );
+            TY_(ReportAttrError)( doc, node, NULL, MISSING_IMAGEMAP);
     }
 }
 
