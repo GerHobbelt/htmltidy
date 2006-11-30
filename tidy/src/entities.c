@@ -301,7 +301,7 @@ static const entity entities[] =
     { "lsaquo",   VERS_FROM40,  8249 },
     { "rsaquo",   VERS_FROM40,  8250 },
     { "euro",     VERS_FROM40,  8364 },
-    { NULL,       0,               0 }
+    { NULL,       VERS_UNKNOWN, 0 }
 };
 
 
