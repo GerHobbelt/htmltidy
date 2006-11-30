@@ -953,8 +953,7 @@ void TY_(ParseBlock)( TidyDocImpl* doc, Node *element, GetTokenMode mode)
             {
                 /* special case </tr> etc. for stuff moved in front of table */
                 if ( lexer->exiled
-                     && node->tag->model
-                     && (node->tag->model & CM_TABLE) )
+                     && TY_(nodeHasCM)(node, CM_TABLE) )
                 {
                     TY_(UngetToken)( doc );
                     TrimSpaces( doc, element );
@@ -1538,8 +1537,7 @@ void TY_(ParseInline)( TidyDocImpl* doc, Node *element, GetTokenMode mode )
                 continue;
             }  /* special case </tr> etc. for stuff moved in front of table */
             else if ( lexer->exiled
-                      && node->tag->model
-                      && (node->tag->model & CM_TABLE) )
+                     && TY_(nodeHasCM)(node, CM_TABLE) )
             {
                 TY_(UngetToken)( doc );
                 TrimSpaces(doc, element);
@@ -2052,7 +2050,7 @@ void TY_(ParseList)(TidyDocImpl* doc, Node *list, GetTokenMode ARG_UNUSED(mode))
             }
             /* http://tidy.sf.net/issue/1316307 */
             /* In exiled mode, return so table processing can continue. */
-            else if ( lexer->exiled && node->tag
+            else if ( lexer->exiled
                       && TY_(nodeHasCM)(node, CM_TABLE|CM_ROWGRP|CM_ROW) )
                 return;
 
