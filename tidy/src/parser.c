@@ -3992,6 +3992,7 @@ static void AttributeChecks(TidyDocImpl* doc, Node* node)
         if (node->content)
             AttributeChecks(doc, node->content);
 
+        assert( next != node ); /* http://tidy.sf.net/issue/1603538 */
         node = next;
     }
 }
