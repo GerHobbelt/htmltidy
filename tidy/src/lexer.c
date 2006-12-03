@@ -1971,7 +1971,8 @@ Node* TY_(GetToken)( TidyDocImpl* doc, GetTokenMode mode )
     if (lexer->pushed)
     {
         /* duplicate inlines in preference to pushed text nodes when appropriate */
-        if (lexer->token->type != TextNode || (!lexer->insert && !lexer->inode))
+        if ((lexer->token && lexer->token->type != TextNode)
+            || (!lexer->insert && !lexer->inode))
         {
             lexer->pushed = no;
             return lexer->token;
@@ -1982,13 +1983,20 @@ Node* TY_(GetToken)( TidyDocImpl* doc, GetTokenMode mode )
        elements are inserted into the token stream */
 
     if (lexer->insert || lexer->inode)
+    {
+        lexer->pushed = no;
+        lexer->token = NULL;
         return TY_(InsertedToken)( doc );
+    }
 
     if (mode == CdataContent)
     {
         assert( lexer->parent != NULL );
         return GetCDATA(doc, lexer->parent);
     }
+
+    lexer->pushed = no;
+    lexer->token = NULL;
 
     SetLexerLocus( doc, lexer );
     lexer->waswhite = no;

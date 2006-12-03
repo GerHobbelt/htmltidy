@@ -36,7 +36,7 @@ Bool TY_(CheckNodeIntegrity)(Node *node)
 
     if (node->next)
     {
-        if (node->next->prev != node)
+        if (node->next == node || node->next->prev != node)
             return no;
     }
 
