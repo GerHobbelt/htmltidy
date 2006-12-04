@@ -1,6 +1,6 @@
 /* alloc.c -- Default memory allocation routines.
 
-  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -47,6 +47,9 @@ void FatalError( ctmbstr msg )
   {
     /* 2 signifies a serious error */
     fprintf( stderr, "Fatal error: %s\n", msg );
+#ifdef _DEBUG
+    assert(0);
+#endif
     exit(2);
   }
 }
@@ -87,3 +90,11 @@ void ClearMemory( void *mem, size_t size )
     memset(mem, 0, size);
 }
 
+/*
+ * local variables:
+ * mode: c
+ * indent-tabs-mode: nil
+ * c-basic-offset: 4
+ * eval: (c-set-offset 'substatement-open 0)
+ * end:
+ */
