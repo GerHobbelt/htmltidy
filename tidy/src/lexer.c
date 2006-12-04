@@ -1972,7 +1972,7 @@ Node* TY_(GetToken)( TidyDocImpl* doc, GetTokenMode mode )
     {
         /* duplicate inlines in preference to pushed text nodes when appropriate */
         if ((lexer->token && lexer->token->type != TextNode)
-            || (!lexer->insert && !lexer->inode))
+            || !(lexer->insert || lexer->inode))
         {
             lexer->pushed = no;
             return lexer->token;
@@ -1984,8 +1984,8 @@ Node* TY_(GetToken)( TidyDocImpl* doc, GetTokenMode mode )
 
     if (lexer->insert || lexer->inode)
     {
-        lexer->pushed = no;
-        lexer->token = NULL;
+        if (!lexer->pushed)
+            lexer->token = NULL;
         return TY_(InsertedToken)( doc );
     }
 
@@ -1995,7 +1995,8 @@ Node* TY_(GetToken)( TidyDocImpl* doc, GetTokenMode mode )
         return GetCDATA(doc, lexer->parent);
     }
 
-    lexer->pushed = no;
+    assert( !lexer->pushed );
+    /* Lexer->token must be set on return. Nullify it for safety. */
     lexer->token = NULL;
 
     SetLexerLocus( doc, lexer );
