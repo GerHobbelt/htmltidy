@@ -359,7 +359,8 @@ struct _Lexer
     uint txtend;            /* end of current node */
     LexerState state;       /* state of lexer's finite state machine */
 
-    Node* token;            /* current parse point */
+    Node* token;            /* last token returned by GetToken() */
+    Node* itoken;           /* last duplicate inline returned by GetToken() */
     Node* root;             /* remember root node of the document */
     Node* parent;           /* remember parent node for CDATA elements */
     
