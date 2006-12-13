@@ -64,7 +64,8 @@ int TY_(initFileSource)( TidyInputSource* inp, FILE* fp )
                            fd, 0)) == MAP_FAILED)
     {
         MemFree( fin );
-        return -1;
+        /* Fallback on standard I/O */
+        return TY_(initStdIOFileSource)( inp, fp );
     }
 
     fin->pos = 0;
@@ -80,9 +81,14 @@ int TY_(initFileSource)( TidyInputSource* inp, FILE* fp )
 
 void TY_(freeFileSource)( TidyInputSource* inp, Bool closeIt )
 {
-    MappedFileSource* fin = (MappedFileSource*) inp->sourceData;
-    munmap( (void*)fin->base, fin->size );
-    MemFree( fin );
+    if ( inp->getByte == mapped_getByte )
+    {
+        MappedFileSource* fin = (MappedFileSource*) inp->sourceData;
+        munmap( (void*)fin->base, fin->size );
+        MemFree( fin );
+    }
+    else
+        TY_(freeStdIOFileSource)( inp, closeIt );
 }
 
 #endif
