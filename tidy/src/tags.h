@@ -105,7 +105,6 @@ Parser TY_(ParseNoFrames);
 Parser TY_(ParseBody);
 Parser TY_(ParsePre);
 Parser TY_(ParseList);
-Parser TY_(ParseLI);
 Parser TY_(ParseDefList);
 Parser TY_(ParseBlock);
 Parser TY_(ParseInline);
@@ -117,8 +116,6 @@ Parser TY_(ParseRow);
 Parser TY_(ParseSelect);
 Parser TY_(ParseOptGroup);
 Parser TY_(ParseText);
-Parser TY_(ParseObject);
-Parser TY_(ParseMap);
 
 CheckAttribs TY_(CheckAttributes);
 
