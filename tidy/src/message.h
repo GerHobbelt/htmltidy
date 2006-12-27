@@ -172,12 +172,14 @@ void TY_(ReportFatal)(TidyDocImpl* doc, Node* element, Node* node, uint code);
 
 /* accessibility flaws */
 
-#define MISSING_IMAGE_ALT       1
-#define MISSING_LINK_ALT        2
-#define MISSING_SUMMARY         4
-#define MISSING_IMAGE_MAP       8
-#define USING_FRAMES            16
-#define USING_NOFRAMES          32
+#define BA_MISSING_IMAGE_ALT       1
+#define BA_MISSING_LINK_ALT        2
+#define BA_MISSING_SUMMARY         4
+#define BA_MISSING_IMAGE_MAP       8
+#define BA_USING_FRAMES            16
+#define BA_USING_NOFRAMES          32
+#define BA_INVALID_LINK_NOFRAMES   64  /* WAI [6.5.1.4] */  
+#define BA_WAI                     (1 << 31)
 
 /* presentation flaws */
 

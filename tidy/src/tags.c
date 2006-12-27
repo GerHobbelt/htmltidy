@@ -651,7 +651,7 @@ void CheckIMG( TidyDocImpl* doc, Node *node )
     {
         if ( cfg(doc, TidyAccessibilityCheckLevel) == 0 )
         {
-            doc->badAccess |= MISSING_IMAGE_ALT;
+            doc->badAccess |= BA_MISSING_IMAGE_ALT;
             TY_(ReportMissingAttr)( doc, node, "alt" );
         }
   
@@ -705,7 +705,7 @@ void CheckAREA( TidyDocImpl* doc, Node *node )
     {
         if ( cfg(doc, TidyAccessibilityCheckLevel) == 0 )
         {
-            doc->badAccess |= MISSING_LINK_ALT;
+            doc->badAccess |= BA_MISSING_LINK_ALT;
             TY_(ReportMissingAttr)( doc, node, "alt" );
         }
     }
@@ -727,7 +727,7 @@ void CheckTABLE( TidyDocImpl* doc, Node *node )
     {
         if (!HasSummary)
         {
-            doc->badAccess |= MISSING_SUMMARY;
+            doc->badAccess |= BA_MISSING_SUMMARY;
             TY_(ReportMissingAttr)( doc, node, "summary");
         }
     }

@@ -3520,7 +3520,7 @@ void TY_(ParseNoFrames)(TidyDocImpl* doc, Node *noframes, GetTokenMode mode)
 
     if ( cfg(doc, TidyAccessibilityCheckLevel) == 0 )
     {
-        doc->badAccess |=  USING_NOFRAMES;
+        doc->badAccess |=  BA_USING_NOFRAMES;
     }
     mode = IgnoreWhitespace;
 
@@ -3626,7 +3626,7 @@ void TY_(ParseFrameSet)(TidyDocImpl* doc, Node *frameset, GetTokenMode ARG_UNUSE
 
     if ( cfg(doc, TidyAccessibilityCheckLevel) == 0 )
     {
-        doc->badAccess |=  USING_FRAMES;
+        doc->badAccess |= BA_USING_FRAMES;
     }
     
     while ((node = TY_(GetToken)(doc, IgnoreWhitespace)) != NULL)
@@ -3680,6 +3680,12 @@ void TY_(ParseFrameSet)(TidyDocImpl* doc, Node *frameset, GetTokenMode ARG_UNUSE
         }
 
         /* discard unexpected tags */
+#if SUPPORT_ACCESSIBILITY_CHECKS
+        /* WAI [6.5.1.4] link is being discarded outside of NOFRAME */
+        if ( nodeIsA(node) )
+           doc->badAccess |= BA_INVALID_LINK_NOFRAMES;
+#endif
+
         TY_(ReportError)(doc, frameset, node, DISCARDING_UNEXPECTED);
         TY_(FreeNode)( doc, node);
     }
