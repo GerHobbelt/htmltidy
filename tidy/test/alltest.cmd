@@ -2,7 +2,7 @@
 
 REM alltest.cmd - execute all test cases
 REM
-REM (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+REM (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
 REM See tidy.c for the copyright notice.
 REM
 REM <URL:http://tidy.sourceforge.net/>
@@ -13,4 +13,4 @@ REM    $Author$
 REM    $Date$
 REM    $Revision$
 
-for /F "tokens=1*" %%i in (testcases.txt) do call onetest.cmd %%i %%j
+alltest1 ..\bin\tidy .\tmp
