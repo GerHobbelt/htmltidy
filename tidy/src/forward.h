@@ -56,6 +56,6 @@ typedef struct _IStack IStack;
 struct _Lexer;
 typedef struct _Lexer Lexer;
 
-
+extern TidyAllocator TY_(g_default_allocator);
 
 #endif /* __FORWARD_H__ */

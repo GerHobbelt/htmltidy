@@ -291,14 +291,15 @@ static void InitIndent( TidyIndent* ind )
 
 void TY_(InitPrintBuf)( TidyDocImpl* doc )
 {
-    ClearMemory( &doc->pprint, sizeof(TidyPrintImpl) );
+    TidyClearMemory( &doc->pprint, sizeof(TidyPrintImpl) );
     InitIndent( &doc->pprint.indent[0] );
     InitIndent( &doc->pprint.indent[1] );
+    doc->pprint.allocator = doc->allocator;
 }
 
 void TY_(FreePrintBuf)( TidyDocImpl* doc )
 {
-    MemFree( doc->pprint.linebuf );
+    TidyDocFree( doc, doc->pprint.linebuf );
     TY_(InitPrintBuf)( doc );
 }
 
@@ -312,11 +313,11 @@ static void expand( TidyPrintImpl* pprint, uint len )
     while ( len >= buflen )
         buflen *= 2;
 
-    ip = (uint*) MemRealloc( pprint->linebuf, buflen*sizeof(uint) );
+    ip = (uint*) TidyRealloc( pprint->allocator, pprint->linebuf, buflen*sizeof(uint) );
     if ( ip )
     {
-      ClearMemory( ip+pprint->lbufsize, 
-                   (buflen-pprint->lbufsize)*sizeof(uint) );
+      TidyClearMemory( ip+pprint->lbufsize, 
+                       (buflen-pprint->lbufsize)*sizeof(uint) );
       pprint->lbufsize = buflen;
       pprint->linebuf = ip;
     }

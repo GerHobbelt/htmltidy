@@ -390,6 +390,8 @@ struct _Lexer
 
     TagStyle *styles;          /* used for cleaning up presentation markup */
 
+    TidyAllocator* allocator; /* allocator */
+
 #if 0
     TidyDocImpl* doc;       /* Pointer back to doc for error reporting */
 #endif 
@@ -439,7 +441,7 @@ void TY_(AddCharToLexer)( Lexer *lexer, uint c );
   list of AttVal nodes which hold the
   strings for attribute/value pairs.
 */
-Node* TY_(NewNode)( Lexer* lexer );
+Node* TY_(NewNode)( TidyAllocator* allocator, Lexer* lexer );
 
 
 /* used to clone heading nodes when split by an <HR> */
@@ -533,7 +535,7 @@ void TY_(InitMap)(void);
 
 
 /* create a new attribute */
-AttVal* TY_(NewAttribute)(void);
+AttVal* TY_(NewAttribute)( TidyDocImpl* doc );
 
 /* create a new attribute with given name and value */
 AttVal* TY_(NewAttributeEx)( TidyDocImpl* doc, ctmbstr name, ctmbstr value,

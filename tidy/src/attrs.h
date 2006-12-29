@@ -132,7 +132,7 @@ void TY_(FreeAnchors)( TidyDocImpl* doc );
 void TY_(InitAttrs)( TidyDocImpl* doc );
 void TY_(FreeAttrTable)( TidyDocImpl* doc );
 
-void TY_(AppendToClassAttr)( AttVal *classattr, ctmbstr classname );
+void TY_(AppendToClassAttr)( TidyDocImpl* doc, AttVal *classattr, ctmbstr classname );
 /*
  the same attribute name can't be used
  more than once in each element

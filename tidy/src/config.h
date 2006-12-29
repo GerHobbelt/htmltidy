@@ -120,7 +120,7 @@ Bool  TY_(AdjustCharEncoding)( TidyDocImpl* doc, int encoding );
 Bool  TY_(ConfigDiffThanDefault)( TidyDocImpl* doc );
 Bool  TY_(ConfigDiffThanSnapshot)( TidyDocImpl* doc );
 
-int TY_(CharEncodingId)( ctmbstr charenc );
+int TY_(CharEncodingId)( TidyDocImpl* doc, ctmbstr charenc );
 ctmbstr TY_(CharEncodingName)( int encoding );
 ctmbstr TY_(CharEncodingOptName)( int encoding );
 

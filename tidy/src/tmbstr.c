@@ -15,27 +15,27 @@
 #include "tmbstr.h"
 #include "lexer.h"
 
-/* like strdup but using MemAlloc */
-tmbstr TY_(tmbstrdup)( ctmbstr str )
+/* like strdup but using an allocator */
+tmbstr TY_(tmbstrdup)( TidyAllocator *allocator, ctmbstr str )
 {
     tmbstr s = NULL;
     if ( str )
     {
         uint len = TY_(tmbstrlen)( str );
-        tmbstr cp = s = (tmbstr) MemAlloc( 1+len );
+        tmbstr cp = s = (tmbstr) TidyAlloc( allocator, 1+len );
         while ( 0 != (*cp++ = *str++) )
             /**/;
     }
     return s;
 }
 
-/* like strndup but using MemAlloc */
-tmbstr TY_(tmbstrndup)( ctmbstr str, uint len )
+/* like strndup but using an allocator */
+tmbstr TY_(tmbstrndup)( TidyAllocator *allocator, ctmbstr str, uint len )
 {
     tmbstr s = NULL;
     if ( str && len > 0 )
     {
-        tmbstr cp = s = (tmbstr) MemAlloc( 1+len );
+        tmbstr cp = s = (tmbstr) TidyAlloc( allocator, 1+len );
         while ( len-- > 0 &&  (*cp++ = *str++) )
           /**/;
         *cp = 0;

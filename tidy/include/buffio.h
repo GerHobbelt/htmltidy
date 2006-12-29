@@ -3,7 +3,7 @@
 
 /** @file buffio.h - Treat buffer as an I/O stream.
 
-  (c) 1998-2005 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -28,6 +28,7 @@ extern "C" {
 TIDY_STRUCT
 struct _TidyBuffer 
 {
+    TidyAllocator* allocator;  /**< Memory allocator */
     byte* bp;           /**< Pointer to bytes */
     uint  size;         /**< # bytes currently in use */
     uint  allocated;    /**< # bytes allocated */ 
@@ -37,14 +38,23 @@ struct _TidyBuffer
 /** Zero out data structure */
 TIDY_EXPORT void TIDY_CALL tidyBufInit( TidyBuffer* buf );
 
+/** Zero out data structure, use given custom allocator */
+TIDY_EXPORT void TIDY_CALL tidyBufInitWithAllocator( TidyBuffer* buf, TidyAllocator* allocator );
+
 /** Free current buffer, allocate given amount, reset input pointer */
 TIDY_EXPORT void TIDY_CALL tidyBufAlloc( TidyBuffer* buf, uint allocSize );
+
+/** Free current buffer, allocate given amount, reset input pointer,
+    use given custom allocator */
+TIDY_EXPORT void TIDY_CALL tidyBufAllocWithAllocator( TidyBuffer* buf,
+                                                      TidyAllocator* allocator,
+                                                      uint allocSize );
 
 /** Expand buffer to given size. 
 **  Chunk size is minimum growth. Pass 0 for default of 256 bytes.
 */
 TIDY_EXPORT void TIDY_CALL tidyBufCheckAlloc( TidyBuffer* buf,
-                                             uint allocSize, uint chunkSize );
+                                              uint allocSize, uint chunkSize );
 
 /** Free current contents and zero out */
 TIDY_EXPORT void TIDY_CALL tidyBufFree( TidyBuffer* buf );
@@ -96,3 +106,12 @@ TIDY_EXPORT void TIDY_CALL tidyInitOutputBuffer( TidyOutputSink* outp, TidyBuffe
 }
 #endif
 #endif /* __BUFFIO_H__ */
+
+/*
+ * local variables:
+ * mode: c
+ * indent-tabs-mode: nil
+ * c-basic-offset: 4
+ * eval: (c-set-offset 'substatement-open 0)
+ * end:
+ */

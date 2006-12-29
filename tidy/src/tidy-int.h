@@ -70,6 +70,9 @@ struct _TidyDocImpl
     uint                badChars;    /* for bad char encodings */
     uint                badForm;     /* for badly placed form tags */
 
+    /* Memory allocator */
+    TidyAllocator*      allocator;
+
     /* Miscellaneous */
     void*               appData;
     uint                nClassId;
@@ -116,7 +119,7 @@ TidyOption   tidyImplToOption( const TidyOptionImpl* option );
 #endif
 
 /* Create/Destroy a Tidy "document" object */
-TidyDocImpl* tidyDocCreate(void);
+TidyDocImpl* tidyDocCreate( TidyAllocator *allocator );
 void         tidyDocRelease( TidyDocImpl* impl );
 
 int          tidyDocStatus( TidyDocImpl* impl );

@@ -10,7 +10,7 @@
    $Id$
 */
 
-uint TY_(Win32MLangGetCPFromName)(ctmbstr encoding);
+uint TY_(Win32MLangGetCPFromName)(TidyAllocator *allocator,ctmbstr encoding);
 Bool TY_(Win32MLangInitInputTranscoder)(StreamIn * in, uint wincp);
 void TY_(Win32MLangUninitInputTranscoder)(StreamIn * in);
 int TY_(Win32MLangGetChar)(byte firstByte, StreamIn * in, uint * bytesRead);
