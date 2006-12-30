@@ -13,4 +13,7 @@ REM    $Author$
 REM    $Date$
 REM    $Revision$
 
-alltest1 ..\bin\tidy .\tmp
+REM (for MS compiler users):
+REM call alltest1 ..\build\msvc\Release\tidy.exe .\tmp
+
+call alltest1 ..\bin\tidy.exe .\tmp
