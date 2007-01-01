@@ -1,9 +1,9 @@
-#ifndef __BUFFIO_H__
-#define __BUFFIO_H__
+#ifndef __TIDY_BUFFIO_H__
+#define __TIDY_BUFFIO_H__
 
 /** @file buffio.h - Treat buffer as an I/O stream.
 
-  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2007 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -105,7 +105,7 @@ TIDY_EXPORT void TIDY_CALL tidyInitOutputBuffer( TidyOutputSink* outp, TidyBuffe
 #ifdef __cplusplus
 }
 #endif
-#endif /* __BUFFIO_H__ */
+#endif /* __TIDY_BUFFIO_H__ */
 
 /*
  * local variables:

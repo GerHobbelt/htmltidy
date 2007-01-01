@@ -1,9 +1,9 @@
-#ifndef __PLATFORM_H__
-#define __PLATFORM_H__
+#ifndef __TIDY_PLATFORM_H__
+#define __TIDY_PLATFORM_H__
 
 /* platform.h -- Platform specifics
 
-  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2007 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -23,9 +23,9 @@ extern "C" {
   want to specify the config file at compile-time.
 */
 
-/* #define CONFIG_FILE "/etc/tidy_config.txt" */ /* original */
-/* #define CONFIG_FILE "/etc/tidyrc" */
-/* #define CONFIG_FILE "/etc/tidy.conf" */
+/* #define TIDY_CONFIG_FILE "/etc/tidy_config.txt" */ /* original */
+/* #define TIDY_CONFIG_FILE "/etc/tidyrc" */
+/* #define TIDY_CONFIG_FILE "/etc/tidy.conf" */
 
 /*
   Uncomment the following #define if you are on a system
@@ -33,7 +33,7 @@ extern "C" {
   It enables tidy to find config files named ~/.tidyrc if 
   the HTML_TIDY environment variable is not set.
 */
-/* #define USER_CONFIG_FILE "~/.tidyrc" */
+/* #define TIDY_USER_CONFIG_FILE "~/.tidyrc" */
 
 /*
   Uncomment the following #define if your
@@ -620,7 +620,7 @@ opaque_type( TidyIterator );
 } /* extern "C" */
 #endif
 
-#endif /* __PLATFORM_H__ */
+#endif /* __TIDY_PLATFORM_H__ */
 
 
 /*
