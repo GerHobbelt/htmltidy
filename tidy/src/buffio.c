@@ -1,6 +1,6 @@
 /* buffio.c -- Treat buffer as an I/O stream.
 
-  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2007 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -67,16 +67,24 @@ void TIDY_CALL tidyBufInit( TidyBuffer* buf )
 
 void TIDY_CALL tidyBufAlloc( TidyBuffer* buf, uint allocSize )
 {
-    tidyBufInit( buf );
-    tidyBufCheckAlloc( buf, allocSize, 0 );
-    buf->next = 0;
+    tidyBufAllocWithAllocator( buf, NULL, allocSize );
 }
 
-void TIDY_CALL tidyBufInitWithAllocator( TidyBuffer* buf, TidyAllocator *allocator )
+void TIDY_CALL tidyBufInitWithAllocator( TidyBuffer* buf,
+                                         TidyAllocator *allocator )
 {
     assert( buf != NULL );
     TidyClearMemory( buf, sizeof(TidyBuffer) );
     buf->allocator = allocator ? allocator : &TY_(g_default_allocator);
+}
+
+void TIDY_CALL tidyBufAllocWithAllocator( TidyBuffer* buf,
+                                          TidyAllocator *allocator,
+                                          uint allocSize )
+{
+    tidyBufInitWithAllocator( buf, allocator );
+    tidyBufCheckAlloc( buf, allocSize, 0 );
+    buf->next = 0;
 }
 
 void TIDY_CALL tidyBufFree( TidyBuffer* buf )
