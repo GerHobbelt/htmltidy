@@ -52,7 +52,7 @@ static void TIDY_CALL filesrc_ungetByte( void* sourceData, byte bv )
   tidyBufPutByte( &fin->unget, bv );
 }
 
-#ifdef SUPPORT_POSIX_MAPPED_FILES
+#if SUPPORT_POSIX_MAPPED_FILES
 #define initFileSource initStdIOFileSource
 #define freeFileSource freeStdIOFileSource
 #endif

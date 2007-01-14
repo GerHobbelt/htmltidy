@@ -558,6 +558,10 @@ typedef const tmbchar* ctmbstr; /* Ditto, but const */
 # define HAS_VSNPRINTF 1
 #endif
 
+#ifndef SUPPORT_POSIX_MAPPED_FILES
+# define SUPPORT_POSIX_MAPPED_FILES 1
+#endif
+
 /*
   bool is a reserved word in some but
   not all C++ compilers depending on age

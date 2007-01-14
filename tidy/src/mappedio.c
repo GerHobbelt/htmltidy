@@ -12,7 +12,7 @@
 #include "forward.h"
 #include "mappedio.h"
 
-#ifdef SUPPORT_POSIX_MAPPED_FILES
+#if SUPPORT_POSIX_MAPPED_FILES
 
 #include "fileio.h"
 

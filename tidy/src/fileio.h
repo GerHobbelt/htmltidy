@@ -26,7 +26,7 @@ int TY_(initFileSource)( TidyAllocator *allocator, TidyInputSource* source, FILE
 /** Free file input source */
 void TY_(freeFileSource)( TidyInputSource* source, Bool closeIt );
 
-#ifdef SUPPORT_POSIX_MAPPED_FILES
+#if SUPPORT_POSIX_MAPPED_FILES
 /** Allocate and initialize file input source using Standard C I/O */
 int TY_(initStdIOFileSource)( TidyAllocator *allocator, TidyInputSource* source, FILE* fp );
 
