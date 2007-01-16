@@ -167,6 +167,7 @@ extern "C" {
 #endif
 
 #define FILENAMES_CASE_SENSITIVE 0
+#define SUPPORT_POSIX_MAPPED_FILES 0
 
 #endif
 
