@@ -3934,6 +3934,7 @@ void TY_(ParseHTML)(TidyDocImpl* doc, Node *html, GetTokenMode mode)
         }
 
         node = TY_(InferredTag)(doc, TidyTag_BODY);
+        TY_(ReportError)(doc, html, node, INSERTING_TAG );
         TY_(ConstrainVersion)(doc, ~VERS_FRAMESET);
         break;
     }
