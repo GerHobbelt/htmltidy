@@ -3,7 +3,7 @@
 
 /* lexer.h -- Lexer for html parser
   
-   (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
+   (c) 1998-2007 (W3C) MIT, ERCIM, Keio University
    See tidy.h for the copyright notice.
   
    CVS Info:
@@ -52,6 +52,7 @@ extern "C" {
 #define newline     16u
 #define lowercase   32u
 #define uppercase   64u
+#define digithex    128u
 
 
 /* node->type is one of these values
