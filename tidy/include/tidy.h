@@ -282,6 +282,8 @@ int main(int argc, char **argv )
   Bool ok;
 
   TidyDoc tdoc = tidyCreate();                     // Initialize "document"
+  tidyBufInit( &amp;output );
+  tidyBufInit( &amp;errbuf );
   printf( "Tidying:\t\%s\\n", input );
 
   ok = tidyOptSetBool( tdoc, TidyXhtmlOut, yes );  // Convert to XHTML
