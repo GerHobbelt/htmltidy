@@ -846,7 +846,8 @@ Bool TY_(ParseConfigValue)( TidyDocImpl* doc, TidyOptionId optId, ctmbstr optval
         TY_(ReportBadArgument)( doc, option->name );
     else
     {
-        TidyBuffer inbuf = {0};            /* Set up input source */
+        TidyBuffer inbuf;            /* Set up input source */
+        tidyBufInitWithAllocator( &inbuf, doc->allocator );
         tidyBufAttach( &inbuf, (byte*)optval, TY_(tmbstrlen)(optval)+1 );
         doc->config.cfgIn = TY_(BufferInput)( doc, &inbuf, ASCII );
         doc->config.c = GetC( &doc->config );
