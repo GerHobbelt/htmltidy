@@ -11,7 +11,7 @@
   this-equivalent as 1st arg.
 
 
-  Copyright (c) 1998-2006 World Wide Web Consortium
+  Copyright (c) 1998-2007 World Wide Web Consortium
   (Massachusetts Institute of Technology, European Research 
   Consortium for Informatics and Mathematics, Keio University).
   All Rights Reserved.
@@ -276,8 +276,8 @@ The following is a short example program.
 int main(int argc, char **argv )
 {
   const char* input = "&lt;title&gt;Foo&lt;/title&gt;&lt;p&gt;Foo!";
-  TidyBuffer output = {0};
-  TidyBuffer errbuf = {0};
+  TidyBuffer output;
+  TidyBuffer errbuf;
   int rc = -1;
   Bool ok;
 
