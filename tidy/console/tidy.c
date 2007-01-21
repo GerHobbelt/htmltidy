@@ -1,7 +1,7 @@
 /*
   tidy.c - HTML TidyLib command line driver
 
-  Copyright (c) 1998-2006 World Wide Web Consortium
+  Copyright (c) 1998-2007 World Wide Web Consortium
   (Massachusetts Institute of Technology, European Research 
   Consortium for Informatics and Mathematics, Keio University).
   All Rights Reserved.
@@ -117,7 +117,7 @@ typedef enum
   CmdOptProcDir,
   CmdOptCharEnc,
   CmdOptMisc,
-  CmdOptCatLAST,
+  CmdOptCatLAST
 } CmdOptCategory;
 
 static const struct {
