@@ -483,6 +483,10 @@ extern "C" {
 #pragma warning( disable : 4706 ) /* assignment within conditional expression */
 #endif
 
+#if _MSC_VER > 1300
+#pragma warning( disable : 4996 ) /* disable depreciation warning */
+#endif
+
 #endif /* _WIN32 */
 
 #if defined(_WIN32)
