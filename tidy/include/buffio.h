@@ -35,17 +35,18 @@ struct _TidyBuffer
     uint  next;         /**< Offset of current input position */
 };
 
-/** Zero out data structure */
+/** Initialize data structure using the default allocator */
 TIDY_EXPORT void TIDY_CALL tidyBufInit( TidyBuffer* buf );
 
-/** Zero out data structure, use given custom allocator */
+/** Initialize data structure using the given custom allocator */
 TIDY_EXPORT void TIDY_CALL tidyBufInitWithAllocator( TidyBuffer* buf, TidyAllocator* allocator );
 
-/** Free current buffer, allocate given amount, reset input pointer */
+/** Free current buffer, allocate given amount, reset input pointer,
+    use the default allocator */
 TIDY_EXPORT void TIDY_CALL tidyBufAlloc( TidyBuffer* buf, uint allocSize );
 
 /** Free current buffer, allocate given amount, reset input pointer,
-    use given custom allocator */
+    use the given custom allocator */
 TIDY_EXPORT void TIDY_CALL tidyBufAllocWithAllocator( TidyBuffer* buf,
                                                       TidyAllocator* allocator,
                                                       uint allocSize );
