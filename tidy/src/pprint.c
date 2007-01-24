@@ -1897,6 +1897,11 @@ static Bool ShouldIndent( TidyDocImpl* doc, Node *node )
 
         if ( nodeIsTITLE(node) )
             return no;
+
+        /* http://tidy.sf.net/issue/1610888
+           Indenting <div><img /></div> produces spurious lines with IE 6.x */
+        if ( nodeIsDIV(node) && node->last && nodeIsIMG(node->last) )
+            return no;
     }
 
     if ( TY_(nodeHasCM)(node, CM_FIELD | CM_OBJECT) )
