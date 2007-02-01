@@ -68,7 +68,7 @@ For command line options that expect a numerical argument, a default is assumed 
 <xsl:call-template name="show-cmdline-options" />
 .SH USAGE
 .LP
-Use \fB--\fR\fIoptionX valueX\fR for the any detailed configuration option "optionX" with the argument "valueX".  See also below under \fBDetailed Configuration Options\fR as to how to conveniently group all such options in a single config file.
+Use \fB--\fR\fIoptionX valueX\fR for the detailed configuration option "optionX" with argument "valueX".  See also below under \fBDetailed Configuration Options\fR as to how to conveniently group all such options in a single config file.
 .LP
 Input/Output default to stdin/stdout respectively. Single letter options apart from \fB-f\fR and \fB-o\fR may be combined as in:
 .LP
