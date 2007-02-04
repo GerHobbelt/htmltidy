@@ -71,7 +71,7 @@ fi
 $TIDY -f $MSGFILE --accessibility-check $ACCESSLEVEL -config $CFGFILE "$@" --gnu-emacs yes --tidy-mark no -o $TIDYFILE $INFILE
 STATUS=$?
 
-if [ `grep -c -e ' \['$TESTEXPECTED'\]: ' $MSGFILE` -eq 0 ]
+if [ `grep -c -e ' \['$TESTEXPECTED'\]: ' $MSGFILE` = 0 ]
 then
   echo "--- test '$TESTEXPECTED' not detected in file '$INFILE'"
   cat $MSGFILE
