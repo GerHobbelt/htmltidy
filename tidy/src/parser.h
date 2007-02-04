@@ -18,6 +18,8 @@
 
 Bool TY_(CheckNodeIntegrity)(Node *node);
 
+Bool TY_(TextNodeEndWithSpace)( Lexer *lexer, Node *node );
+
 /*
  used to determine how attributes
  without values should be printed

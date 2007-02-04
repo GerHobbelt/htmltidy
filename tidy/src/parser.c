@@ -1373,6 +1373,7 @@ void TY_(ParseInline)( TidyDocImpl* doc, Node *element, GetTokenMode mode )
         }
 
         /* <u>...<u>  map 2nd <u> to </u> if 1st is explicit */
+        /* (see additional conditions below) */
         /* otherwise emphasis nesting is probably unintentional */
         /* big, small, sub, sup have cumulative effect to leave them alone */
         if ( node->type == StartTag
@@ -1391,7 +1392,11 @@ void TY_(ParseInline)( TidyDocImpl* doc, Node *element, GetTokenMode mode )
              && !nodeIsSPAN(node)
            )
         {
-            if (element->content != NULL && node->attributes == NULL)
+            /* proceeds only if "node" does not have any attribute and
+               follows a text node not finishing with a space */
+            if (element->content != NULL && node->attributes == NULL
+                && TY_(nodeIsText)(element->last)
+                && !TY_(TextNodeEndWithSpace)(doc->lexer, element->last) )
             {
                 TY_(ReportWarning)(doc, element, node, COERCE_TO_ENDTAG_WARN);
                 node->type = EndTag;
