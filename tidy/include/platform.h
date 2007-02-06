@@ -511,9 +511,11 @@ extern "C" {
 #include <sys/types.h>
 #endif
 #if !defined(HPUX_OS) && !defined(CYGWIN_OS) && !defined(MAC_OS_X) && !defined(BE_OS) && !defined(SOLARIS_OS) && !defined(BSD_BASED_OS) && !defined(OSF_OS) && !defined(IRIX_OS) && !defined(AIX_OS) && !defined(LINUX_OS)
+# undef uint
 typedef unsigned int uint;
 #endif
 #if defined(HPUX_OS) || defined(CYGWIN_OS) || defined(MAC_OS) || defined(BSD_BASED_OS) || defined(_WIN32)
+# undef ulong
 typedef unsigned long ulong;
 #endif
 
