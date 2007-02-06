@@ -1450,8 +1450,9 @@ void TY_(ReportError)(TidyDocImpl* doc, Node *element, Node *node, uint code)
     case UNEXPECTED_ENDTAG_IN:
     case TOO_MANY_ELEMENTS_IN:
         messageNode(doc, TidyWarning, node, fmt, node->element, element->element);
-        messageNode(doc, TidyInfo, node, GetFormatFromCode(PREVIOUS_LOCATION),
-                    element->element);
+        if (cfgBool( doc, TidyShowWarnings ))
+            messageNode(doc, TidyInfo, node, GetFormatFromCode(PREVIOUS_LOCATION),
+                        element->element);
         break;
 
     case ENCODING_IO_CONFLICT:
@@ -1484,8 +1485,9 @@ void TY_(ReportError)(TidyDocImpl* doc, Node *element, Node *node, uint code)
 
     case TAG_NOT_ALLOWED_IN:
         messageNode(doc, TidyWarning, node, fmt, nodedesc, element->element);
-        messageNode(doc, TidyInfo, element,
-                    GetFormatFromCode(PREVIOUS_LOCATION), element->element);
+        if (cfgBool( doc, TidyShowWarnings ))
+            messageNode(doc, TidyInfo, element,
+                        GetFormatFromCode(PREVIOUS_LOCATION), element->element);
         break;
 
     case REPLACING_UNEX_ELEMENT:
