@@ -1024,6 +1024,9 @@ TIDY_EXPORT TidyAttr TIDY_CALL tidyAttrGetById( TidyNode tnod, TidyAttrId attId 
 **
 ** @deprecated The functions tidyAttrGet{AttributeName} are deprecated and 
 ** should be replaced by tidyAttrGetById.
+** For instance, tidyAttrGetID( TidyNode tnod ) can be replaced by 
+** tidyAttrGetById( TidyNode tnod, TidyAttr_ID ). This avoids a potential
+** name clash with tidyAttrGetId for case-insensitive languages.
 ** @{
 */
 TIDY_EXPORT TidyAttr TIDY_CALL tidyAttrGetHREF( TidyNode tnod );
