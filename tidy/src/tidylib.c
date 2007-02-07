@@ -497,7 +497,7 @@ TidyIterator TIDY_CALL tidyOptGetDocLinksList( TidyDoc ARG_UNUSED(tdoc), TidyOpt
 
 TidyOption TIDY_CALL tidyOptGetNextDocLinks( TidyDoc tdoc, TidyIterator* pos )
 {
-    const TidyOptionId* curr = (TidyOptionId *)*pos;
+    const TidyOptionId* curr = (const TidyOptionId *)*pos;
     TidyOption opt;
 
     if (*curr == TidyUnknownOption)

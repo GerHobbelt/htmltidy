@@ -616,9 +616,9 @@ extern void* null;
 #if 1
 #define opaque_type( typenam )\
 struct _##typenam { int _opaque; };\
-typedef struct _##typenam* typenam
+typedef struct _##typenam const * typenam
 #else
-#define opaque_type(typenam) typedef void* typenam
+#define opaque_type(typenam) typedef const void* typenam
 #endif
 
 /* Opaque data structure used to pass back
