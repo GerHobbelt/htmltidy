@@ -242,7 +242,7 @@ int TY_(DecodeUTF8BytesToChar)( uint* c, uint firstByte, ctmbstr successorBytes,
             if ( !buf[i] || (buf[i] & 0xC0) != 0x80 )
             {
                 hasError = yes;
-                bytes = i;
+                bytes = i+1;
                 break;
             }
             n = (n << 6) | (buf[i] & 0x3F);
@@ -259,7 +259,7 @@ int TY_(DecodeUTF8BytesToChar)( uint* c, uint firstByte, ctmbstr successorBytes,
             if ( b == EOF || (buf[i] & 0xC0) != 0x80 )
             {
                 hasError = yes;
-                bytes = i;
+                bytes = i+1;
                 if ( b != EOF )
                     inp->ungetByte( inp->sourceData, buf[i] );
                 break;
