@@ -118,6 +118,12 @@ TidyOption   tidyImplToOption( const TidyOptionImpl* option );
 
 #endif
 
+/** Wrappers for easy memory allocation using the document's allocator */
+#define TidyDocAlloc(doc, size) TidyAlloc((doc)->allocator, size)
+#define TidyDocRealloc(doc, block, size) TidyRealloc((doc)->allocator, block, size)
+#define TidyDocFree(doc, block) TidyFree((doc)->allocator, block)
+#define TidyDocPanic(doc, msg) TidyPanic((doc)->allocator, msg)
+
 int          TY_(DocParseStream)( TidyDocImpl* impl, StreamIn* in );
 
 #endif /* __TIDY_INT_H__ */
