@@ -3,7 +3,7 @@
 
 /* pprint.h -- pretty print parse tree  
   
-   (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
+   (c) 1998-2007 (W3C) MIT, ERCIM, Keio University
    See tidy.h for the copyright notice.
   
    CVS Info:
@@ -52,16 +52,15 @@ typedef struct _TidyIndent
 
 typedef struct _TidyPrintImpl
 {
+    TidyAllocator *allocator; /* Allocator */
+
     uint *linebuf;
     uint lbufsize;
     uint linelen;
     uint wraphere;
-    uint linecount;
   
     uint ixInd;
     TidyIndent indent[2];  /* Two lines worth of indent state */
-
-    TidyAllocator *allocator; /* Allocator */
 } TidyPrintImpl;
 
 
