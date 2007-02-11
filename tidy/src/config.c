@@ -301,6 +301,7 @@ static const TidyOptionImpl option_defs[] =
 #endif
   { TidyMergeDivs,               MU, "merge-divs",                  IN, TidyAutoState,   ParseAutoBool,     autoBoolPicks   },
   { TidyDecorateInferredUL,      MU, "decorate-inferred-ul",        BL, no,              ParseBool,         boolPicks       },
+  { TidyPreserveEntities,        MU, "preserve-entities",           BL, no,              ParseBool,         boolPicks       },
   { N_TIDY_OPTIONS,              XX, NULL,                          XY, 0,               NULL,              NULL            }
 };
 

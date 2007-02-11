@@ -830,6 +830,7 @@ static void ParseEntity( TidyDocImpl* doc, GetTokenMode mode )
     uint charRead = 0;
     Bool semicolon = no, found = no;
     Bool isXml = cfgBool( doc, TidyXmlTags );
+    Bool preserveEntities = cfgBool( doc, TidyPreserveEntities );
     uint c, ch, startcol, entver = 0;
     Lexer* lexer = doc->lexer;
 
@@ -964,13 +965,18 @@ static void ParseEntity( TidyDocImpl* doc, GetTokenMode mode )
             TY_(ReportEntityError)( doc, MISSING_SEMICOLON, lexer->lexbuf+start, c );
         }
 
-        lexer->lexsize = start;
-        if ( ch == 160 && (mode == Preformatted) )
-            ch = ' ';
-        TY_(AddCharToLexer)( lexer, ch );
+        if (preserveEntities)
+            TY_(AddCharToLexer)( lexer, ';' );
+        else
+        {
+            lexer->lexsize = start;
+            if ( ch == 160 && (mode == Preformatted) )
+                ch = ' ';
+            TY_(AddCharToLexer)( lexer, ch );
 
-        if ( ch == '&' && !cfgBool(doc, TidyQuoteAmpersand) )
-            AddStringToLexer( lexer, "amp;" );
+            if ( ch == '&' && !cfgBool(doc, TidyQuoteAmpersand) )
+                AddStringToLexer( lexer, "amp;" );
+        }
 
         /* Detect extended vs. basic entities */
         TY_(ConstrainVersion)( doc, entver );

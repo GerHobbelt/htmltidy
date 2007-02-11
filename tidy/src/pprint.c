@@ -751,7 +751,8 @@ static void PPrintChar( TidyDocImpl* doc, uint c, uint mode )
           quoted as &amp; The latter is required
           for XML where naked '&' are illegal.
         */
-        if ( c == '&' && cfgBool(doc, TidyQuoteAmpersand) )
+        if ( c == '&' && cfgBool(doc, TidyQuoteAmpersand)
+             && !cfgBool(doc, TidyPreserveEntities) )
         {
             AddString( pprint, "&amp;" );
             return;

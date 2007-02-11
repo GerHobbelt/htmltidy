@@ -200,6 +200,7 @@ typedef enum
 #endif
   TidyMergeDivs,       /**< Merge multiple DIVs */
   TidyDecorateInferredUL,  /**< Mark inferred UL elements with no indent CSS */
+  TidyPreserveEntities,    /**< Preserv entities */
   N_TIDY_OPTIONS       /**< Must be last */
 } TidyOptionId;
 

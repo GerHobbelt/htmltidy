@@ -353,7 +353,7 @@ static const TidyOptionId TidyMergeDivsLinks[] =
 static const TidyOptionId TidyAsciiCharsLinks[] =
   { TidyMakeClean, TidyUnknownOption };
 static const TidyOptionId TidyNumEntitiesLinks[] =
-  { TidyDoctype, TidyUnknownOption };
+  { TidyDoctype, TidyPreserveEntities, TidyUnknownOption };
 
 /* Documentation of options */
 static const TidyOptionDoc option_docs[] =
@@ -821,6 +821,10 @@ static const TidyOptionDoc option_docs[] =
   {TidyDecorateInferredUL,
    "This option specifies if Tidy should decorate inferred UL elements with "
    "some CSS markup to avoid indentation to the right. "
+  },
+  {TidyPreserveEntities,
+   "This option specifies if Tidy should preserve the well-formed entitites "
+   "as found in the input. "
   },
   {N_TIDY_OPTIONS,
    NULL
