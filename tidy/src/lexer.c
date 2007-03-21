@@ -2462,8 +2462,9 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                         }
                     }
 
-                    TY_(RepairDuplicateAttributes)( doc, curr );
-                }
+                    TY_(RepairDuplicateAttributes)( doc, curr, no );
+                } else 
+                    TY_(RepairDuplicateAttributes)( doc, lexer->token, yes );
 #ifdef TIDY_STORE_ORIGINAL_TEXT
                 StoreOriginalTextInToken(doc, lexer->token, 0);
 #endif
@@ -3202,7 +3203,7 @@ static int ParseServerInstruction( TidyDocImpl* doc )
 /* doesn't consume the ">" at end of start tag */
 
 static tmbstr ParseValue( TidyDocImpl* doc, ctmbstr name,
-                    Bool foldCase, Bool *isempty, int *pdelim)
+                          Bool foldCase, Bool *isempty, int *pdelim)
 {
     Lexer* lexer = doc->lexer;
     int len = 0, start;

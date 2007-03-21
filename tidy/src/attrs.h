@@ -137,7 +137,7 @@ void TY_(AppendToClassAttr)( TidyDocImpl* doc, AttVal *classattr, ctmbstr classn
  the same attribute name can't be used
  more than once in each element
 */
-void TY_(RepairDuplicateAttributes)( TidyDocImpl* doc, Node* node );
+void TY_(RepairDuplicateAttributes)( TidyDocImpl* doc, Node* node, Bool isXml );
 
 Bool TY_(IsBoolAttribute)( AttVal* attval );
 Bool TY_(attrIsEvent)( AttVal* attval );
