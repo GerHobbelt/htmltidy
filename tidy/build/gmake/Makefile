@@ -186,6 +186,7 @@ $(OBJDIR)/%$(OBJSUF):	$(SRCDIR)/%.c $(HFILES) $(LIBHFILES) Makefile
 	if [ ! -d $(OBJDIR) ]; then mkdir $(OBJDIR); fi
 	$(CC) $(CFLAGS) $(OTHERCFLAGS) -o $@ -c $<
 
+# On MacOS X, "-L$(LIBDIR) -l$(PROJECT)" should be replaced by "$(LIBRARY)"
 $(BINDIR)/$(PROJECT):	$(APPDIR)/tidy.c $(HFILES) $(LIBRARY)
 	if [ ! -d $(BINDIR) ]; then mkdir $(BINDIR); fi
 	$(CC) $(CFLAGS) $(OTHERCFLAGS) -o $@ $(APPDIR)/tidy.c -I$(INCDIR) -L$(LIBDIR) -l$(PROJECT)
