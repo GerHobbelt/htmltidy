@@ -2000,7 +2000,7 @@ static Bool FindLastLI( Node *list, Node **lastli )
 
     *lastli = NULL;
     for ( node = list->content; node && node->next; node = node->next )
-        if ( nodeIsLI(node) )
+        if ( nodeIsLI(node) && node && node->type == StartTag )
             *lastli=node;
     return *lastli ? yes:no;
 }
