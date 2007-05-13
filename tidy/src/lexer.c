@@ -2347,7 +2347,6 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                 {
                     TY_(UngetChar)(c, doc->docIn);     /* push back letter */
                     TY_(UngetChar)('<', doc->docIn);
-                    --(doc->docIn->curcol);
                     lexer->lexsize -= 2;      /* discard "<" + letter */
                     lexer->txtend = lexer->lexsize;
                     lexer->state = LEX_STARTTAG;         /* ready to read tag name */

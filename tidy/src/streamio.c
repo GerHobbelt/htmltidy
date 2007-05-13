@@ -105,10 +105,11 @@ void  TY_(ReleaseStreamOut)( TidyDocImpl *doc,  StreamOut* out )
     }
 }
 
-
 /************************
 ** Source
 ************************/
+
+static void InitLastPos( StreamIn *in );
 
 StreamIn* TY_(initStreamIn)( TidyDocImpl* doc, int encoding )
 {
@@ -123,6 +124,7 @@ StreamIn* TY_(initStreamIn)( TidyDocImpl* doc, int encoding )
     in->bufsize = CHARBUF_SIZE;
     in->allocator = doc->allocator;
     in->charbuf = (tchar*)TidyDocAlloc(doc, sizeof(tchar) * in->bufsize);
+    InitLastPos( in );
 #ifdef TIDY_STORE_ORIGINAL_TEXT
     in->otextbuf = NULL;
     in->otextlen = 0;
@@ -273,6 +275,37 @@ void TY_(AddCharToOriginalText)(StreamIn *in, tchar c)
 }
 #endif
 
+static void InitLastPos( StreamIn *in )
+{
+    in->curlastpos = 0;
+    in->firstlastpos = 0;
+}
+
+static void PopLastPos( StreamIn *in )
+{
+    in->curlastpos = (in->curlastpos+1)%LASTPOS_SIZE;
+    if ( in->curlastpos == in->firstlastpos )
+        in->firstlastpos = (in->firstlastpos+1)%LASTPOS_SIZE;
+}
+
+static void SaveLastPos( StreamIn *in )
+{
+    PopLastPos( in );
+    in->lastcols[in->curlastpos] = in->curcol;
+}
+
+static void RestoreLastPos( StreamIn *in )
+{
+    if ( in->firstlastpos == in->curlastpos )
+        in->curcol = 0;
+    else
+    {
+        in->curcol = in->lastcols[in->curlastpos];
+        if ( in->curlastpos == 0 )
+            in->curlastpos = LASTPOS_SIZE;
+        in->curlastpos--;
+    }
+}
 
 uint TY_(ReadChar)( StreamIn *in )
 {
@@ -285,7 +318,7 @@ uint TY_(ReadChar)( StreamIn *in )
     if ( in->pushed )
         return PopChar( in );
 
-    in->lastcol = in->curcol;
+    SaveLastPos( in );
 
     if ( in->tabs > 0 )
     {
@@ -493,9 +526,11 @@ static uint PopChar( StreamIn *in )
         {
             in->curcol = 1;
             in->curline++;
+            PopLastPos( in );
             return c;
         }
         in->curcol++;
+        PopLastPos( in );
     }
     return c;
 }
@@ -518,7 +553,7 @@ void TY_(UngetChar)( uint c, StreamIn *in )
     if (c == '\n')
         --(in->curline);
 
-    in->curcol = in->lastcol;
+    RestoreLastPos( in );
 }
 
 
