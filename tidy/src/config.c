@@ -270,7 +270,7 @@ static const TidyOptionImpl option_defs[] =
   { TidyEmacs,                   MS, "gnu-emacs",                   BL, no,              ParseBool,         boolPicks       },
   { TidyEmacsFile,               MS, "gnu-emacs-file",              ST, 0,               ParseString,       NULL            },
   { TidyLiteralAttribs,          MU, "literal-attributes",          BL, no,              ParseBool,         boolPicks       },
-  { TidyBodyOnly,                MU, "show-body-only",              BL, no,              ParseBool,         boolPicks       },
+  { TidyBodyOnly,                MU, "show-body-only",              IN, no,              ParseAutoBool,     autoBoolPicks   },
   { TidyFixUri,                  MU, "fix-uri",                     BL, yes,             ParseBool,         boolPicks       },
   { TidyLowerLiterals,           MU, "lower-literals",              BL, yes,             ParseBool,         boolPicks       },
   { TidyHideComments,            MU, "hide-comments",               BL, no,              ParseBool,         boolPicks       },
