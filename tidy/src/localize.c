@@ -1,6 +1,6 @@
 /* localize.c -- text strings and routines to handle errors and general messages
 
-  (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2007 (W3C) MIT, ERCIM, Keio University
   Portions Copyright University of Toronto
   See tidy.h and access.h for the copyright notice.
 
