@@ -590,6 +590,11 @@ static const TidyOptionDoc option_docs[] =
    "an attribute is repeated, e.g. has two align attributes. "
    , TidyDuplicateAttrsLinks
   },
+  {TidySortAttributes,
+   "This option specifies that tidy should sort attributes within an element "
+   "using the specified sort algorithm. If set to \"alpha\", the algorithm is "
+   "an ascending alphabetic sort. "
+  },
   {TidyReplaceColor,
    "This option specifies if Tidy should replace numeric values in color "
    "attributes by HTML/XHTML color names where defined, e.g. replace "
