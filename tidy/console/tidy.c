@@ -498,6 +498,7 @@ void GetOption( TidyDoc tdoc, TidyOption topt, OptionDesc *d )
     switch ( optId )
     {
     case TidyDuplicateAttrs:
+    case TidySortAttributes:
     case TidyNewline:
     case TidyAccessibilityCheckLevel:
         d->type = "enum";
