@@ -86,7 +86,7 @@ struct _StreamIn
     TidyInputSource source;
 
 #ifdef TIDY_WIN32_MLANG_SUPPORT
-    ulong  mlang;
+    void* mlang;
 #endif
 
 #ifdef TIDY_STORE_ORIGINAL_TEXT
@@ -123,7 +123,7 @@ struct _StreamOut
     uint  nl;
 
 #ifdef TIDY_WIN32_MLANG_SUPPORT
-    ulong mlang;
+    void* mlang;
 #endif
 
     IOType iotype;

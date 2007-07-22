@@ -61,7 +61,7 @@ static StreamOut stderrStreamOut =
     FSM_ASCII,
     DEFAULT_NL_CONFIG,
 #ifdef TIDY_WIN32_MLANG_SUPPORT
-    (ulong)NULL,
+    NULL,
 #endif
     FileIO,
     { 0, TY_(filesink_putByte) }
@@ -73,7 +73,7 @@ static StreamOut stdoutStreamOut =
     FSM_ASCII,
     DEFAULT_NL_CONFIG,
 #ifdef TIDY_WIN32_MLANG_SUPPORT
-    (ulong)NULL,
+    NULL,
 #endif
     FileIO,
     { 0, TY_(filesink_putByte) }
@@ -1300,7 +1300,7 @@ static uint ReadCharFromStream( StreamIn* in )
 #ifdef TIDY_WIN32_MLANG_SUPPORT
     else if (in->encoding > WIN32MLANG)
     {
-        assert( in->mlang != 0 );
+        assert( in->mlang != NULL );
         return TY_(Win32MLangGetChar)((byte)c, in, &bytesRead);
     }
 #endif
