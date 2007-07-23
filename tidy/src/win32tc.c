@@ -669,7 +669,7 @@ int TY_(Win32MLangGetChar)(byte firstByte, StreamIn * in, uint * bytesRead)
             /* U+10000-U+10FFFF are returned as a pair of surrogates */
             tchar m = (tchar)outbuf[0];
             tchar n = (tchar)outbuf[1];
-            assert( IsHighSurrogate(n) && IsLowSurrogate(m) );
+            assert( TY_(IsHighSurrogate)(n) && TY_(IsLowSurrogate)(m) );
             *bytesRead = readNow;
             return (int)TY_(CombineSurrogatePair)(n, m);
         }
