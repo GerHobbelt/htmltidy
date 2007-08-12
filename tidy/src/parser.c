@@ -687,7 +687,7 @@ static Bool InsertMisc(Node *element, Node *node)
         Node* root = element;
         while ( root && root->parent )
             root = root->parent;
-        if ( root )
+        if ( root && !(root->content && root->content->type == XmlDecl))
         {
           TY_(InsertNodeAtStart)( root, node );
           return yes;
