@@ -313,6 +313,7 @@ static const TidyOptionImpl option_defs[] =
   { TidyDecorateInferredUL,      MU, "decorate-inferred-ul",        BL, no,              ParseBool,         boolPicks       },
   { TidyPreserveEntities,        MU, "preserve-entities",           BL, no,              ParseBool,         boolPicks       },
   { TidySortAttributes,          PP, "sort-attributes",             IN, TidySortAttrNone,ParseSorter,       sorterPicks     },
+  { TidyMergeSpans,               MU, "merge-spans",                IN, TidyAutoState,   ParseAutoBool,     autoBoolPicks   },
   { N_TIDY_OPTIONS,              XX, NULL,                          XY, 0,               NULL,              NULL            }
 };
 

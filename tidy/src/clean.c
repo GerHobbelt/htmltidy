@@ -1447,6 +1447,7 @@ Node* CleanNode( TidyDocImpl* doc, Node *node )
 {
     Node *next = NULL;
     TidyTriState mergeDivs = cfgAutoBool(doc, TidyMergeDivs);
+    TidyTriState mergeSpans = cfgAutoBool(doc, TidyMergeSpans);
 
     for (next = node; TY_(nodeIsElement)(node); node = next)
     {
@@ -1465,6 +1466,9 @@ Node* CleanNode( TidyDocImpl* doc, Node *node )
             continue;
 
         if ( MergeNestedElements(doc, TidyTag_DIV, mergeDivs, node, &next) )
+            continue;
+
+        if ( MergeNestedElements(doc, TidyTag_SPAN, mergeSpans, node, &next) )
             continue;
 
         if ( BlockStyle(doc, node, &next) )
