@@ -11,4 +11,4 @@
 
 */
 
-static const char TY_(release_date)[] = "19 September 2007";
+static const char TY_(release_date)[] = "6 November 2007";
