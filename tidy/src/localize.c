@@ -752,6 +752,8 @@ static const TidyOptionDoc option_docs[] =
    "encodings e.g. ISO-2022-JP. For mac and win1252, Tidy will accept vendor "
    "specific character values, but will use entities for all characters whose "
    "value &gt; 127. "
+   "For unsupported encodings, use an external utility to convert to and from "
+   "UTF-8. "
    ,TidyCharEncodingLinks
   },
   {TidyInCharEncoding,
