@@ -1,6 +1,6 @@
 /* version information
 
-  (c) 2007 (W3C) MIT, ERCIM, Keio University
+  (c) 2007-2008 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -11,4 +11,4 @@
 
 */
 
-static const char TY_(release_date)[] = "6 November 2007";
+static const char TY_(release_date)[] = "25 January 2008";
