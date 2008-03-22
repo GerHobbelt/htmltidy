@@ -6,7 +6,7 @@
 #     $Date$ 
 #     $Revision$ 
 #
-#  Copyright (c) 1998-2007 World Wide Web Consortium
+#  Copyright (c) 1998-2008 World Wide Web Consortium
 #  (Massachusetts Institute of Technology, European Research 
 #  Consortium for Informatics and Mathematics, Keio University).
 #  All Rights Reserved.
