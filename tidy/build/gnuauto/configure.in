@@ -57,7 +57,7 @@ save_cflags="$CFLAGS"
 
 AC_PROG_CC
 if test "x$GCC" = "xyes"; then
-	WARNING_CFLAGS="-Wall -Wno-switch -Wno-parentheses -Wno-unused"
+	WARNING_CFLAGS="-Wall -Wno-unused"
 else
 	WARNING_CFLAGS=""
 fi

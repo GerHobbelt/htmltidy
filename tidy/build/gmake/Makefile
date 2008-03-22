@@ -91,7 +91,7 @@ DOCDIR = ${TOPDIR}/htmldoc
 # For optimised builds, flags such as "-O2" should be added and -D_DEBUG=1
 # disabled.
 CC= gcc
-CFLAGS= -g -pedantic -Wall -Wno-switch -I $(INCDIR)
+CFLAGS= -g -pedantic -Wall -I $(INCDIR)
 # flags only supported with gcc 3.x
 CFLAGS += -Wunused-parameter
 
