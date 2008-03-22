@@ -3207,20 +3207,18 @@ void TY_(ParseHead)(TidyDocImpl* doc, Node *head, GetTokenMode ARG_UNUSED(mode))
                 ++HasTitle;
 
                 if (HasTitle > 1)
-                    if (head)
-                        TY_(ReportError)(doc, head, node, TOO_MANY_ELEMENTS_IN);
-                    else
-                        TY_(ReportError)(doc, head, node, TOO_MANY_ELEMENTS);
+                    TY_(ReportError)(doc, head, node,
+                                     head ?
+                                     TOO_MANY_ELEMENTS_IN : TOO_MANY_ELEMENTS);
             }
             else if ( nodeIsBASE(node) )
             {
                 ++HasBase;
 
                 if (HasBase > 1)
-                    if (head)
-                        TY_(ReportError)(doc, head, node, TOO_MANY_ELEMENTS_IN);
-                    else
-                        TY_(ReportError)(doc, head, node, TOO_MANY_ELEMENTS);
+                    TY_(ReportError)(doc, head, node,
+                                     head ?
+                                     TOO_MANY_ELEMENTS_IN : TOO_MANY_ELEMENTS);
             }
             else if ( nodeIsNOSCRIPT(node) )
             {
