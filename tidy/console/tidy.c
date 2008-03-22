@@ -872,6 +872,8 @@ void printOptionValues( TidyDoc ARG_UNUSED(tdoc), TidyOption topt,
     case TidyNewline:
         d->def = tidyOptGetCurrPick( tdoc, optId );
         break;
+    default:
+        break;
     }
 
     /* fix for http://tidy.sf.net/bug/873921 */
