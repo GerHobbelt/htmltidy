@@ -1,6 +1,6 @@
 /* lexer.c -- Lexer for html parser
   
-  (c) 1998-2007 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2008 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
   
   CVS Info :
@@ -1627,6 +1627,9 @@ Bool TY_(SetXHTMLDocType)( TidyDocImpl* doc )
                 TY_(DiscardElement)(doc, doctype);
             return no;
         }
+        break;
+    case TidyDoctypeOmit:
+        assert(0);
         break;
     }
 
