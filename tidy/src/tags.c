@@ -911,13 +911,13 @@ Bool TY_(nodeCMIsEmpty)( Node* node )
 Bool TY_(nodeIsHeader)( Node* node )
 {
     TidyTagId tid = TagId( node  );
-    return ( tid && 
+    return ( tid && (
              tid == TidyTag_H1 ||
              tid == TidyTag_H2 ||
              tid == TidyTag_H3 ||        
              tid == TidyTag_H4 ||        
              tid == TidyTag_H5 ||
-             tid == TidyTag_H6 );
+             tid == TidyTag_H6 ));
 }
 
 uint TY_(nodeHeaderLevel)( Node* node )

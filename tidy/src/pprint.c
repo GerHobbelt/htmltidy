@@ -257,6 +257,7 @@ static WrapPoint CharacterWrapPoint(tchar c)
     int i;
     for (i = 0; unicode4cat[i].code && unicode4cat[i].code <= c; ++i)
         if (unicode4cat[i].code == c)
+        {
             /* wrapping before opening punctuation and initial quotes */
             if (unicode4cat[i].category == UCPS ||
                 unicode4cat[i].category == UCPI)
@@ -264,6 +265,7 @@ static WrapPoint CharacterWrapPoint(tchar c)
             /* else wrapping after this character */
             else
                 return WrapAfter;
+        }
     /* character has no effect on line wrapping */
     return NoWrapPoint;
 }
