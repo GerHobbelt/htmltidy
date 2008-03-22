@@ -1,6 +1,6 @@
 /* streamio.c -- handles character stream I/O
 
-  (c) 1998-2007 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2008 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
@@ -670,6 +670,9 @@ void TY_(WriteChar)( uint c, StreamOut* out )
             case FSM_NONASCII:
                 c &= 0x7F;
                 break;
+
+            case FSM_ASCII:
+                break;
             }
         }
 
@@ -1215,6 +1218,9 @@ static uint ReadCharFromStream( StreamIn* in )
 
         case FSM_NONASCII:
             c |= 0x80;
+            break;
+
+        case FSM_ASCII:
             break;
         }
 
