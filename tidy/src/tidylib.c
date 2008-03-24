@@ -1453,7 +1453,10 @@ int         tidyDocSaveStream( TidyDocImpl* doc, StreamOut* out )
 TidyNode TIDY_CALL   tidyGetRoot( TidyDoc tdoc )
 {
     TidyDocImpl* impl = tidyDocToImpl( tdoc );
-    return tidyImplToNode( &impl->root );
+    Node* node = NULL;
+    if ( impl )
+        node = &impl->root;
+    return tidyImplToNode( node );
 }
 
 TidyNode TIDY_CALL   tidyGetHtml( TidyDoc tdoc )
