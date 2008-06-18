@@ -6,7 +6,7 @@
   Simplifies enum re-use in various wrappers.  e.g. SWIG
   generated wrappers and COM IDL files.
 
-  Copyright (c) 1998-2007 World Wide Web Consortium
+  Copyright (c) 1998-2008 World Wide Web Consortium
   (Massachusetts Institute of Technology, European Research 
   Consortium for Informatics and Mathematics, Keio University).
   All Rights Reserved.
@@ -203,6 +203,7 @@ typedef enum
   TidyPreserveEntities,    /**< Preserve entities */
   TidySortAttributes,      /**< Sort attributes */
   TidyMergeSpans,       /**< Merge multiple SPANs */
+  TidyAnchorAsName,    /**< Define anchors as name attributes */
   N_TIDY_OPTIONS       /**< Must be last */
 } TidyOptionId;
 
