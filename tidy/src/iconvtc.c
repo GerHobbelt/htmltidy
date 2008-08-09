@@ -1,12 +1,12 @@
 /* iconvtc.c -- Interface to iconv transcoding routines
 
-  (c) 1998-2003 (W3C) MIT, ERCIM, Keio University
+  (c) 1998-2008 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   $Id$
 */
 
-#include <tidy.h>
+#include "tidy.h"
 #include "forward.h"
 #include "streamio.h"
 
