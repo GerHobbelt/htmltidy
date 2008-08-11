@@ -1721,7 +1721,7 @@ static void CheckTable( TidyDocImpl* doc, Node* node )
         {
             TNode = node->content;
 
-            if (TNode->content->tag == NULL)
+            if (TNode->content && TNode->content->tag == NULL)
             {
                 word = getTextNodeClear( doc, TNode);
             }
