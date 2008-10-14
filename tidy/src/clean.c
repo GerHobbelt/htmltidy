@@ -1691,8 +1691,11 @@ static Node* PruneSection( TidyDocImpl* doc, Node *node )
           }
         }
 
-        /* discard node and returns next */
-        node = TY_(DiscardElement)( doc, node );
+        /* discard node and returns next, unless it is a text node */
+        if ( node->type == TextNode )
+            node = node->next;
+        else
+            node = TY_(DiscardElement)( doc, node );
 
         if (node == NULL)
             return NULL;
