@@ -1,7 +1,7 @@
 /* access.c -- carry out accessibility checks
 
   Copyright University of Toronto
-  Portions (c) 1998-2008 (W3C) MIT, ERCIM, Keio University
+  Portions (c) 1998-2009 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
   
   CVS Info :
@@ -2772,7 +2772,7 @@ static Bool CheckMetaData( TidyDocImpl* doc, Node* node, Bool HasMetaData )
         }
             
         if ( !HasMetaData &&
-             nodeIsTITLE(node) &&
+             !nodeIsTITLE(node) &&
              TY_(nodeIsText)(node->content) )
         {
             ctmbstr word = textFromOneNode( doc, node->content );
