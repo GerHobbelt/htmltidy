@@ -3468,8 +3468,11 @@ void TY_(ParseBody)(TidyDocImpl* doc, Node *body, GetTokenMode mode)
             }
             else if (node->tag->model & (CM_TABLE | CM_ROWGRP | CM_ROW))
             {
-                TY_(UngetToken)( doc );
-                node = TY_(InferredTag)(doc, TidyTag_TABLE);
+                /* http://tidy.sf.net/issue/2855621 */
+                if (node->type != EndTag) {
+                    TY_(UngetToken)( doc );
+                    node = TY_(InferredTag)(doc, TidyTag_TABLE);
+                }
                 lexer->excludeBlocks = yes;
             }
             else if ( nodeIsINPUT(node) )
