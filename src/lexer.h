@@ -179,27 +179,28 @@ typedef enum
 #define xxxx                   0u
 
 /* W3C defined HTML/XHTML family document types */
-#define HT20                   1u
-#define HT32                   2u
-#define H40S                   4u
-#define H40T                   8u
-#define H40F                  16u
-#define H41S                  32u
-#define H41T                  64u
-#define H41F                 128u
-#define X10S                 256u
-#define X10T                 512u
-#define X10F                1024u
-#define XH11                2048u
-#define XB10                4096u
+#define HT20                   0x00000001u
+#define HT32                   0x00000002u
+#define H40S                   0x00000004u
+#define H40T                   0x00000008u
+#define H40F                   0x00000010u
+#define H41S                   0x00000020u
+#define H41T                   0x00000040u
+#define H41F                   0x00000080u
+#define HTM5                   0x00000100u
+#define X10S                   0x00000200u
+#define X10T                   0x00000400u
+#define X10F                   0x00000800u
+#define XH11                   0x00001000u
+#define XB10                   0x00002000u
 
 /* proprietary stuff */
-#define VERS_SUN            8192u
-#define VERS_NETSCAPE      16384u
-#define VERS_MICROSOFT     32768u
+#define VERS_SUN               0x00004000u
+#define VERS_NETSCAPE          0x00008000u
+#define VERS_MICROSOFT         0x00010000u
 
 /* special flag */
-#define VERS_XML           65536u
+#define VERS_XML               0x00020000u
 
 /* compatibility symbols */
 #define VERS_UNKNOWN       (xxxx)
@@ -213,11 +214,13 @@ typedef enum
 
 /* meta symbols */
 #define VERS_HTML40        (VERS_HTML40_STRICT|VERS_HTML40_LOOSE|VERS_FRAMESET)
-#define VERS_IFRAME        (VERS_HTML40_LOOSE|VERS_FRAMESET)
+#define VERS_HTML5         (HTM5)
+#define VERS_IFRAME        (VERS_HTML40_LOOSE|VERS_FRAMESET|VERS_HTML5)
 #define VERS_LOOSE         (VERS_HTML20|VERS_HTML32|VERS_IFRAME)
-#define VERS_EVENTS        (VERS_HTML40|VERS_XHTML11)
-#define VERS_FROM32        (VERS_HTML32|VERS_HTML40)
-#define VERS_FROM40        (VERS_HTML40|VERS_XHTML11|VERS_BASIC)
+#define VERS_EVENTS        (VERS_HTML40|VERS_XHTML11|VERS_HTML5)
+#define VERS_FROM32        (VERS_HTML32|VERS_HTML40|VERS_HTML5)
+#define VERS_FROM40        (VERS_HTML40|VERS_XHTML11|VERS_BASIC|VERS_HTML5)
+#define VERS_FROM5         (VERS_HTML5)
 #define VERS_XHTML         (X10S|X10T|X10F|XH11|XB10)
 
 /* all W3C defined document types */

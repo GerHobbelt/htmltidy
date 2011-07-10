@@ -89,6 +89,8 @@ static struct _doctypes
   {  3, H41S, "HTML 4.01 Strict",       "-//W3C//DTD HTML 4.01//EN",              "http://www.w3.org/TR/html4/strict.dtd"                     },
   {  5, H41T, "HTML 4.01 Transitional", "-//W3C//DTD HTML 4.01 Transitional//EN", "http://www.w3.org/TR/html4/loose.dtd"                      },
   {  4, H41F, "HTML 4.01 Frameset",     "-//W3C//DTD HTML 4.01 Frameset//EN",     "http://www.w3.org/TR/html4/frameset.dtd"                   },
+  { 15, HTM5, "HTML 5",                 NULL,						              NULL,                                                       },
+  { 15, HTM5, "HTML 5",                 "about:legacy-compat",		              NULL,                                                       },
   {  9, X10S, "XHTML 1.0 Strict",       "-//W3C//DTD XHTML 1.0 Strict//EN",       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"         },
   { 11, X10T, "XHTML 1.0 Transitional", "-//W3C//DTD XHTML 1.0 Transitional//EN", "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"   },
   { 10, X10F, "XHTML 1.0 Frameset",     "-//W3C//DTD XHTML 1.0 Frameset//EN",     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd"       },
@@ -112,9 +114,9 @@ int TY_(HTMLVersion)(TidyDocImpl* doc)
     uint vers = doc->lexer->versions;
     uint dtver = doc->lexer->doctype;
     TidyDoctypeModes dtmode = (TidyDoctypeModes)cfg(doc, TidyDoctypeMode);
-    Bool xhtml = (cfgBool(doc, TidyXmlOut) || doc->lexer->isvoyager) &&
-                 !cfgBool(doc, TidyHtmlOut);
-    Bool html4 = dtmode == TidyDoctypeStrict || dtmode == TidyDoctypeLoose || VERS_FROM40 & dtver;
+    Bool xhtml = ((cfgBool(doc, TidyXmlOut) || doc->lexer->isvoyager) &&
+                 !cfgBool(doc, TidyHtmlOut));
+    Bool html4 = (dtmode == TidyDoctypeStrict || dtmode == TidyDoctypeLoose || VERS_FROM40 & dtver);
 
     for (i = 0; W3C_Doctypes[i].name; ++i)
     {
@@ -1444,6 +1446,11 @@ static uint FindGivenVersion( TidyDocImpl* doc, Node* doctype )
 {
     AttVal * fpi = TY_(GetAttrByName)(doctype, "PUBLIC");
     uint vers;
+
+	if (!fpi && doctype->element && TY_(tmbstrcasecmp)(doctype->element, "html") == 0)
+	{
+		return VERS_HTML5;
+	}
 
     if (!fpi || !fpi->value)
         return VERS_UNKNOWN;
