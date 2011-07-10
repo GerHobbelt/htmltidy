@@ -1,0 +1,13 @@
+*.exe
+*.dll
+build\msvc\bin
+*.bsc
+*.obj
+*.o
+*.pdb
+*.idb
+*.sbr
+*.ncb
+*.user
+*.suo
+*.bak

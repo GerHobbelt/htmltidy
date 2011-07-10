@@ -1,0 +1,15 @@
+distrib
+*.old
+*.bak
+*.user
+*.suo
+*.ncb
+*.o
+*.obj
+*.pdb
+*.idb
+config.status
+config.sub
+config.guess
+autom4te.cache
+config.log

@@ -1,0 +1,107 @@
+Maintainer Notes
+================
+
+Prerequisites
+-------------
+
+You'll need these packages installed at least:
+
+        automake
+        autoconf
+
+For processing any Win32 ported files you'll also need this on your UNIX
+box:
+
+        dos2unix
+        expand                  (man expand(1): convert TABS to spaces)
+
+
+
+
+Rebuild from scratch / After editing the .am/.in files
+------------------------------------------------------
+
+To regenerate the configure script, proper Makefile.in, et al, execute the
+sequence:
+
+        ./bootstrap.sh
+        ./configure
+
+and you may wish to run the suggested
+
+        make distcheck
+
+command to ensure the distribution is self contained/complete.
+Alternatively (WARNING: this is the _old_ way) you may run
+
+        ./autogen.sh
+
+(which remains with this package as several UIs/editors recognize this script
+to simplify regenerating the configuration setup scripts)
+
+
+To generate the man and html documentation follow up with these:
+
+        make man                (? TODO ?)
+
+and to produce a new distro archive choose one of these (or
+        grep -e 'dist-' Makefile
+to see the available distro packaging methods):
+
+        make dist
+        make dist-bzip2
+        make dist-all
+        make dist-7z
+        make distribution
+
+where the latter creates them all.
+
+
+
+
+Clean up source files after editing [on a Win32 or other non-UNIX box]
+----------------------------------------------------------------------
+
+run the
+
+        ./fix_crlf.sh
+
+shell script to clean up the code: it does more that just clean up those
+CRLF line terminations (using dos2unix) but also expands any TAB characters
+found in any text/source files and trims trailing whitespace to boot.
+
+If you *really* feel like a spring sale is coming up, you might also want to
+run
+
+        make reindent
+
+and
+
+        make htmltidy
+
+for some finegrained distro dust busting.
+
+
+CAVEATS: you may wish to run ./fix_crlf.sh at the end again, just to make
+absolutely sure. More important though is running this:
+
+        make clean
+
+or:
+
+        make distclean
+
+as any previous compiler output (binaries, object files, that sort of thing)
+residing in this directory tree will surely have been destroyed by
+./fix_crlf.sh !
+
+
+
+
+Notes / Misc
+------------
+
+
+
+
+

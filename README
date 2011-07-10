@@ -1,0 +1,14 @@
+Availability:
+
+the original libtidy (html tidy) is available through W3C/sourceforge.
+
+This patched version is available at www.hebbut.net in the 'Public Offerings' section and
+is maintained by Ger Hobbelt.
+
+Note that this version is primarily intended to go with the .NET HtmlTidyWrapper library
+to allow .NET applications easy access to the libtidy features.
+
+Nevertheless, this code should also compile on any libtidy supported UNIX/other platforms.
+
+
+
