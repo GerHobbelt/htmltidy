@@ -1949,7 +1949,7 @@ void TY_(ReportMarkupVersion)( TidyDocImpl* doc )
 
         message( doc, TidyInfo, "Document content looks like %s", vers );
 
-        /* Warn about missing sytem identifier (SI) in emitted doctype */
+        /* Warn about missing system identifier (SI) in emitted doctype */
         if ( TY_(WarnMissingSIInEmittedDocType)( doc ) )
             message( doc, TidyInfo, "No system identifier in emitted doctype" );
     }
