@@ -3822,6 +3822,9 @@ void TY_(ParseHead)(TidyDocImpl* doc, Node *head, GetTokenMode ARG_UNUSED(mode))
 						if (yes == SetInCharEncodingForDocument(doc, id))
 						{
 							RestartParsing(doc);
+
+	                        TidyDocFree(doc, encoding);
+		                    TidyDocFree(doc, charset);
 							return;
 						}
 
