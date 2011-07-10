@@ -1156,9 +1156,9 @@ static void PutByte( uint byteValue, StreamOut* out )
 
 void TY_(UngetRawBytesToStream)( StreamIn *in, byte* buf, size_t count )
 {
-    size_t i;
+    int i;
 
-    for (i = 0; i < count; i++)
+    for (i = (int)count; --i >= 0; )
     {
         in->source.ungetByte( in->source.sourceData, buf[i] );
     }
