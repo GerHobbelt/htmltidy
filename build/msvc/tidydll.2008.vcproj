@@ -23,8 +23,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -35,9 +35,10 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="copy $(TargetFileName) to bin\$(PlatformName)_MSVC2008.$(ConfigurationName) directory"
-				CommandLine="if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
-				Outputs="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
+				Description=""
+				CommandLine=""
+				AdditionalDependencies=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -116,8 +117,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -128,9 +129,10 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="copy $(TargetFileName) to bin\$(PlatformName)_MSVC2008.$(ConfigurationName) directory"
-				CommandLine="if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
-				Outputs="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
+				Description=""
+				CommandLine=""
+				AdditionalDependencies=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -207,8 +209,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Itanium"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -219,9 +221,10 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="copy $(TargetFileName) to bin\$(PlatformName)_MSVC2008.$(ConfigurationName) directory"
-				CommandLine="if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
-				Outputs="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
+				Description=""
+				CommandLine=""
+				AdditionalDependencies=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -296,8 +299,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -308,9 +311,10 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="copy $(TargetFileName) to bin\$(PlatformName)_MSVC2008.$(ConfigurationName) directory"
-				CommandLine="if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
-				Outputs="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
+				Description=""
+				CommandLine=""
+				AdditionalDependencies=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -384,8 +388,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -396,9 +400,10 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="copy $(TargetFileName) to bin\$(PlatformName)_MSVC2008.$(ConfigurationName) directory"
-				CommandLine="if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
-				Outputs="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
+				Description=""
+				CommandLine=""
+				AdditionalDependencies=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -472,8 +477,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Itanium"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -484,9 +489,10 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="copy $(TargetFileName) to bin\$(PlatformName)_MSVC2008.$(ConfigurationName) directory"
-				CommandLine="if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
-				Outputs="$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
+				Description=""
+				CommandLine=""
+				AdditionalDependencies=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
