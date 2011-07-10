@@ -1367,7 +1367,7 @@ void TY_(ParseBlock)( TidyDocImpl* doc, Node *element, GetTokenMode mode)
             }
             else /* things like list items */
             {
-                if (node->tag->model & CM_HEAD)
+                if ( TY_(nodeHasCM)(node, CM_HEAD) )
                 {
                     MoveToHead( doc, element, node );
                     continue;
@@ -1972,7 +1972,7 @@ void TY_(ParseInline)( TidyDocImpl* doc, Node *element, GetTokenMode mode )
             return;
         }
 
-        if (element->tag->model & CM_HEADING)
+        if (TY_(nodeHasCM)(element, CM_HEADING))
         {
             if ( nodeIsCENTER(node) || nodeIsDIV(node) )
             {
@@ -2110,7 +2110,7 @@ void TY_(ParseInline)( TidyDocImpl* doc, Node *element, GetTokenMode mode )
             if (!(element->tag->model & CM_OPT))
                 TY_(ReportError)(doc, element, node, MISSING_ENDTAG_BEFORE);
 
-            if (node->tag->model & CM_HEAD && !(node->tag->model & CM_BLOCK))
+            if (TY_(nodeHasCM)(node, CM_HEAD) && !TY_(nodeHasCM)(node, CM_BLOCK))
             {
                 MoveToHead(doc, element, node);
                 continue;
@@ -2122,7 +2122,7 @@ void TY_(ParseInline)( TidyDocImpl* doc, Node *element, GetTokenMode mode )
             */
             if ( nodeIsA(element) )
             {
-                if (node->tag && !(node->tag->model & CM_HEADING))
+                if (node->tag && !TY_(nodeHasCM)(node, CM_HEADING))
                     TY_(PopInline)( doc, element );
                 else if (!(element->content))
                 {
@@ -2697,7 +2697,7 @@ void TY_(ParseRow)(TidyDocImpl* doc, Node *row, GetTokenMode mode)
 				ParseTagInExiledMode(doc, node, mode /* IgnoreWhitespace */);
 				continue;
             }
-            else if (node->tag->model & CM_HEAD)
+            else if (TY_(nodeHasCM)(node, CM_HEAD))
             {
                 TY_(ReportError)(doc, row, node, TAG_NOT_ALLOWED_IN);
                 MoveToHead( doc, row, node);
@@ -2804,7 +2804,7 @@ void TY_(ParseRowGroup)(TidyDocImpl* doc, Node *rowgroup, GetTokenMode mode)
 				ParseTagInExiledMode(doc, node, mode /* IgnoreWhitespace */);
 				continue;
             }
-            else if (node->tag->model & CM_HEAD)
+            else if (TY_(nodeHasCM)(node, CM_HEAD))
             {
                 TY_(ReportError)(doc, rowgroup, node, TAG_NOT_ALLOWED_IN);
                 MoveToHead(doc, rowgroup, node);
@@ -3057,7 +3057,7 @@ void TY_(ParseTableTag)(TidyDocImpl* doc, Node *table, GetTokenMode mode)
 				ParseTagInExiledMode(doc, node, mode /* IgnoreWhitespace */);
 				continue;
             }
-            else if (node->tag->model & CM_HEAD)
+            else if (TY_(nodeHasCM)(node, CM_HEAD))
             {
                 MoveToHead(doc, table, node);
                 continue;
@@ -3754,7 +3754,7 @@ void TY_(ParseHead)(TidyDocImpl* doc, Node *head, GetTokenMode ARG_UNUSED(mode))
          treat as implicit end of head and deal
          with as part of the body
         */
-        if (!(node->tag->model & CM_HEAD))
+        if (!(TY_(nodeHasCM)(node, CM_HEAD)))
         {
             /* #545067 Implicit closing of head broken - warn only for XHTML input */
             if ( lexer->isvoyager )
@@ -4006,7 +4006,7 @@ void TY_(ParseBody)(TidyDocImpl* doc, Node *body, GetTokenMode mode)
            )
         {
             /* avoid this error message being issued twice */
-            if (!(node->tag->model & CM_HEAD))
+            if (!(TY_(nodeHasCM)(node, CM_HEAD)))
                 TY_(ReportError)(doc, body, node, TAG_NOT_ALLOWED_IN);
 
             if (node->tag->model & CM_HTML)
@@ -4023,7 +4023,7 @@ void TY_(ParseBody)(TidyDocImpl* doc, Node *body, GetTokenMode mode)
                 continue;
             }
 
-            if (node->tag->model & CM_HEAD)
+            if (TY_(nodeHasCM)(node, CM_HEAD))
             {
                 MoveToHead(doc, body, node);
                 continue;
@@ -4271,7 +4271,7 @@ void TY_(ParseFrameSet)(TidyDocImpl* doc, Node *frameset, GetTokenMode ARG_UNUSE
 
         if (TY_(nodeIsElement)(node))
         {
-            if (node->tag && node->tag->model & CM_HEAD)
+            if (TY_(nodeHasCM)(node, CM_HEAD))
             {
                 MoveToHead(doc, frameset, node);
                 continue;
@@ -4491,7 +4491,7 @@ void TY_(ParseHTML)(TidyDocImpl* doc, Node *html, GetTokenMode mode)
 
         if (TY_(nodeIsElement)(node))
         {
-            if (node->tag && node->tag->model & CM_HEAD)
+            if (TY_(nodeHasCM)(node, CM_HEAD))
             {
                 MoveToHead(doc, html, node);
                 continue;
