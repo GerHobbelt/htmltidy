@@ -166,19 +166,22 @@ static void CheckListUsage( TidyDocImpl* doc, Node* node );
 
 static void GetFileExtension( ctmbstr path, tmbchar *ext, uint maxExt )
 {
-    int i = TY_(tmbstrlen)(path) - 1;
+    int i = (int)TY_(tmbstrlen)(path) - 1;
 
     ext[0] = '\0';
 
-    do {
+    for ( ; i > 0; i--)
+	{
         if ( path[i] == '/' || path[i] == '\\' )
+		{
             break;
+		}
         else if ( path[i] == '.' )
         {
             TY_(tmbstrncpy)( ext, path+i, maxExt );
             break;
         }
-    } while ( --i > 0 );
+    }
 }
 
 /************************************************************************
@@ -345,7 +348,7 @@ static Bool IsPlaceHolderObject( ctmbstr txt )
 
 static Bool EndsWithBytes( ctmbstr txt )
 {
-    uint len = TY_(tmbstrlen)( txt );
+    size_t len = TY_(tmbstrlen)( txt );
     return ( len >= 5 && TY_(tmbstrcmp)(txt+len-5, "bytes") == 0 );
 }
 

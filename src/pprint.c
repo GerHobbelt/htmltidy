@@ -436,7 +436,7 @@ static uint AddChar( TidyPrintImpl* pprint, uint c )
 
 static uint AddAsciiString( TidyPrintImpl* pprint, ctmbstr str, uint string_index )
 {
-    uint ix, len = TY_(tmbstrlen)( str );
+    uint ix, len = (uint)TY_(tmbstrlen)( str );
     if ( string_index + len >= pprint->lbufsize )
         expand( pprint, string_index + len );
 
@@ -1107,10 +1107,10 @@ static uint AttrIndent( TidyDocImpl* doc, Node* node, AttVal* ARG_UNUSED(attr) )
 
   if ( !TY_(nodeHasCM)(node, CM_INLINE) ||
        !TY_(ShouldIndent)(doc, node->parent ? node->parent: node) )
-    return xtra + TY_(tmbstrlen)( node->element );
+    return xtra + (uint)TY_(tmbstrlen)( node->element );
 
   if ( NULL != (node = TY_(FindContainer)(node)) )
-    return xtra + TY_(tmbstrlen)( node->element );
+    return xtra + (uint)TY_(tmbstrlen)( node->element );
   return spaces;
 }
 
@@ -1499,8 +1499,8 @@ static void PPrintDocType( TidyDocImpl* doc, uint indent, Node *node )
 
     if (fpi && fpi->value && sys && sys->value)
     {
-        uint i = pprint->linelen - (TY_(tmbstrlen)(sys->value) + 2) - 1;
-        if (!(i>0&&TY_(tmbstrlen)(sys->value)+2+i<wraplen&&i<=(spaces?spaces:2)*2))
+        uint i = pprint->linelen - (uint)(TY_(tmbstrlen)(sys->value) + 2) - 1;
+        if (!(i > 0 && (uint)TY_(tmbstrlen)(sys->value) + 2 + i < wraplen && i <= (spaces ? spaces : 2) * 2))
             i = 0;
 
         TY_(PCondFlushLine)(doc, i);

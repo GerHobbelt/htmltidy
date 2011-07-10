@@ -116,8 +116,8 @@ Read raw bytes from stream.
 
 Return the number of bytes read (when less than 'count', EOF has been reached).
 */
-uint TY_(ReadRawBytesFromStream)( StreamIn *in, byte* buf, uint count );
-void TY_(UngetRawBytesToStream)( StreamIn *in, byte* buf, uint count );
+size_t TY_(ReadRawBytesFromStream)( StreamIn *in, byte* buf, size_t count );
+void TY_(UngetRawBytesToStream)( StreamIn *in, byte* buf, size_t count );
 
 
 /************************

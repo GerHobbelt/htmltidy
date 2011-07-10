@@ -67,7 +67,7 @@ static int          tidyDocCleanAndRepair( TidyDocImpl* doc );
 /* Save cleaned up file to file/buffer/sink */
 static int          tidyDocSaveFile( TidyDocImpl* impl, ctmbstr htmlfil );
 static int          tidyDocSaveStdout( TidyDocImpl* impl );
-static int          tidyDocSaveString( TidyDocImpl* impl, tmbstr buffer, uint* buflen );
+static int          tidyDocSaveString( TidyDocImpl* impl, tmbstr buffer, size_t* buflen );
 static int          tidyDocSaveBuffer( TidyDocImpl* impl, TidyBuffer* outbuf );
 static int          tidyDocSaveSink( TidyDocImpl* impl, TidyOutputSink* docOut );
 static int          tidyDocSaveStream( TidyDocImpl* impl, StreamOut* out );
@@ -315,7 +315,7 @@ TidyIterator TIDY_CALL  tidyGetOptionList( TidyDoc tdoc )
     TidyDocImpl* impl = tidyDocToImpl( tdoc );
     if ( impl )
         return TY_(getOptionList)( impl );
-    return (TidyIterator) -1;
+    return (TidyIterator) (size_t)-1;
 }
 
 TidyOption TIDY_CALL    tidyGetNextOption( TidyDoc tdoc, TidyIterator* pos )
@@ -404,7 +404,7 @@ TidyIterator TIDY_CALL  tidyOptGetPickList( TidyOption topt )
     const TidyOptionImpl* option = tidyOptionToImpl( topt );
     if ( option )
       return TY_(getOptionPickList)( option );
-    return (TidyIterator) -1;
+    return (TidyIterator) (size_t)-1;
 }
 ctmbstr TIDY_CALL       tidyOptGetNextPick( TidyOption topt, TidyIterator* pos )
 {
@@ -992,7 +992,7 @@ int TIDY_CALL        tidySaveStdout( TidyDoc tdoc )
     TidyDocImpl* doc = tidyDocToImpl( tdoc );
     return tidyDocSaveStdout( doc );
 }
-int TIDY_CALL        tidySaveString( TidyDoc tdoc, tmbstr buffer, uint* buflen )
+int TIDY_CALL        tidySaveString( TidyDoc tdoc, tmbstr buffer, size_t* buflen )
 {
     TidyDocImpl* doc = tidyDocToImpl( tdoc );
     return tidyDocSaveString( doc, buffer, buflen );
@@ -1109,7 +1109,7 @@ int         tidyDocSaveStdout( TidyDocImpl* doc )
     return status;
 }
 
-int         tidyDocSaveString( TidyDocImpl* doc, tmbstr buffer, uint* buflen )
+int         tidyDocSaveString( TidyDocImpl* doc, tmbstr buffer, size_t* buflen )
 {
     uint outenc = cfg( doc, TidyOutCharEncoding );
     uint nl = cfg( doc, TidyNewline );
@@ -1205,7 +1205,7 @@ int         TY_(DocParseStream)( TidyDocImpl* doc, StreamIn* in )
     Bool xmlIn = cfgBool( doc, TidyXmlTags );
     int bomEnc;
 	byte charenc_prefetch_buf[CHARENC_PREFETCH_BUFSIZE];
-	uint raw_count_read;
+	size_t raw_count_read;
 	int rounds;
 	size_t orig_startpos;
 
@@ -1248,7 +1248,7 @@ int         TY_(DocParseStream)( TidyDocImpl* doc, StreamIn* in )
 		  input bytes on the second round!
     */
 	orig_startpos = tidyTell(&doc->docIn->source); /* for assert() only */
-	raw_count_read = TY_(ReadRawBytesFromStream)(doc->docIn, charenc_prefetch_buf, (uint)sizeof(charenc_prefetch_buf));
+	raw_count_read = TY_(ReadRawBytesFromStream)(doc->docIn, charenc_prefetch_buf, sizeof(charenc_prefetch_buf));
 	doc->lexer->buf_prefetch_size = tidyTell(&doc->docIn->source); /* see comment below at LEX_REWIND handling */
 	/* immediately push back those bytes: they need to be parsed! */
 	TY_(UngetRawBytesToStream)(doc->docIn, charenc_prefetch_buf, raw_count_read);
@@ -1277,27 +1277,27 @@ int         TY_(DocParseStream)( TidyDocImpl* doc, StreamIn* in )
 
 
 #ifdef TIDY_WIN32_MLANG_SUPPORT
-    if (in->encoding > WIN32MLANG)
-        TY_(Win32MLangInitInputTranscoder)(in, in->encoding);
+		if (in->encoding > WIN32MLANG)
+			TY_(Win32MLangInitInputTranscoder)(in, in->encoding);
 #endif /* TIDY_WIN32_MLANG_SUPPORT */
 
-    /* Tidy doesn't alter the doctype for generic XML docs */
-    if ( xmlIn )
-    {
-        TY_(ParseXMLDocument)( doc );
-        if ( !TY_(CheckNodeIntegrity)( &doc->root ) )
-            TidyPanic( doc->allocator, integrity );
-    }
-    else
-    {
-        doc->warnings = 0;
-        TY_(ParseDocument)( doc );
-        if ( !TY_(CheckNodeIntegrity)( &doc->root ) )
-            TidyPanic( doc->allocator, integrity );
-    }
+		/* Tidy doesn't alter the doctype for generic XML docs */
+		if ( xmlIn )
+		{
+			TY_(ParseXMLDocument)( doc );
+			if ( !TY_(CheckNodeIntegrity)( &doc->root ) )
+				TidyPanic( doc->allocator, integrity );
+		}
+		else
+		{
+			doc->warnings = 0;
+			TY_(ParseDocument)( doc );
+			if ( !TY_(CheckNodeIntegrity)( &doc->root ) )
+				TidyPanic( doc->allocator, integrity );
+		}
 
 #ifdef TIDY_WIN32_MLANG_SUPPORT
-    TY_(Win32MLangUninitInputTranscoder)(in);
+	    TY_(Win32MLangUninitInputTranscoder)(in);
 #endif /* TIDY_WIN32_MLANG_SUPPORT */
 
 		if (doc->lexer->state == LEX_REWIND)

@@ -733,7 +733,7 @@ TIDY_EXPORT int TIDY_CALL         tidySaveBuffer( TidyDoc tdoc, TidyBuffer* buf 
 **  in *buflen.
 */
 TIDY_EXPORT int TIDY_CALL         tidySaveString( TidyDoc tdoc,
-                                                 tmbstr buffer, uint* buflen );
+                                                 tmbstr buffer, size_t* buflen );
 
 /** Save to given generic output sink */
 TIDY_EXPORT int TIDY_CALL         tidySaveSink( TidyDoc tdoc, TidyOutputSink* sink );

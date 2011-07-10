@@ -29,10 +29,10 @@ TIDY_STRUCT
 struct _TidyBuffer
 {
     TidyAllocator* allocator;  /**< Memory allocator */
-    byte* bp;           /**< Pointer to bytes */
-    uint  size;         /**< # bytes currently in use */
-    uint  allocated;    /**< # bytes allocated */
-    uint  next;         /**< Offset of current input position */
+    byte*  bp;           /**< Pointer to bytes */
+    size_t size;         /**< # bytes currently in use */
+    size_t allocated;    /**< # bytes allocated */
+    size_t next;         /**< Offset of current input position */
 };
 
 /** Create (zeroed-out) data structure */
@@ -49,19 +49,19 @@ TIDY_EXPORT void TIDY_CALL tidyBufInitWithAllocator( TidyBuffer* buf, TidyAlloca
 
 /** Free current buffer, allocate given amount, reset input pointer,
     use the default allocator */
-TIDY_EXPORT void TIDY_CALL tidyBufAlloc( TidyBuffer* buf, uint allocSize );
+TIDY_EXPORT void TIDY_CALL tidyBufAlloc( TidyBuffer* buf, size_t allocSize );
 
 /** Free current buffer, allocate given amount, reset input pointer,
     use the given custom allocator */
 TIDY_EXPORT void TIDY_CALL tidyBufAllocWithAllocator( TidyBuffer* buf,
                                                       TidyAllocator* allocator,
-                                                      uint allocSize );
+                                                      size_t allocSize );
 
 /** Expand buffer to given size.
 **  Chunk size is minimum growth. Pass 0 for default of 256 bytes.
 */
 TIDY_EXPORT Bool TIDY_CALL tidyBufCheckAlloc( TidyBuffer* buf,
-                                              uint allocSize, uint chunkSize );	/* [i_a] */
+                                              size_t allocSize, size_t chunkSize );	/* [i_a] */
 
 /** Free current contents and zero out */
 TIDY_EXPORT void TIDY_CALL tidyBufFree( TidyBuffer* buf );
@@ -70,14 +70,14 @@ TIDY_EXPORT void TIDY_CALL tidyBufFree( TidyBuffer* buf );
 TIDY_EXPORT void TIDY_CALL tidyBufClear( TidyBuffer* buf );
 
 /** Attach to existing buffer */
-TIDY_EXPORT void TIDY_CALL tidyBufAttach( TidyBuffer* buf, byte* bp, uint size );
+TIDY_EXPORT void TIDY_CALL tidyBufAttach( TidyBuffer* buf, byte* bp, size_t size );
 
 /** Detach from buffer.  Caller must free. */
 TIDY_EXPORT void TIDY_CALL tidyBufDetach( TidyBuffer* buf );
 
 
 /** Append bytes to buffer.  Expand if necessary. */
-TIDY_EXPORT void TIDY_CALL tidyBufAppend( TidyBuffer* buf, const void* vp, uint size );
+TIDY_EXPORT void TIDY_CALL tidyBufAppend( TidyBuffer* buf, const void* vp, size_t size );
 
 /** Append one byte to buffer.  Expand if necessary. */
 TIDY_EXPORT void TIDY_CALL tidyBufPutByte( TidyBuffer* buf, byte bv );

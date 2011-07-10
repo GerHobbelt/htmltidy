@@ -948,7 +948,7 @@ void TY_(FreeAttrTable)( TidyDocImpl* doc )
 
 void TY_(AppendToClassAttr)( TidyDocImpl* doc, AttVal *classattr, ctmbstr classname )
 {
-    uint len = TY_(tmbstrlen)(classattr->value) +
+    size_t len = TY_(tmbstrlen)(classattr->value) +
         TY_(tmbstrlen)(classname) + 2;
     tmbstr s = (tmbstr) TidyDocAlloc( doc, len );
     s[0] = '\0';
@@ -971,7 +971,7 @@ static void AppendToStyleAttr( TidyDocImpl* doc, AttVal *styleattr, ctmbstr styl
     leading/trailing white-space very well
     see http://www.w3.org/TR/css-style-attr
     */
-    uint end = TY_(tmbstrlen)(styleattr->value);
+    size_t end = TY_(tmbstrlen)(styleattr->value);
 
     if (end >0 && styleattr->value[end - 1] == ';')
     {
@@ -1214,8 +1214,9 @@ void TY_(CheckUrl)( TidyDocImpl* doc, Node *node, AttVal *attval)
     tmbchar c;
     tmbstr dest, p;
     uint escape_count = 0, backslash_count = 0;
-    uint i, pos = 0;
-    uint len;
+    uint i;
+	uint pos = 0;
+    size_t len;
     Bool isJavascript = no;
 
     if (!AttrHasValue(attval))

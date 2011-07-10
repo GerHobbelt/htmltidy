@@ -102,7 +102,7 @@ void TIDY_CALL tidyBufInit( TidyBuffer* buf )
     tidyBufInitWithAllocator( buf, NULL );
 }
 
-void TIDY_CALL tidyBufAlloc( TidyBuffer* buf, uint allocSize )
+void TIDY_CALL tidyBufAlloc( TidyBuffer* buf, size_t allocSize )
 {
     tidyBufAllocWithAllocator( buf, NULL, allocSize );
 }
@@ -117,7 +117,7 @@ void TIDY_CALL tidyBufInitWithAllocator( TidyBuffer* buf,
 
 void TIDY_CALL tidyBufAllocWithAllocator( TidyBuffer* buf,
                                           TidyAllocator *allocator,
-                                          uint allocSize )
+                                          size_t allocSize )
 {
 	assert( buf != NULL );
     tidyBufInitWithAllocator( buf, allocator );
@@ -161,7 +161,7 @@ static void setDefaultAllocator( TidyBuffer* buf )
 
    Return false when the buffer could not be expanded to the requested size.
 */
-Bool TIDY_CALL tidyBufCheckAlloc( TidyBuffer* buf, uint allocSize, uint chunkSize )
+Bool TIDY_CALL tidyBufCheckAlloc( TidyBuffer* buf, size_t allocSize, size_t chunkSize )
 {
     assert( buf != NULL );
 
@@ -182,7 +182,7 @@ Bool TIDY_CALL tidyBufCheckAlloc( TidyBuffer* buf, uint allocSize, uint chunkSiz
     if ( allocSize+1 > buf->allocated )
     {
         byte* bp;
-        uint allocAmt = chunkSize;
+        size_t allocAmt = chunkSize;
         if ( buf->allocated > 0 )
             allocAmt = buf->allocated;
         while ( allocAmt < allocSize+1 )
@@ -200,7 +200,7 @@ Bool TIDY_CALL tidyBufCheckAlloc( TidyBuffer* buf, uint allocSize, uint chunkSiz
 }
 
 /* Attach buffer to a chunk O' memory w/out allocation */
-void TIDY_CALL tidyBufAttach( TidyBuffer* buf, byte* bp, uint size )
+void TIDY_CALL tidyBufAttach( TidyBuffer* buf, byte* bp, size_t size )
 {
     assert( buf != NULL );
 	tidyBufFree(buf); /* [i_a] release any previously allocated memory */
@@ -223,7 +223,7 @@ void TIDY_CALL tidyBufDetach( TidyBuffer* buf )
    OUTPUT
 **************/
 
-void TIDY_CALL tidyBufAppend( TidyBuffer* buf, const void* vp, uint size )
+void TIDY_CALL tidyBufAppend( TidyBuffer* buf, const void* vp, size_t size )
 {
     assert( buf != NULL );
     if ( vp != NULL && size > 0 )
@@ -318,7 +318,7 @@ size_t TIDY_CALL tidyBufGetString( TidyBuffer* buf, tmbstr dst, size_t dstsize )
 	assert( dstsize > 0 );
 	if ( !tidyBufEndOfInput(buf))
 	{
-		uint size = buf->size - buf->next;
+		size_t size = buf->size - buf->next;
 		byte *src = buf->bp + buf->next;
 		if (size + 1 > dstsize) /* keep space for extra NUL sentinel! */
 			size = dstsize - 1;

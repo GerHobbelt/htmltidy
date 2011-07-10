@@ -21,7 +21,7 @@ tmbstr TY_(tmbstrdup)( TidyAllocator *allocator, ctmbstr str )
     tmbstr s = NULL;
     if ( str )
     {
-        uint len = TY_(tmbstrlen)( str );
+        size_t len = TY_(tmbstrlen)( str );
         tmbstr cp = s = (tmbstr) TidyAlloc( allocator, 1+len );
         while ( 0 != (*cp++ = *str++) )
             /**/;
@@ -30,7 +30,7 @@ tmbstr TY_(tmbstrdup)( TidyAllocator *allocator, ctmbstr str )
 }
 
 /* like strndup but using an allocator */
-tmbstr TY_(tmbstrndup)( TidyAllocator *allocator, ctmbstr str, uint len )
+tmbstr TY_(tmbstrndup)( TidyAllocator *allocator, ctmbstr str, size_t len )
 {
     tmbstr s = NULL;
     if ( str && len > 0 )
@@ -44,7 +44,7 @@ tmbstr TY_(tmbstrndup)( TidyAllocator *allocator, ctmbstr str, uint len )
 }
 
 /* exactly same as strncpy */
-uint TY_(tmbstrncpy)( tmbstr s1, ctmbstr s2, uint size )
+size_t TY_(tmbstrncpy)( tmbstr s1, ctmbstr s2, size_t size )
 {
     if ( s1 != NULL && s2 != NULL )
     {
@@ -58,9 +58,9 @@ uint TY_(tmbstrncpy)( tmbstr s1, ctmbstr s2, uint size )
 
 /* Allows expressions like:  cp += tmbstrcpy( cp, "joebob" );
 */
-uint TY_(tmbstrcpy)( tmbstr s1, ctmbstr s2 )
+size_t TY_(tmbstrcpy)( tmbstr s1, ctmbstr s2 )
 {
-    uint ncpy = 0;
+    size_t ncpy = 0;
     while (0 != (*s1++ = *s2++) )
         ++ncpy;
     return ncpy;
@@ -68,9 +68,9 @@ uint TY_(tmbstrcpy)( tmbstr s1, ctmbstr s2 )
 
 /* Allows expressions like:  cp += tmbstrcat( cp, "joebob" );
 */
-uint TY_(tmbstrcat)( tmbstr s1, ctmbstr s2 )
+size_t TY_(tmbstrcat)( tmbstr s1, ctmbstr s2 )
 {
-    uint ncpy = 0;
+    size_t ncpy = 0;
     while ( *s1 )
         ++s1;
 
@@ -96,9 +96,9 @@ int TY_(tmbstrcmp)( ctmbstr s1, ctmbstr s2 )
 }
 
 /* returns byte count, not char count */
-uint TY_(tmbstrlen)( ctmbstr str )
+size_t TY_(tmbstrlen)( ctmbstr str )
 {
-    uint len = 0;
+    size_t len = 0;
     if ( str )
     {
         while ( *str++ )
@@ -130,7 +130,7 @@ int TY_(tmbstrcasecmp)( ctmbstr s1, ctmbstr s2 )
     return (*s1 > *s2 ? 1 : -1);
 }
 
-int TY_(tmbstrncmp)( ctmbstr s1, ctmbstr s2, uint n )
+int TY_(tmbstrncmp)( ctmbstr s1, ctmbstr s2, size_t n )
 {
     uint c;
 
@@ -153,7 +153,7 @@ int TY_(tmbstrncmp)( ctmbstr s1, ctmbstr s2, uint n )
     return (*s1 > *s2 ? 1 : -1);
 }
 
-int TY_(tmbstrncasecmp)( ctmbstr s1, ctmbstr s2, uint n )
+int TY_(tmbstrncasecmp)( ctmbstr s1, ctmbstr s2, size_t n )
 {
     uint c;
 
@@ -195,10 +195,11 @@ int TY_(tmbstrnchr)( ctmbstr s1, uint maxlen, tmbchar cc )
 }
 #endif
 
-ctmbstr TY_(tmbsubstrn)( ctmbstr s1, uint len1, ctmbstr s2 )
+ctmbstr TY_(tmbsubstrn)( ctmbstr s1, size_t len1, ctmbstr s2 )
 {
-    uint len2 = TY_(tmbstrlen)(s2);
-    int ix, diff = len1 - len2;
+    size_t len2 = TY_(tmbstrlen)(s2);
+    int ix;
+	int diff = (int)len1 - (int)len2;
 
     for ( ix = 0; ix <= diff; ++ix )
     {
@@ -209,10 +210,11 @@ ctmbstr TY_(tmbsubstrn)( ctmbstr s1, uint len1, ctmbstr s2 )
 }
 
 #if 0
-ctmbstr TY_(tmbsubstrncase)( ctmbstr s1, uint len1, ctmbstr s2 )
+ctmbstr TY_(tmbsubstrncase)( ctmbstr s1, size_t len1, ctmbstr s2 )
 {
-    uint len2 = TY_(tmbstrlen)(s2);
-    int ix, diff = len1 - len2;
+    size_t len2 = TY_(tmbstrlen)(s2);
+    int ix;
+	int diff = (int)len1 - (int)len2;
 
     for ( ix = 0; ix <= diff; ++ix )
     {
@@ -225,8 +227,9 @@ ctmbstr TY_(tmbsubstrncase)( ctmbstr s1, uint len1, ctmbstr s2 )
 
 ctmbstr TY_(tmbsubstr)( ctmbstr s1, ctmbstr s2 )
 {
-    uint len1 = TY_(tmbstrlen)(s1), len2 = TY_(tmbstrlen)(s2);
-    int ix, diff = len1 - len2;
+    size_t len1 = TY_(tmbstrlen)(s1), len2 = TY_(tmbstrlen)(s2);
+    int ix;
+	int diff = (int)len1 - (int)len2;
 
     for ( ix = 0; ix <= diff; ++ix )
     {

@@ -752,7 +752,7 @@ static ctmbstr ExpandTilde( TidyDocImpl* doc, ctmbstr filename )
 
     if ( home_dir )
     {
-        uint len = TY_(tmbstrlen)(filename) + TY_(tmbstrlen)(home_dir) + 1;
+        size_t len = TY_(tmbstrlen)(filename) + TY_(tmbstrlen)(home_dir) + 1;
         tmbstr p = (tmbstr)TidyDocAlloc( doc, len );
         TY_(tmbstrcpy)( p, home_dir );
         TY_(tmbstrcat)( p, filename );
@@ -1278,7 +1278,7 @@ static void DeclareUserTag( TidyDocImpl* doc, TidyOptionId optId,
   ctmbstr theval = name;
   if ( prvval )
   {
-    uint len = TY_(tmbstrlen)(name) + TY_(tmbstrlen)(prvval) + 3;
+    size_t len = TY_(tmbstrlen)(name) + TY_(tmbstrlen)(prvval) + 3;
     catval = TY_(tmbstrndup)( doc->allocator, prvval, len );
     TY_(tmbstrcat)( catval, ", " );
     TY_(tmbstrcat)( catval, name );

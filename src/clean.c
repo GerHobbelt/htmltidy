@@ -211,7 +211,7 @@ static StyleProp* CreateProps( TidyDocImpl* doc, StyleProp* prop, ctmbstr style 
 static tmbstr CreatePropString(TidyDocImpl* doc, StyleProp *props)
 {
     tmbstr style, p, s;
-    uint len;
+    size_t len;
     StyleProp *prop;
 
     /* compute length */
@@ -717,7 +717,7 @@ static void MergeClasses(TidyDocImpl* doc, Node *node, Node *child)
     {
         if (s2)  /* merge class names from both */
         {
-            uint l1, l2;
+            size_t l1, l2;
             l1 = TY_(tmbstrlen)(s1);
             l2 = TY_(tmbstrlen)(s2);
             names = (tmbstr) TidyDocAlloc(doc, l1 + l2 + 2);
@@ -1855,7 +1855,7 @@ void TY_(NormalizeSpaces)(Lexer *lexer, Node *node)
 
                 p = TY_(PutUTF8)(p, c);
             }
-            node->end = p - lexer->lexbuf;
+            node->end = (uint)(p - lexer->lexbuf);
         }
 
         node = node->next;
@@ -2459,7 +2459,7 @@ void TY_(DowngradeTypography)(TidyDocImpl* doc, Node* node)
                 p = TY_(PutUTF8)(p, c);
             }
 
-            node->end = p - lexer->lexbuf;
+            node->end = (uint)(p - lexer->lexbuf);
         }
 
         if (node->content)

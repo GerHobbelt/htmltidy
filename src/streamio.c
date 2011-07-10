@@ -1154,9 +1154,9 @@ static void PutByte( uint byteValue, StreamOut* out )
 
 /* [i_a] used for retrieving and restoring the initial 1K of input for inline character enc discovery */
 
-void TY_(UngetRawBytesToStream)( StreamIn *in, byte* buf, uint count )
+void TY_(UngetRawBytesToStream)( StreamIn *in, byte* buf, size_t count )
 {
-    uint i;
+    size_t i;
 
     for (i = 0; i < count; i++)
     {
@@ -1169,9 +1169,9 @@ Read raw bytes from stream.
 
 Return the number of bytes read (when less than 'count', EOF has been reached).
 */
-uint TY_(ReadRawBytesFromStream)( StreamIn *in, byte* buf, uint count )
+size_t TY_(ReadRawBytesFromStream)( StreamIn *in, byte* buf, size_t count )
 {
-    uint ix;
+    size_t ix;
     for ( ix = 0; ix < count; ++ix )
     {
 #if 0
