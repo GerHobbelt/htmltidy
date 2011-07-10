@@ -4370,7 +4370,7 @@ void TY_(ParseHTML)(TidyDocImpl* doc, Node *html, GetTokenMode mode)
 
         if (node == NULL)
         {
-            if (frameset == NULL) /* implied body */
+            if (frameset == NULL && doc->lexer->state != LEX_REWIND) /* implied body */
             {
                 node = TY_(InferredTag)(doc, TidyTag_BODY);
                 TY_(InsertNodeAtEnd)(html, node);
@@ -4705,7 +4705,7 @@ void TY_(ParseDocument)(TidyDocImpl* doc)
 				if (yes == SetInCharEncodingForDocument(doc, id))
 				{
 					RestartParsing(doc);
-					return;
+					break;
 				}
             }
         }
@@ -4774,6 +4774,12 @@ void TY_(ParseDocument)(TidyDocImpl* doc)
         TY_(ParseHTML)( doc, html, IgnoreWhitespace );
         break;
     }
+
+	/* do not try to fix things when we're clearly in a state where we didn't yet finish parsing the entire document: */
+	if (doc->lexer->state == LEX_REWIND)
+	{
+		return;
+	}
 
 #if SUPPORT_ACCESSIBILITY_CHECKS
     /* do this before any more document fixes */
