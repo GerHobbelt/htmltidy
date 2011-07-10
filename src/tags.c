@@ -200,7 +200,7 @@ static const Dict tag_defs[] =
   { TidyTag_MENU,       "menu",       VERS_ELEM_MENU,       &TY_(W3CAttrsFor_MENU)[0],       (CM_BLOCK|CM_OBSOLETE),                        TY_(ParseList),     NULL           },
   { TidyTag_META,       "meta",       VERS_ELEM_META,       &TY_(W3CAttrsFor_META)[0],       (CM_HEAD|CM_EMPTY),                            TY_(ParseEmpty),    CheckMETA      },
   { TidyTag_NOFRAMES,   "noframes",   VERS_ELEM_NOFRAMES,   &TY_(W3CAttrsFor_NOFRAMES)[0],   (CM_BLOCK|CM_FRAMES),                          TY_(ParseNoFrames), NULL           },
-  { TidyTag_NOSCRIPT,   "noscript",   VERS_ELEM_NOSCRIPT,   &TY_(W3CAttrsFor_NOSCRIPT)[0],   (CM_BLOCK|CM_INLINE|CM_MIXED),                 TY_(ParseBlock),    NULL           },
+  { TidyTag_NOSCRIPT,   "noscript",   VERS_ELEM_NOSCRIPT,   &TY_(W3CAttrsFor_NOSCRIPT)[0],   (CM_HEAD|CM_BLOCK|CM_INLINE|CM_MIXED),         TY_(ParseBlock),    NULL           },
   { TidyTag_OBJECT,     "object",     VERS_ELEM_OBJECT,     &TY_(W3CAttrsFor_OBJECT)[0],     (CM_OBJECT|CM_HEAD|CM_IMG|CM_INLINE|CM_PARAM), TY_(ParseBlock),    NULL           },
   { TidyTag_OL,         "ol",         VERS_ELEM_OL,         &TY_(W3CAttrsFor_OL)[0],         (CM_BLOCK),                                    TY_(ParseList),     NULL           },
   { TidyTag_OPTGROUP,   "optgroup",   VERS_ELEM_OPTGROUP,   &TY_(W3CAttrsFor_OPTGROUP)[0],   (CM_FIELD|CM_OPT),                             TY_(ParseOptGroup), NULL           },
@@ -811,7 +811,6 @@ void CheckSCRIPT( TidyDocImpl* doc, Node *node )
         }
     }
 }
-
 
 /* add missing type attribute when appropriate */
 void CheckSTYLE( TidyDocImpl* doc, Node *node )

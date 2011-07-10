@@ -3556,6 +3556,13 @@ void TY_(ParseScript)(TidyDocImpl* doc, Node *script, GetTokenMode ARG_UNUSED(mo
     }
 }
 
+
+
+
+
+
+
+
 Bool TY_(IsJavaScript)(Node *node)
 {
     Bool result = no;
@@ -3785,8 +3792,14 @@ void TY_(ParseHead)(TidyDocImpl* doc, Node *head, GetTokenMode ARG_UNUSED(mode))
             }
             else if ( nodeIsNOSCRIPT(node) )
             {
-                TY_(ReportError)(doc, head, node, TAG_NOT_ALLOWED_IN);
-            }
+				/* <noscript> tag is allowed in header in HTML5 spec as per section 4.3.2 (The noscript Element) */
+                TY_(ConstrainVersion)( doc, VERS_HTML5 );
+
+				if ((lexer->doctype & lexer->versions) == 0)
+				{
+					TY_(ReportError)(doc, head, node, TAG_NOT_ALLOWED_IN);
+				}
+			}
 
 #ifdef AUTO_INPUT_ENCODING
             else if (nodeIsMETA(node))
