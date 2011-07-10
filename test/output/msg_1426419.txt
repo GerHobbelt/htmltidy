@@ -1,0 +1,14 @@
+line 8 column 12 - Warning: replacing unexpected b by </b>
+line 8 column 35 - Warning: inserting implicit <i>
+line 9 column 13 - Warning: replacing unexpected tt by </tt>
+line 9 column 34 - Warning: inserting implicit <b>
+line 10 column 15 - Warning: replacing unexpected i by </i>
+line 10 column 38 - Warning: inserting implicit <b>
+Info: Doctype given is "-//W3C//DTD XHTML 1.0 Transitional//EN"
+Info: Document content looks like XHTML 1.0 Strict
+6 warnings, 0 errors were found!
+
+To learn more about HTML Tidy see http://tidy.sourceforge.net
+Please send bug reports to html-tidy@w3.org
+HTML and CSS specifications are available from http://www.w3.org/
+Lobby your company to join W3C, see http://www.w3.org/Consortium

@@ -13,4 +13,19 @@ REM    $Author$
 REM    $Date$
 REM    $Revision$
 
-for /F "tokens=1*" %%i in (xmlcases.txt) do call onetest.cmd %%i %%j
+REM (for MS compiler users):
+REM call xmltest1 ..\build\msvc\Release\tidy.exe .\tmp
+
+if exist ..\bin\tidy_dbg.exe goto debugmode
+
+call xmltest1 ..\bin\tidy.exe .\tmp
+
+goto ende
+
+:debugmode
+
+call xmltest1 ..\bin\tidy_dbg.exe .\tmp
+
+:ende
+
+pause

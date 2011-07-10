@@ -5,19 +5,19 @@
 
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
   Defines HTML Tidy API implemented by tidy library.
-  
+
   Very rough initial cut for discussion purposes.
 
   Public interface is const-correct and doesn't explicitly depend
   on any globals.  Thus, thread-safety may be introduced w/out
   changing the interface.
 
-  Looking ahead to a C++ wrapper, C functions always pass 
+  Looking ahead to a C++ wrapper, C functions always pass
   this-equivalent as 1st arg.
 
   Created 2001-05-20 by Charles Reitzel
@@ -117,7 +117,7 @@ TidyOption   tidyImplToOption( const TidyOptionImpl* option )
 ** 0    -> SUCCESS
 ** >0   -> WARNING
 ** <0   -> ERROR
-** 
+**
 */
 
 TidyDoc TIDY_CALL       tidyCreate(void)
@@ -149,6 +149,8 @@ TidyDocImpl* tidyDocCreate( TidyAllocator *allocator )
     TY_(InitAttrs)( doc );
     TY_(InitConfig)( doc );
     TY_(InitPrintBuf)( doc );
+
+	tidyBufInit(&doc->access.textBuffer); /* [i_a] */
 
     /* By default, wire tidy messages to standard error.
     ** Document input will be set by parsing routines.
@@ -182,11 +184,14 @@ void          tidyDocRelease( TidyDocImpl* doc )
         TY_(FreeConfig)( doc );
         TY_(FreeAttrTable)( doc );
         TY_(FreeTags)( doc );
-        TidyDocFree( doc, doc );
+
+		tidyBufFree(&doc->access.textBuffer); /* [i_a] */
+
+		TidyDocFree( doc, doc );
     }
 }
 
-/* Let application store a chunk of data w/ each Tidy tdocance.
+/* Let application store a chunk of data w/ each Tidy tdoc instance.
 ** Useful for callbacks.
 */
 void TIDY_CALL        tidySetAppData( TidyDoc tdoc, void* appData )
@@ -222,6 +227,22 @@ Bool TIDY_CALL        tidySetOptionCallback( TidyDoc tdoc, TidyOptCallback pOptC
   return no;
 }
 
+
+int TIDY_CALL     tidyLoadConfigBuffer( TidyDoc tdoc, TidyBuffer* buffer ) /* [i_a] */
+{
+    TidyDocImpl* impl = tidyDocToImpl( tdoc );
+    if ( impl )
+        return TY_(ParseConfigBuffer)( impl, buffer );
+    return -EINVAL;
+}
+
+int TIDY_CALL     tidyLoadConfigBufferEnc( TidyDoc tdoc, TidyBuffer* buffer, ctmbstr charenc ) /* [i_a] */
+{
+    TidyDocImpl* impl = tidyDocToImpl( tdoc );
+    if ( impl )
+        return TY_(ParseConfigBufferEnc)( impl, buffer, charenc );
+    return -EINVAL;
+}
 
 int TIDY_CALL     tidyLoadConfig( TidyDoc tdoc, ctmbstr cfgfil )
 {
@@ -352,7 +373,7 @@ ctmbstr TIDY_CALL       tidyOptGetDefault( TidyOption topt )
 {
     const TidyOptionImpl* option = tidyOptionToImpl( topt );
     if ( option && option->type == TidyString )
-        return (ctmbstr) option->dflt;
+        return option->pdflt; /* [i_a] fix(?) for string access in envs where pointer size is not integer size */
     return NULL;
 }
 ulong TIDY_CALL          tidyOptGetDefaultInt( TidyOption topt )
@@ -504,6 +525,8 @@ ctmbstr TIDY_CALL       tidyOptGetNextDeclTag( TidyDoc tdoc, TidyOptionId optId,
             tagtyp = tagtype_empty;
         else if ( optId == TidyPreTags )
             tagtyp = tagtype_pre;
+		else if ( optId == TidyOtherNamespaceTags )
+			tagtyp = tagtype_OtherNamespace;
         if ( tagtyp != tagtype_null )
             tagnam = TY_(GetNextDeclaredTag)( impl, tagtyp, iter );
     }
@@ -556,6 +579,14 @@ int TIDY_CALL tidyOptSaveSink( TidyDoc tdoc, TidyOutputSink* sink )
     TidyDocImpl* impl = tidyDocToImpl( tdoc );
     if ( impl )
         return TY_(SaveConfigSink)( impl, sink );
+    return -EINVAL;
+}
+
+int TIDY_CALL tidyOptSaveBuffer( TidyDoc tdoc, TidyBuffer* buffer ) /* [i_a] */
+{
+    TidyDocImpl* impl = tidyDocToImpl( tdoc );
+    if ( impl )
+        return TY_(SaveConfigBuffer)( impl, buffer );
     return -EINVAL;
 }
 
@@ -625,11 +656,23 @@ Bool TIDY_CALL tidyOptCopyConfig( TidyDoc to, TidyDoc from )
     return no;
 }
 
+Bool TIDY_CALL tidyOptAdjustConfig( TidyDoc tdoc ) /* [i_a] */
+{
+    TidyDocImpl* doc = tidyDocToImpl( tdoc );
+    if ( doc )
+    {
+        TY_(AdjustConfig)( doc );
+        return yes;
+    }
+    return no;
+}
+
+
 
 /* I/O and Message handling interface
 **
-** By default, Tidy will define, create and use 
-** tdocances of input and output handlers for 
+** By default, Tidy will define, create and use
+** tdoc instances of input and output handlers for
 ** standard C buffered I/O (i.e. FILE* stdin,
 ** FILE* stdout and FILE* stderr for content
 ** input, content output and diagnostic output,
@@ -639,7 +682,7 @@ Bool TIDY_CALL tidyOptCopyConfig( TidyDoc to, TidyDoc from )
 */
 
 /* Use TidyReportFilter to filter messages by diagnostic level:
-** info, warning, etc.  Just set diagnostic output 
+** info, warning, etc.  Just set diagnostic output
 ** handler to redirect all diagnostics output.  Return true
 ** to proceed with output, false to cancel.
 */
@@ -798,7 +841,7 @@ uint TIDY_CALL       tidyConfigErrorCount( TidyDoc tdoc )
 }
 
 
-/* Error reporting functions 
+/* Error reporting functions
 */
 void TIDY_CALL         tidyErrorSummary( TidyDoc tdoc )
 {
@@ -974,7 +1017,7 @@ int         tidyDocSaveFile( TidyDocImpl* doc, ctmbstr filnam )
     if ( doc->errors > 0 &&
          cfgBool(doc, TidyWriteBack) && !cfgBool(doc, TidyForceOutput) )
         status = tidyDocStatus( doc );
-    else 
+    else
         fout = fopen( filnam, "wb" );
 
     if ( fout )
@@ -1008,7 +1051,7 @@ int         tidyDocSaveFile( TidyDocImpl* doc, ctmbstr filnam )
 ** The code has been left in in case it works w/ other compilers
 ** or operating systems.  If stdout is in Text mode, be aware that
 ** it will garble UTF16 documents.  In text mode, when it encounters
-** a single byte of value 10 (0xA), it will insert a single byte 
+** a single byte of value 10 (0xA), it will insert a single byte
 ** value 13 (0xD) just before it.  This has the effect of garbling
 ** the entire document.
 */
@@ -1073,17 +1116,20 @@ int         tidyDocSaveString( TidyDocImpl* doc, tmbstr buffer, uint* buflen )
     TidyBuffer outbuf;
     StreamOut* out;
     int status;
-    
+
     tidyBufInitWithAllocator( &outbuf, doc->allocator );
     out = TY_(BufferOutput)( doc, &outbuf, outenc, nl );
     status = tidyDocSaveStream( doc, out );
 
-    if ( outbuf.size > *buflen )
+    if ( outbuf.size + 1 > *buflen ) /* #2893644 */
         status = -ENOMEM;
     else
+	{
         memcpy( buffer, outbuf.bp, outbuf.size );
+		buffer[outbuf.size] = 0; /* #2893644 */
+	}
 
-    *buflen = outbuf.size;
+    *buflen = outbuf.size + 1; /* #2893644 */
     tidyBufFree( &outbuf );
     TidyDocFree( doc, out );
     return status;
@@ -1097,7 +1143,7 @@ int         tidyDocSaveBuffer( TidyDocImpl* doc, TidyBuffer* outbuf )
         uint outenc = cfg( doc, TidyOutCharEncoding );
         uint nl = cfg( doc, TidyNewline );
         StreamOut* out = TY_(BufferOutput)( doc, outbuf, outenc, nl );
-    
+
         status = tidyDocSaveStream( doc, out );
         TidyDocFree( doc, out );
     }
@@ -1144,7 +1190,7 @@ int TIDY_CALL        tidyRunDiagnostics( TidyDoc tdoc )
 
 /* Workhorse functions.
 **
-** Parse requires input source, all input config items 
+** Parse requires input source, all input config items
 ** and diagnostic sink to have all been set before calling.
 **
 ** Emit likewise requires that document sink and all
@@ -1152,10 +1198,16 @@ int TIDY_CALL        tidyRunDiagnostics( TidyDoc tdoc )
 */
 static ctmbstr integrity = "\nPanic - tree has lost its integrity\n";
 
+#define CHARENC_PREFETCH_BUFSIZE   (1024)  /* keep a little spare beyond the required 512 bytes */
+
 int         TY_(DocParseStream)( TidyDocImpl* doc, StreamIn* in )
 {
     Bool xmlIn = cfgBool( doc, TidyXmlTags );
     int bomEnc;
+	byte charenc_prefetch_buf[CHARENC_PREFETCH_BUFSIZE];
+	uint raw_count_read;
+	int rounds;
+	size_t orig_startpos;
 
     assert( doc != NULL && in != NULL );
     assert( doc->docIn == NULL );
@@ -1177,15 +1229,52 @@ int         TY_(DocParseStream)( TidyDocImpl* doc, StreamIn* in )
     /* doc->lexer->root = &doc->root; */
     doc->root.line = doc->lexer->lines;
     doc->root.column = doc->lexer->columns;
-    doc->inputHadBOM = no;
+	doc->inputHadBOM = no;
 
-    bomEnc = TY_(ReadBOMEncoding)(in);
+	/*
+	now do something sneaky: fetch a little over 512 RAW bytes
+	(W3C says the <meta charset='xyz'> tag should reside in
+	the first 512 bytes) and store those; when a charset <meta>
+	is found and the lexer rewound (LEX_REWIND state), those
+	bytes can again be pushed back into the stream so we didn't
+	lose the RAW input -- we cannot use the InStream regular
+	Unget feature as that one stores /decoded/ characters and
+	we rewind RAW because the character encoding system used up
+	to then was incorrect.
 
-    if (bomEnc != -1)
-    {
-        in->encoding = bomEnc;
-        TY_(SetOptionInt)(doc, TidyInCharEncoding, bomEnc);
-    }
+	Note: this implies that the <meta> character encoding
+	      processing code checks that the <meta> was not found
+		  beyond this initial RAW range, or we will loose
+		  input bytes on the second round!
+    */
+	orig_startpos = tidyTell(&doc->docIn->source); /* for assert() only */
+	raw_count_read = TY_(ReadRawBytesFromStream)(doc->docIn, charenc_prefetch_buf, (uint)sizeof(charenc_prefetch_buf));
+	doc->lexer->buf_prefetch_size = tidyTell(&doc->docIn->source); /* see comment below at LEX_REWIND handling */
+	/* immediately push back those bytes: they need to be parsed! */
+	TY_(UngetRawBytesToStream)(doc->docIn, charenc_prefetch_buf, raw_count_read);
+
+	/*
+	as this can unget some bytes in particular conditions,
+	do it after we pushed our bulk so that our 'lexer->buf_prefetch_size'
+	number stays reliable whatever happens here.
+	*/
+	bomEnc = TY_(ReadBOMEncoding)(doc->docIn);
+
+	if (bomEnc != -1)
+	{
+		in->encoding = bomEnc;
+		TY_(SetOptionInt)(doc, TidyInCharEncoding, bomEnc);
+	}
+
+	/* limit the number of reruns to prevent bugs in the parser to lock up CPU */
+	for (rounds = 5; rounds > 0; rounds--)
+	{
+		/* TODO   snapshot lexer + doc */
+		Lexer lexerSnapshot = *doc->lexer;
+		TidyDocImpl docSnapshot = *doc;
+		StreamIn inputSnapshot = *doc->docIn;
+
+
 
 #ifdef TIDY_WIN32_MLANG_SUPPORT
     if (in->encoding > WIN32MLANG)
@@ -1211,6 +1300,134 @@ int         TY_(DocParseStream)( TidyDocImpl* doc, StreamIn* in )
     TY_(Win32MLangUninitInputTranscoder)(in);
 #endif /* TIDY_WIN32_MLANG_SUPPORT */
 
+		if (doc->lexer->state == LEX_REWIND)
+		{
+			int inenc;
+			int outenc;
+			int encoding;
+			size_t dist;
+			size_t prefetch_len = doc->lexer->buf_prefetch_size;
+
+			/*
+			check whether we're still sitting within the unget buffer.
+
+			We grabbed more than the W3C required 512 bytes to begin with,
+			so our grab should leave some room to spare for well-formed docs.
+
+			So we check how much bytes of the previous TY_(UngetRawBytesToStream)()
+			invocation above are still in there. And then we rewind to the full
+			size again, thus ending up right smack where we started on our first
+			tour. :-)
+			*/
+			dist = tidyTell(&doc->docIn->source);
+			if (dist > prefetch_len)
+			{
+				TY_(ReportFatal)( doc, NULL, NULL, REWIND_IMPOSSIBLE );
+				break;
+			}
+
+			/* reset states; keep encoding settings though */
+			assert(doc->docIn->encoding == (int)cfg(doc, TidyInCharEncoding));
+			inenc = cfg(doc, TidyInCharEncoding);
+			outenc = cfg(doc, TidyOutCharEncoding);
+			encoding = cfg(doc, TidyCharEncoding);
+
+			TY_(ResetConfigToSnapshot)(doc);
+			TY_(FreeLexer)( doc );
+			TY_(FreeAnchors)( doc );
+
+			TY_(FreeNode)(doc, &doc->root);
+			TidyClearMemory(&doc->root, sizeof(Node));
+
+			if (doc->givenDoctype)
+				TidyDocFree(doc, doc->givenDoctype);
+			doc->givenDoctype = NULL;
+
+			doc->lexer = TY_(NewLexer)( doc );
+			doc->root.line = doc->lexer->lines = lexerSnapshot.lines;
+			doc->root.column = doc->lexer->columns = lexerSnapshot.columns;
+			/* doc->inputHadBOM = no; */
+
+			docSnapshot.root.line = doc->root.line;
+			docSnapshot.root.column = doc->root.column;
+
+			docSnapshot.givenDoctype = doc->givenDoctype;
+			docSnapshot.lexer = doc->lexer;
+			docSnapshot.attribs = doc->attribs;
+			docSnapshot.config = doc->config;
+			*doc = docSnapshot;
+
+			doc->lexer->buf_prefetch_size = prefetch_len; /* make sure we always remember this value! */
+
+			/* now reset the InStream too! */
+			assert(in == doc->docIn);
+
+			inputSnapshot.charbuf = doc->docIn->charbuf;
+			inputSnapshot.bufpos = 0;
+			inputSnapshot.bufsize = doc->docIn->bufsize;
+			inputSnapshot.pushed = no; /* discard ALL pushed encoded characters */
+
+#ifdef TIDY_STORE_ORIGINAL_TEXT
+			if (doc->docIn->otextbuf != NULL)
+			{
+				TidyDocFree(doc, doc->docIn->otextbuf);
+			}
+			inputSnapshot.otextbuf = NULL;
+			inputSnapshot.otextlen = 0;
+			inputSnapshot.otextsize = 0;
+#endif
+			*doc->docIn = inputSnapshot;
+
+			/*
+			after resetting the InStream, push back the original RAW data for refetch from source.
+
+			All we have to do is unget the last N bytes of data we grabbed before we started
+			this show. That should park us right at the start of the input again, ready
+			for another go.
+
+			(Of course, one caveat remains: Win32 processing > 4GB inputs through memory mapped I/O:
+			their tidyTell() method clips at maxvalue(size_t)! So we can detect that
+			occasion too and barf a hairball.)
+			*/
+			if (dist == ~((size_t)0))
+			{
+				TY_(ReportFatal)( doc, NULL, NULL, REWIND_IMPOSSIBLE );
+				break;
+			}
+			TY_(UngetRawBytesToStream)(doc->docIn, charenc_prefetch_buf, dist);
+			assert(tidyTell(&doc->docIn->source) == orig_startpos);
+			/* and fill it up again! */
+
+
+			/* and redo the BOM read, but now while minding our possible override. */
+			bomEnc = TY_(ReadBOMEncoding)(doc->docIn);
+#if 0
+			if (bomEnc != -1)
+			{
+				doc->docIn->encoding = bomEnc;
+				TY_(SetOptionInt)(doc, TidyInCharEncoding, bomEnc);
+			}
+#endif
+
+			/* now set the encoding as we set it up after we parsed that <meta> tag */
+			TY_(SetOptionInt)( doc, TidyCharEncoding, encoding );
+			TY_(SetOptionInt)( doc, TidyInCharEncoding, inenc );
+			TY_(SetOptionInt)( doc, TidyOutCharEncoding, outenc );
+			doc->docIn->encoding = inenc;
+		}
+		else
+		{
+			/* no need for a rerun */
+			break;
+		}
+	}
+
+	if (rounds <= 0)
+	{
+		/* that didn't go well; warn about internal errors! */
+		TY_(ReportFatal)( doc, NULL, NULL, REWIND_IMPOSSIBLE /* should be 'INTERNAL_CHARENC_ERROR' */);
+	}
+
     doc->docIn = NULL;
     return tidyDocStatus( doc );
 }
@@ -1226,7 +1443,7 @@ int         tidyDocRunDiagnostics( TidyDocImpl* doc )
         TY_(ReportMarkupVersion)( doc );
         TY_(ReportNumWarnings)( doc );
     }
-    
+
     if ( doc->errors > 0 && !force )
         TY_(NeedsAuthorIntervention)( doc );
 
@@ -1244,6 +1461,7 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
     Bool xhtmlOut = cfgBool( doc, TidyXhtmlOut );
     Bool xmlDecl  = cfgBool( doc, TidyXmlDecl );
     Bool tidyMark = cfgBool( doc, TidyMark );
+    Bool tidyTitle = cfgBool( doc, TidyTitle );  /* [i_a] */
     Bool tidyXmlTags = cfgBool( doc, TidyXmlTags );
     Bool wantNameAttr = cfgBool( doc, TidyAnchorAsName );
     Node* node;
@@ -1280,9 +1498,12 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
     /*!  Do we want to do this for all block-level elements?  */
 
     /* This is disabled due to http://tidy.sf.net/bug/681116 */
-#if 0
-    FixBrakes( doc, TY_(FindBody)( doc ));
-#endif
+	if ( cfgBool( doc, TidyFixBrakes ) )
+	{
+/* #if 0 */
+	    TY_(FixBrakes)( doc, TY_(FindBody)( doc ));
+/* #endif */
+	}
 
     /*  Reconcile http-equiv meta element with output encoding  */
     if (cfg( doc, TidyOutCharEncoding) != RAW
@@ -1334,8 +1555,15 @@ int         tidyDocCleanAndRepair( TidyDocImpl* doc )
             TY_(FixLanguageInformation)(doc, &doc->root, no, yes);
         }
 
-        if (tidyMark )
+        if (tidyTitle)  /* [i_a] */
+		{
+            TY_(FixTitle)(doc);
+		}
+
+        if (tidyMark)
+		{
             TY_(AddGenerator)(doc);
+		}
     }
 
     /* ensure presence of initial <?xml version="1.0"?> */
@@ -1427,11 +1655,11 @@ int         tidyDocSaveStream( TidyDocImpl* doc, StreamOut* out )
 
         doc->docOut = out;
         if ( xmlOut && !xhtmlOut )
-            TY_(PPrintXMLTree)( doc, NORMAL, 0, &doc->root );
+            TY_(PPrintXMLTree)( doc, TidyTextFormat_Normal, 0, &doc->root );
         else if ( showBodyOnly( doc, bodyOnly ) )
             TY_(PrintBody)( doc );
         else
-            TY_(PPrintTree)( doc, NORMAL, 0, &doc->root );
+            TY_(PPrintTree)( doc, TidyTextFormat_Normal, 0, &doc->root );
 
         TY_(PFlushLine)( doc, 0 );
         doc->docOut = NULL;
@@ -1445,8 +1673,8 @@ int         tidyDocSaveStream( TidyDocImpl* doc, StreamOut* out )
 **
 ** The big issue here is the degree to which we should mimic
 ** a DOM and/or SAX nodes.
-** 
-** Is it 100% possible (and, if so, how difficult is it) to 
+**
+** Is it 100% possible (and, if so, how difficult is it) to
 ** emit SAX events from this API?  If SAX events are possible,
 ** is that 100% of data needed to build a DOM?
 */
@@ -1557,7 +1785,32 @@ Bool TIDY_CALL  tidyNodeHasText( TidyDoc tdoc, TidyNode tnod )
 }
 
 
-Bool TIDY_CALL  tidyNodeGetText( TidyDoc tdoc, TidyNode tnod, TidyBuffer* outbuf )
+Bool TIDY_CALL tidyNodeGetText( TidyDoc tdoc, TidyNode tnod, TidyBuffer* outbuf )
+{
+	return tidyNodeGetFormattedText(tdoc, tnod, TidyTextFormat_Normal, 0, outbuf); /* [i_a] */
+}
+
+Bool TIDY_CALL tidyNodeGetRawText( TidyDoc tdoc, TidyNode tnod, TidyTextFormat mode, int indent, TidyBuffer* outbuf ) /* [i_a] */
+{
+	Bool ret;
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+	Node* nimp = tidyNodeToImpl( tnod );
+    Node* alt_node = TY_(CloneNode)( doc, nimp );
+	alt_node->start = nimp->start;
+	alt_node->end = nimp->end;
+	alt_node->line = nimp->line;
+	alt_node->column = nimp->column;
+	alt_node->linebreak = nimp->linebreak;
+	alt_node->type = TextNode;
+
+	ret = tidyNodeGetFormattedText( tdoc, tidyImplToNode(alt_node), mode, indent, outbuf );
+
+	TY_(FreeNode)( doc, alt_node );
+
+	return ret;
+}
+
+Bool TIDY_CALL tidyNodeGetFormattedText( TidyDoc tdoc, TidyNode tnod, TidyTextFormat mode, int indent, TidyBuffer* outbuf ) /* [i_a] */
 {
   TidyDocImpl* doc = tidyDocToImpl( tdoc );
   Node* nimp = tidyNodeToImpl( tnod );
@@ -1571,13 +1824,13 @@ Bool TIDY_CALL  tidyNodeGetText( TidyDoc tdoc, TidyNode tnod, TidyBuffer* outbuf
 
       doc->docOut = out;
       if ( xmlOut && !xhtmlOut )
-          TY_(PPrintXMLTree)( doc, NORMAL, 0, nimp );
+          TY_(PPrintXMLTree)( doc, (int)mode, indent, nimp ); /* [i_a] */
       else
-          TY_(PPrintTree)( doc, NORMAL, 0, nimp );
+          TY_(PPrintTree)( doc, (int)mode, indent, nimp ); /* [i_a] */
 
       TY_(PFlushLine)( doc, 0 );
       doc->docOut = NULL;
-  
+
       TidyDocFree( doc, out );
       return yes;
   }
@@ -1643,7 +1896,7 @@ Bool TIDY_CALL tidyNodeIsProp( TidyDoc ARG_UNUSED(tdoc), TidyNode tnod )
     case EndTag:
     case StartEndTag:
         isProprietary = ( nimp->tag
-                          ? (nimp->tag->versions&VERS_PROPRIETARY)!=0
+                          ? (nimp->tag->versions & VERS_PROPRIETARY) != 0
                           : yes );
         break;
     }
@@ -1655,11 +1908,7 @@ TidyTagId TIDY_CALL tidyNodeGetId(TidyNode tnod)
 {
     Node* nimp = tidyNodeToImpl(tnod);
 
-    TidyTagId tagId = TidyTag_UNKNOWN;
-    if (nimp && nimp->tag)
-        tagId = nimp->tag->id;
-
-    return tagId;
+    return TagId(nimp); /* [i_a] code replaced by previously already existing macro which was meant for this */
 }
 
 
@@ -1735,11 +1984,112 @@ Bool TIDY_CALL tidyAttrIsProp( TidyAttr tattr )
   AttVal* attval = tidyAttrToImpl( tattr );
   Bool isProprietary = yes;
   if ( attval )
-    isProprietary = ( attval->dict 
+    isProprietary = ( attval->dict
                       ? (attval->dict->versions & VERS_PROPRIETARY) != 0
                       : yes );
   return isProprietary;
 }
+
+
+
+
+
+
+
+/* [i_a] TODO: html2db patch; complete/clean it for Win32 build of html2db! */
+Bool TIDY_CALL tidyDescendantOf( TidyNode tnod, TidyTagId tid )
+{
+  Node* node = tidyNodeToImpl( tnod );
+  if ( node )
+	return TY_(DescendantOf)( node, tid );
+  return no;
+}
+
+Bool TIDY_CALL tidyShouldIndent( TidyDoc tdoc, TidyNode tnod )
+{
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+  Node* node = tidyNodeToImpl( tnod );
+  if ( doc && node )
+	return TY_(ShouldIndent)( doc, node );
+  return no;
+}
+
+void TIDY_CALL tidyPCondFlushLine( TidyDoc tdoc, uint indent )
+{
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+  if ( doc )
+	TY_(PCondFlushLine)( doc, indent );
+}
+
+void TIDY_CALL tidyPPrintChar( TidyDoc tdoc, uint c, uint mode )
+{
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+  if ( doc )
+	TY_(PPrintChar)( doc, c, mode );
+}
+
+void TIDY_CALL tidyPPrintText( TidyDoc tdoc, uint mode, uint indent, TidyNode tnod )
+{
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+  Node* node = tidyNodeToImpl( tnod );
+  if ( doc && node )
+	TY_(PPrintText)( doc, mode, indent, node );
+}
+
+void TIDY_CALL tidyPPrintString( TidyDoc tdoc, uint indent, ctmbstr str )
+{
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+  if ( doc )
+	TY_(PPrintString)( doc, indent, str );
+}
+
+void TIDY_CALL tidyPPrintComment( TidyDoc tdoc, uint indent, TidyNode tnod )
+{
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+  Node* node = tidyNodeToImpl( tnod );
+  if ( doc && node )
+	TY_(PPrintComment)( doc, indent, node );
+}
+
+void TIDY_CALL tidyPPrintPI( TidyDoc tdoc, uint indent, TidyNode tnod )
+{
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+  Node* node = tidyNodeToImpl( tnod );
+  if ( doc && node )
+	TY_(PPrintPI)( doc, indent, node );
+}
+
+void TIDY_CALL tidyPPrintXmlDecl( TidyDoc tdoc, uint indent, TidyNode tnod )
+{
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+  Node* node = tidyNodeToImpl( tnod );
+  if ( doc && node )
+	TY_(PPrintXmlDecl)( doc, indent, node );
+}
+
+void TIDY_CALL tidyPPrintCDATA( TidyDoc tdoc, uint indent, TidyNode tnod )
+{
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+  Node* node = tidyNodeToImpl( tnod );
+  if ( doc && node )
+	TY_(PPrintCDATA)( doc, indent, node );
+}
+
+void TIDY_CALL tidyPPrintSection( TidyDoc tdoc, uint indent, TidyNode tnod )
+{
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+  Node* node = tidyNodeToImpl( tnod );
+  if ( doc && node )
+	TY_(PPrintSection)( doc, indent, node );
+}
+
+void TIDY_CALL tidyPFlushLine( TidyDoc tdoc, uint indent )
+{
+	TidyDocImpl* doc = tidyDocToImpl( tdoc );
+  if ( doc )
+	TY_(PFlushLine)( doc, indent );
+}
+
 
 /*
  * local variables:

@@ -2,14 +2,14 @@
 #define __LEXER_H__
 
 /* lexer.h -- Lexer for html parser
-  
+
    (c) 1998-2008 (W3C) MIT, ERCIM, Keio University
    See tidy.h for the copyright notice.
-  
+
    CVS Info:
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
 */
 
@@ -88,12 +88,14 @@ typedef enum
   LEX_COMMENT,
   LEX_DOCTYPE,
   LEX_PROCINSTR,
+  /* LEX_ENDCOMMENT, */
   LEX_CDATA,
   LEX_SECTION,
   LEX_ASP,
   LEX_JSTE,
   LEX_PHP,
-  LEX_XMLDECL
+  LEX_XMLDECL,
+  LEX_REWIND /* special: signal rewind of the entire parse phase */
 } LexerState;
 
 /* ParseDocTypeDecl state constants */
@@ -149,16 +151,21 @@ typedef enum
 #define CM_IMG          (1 << 16)
 /* Elements with inline and block model. Used to avoid calling InlineDup. */
 #define CM_MIXED        (1 << 17)
-/* Elements whose content needs to be indented only if containing one 
+/* Elements whose content needs to be indented only if containing one
    CM_BLOCK element. */
 #define CM_NO_INDENT    (1 << 18)
 /* Elements that are obsolete (such as "dir", "menu"). */
 #define CM_OBSOLETE     (1 << 19)
-/* User defined elements. Used to determine how attributes wihout value
+/* User defined elements. Used to determine how attributes without value
    should be printed. */
 #define CM_NEW          (1 << 20)
 /* Elements that cannot be omitted. */
 #define CM_OMITST       (1 << 21)
+/* HTML 'namespace' switching tags, such as HTML5 <svg>: the tags within
+   such a section are completely different from the regular tags and are
+   treated as arbitrary XML tags (unless we introduce schema-type
+   syntax validation support for those ;-) ) */ /* [i_a] */
+#define CM_ALT_NS       (1 << 22)
 
 /* If the document uses just HTML 2.0 tags and attributes described
 ** it as HTML 2.0 Similarly for HTML 3.2 and the 3 flavors of HTML 4.0.
@@ -218,6 +225,9 @@ typedef enum
 
 /* all proprietary types */
 #define VERS_PROPRIETARY   (VERS_NETSCAPE|VERS_MICROSOFT|VERS_SUN)
+
+/* all versions which allow inline SVG -- officially it's only HTML5/XHTML5, btw */
+#define VERS_INLINE_SVG    (VERS_FROM40|VERS_XML)
 
 /* Linked list of class names and styles
 */
@@ -316,6 +326,7 @@ struct _Node
     Bool        closed;         /* true if closed by explicit end tag */
     Bool        implicit;       /* true if inferred */
     Bool        linebreak;      /* true if followed by a line break */
+	Bool        moved;          /* true if moved from other position in the tree */
 
 #ifdef TIDY_STORE_ORIGINAL_TEXT
     tmbstr      otext;
@@ -324,7 +335,7 @@ struct _Node
 
 
 /*
-  The following are private to the lexer
+  The following are private to the lexer.
   Use NewLexer() to create a lexer, and
   FreeLexer() to free it.
 */
@@ -343,9 +354,15 @@ struct _Lexer
     uint errors;            /* count of errors */
 #endif
 
+	size_t buf_prefetch_size; /* amount of bytes prefetched to assist <meta charset> encoding */
+
     uint lines;             /* lines seen */
     uint columns;           /* at start of current token */
     Bool waswhite;          /* used to collapse contiguous white space */
+	uint activeQuoteChar;   /* track the string/quote character (0 = none) to help skip string content */
+	enum CommentStyle {
+		COMMENT_NONE = 0, COMMENT_C, COMMENT_SINGLE_LINE
+	} activeCommentStyle;   /* track code comments (0 = none) to help skip active content */
     Bool pushed;            /* true after token has been pushed back */
     Bool insertspace;       /* when space is moved after end tag */
     Bool excludeBlocks;     /* Netscape compatibility */
@@ -363,7 +380,7 @@ struct _Lexer
     Node* itoken;           /* last duplicate inline returned by GetToken() */
     Node* root;             /* remember root node of the document */
     Node* parent;           /* remember parent node for CDATA elements */
-    
+
     Bool seenEndBody;       /* true if a </body> tag has been encountered */
     Bool seenEndHtml;       /* true if a </html> tag has been encountered */
 
@@ -394,7 +411,7 @@ struct _Lexer
 
 #if 0
     TidyDocImpl* doc;       /* Pointer back to doc for error reporting */
-#endif 
+#endif
 };
 
 
@@ -519,6 +536,7 @@ void TY_(UngetToken)( TidyDocImpl* doc );
   MixedContent   -- for elements which don't accept PCDATA
   Preformatted   -- white space preserved as is
   IgnoreMarkup   -- for CDATA elements such as script, style
+  OtherNamespace -- for XML-formatted subtrees where whitespace will be preserved
 */
 typedef enum
 {
@@ -526,6 +544,7 @@ typedef enum
   MixedContent,
   Preformatted,
   IgnoreMarkup,
+  OtherNamespace,
   CdataContent
 } GetTokenMode;
 

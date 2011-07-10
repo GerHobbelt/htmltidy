@@ -16,7 +16,7 @@ REM    $Revision$
 @REM USER VARIABLES
 @REM ##############
 @REM set executable to be used
-@set TIDY=..\build\msvc\Release\tidy.exe
+@set TIDY=..\bin\tidy.exe
 @REM set INPUT folder
 @set TIDYINPUT=accessTest
 @REM set OUTPUT folder

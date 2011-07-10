@@ -24,7 +24,7 @@ set +f
 
 TESTNO=$1
 EXPECTED=$2
-TIDY=../bin/tidy
+TIDY=../console/tidy
 INFILES=./input/in_${TESTNO}.*ml
 CFGFILE=./input/cfg_${TESTNO}.txt
 

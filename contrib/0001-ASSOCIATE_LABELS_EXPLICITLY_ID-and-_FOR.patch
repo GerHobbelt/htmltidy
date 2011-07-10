@@ -1,0 +1,105 @@
+diff --git a/src/access.c b/src/access.c
+index 8d0da96..81dbddb 100644
+--- a/src/access.c
++++ b/src/access.c
+@@ -1950,35 +1950,6 @@ static void CheckASCII( TidyDocImpl* doc, Node* node )
+ }
+ 
+ 
+-/***********************************************************
+-* CheckFormControls
+-*
+-* <form> must have valid 'FOR' attribute, and <label> must
+-* have valid 'ID' attribute for valid form control.
+-***********************************************************/
+-
+-static void CheckFormControls( TidyDocImpl* doc, Node* node )
+-{
+-    if ( !doc->access.HasValidFor &&
+-         doc->access.HasValidId )
+-    {
+-        TY_(ReportAccessError)( doc, node, ASSOCIATE_LABELS_EXPLICITLY_FOR);
+-    }    
+-
+-    if ( !doc->access.HasValidId &&
+-         doc->access.HasValidFor )
+-    {
+-        TY_(ReportAccessError)( doc, node, ASSOCIATE_LABELS_EXPLICITLY_ID);
+-    }
+-
+-    if ( !doc->access.HasValidId &&
+-         !doc->access.HasValidFor )
+-    {
+-        TY_(ReportAccessError)( doc, node, ASSOCIATE_LABELS_EXPLICITLY);
+-    }
+-}
+-
+-
+ /************************************************************
+ * CheckLabel
+ *
+@@ -1988,21 +1959,15 @@ static void CheckFormControls( TidyDocImpl* doc, Node* node )
+ static void CheckLabel( TidyDocImpl* doc, Node* node )
+ {
+     if (Level2_Enabled( doc ))
+-    {    
++    {
+         /* Checks for valid 'FOR' attribute */
+         AttVal* av = attrGetFOR( node );
+-        if ( hasValue(av) )
+-            doc->access.HasValidFor = yes;
+-
+-        if ( ++doc->access.ForID == 2 )
+-        {
+-            doc->access.ForID = 0;
+-            CheckFormControls( doc, node );
++        if ( !hasValue(av) ) {
++            TY_(ReportAccessError)( doc, node, ASSOCIATE_LABELS_EXPLICITLY_FOR);
+         }
+     }
+ }
+ 
+-
+ /************************************************************
+ * CheckInputLabel
+ * 
+@@ -2016,20 +1981,12 @@ static void CheckInputLabel( TidyDocImpl* doc, Node* node )
+ {
+     if (Level2_Enabled( doc ))
+     {
+-        AttVal* av;
+ 
+         /* Checks attributes within the INPUT element */
+-        for (av = node->attributes; av != NULL; av = av->next)
+-        {
+-            /* Must have valid 'ID' value */
+-            if ( attrIsID(av) && hasValue(av) )
+-                doc->access.HasValidId = yes;
+-        }
+-
+-        if ( ++doc->access.ForID == 2 )
+-        {
+-            doc->access.ForID = 0;
+-            CheckFormControls( doc, node );
++        AttVal * av = attrGetID( node );
++        /* Must have valid 'ID' value */
++        if ( !hasValue(av) ) {
++            TY_(ReportAccessError)( doc, node, ASSOCIATE_LABELS_EXPLICITLY_ID);
+         }
+     }
+ }
+diff --git a/src/access.h b/src/access.h
+index b94cbae..cf6f318 100644
+--- a/src/access.h
++++ b/src/access.h
+@@ -97,8 +97,6 @@ struct _TidyAccessImpl
+     /* Node *access_tree; */
+ 
+     Bool HasTH;
+-    Bool HasValidFor;
+-    Bool HasValidId;
+     Bool HasValidRowHeaders;
+     Bool HasValidColumnHeaders;
+     Bool HasInvalidRowHeader;
+
+ 	  	 

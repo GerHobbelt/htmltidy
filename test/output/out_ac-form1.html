@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>AC Easy Form XSLT GUI</title>
+<meta name="generator" content=
+"HTML Tidy for Windows (vers 14 February 2006), see www.w3.org" />
+<meta name="GENERATOR" content=
+"Microsoft Visual Studio .NET 7.1" />
+<meta name="CODE_LANGUAGE" content="C#" />
+<meta name="vs_defaultClientScript" content="JavaScript" />
+<meta name="vs_targetSchema" content=
+"http://schemas.microsoft.com/intellisense/ie5" />
+<link href="voorste.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<h1>AC : Postcode Availability Check - XSL/HTML GUI</h1>
+<form id="Form1" method="get" action=
+"../CheckPostcodePEchecker.aspx" name="Form1">
+<table>
+<tbody>
+<tr>
+<td class="noborder">Postcode <span class="red">*</span></td>
+<td class="noborder">Housenumber <span class="red">*</span></td>
+<td class="noborder">Suffix</td>
+</tr>
+<tr>
+<td class="noborder"><input name="postcode" type="text" /></td>
+<td class="noborder"><input name="housenr" type="text" /></td>
+<td class="noborder"><input name="suf" type="text" /></td>
+</tr>
+<tr>
+<td class="MediumPrint" colspan="3">
+<h3>ProductCode Quick Select</h3>
+</td>
+</tr>
+<tr>
+<td class="noborder" colspan="3">
+<p>Select a predefined set of product codes here:</p>
+<select id="PRODUCTCODES_PNNN" title="Select a product set:" name=
+"ProductCodes_PNNN">
+<option selected="selected"># no product quick selection = I wish
+to see all available products! #</option>
+<option>#: Zon ADSL/ADSL2+ : P800,P900</option>
+<option>#: Extended E1 / Ethernet : P616,P634,P608</option>
+<option>#: Consumer : P630,P657,P757,P623</option>
+<option>#: we can add additional quick selects if the list of
+requested Pcodes is known/fixed :</option>
+</select>
+<hr />
+<p>... or specify the product codes you are interested in
+below:</p>
+</td>
+</tr>
+<tr>
+<td class="MediumPrint" colspan="3">ProductCodes [Pnnn/PnnnA string
+format] (comma separated)</td>
+</tr>
+<tr>
+<td colspan="3"><input id="prodids" name="prodids" class=
+"text wide-text-xl" title="XML field: &lt;Productcodes_PnnnA&gt;"
+type="text" />
+<p class="FinePrint">example: 'P622,P630F,P668,P800H,P800J'</p>
+</td>
+</tr>
+<tr>
+<td class="MediumPrint" colspan="3">SpeedIDs [numeric format]
+(comma separated)</td>
+</tr>
+<tr>
+<td colspan="3"><input id="speeds" name="speeds" class=
+"text wide-text-xl" title="XML field: &lt;AcceptedSpeedID_list&gt;"
+type="text" />
+<p class="FinePrint">example: '44,2,5,8,10,13,16,47,127'</p>
+</td>
+</tr>
+<tr>
+<td class="noborder" colspan="3">Select your issuer:</td>
+</tr>
+<tr>
+<td class="noborder" colspan="3"><select id="issuer" title=
+"Select the issuer:" name="issuer">
+<option selected="selected">ACmaintenance</option>
+<option>AdminInterface</option>
+<option>BatchChecker</option>
+<option>BrobaIspAddrCompletion</option>
+<option>BrobaIspWebIXI</option>
+<option>BrobaIspWebZipcodeCheck</option>
+<option>ClarifyEOrder</option>
+<option>IpVpn</option>
+<option>IspWebIXI</option>
+<option>IspWebZipcodeCheck</option>
+<option>IspWebZipcodeCheck4Products</option>
+<option>NS_Spec</option>
+<option>RetailWeb</option>
+<option>Unknown</option>
+<option>VersaFlow</option>
+<option>PEchecker</option>
+<option>WoeManualOrdering</option>
+<option>ZonWebIXI</option>
+<option>ZonWebZipcodeCheck</option>
+<option>ZonWoeManualOrdering</option>
+</select></td>
+</tr>
+</tbody>
+</table>
+<!-- <input type="hidden" id="diag_show_JTAG" type="text" name="diag_show_JTAG" value="AC_InputAsXML | AC_PE_Checking | AC_Database" /> -->
+<input id="diag_client_stylesheet" name="diag_client_stylesheet"
+value="./Styles/pechecker-quickview.xslt" type=
+"hidden" /><input id="command" name="command" value="PreQualify"
+type="hidden" /><input id="subcommand" name="subcommand" value=
+"Unknown" type="hidden" />
+<p><input value="Check" class="button wide-button-xxl" type=
+"submit" /></p>
+<p><span class="red">*</span>) Mandatory fields</p>
+<p>All other fields are optional (i.e. may be left empty)</p>
+<p><a name="interface_documentation" id=
+"interface_documentation">Note: interface documentation</a> is
+available at these links:</p>
+<ul>
+<li>
+<p><a href=
+"http://services.versatel.com/postcodecheck/Documentation/AC-WebUserDoc.html">
+AC-WebUserDoc.html</a></p>
+</li>
+<li>
+<p><a href=
+"http://services.versatel.com/postcodecheck/Documentation/AC-ProductCheckWebUserDoc.html">
+AC-ProductCheckWebUserDoc.html</a></p>
+</li>
+</ul>
+</form>
+</body>
+</html>

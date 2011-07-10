@@ -8,12 +8,12 @@
 
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
   Wrapper around Tidy input source and output sink
-  that calls appropriate interfaces, and applies 
+  that calls appropriate interfaces, and applies
   necessary char encoding transformations: to/from
   ISO-10646 and/or UTF-8.
 
@@ -76,8 +76,8 @@ struct _StreamIn
     uint   bufsize;
     int    tabs;
     int    lastcols[LASTPOS_SIZE];
-    unsigned short curlastpos; /* current last position in lastcols */ 
-    unsigned short firstlastpos; /* first valid last position in lastcols */ 
+    unsigned short curlastpos; /* current last position in lastcols */
+    unsigned short firstlastpos; /* first valid last position in lastcols */
     int    curcol;
     int    curline;
     int    encoding;
@@ -110,6 +110,14 @@ int       TY_(ReadBOMEncoding)(StreamIn *in);
 uint      TY_(ReadChar)( StreamIn* in );
 void      TY_(UngetChar)( uint c, StreamIn* in );
 Bool      TY_(IsEOF)( StreamIn* in );
+
+/*
+Read raw bytes from stream.
+
+Return the number of bytes read (when less than 'count', EOF has been reached).
+*/
+uint TY_(ReadRawBytesFromStream)( StreamIn *in, byte* buf, uint count );
+void TY_(UngetRawBytesToStream)( StreamIn *in, byte* buf, uint count );
 
 
 /************************
@@ -149,14 +157,19 @@ int TY_(GetCharEncodingFromOptName)(ctmbstr charenc);
 ** Misc
 ************************/
 
-/* character encodings
+/*
+character encodings
+
+N.B.: numbers MUST match with the entries in the charEncPicks[] array to work properly!
 */
 #define RAW         0
 #define ASCII       1
 #define LATIN0      2
 #define LATIN1      3
 #define UTF8        4
+#ifndef NO_NATIVE_ISO2022_SUPPORT
 #define ISO2022     5
+#endif
 #define MACROMAN    6
 #define WIN1252     7
 #define IBM858      8

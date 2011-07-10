@@ -5,9 +5,9 @@
 
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
   Default implementations of Tidy input sources
   and output sinks based on standard C FILE*.
@@ -24,6 +24,7 @@ typedef struct _fp_input_source
 {
     FILE*        fp;
     TidyBuffer   unget;
+	size_t       relpos; /* this is a /stream/ so position is relative, even when it may /look/ absolute */
 } FileSource;
 
 static int TIDY_CALL filesrc_getByte( void* sourceData )
@@ -34,6 +35,7 @@ static int TIDY_CALL filesrc_getByte( void* sourceData )
     bv = tidyBufPopByte( &fin->unget );
   else
     bv = fgetc( fin->fp );
+  fin->relpos++;
   return bv;
 }
 
@@ -50,6 +52,13 @@ static void TIDY_CALL filesrc_ungetByte( void* sourceData, byte bv )
 {
   FileSource* fin = (FileSource*) sourceData;
   tidyBufPutByte( &fin->unget, bv );
+  fin->relpos--;
+}
+
+static size_t TIDY_CALL filesrc_tell( void* sourceData )
+{
+	FileSource* fin = (FileSource*) sourceData;
+	return fin->relpos;
 }
 
 #if SUPPORT_POSIX_MAPPED_FILES
@@ -70,6 +79,7 @@ int TY_(initFileSource)( TidyAllocator *allocator, TidyInputSource* inp, FILE* f
   inp->getByte    = filesrc_getByte;
   inp->eof        = filesrc_eof;
   inp->ungetByte  = filesrc_ungetByte;
+  inp->tell		  = filesrc_tell;
   inp->sourceData = fin;
 
   return 0;

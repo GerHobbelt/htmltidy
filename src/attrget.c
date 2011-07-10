@@ -2,11 +2,11 @@
 
   (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
-  
+
   CVS Info:
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
 */
 
@@ -15,6 +15,11 @@
 #include "attrs.h"
 #include "tidy.h"
 
+TidyAttr TIDY_CALL tidyGetAttrByName( TidyNode tnod, ctmbstr attName ) /* [i_a] */
+{
+    Node* nimp = tidyNodeToImpl(tnod);
+    return tidyImplToAttr( TY_(GetAttrByName)( nimp, attName ) );
+}
 TidyAttr TIDY_CALL tidyAttrGetById( TidyNode tnod, TidyAttrId attId )
 {
     Node* nimp = tidyNodeToImpl(tnod);

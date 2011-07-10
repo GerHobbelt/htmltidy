@@ -1,0 +1,4 @@
+Running ACCESS TEST suite 
+Executable = ..\bin\tidy.exe 
+Input Folder = accessTest 
+Output Folder = tmp 

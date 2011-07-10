@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Canvas test</title>
+		<!--[if IE]><script src="excanvas.js"></script><![endif]-->
+		<script type="text/javascript">			
+			window.onload = function() {
+				var drawingCanvas = document.getElementById('myDrawing');
+				
+				// Check the element is in the DOM and the browser supports canvas
+				if(drawingCanvas && drawingCanvas.getContext) {
+					// Initaliase a 2-dimensional drawing context
+					var context = drawingCanvas.getContext('2d');
+					
+					//Rotate picture
+					context.rotate(0.05);
+	
+					//Create our gradient.
+					var gradient = context.createRadialGradient(90,63,30,90,63,90);
+					gradient.addColorStop(0, '#FF0000');
+					gradient.addColorStop(1, '#660000');					
+					
+					//Create a drop shadow
+					context.shadowOffsetX = 10;
+					context.shadowOffsetY = 10;
+					context.shadowBlur = 10;
+					context.shadowColor = "black";
+					
+					//Create a blank white box to apply the shadow.
+					//Safari 4 doesn't support shadows on objects with gradients
+					context.fillStyle = "#FFFFFF";
+					context.fillRect(15,0,160,140);
+					
+					//Turn off the shadow
+					context.shadowOffsetX = 0;
+					context.shadowOffsetY = 0;
+					context.shadowBlur = 0;
+					context.shadowColor = "transparent";					
+					
+					//Create radial gradient box for picture frame; 
+					context.fillStyle = gradient;
+					context.fillRect(15,0,160,140);
+					
+					//Load the image object in JS, then apply to canvas onload					
+					var myImage = new Image();
+					myImage.onload = function() {
+						context.drawImage(myImage, 30, 15, 130, 110);
+					}
+					myImage.src = "cocktail.jpg";
+					
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="myDrawing" width="200" height="200">
+
+			<p>Your browser doesn't support canvas.</p>
+		</canvas>
+	</body>
+</html>

@@ -6,12 +6,12 @@
 
   You should only need to edit this file and tidy.c
   to localize HTML tidy. *** This needs checking ***
-  
+
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
 */
 
@@ -21,6 +21,8 @@
 #include "message.h"
 #include "tmbstr.h"
 #include "utf8.h"
+#include "charsets.h"
+
 
 /* used to point to Web Accessibility Guidelines */
 #define ACCESS_URL  "http://www.w3.org/WAI/GL"
@@ -41,7 +43,7 @@ static struct _msgfmt
 {
     uint code;
     ctmbstr fmt;
-} const msgFormat[] = 
+} const msgFormat[] =
 {
 /* ReportEncodingWarning */
   { ENCODING_MISMATCH,            "specified input encoding (%s) does not match actual input encoding (%s)" }, /* Warning */
@@ -52,6 +54,8 @@ static struct _msgfmt
   { INVALID_UTF8,                 "%s invalid UTF-8 bytes (char. code %s)"                                  }, /* Error */
   { INVALID_UTF16,                "%s invalid UTF-16 surrogate pair (char. code %s)"                        }, /* Error */
   { INVALID_NCR,                  "%s invalid numeric character reference %s"                               }, /* Error */
+  { UNSUPPORTED_CHARENC,          "unsupported charset '%s'"                                                }, /* Error */
+
 
 /* ReportEntityError */
   { MISSING_SEMICOLON,            "entity \"%s\" doesn't end in ';'"                                        }, /* Warning in HTML, Error in XML/XHTML */
@@ -138,6 +142,8 @@ static struct _msgfmt
   /* no arguments */
   { DOCTYPE_AFTER_TAGS,           "<!DOCTYPE> isn't allowed after elements"                                 }, /* Error */
   { MISSING_TITLE_ELEMENT,        "inserting missing 'title' element"                                       }, /* Error */
+  { FIXED_TITLE_ELEMENT,          "updated empty 'title' element to copy of initial header content"         }, /* Notice */  /* [i_a] */
+  { CANNOT_FIX_TITLE_ELEMENT,     "empty 'title' element and no header found: 'title' remains empty"        }, /* Notice */
   { INCONSISTENT_VERSION,         "HTML DOCTYPE doesn't match content"                                      }, /* Error */
   { MISSING_DOCTYPE,              "missing <!DOCTYPE> declaration"                                          }, /* Error */
   { CONTENT_AFTER_BODY,           "content occurs after end of body"                                        }, /* Error */
@@ -155,7 +161,11 @@ static struct _msgfmt
   { SUSPECTED_MISSING_QUOTE,      "missing quote mark for attribute value"                                  }, /* Error? (not really sometimes) */
   { DUPLICATE_FRAMESET,           "repeated FRAMESET element"                                               }, /* Error */
   { UNKNOWN_ELEMENT,              "%s is not recognized!"                                                   }, /* Error */
-  { UNEXPECTED_ENDTAG,            "unexpected </%s>"                                                }, /* Error */
+  { UNEXPECTED_ENDTAG,            "unexpected </%s>"														}, /* Error */
+  { REWIND_IMPOSSIBLE,            "cannot correctly rewind input stream: "
+								  "either the charenc 'meta' is more than the W3C-required "
+								  "512 bytes into the file or the input stream does not "
+								  "allow rewinding even that much"                                          }, /* Fatal */
 
 /* */
   { PREVIOUS_LOCATION,            "<%s> previously mentioned"                                               }, /* Info */
@@ -163,7 +173,7 @@ static struct _msgfmt
 #if SUPPORT_ACCESSIBILITY_CHECKS
 
 /* ReportAccess */
-/* 
+/*
     List of error/warning messages.  The error code corresponds to
     the check that is listed in the AERT (HTML specifications).
 */
@@ -340,13 +350,15 @@ static const TidyOptionId TidyErrFileLinks[] =
 static const TidyOptionId TidyOutFileLinks[] =
   { TidyErrFile, TidyUnknownOption };
 static const TidyOptionId TidyBlockTagsLinks[] =
-  { TidyEmptyTags, TidyInlineTags, TidyPreTags, TidyUnknownOption };
+  { TidyEmptyTags, TidyInlineTags, TidyPreTags, TidyOtherNamespaceTags, TidyUnknownOption };
 static const TidyOptionId TidyEmptyTagsLinks[] =
-  { TidyBlockTags, TidyInlineTags, TidyPreTags, TidyUnknownOption };
+  { TidyBlockTags, TidyInlineTags, TidyPreTags, TidyOtherNamespaceTags, TidyUnknownOption };
 static const TidyOptionId TidyInlineTagsLinks[] =
-  { TidyBlockTags, TidyEmptyTags, TidyPreTags, TidyUnknownOption };
+  { TidyBlockTags, TidyEmptyTags, TidyPreTags, TidyOtherNamespaceTags, TidyUnknownOption };
 static const TidyOptionId TidyPreTagsLinks[] =
-  { TidyBlockTags, TidyEmptyTags, TidyInlineTags, TidyUnknownOption };
+  { TidyBlockTags, TidyEmptyTags, TidyInlineTags, TidyOtherNamespaceTags, TidyUnknownOption };
+static const TidyOptionId TidyOtherNamespaceTagsLinks[] =
+{ TidyBlockTags, TidyEmptyTags, TidyInlineTags, TidyPreTags, TidyUnknownOption };
 static const TidyOptionId TidyMergeDivsLinks[] =
   { TidyMakeClean, TidyMergeSpans, TidyUnknownOption };
 static const TidyOptionId TidyMergeSpansLinks[] =
@@ -427,6 +439,10 @@ static const TidyOptionDoc option_docs[] =
   },
   {TidyDropEmptyParas,
    "This option specifies if Tidy should discard empty paragraphs. "
+  },
+  {TidyDropEmptyOptions, /* [i_a] */
+  "This option specifies if Tidy should discard empty <option> elements in "
+  "<select> sections. "
   },
   {TidyDropFontTags,
    "This option specifies if Tidy should discard &lt;FONT&gt; and "
@@ -555,6 +571,14 @@ static const TidyOptionDoc option_docs[] =
     "can not as yet add new CDATA elements (similar to &lt;SCRIPT&gt;). "
     "This option is ignored in XML mode. "
     ,TidyPreTagsLinks
+  },
+  {TidyOtherNamespaceTags,
+   "This option specifies new tags which will contain subtrees of tags which are "
+   "not HTML tags at all. This option takes a "
+   "space or comma separated list of tag names. Unless you declare new tags, "
+   "Tidy will refuse to generate a tidied file if the input includes "
+   "previously unknown tags. This option is ignored in XML mode. "
+   ,TidyOtherNamespaceTagsLinks
   },
   {TidyNumEntities,
    "This option specifies if Tidy should output entities other than the "
@@ -846,7 +870,7 @@ static const TidyOptionDoc option_docs[] =
    "some CSS markup to avoid indentation to the right. "
   },
   {TidyPreserveEntities,
-   "This option specifies if Tidy should preserve the well-formed entitites "
+   "This option specifies if Tidy should preserve the well-formed entities "
    "as found in the input. "
   },
   {TidyAnchorAsName,
@@ -856,6 +880,21 @@ static const TidyOptionDoc option_docs[] =
    "is added along an existing id attribute if the DTD allows it. "
    "If set to \"no\", any existing name attribute is removed "
    "if an id attribute exists or has been added. "
+  },
+  {TidyTitle,
+   "This option specifies if Tidy should fill an empty title meta element with "
+   "the content of the top-most header element in the document body. "
+  },
+  {TidySuppressEmptyTagSyntax,
+  "This option specifies if Tidy should suppress empty tag syntax in the output, "
+  "i.e. write '<div id=\"1\"></div>' instead of '<div id=\"1\" />'. This is "
+  "useful for DOM/content manipulating JavaScript routines, such as this one: "
+  "http://intertwingly.net/blog/2006/12/05/HOWTO-Embed-MathML-and-SVG-into-HTML4 "
+  },
+  {TidyFixBrakes,
+  "This option enables the removal of empty '<br />' tags from paragraphs "
+  "(and other block elements); this option enables the 2003AD code which "
+  "was turned off due to bug report http://tidy.sf.net/bug/681116 "
   },
   {N_TIDY_OPTIONS,
    NULL
@@ -950,7 +989,7 @@ static char* ReportPosition(TidyDocImpl* doc, int line, int col, char* buf, size
 
     /* Change formatting to be parsable by GNU Emacs */
     if ( cfgBool(doc, TidyEmacs) && cfgStr(doc, TidyEmacsFile) )
-        TY_(tmbsnprintf)(buf, count, "%s:%d:%d: ", 
+        TY_(tmbsnprintf)(buf, count, "%s:%d:%d: ",
                          cfgStr(doc, TidyEmacsFile), line, col);
     else /* traditional format */
         TY_(tmbsnprintf)(buf, count, "line %d column %d - ", line, col);
@@ -959,9 +998,9 @@ static char* ReportPosition(TidyDocImpl* doc, int line, int col, char* buf, size
 
 /* General message writing routine.
 ** Each message is a single warning, error, etc.
-** 
+**
 ** This routine will keep track of counts and,
-** if the caller has set a filter, it will be 
+** if the caller has set a filter, it will be
 ** called.  The new preferred way of handling
 ** Tidy diagnostics output is either a) define
 ** a new output sink or b) install a message
@@ -1015,7 +1054,7 @@ static void messagePos( TidyDocImpl* doc, TidyReportLevel level,
     TidyDocFree(doc, messageBuf);
 }
 
-/* Reports error at current Lexer line/column. */ 
+/* Reports error at current Lexer line/column. */
 static
 void message( TidyDocImpl* doc, TidyReportLevel level, ctmbstr msg, ... )
 #ifdef __GNUC__
@@ -1023,7 +1062,7 @@ __attribute__((format(printf, 3, 4)))
 #endif
 ;
 
-/* Reports error at node line/column. */ 
+/* Reports error at node line/column. */
 static
 void messageNode( TidyDocImpl* doc, TidyReportLevel level,
                   Node* node, ctmbstr msg, ... )
@@ -1032,9 +1071,9 @@ __attribute__((format(printf, 4, 5)))
 #endif
 ;
 
-/* Reports error at given line/column. */ 
+/* Reports error at given line/column. */
 static
-void messageLexer( TidyDocImpl* doc, TidyReportLevel level, 
+void messageLexer( TidyDocImpl* doc, TidyReportLevel level,
                    ctmbstr msg, ... )
 #ifdef __GNUC__
 __attribute__((format(printf, 3, 4)))
@@ -1124,6 +1163,11 @@ void TY_(FileError)( TidyDocImpl* doc, ctmbstr file, TidyReportLevel level )
     message( doc, level, "Can't open \"%s\"\n", file );
 }
 
+void TY_(BufferReadError)( TidyDocImpl* doc, TidyReportLevel level ) /* [i_a] */
+{
+    message( doc, level, "Can't read buffer\n" );
+}
+
 static char* TagToString(Node* tag, char* buf, size_t count)
 {
     *buf = 0;
@@ -1186,16 +1230,36 @@ static void NtoS(int n, tmbstr str)
     str[n+1] = '\0';
 }
 
+void TY_(ReportCharSetWarning)(TidyDocImpl* doc, uint code, uint encoding)
+{
+	switch(code)
+	{
+	case UNSUPPORTED_CHARENC:
+		messageLexer(doc, TidyWarning, GetFormatFromCode(code),
+			TY_(GetEncodingNameFromId)(encoding));
+		doc->badChars |= BC_ENCODING_MISMATCH;
+		break;
+
+	default:
+		assert(!"Should never get here");
+		break;
+	}
+}
+
 void TY_(ReportEncodingWarning)(TidyDocImpl* doc, uint code, uint encoding)
 {
     switch(code)
     {
     case ENCODING_MISMATCH:
-        messageLexer(doc, TidyWarning, GetFormatFromCode(code), 
+        messageLexer(doc, TidyWarning, GetFormatFromCode(code),
                      TY_(CharEncodingName)(doc->docIn->encoding),
                      TY_(CharEncodingName)(encoding));
         doc->badChars |= BC_ENCODING_MISMATCH;
         break;
+
+	default:
+		assert(!"Should never get here");
+		break;
     }
 }
 
@@ -1235,6 +1299,10 @@ void TY_(ReportEncodingError)(TidyDocImpl* doc, uint code, uint c, Bool discarde
         NtoS(c, buf);
         doc->badChars |= BC_INVALID_NCR;
         break;
+
+	default:
+		assert(!"Should never get here");
+		break;
     }
 
     if (fmt)
@@ -1324,6 +1392,10 @@ void TY_(ReportAttrError)(TidyDocImpl* doc, Node *node, AttVal *av, uint code)
         doc->lexer->columns = doc->docIn->curcol;
         messageLexer(doc, TidyWarning, fmt, tagdesc);
         break;
+
+	default:
+		assert(!"Should never get here");
+		break;
     }
 }
 
@@ -1344,19 +1416,19 @@ void TY_(ReportMissingAttr)( TidyDocImpl* doc, Node* node, ctmbstr name )
 *
 * DisplayHTMLTableAlgorithm()
 *
-* If the table does contain 2 or more logical levels of 
-* row or column headers, the HTML 4 table algorithm 
-* to show the author how the headers are currently associated 
+* If the table does contain 2 or more logical levels of
+* row or column headers, the HTML 4 table algorithm
+* to show the author how the headers are currently associated
 * with the cells.
 *********************************************************/
- 
+
 void TY_(DisplayHTMLTableAlgorithm)( TidyDocImpl* doc )
 {
     tidy_out(doc, " \n");
     tidy_out(doc, "      - First, search left from the cell's position to find row header cells.\n");
     tidy_out(doc, "      - Then search upwards to find column header cells.\n");
     tidy_out(doc, "      - The search in a given direction stops when the edge of the table is\n");
-    tidy_out(doc, "        reached or when a data cell is found after a header cell.\n"); 
+    tidy_out(doc, "        reached or when a data cell is found after a header cell.\n");
     tidy_out(doc, "      - Row headers are inserted into the list in the order they appear in\n");
     tidy_out(doc, "        the table. \n");
     tidy_out(doc, "      - For left-to-right tables, headers are inserted from left to right.\n");
@@ -1410,9 +1482,18 @@ void TY_(ReportWarning)(TidyDocImpl* doc, Node *element, Node *node, uint code)
     case NESTED_EMPHASIS:
         messageNode(doc, TidyWarning, rpt, fmt, nodedesc);
         break;
+
     case COERCE_TO_ENDTAG_WARN:
         messageNode(doc, TidyWarning, rpt, fmt, node->element, node->element);
         break;
+
+	case CANNOT_FIX_TITLE_ELEMENT:
+		messageNode(doc, TidyInfo, rpt, fmt);
+		break;
+
+	default:
+		assert(!"Should not get here");
+		break;
     }
 }
 
@@ -1438,6 +1519,14 @@ void TY_(ReportNotice)(TidyDocImpl* doc, Node *element, Node *node, uint code)
         TagToString(element, elemdesc, sizeof(elemdesc));
         messageNode(doc, TidyWarning, rpt, fmt, elemdesc, nodedesc);
         break;
+
+    case FIXED_TITLE_ELEMENT:
+        messageNode(doc, TidyInfo, rpt, fmt);
+        break;
+
+	default:
+		assert(!"Should not get here");
+		break;
     }
 }
 
@@ -1535,6 +1624,10 @@ void TY_(ReportError)(TidyDocImpl* doc, Node *element, Node *node, uint code)
         TagToString(element, elemdesc, sizeof(elemdesc));
         messageNode(doc, TidyWarning, rpt, fmt, elemdesc, nodedesc);
         break;
+
+	default:
+		assert(!"Should not get here");
+		break;
     }
 }
 
@@ -1551,6 +1644,10 @@ void TY_(ReportFatal)( TidyDocImpl* doc, Node *element, Node *node, uint code)
         messageNode(doc, TidyError, rpt, fmt);
         break;
 
+	case REWIND_IMPOSSIBLE:
+		messageNode(doc, TidyError /* TidyBadDocument? */, rpt, fmt);
+		break;
+
     case UNKNOWN_ELEMENT:
         TagToString(node, nodedesc, sizeof(nodedesc));
         messageNode( doc, TidyError, node, fmt, nodedesc );
@@ -1563,14 +1660,18 @@ void TY_(ReportFatal)( TidyDocImpl* doc, Node *element, Node *node, uint code)
     case UNEXPECTED_ENDTAG:  /* generated by XML docs */
         messageNode(doc, TidyError, node, fmt, node->element);
         break;
+
+	default:
+		assert(!"Should not get here");
+		break;
     }
 }
 
 void TY_(ErrorSummary)( TidyDocImpl* doc )
 {
     ctmbstr encnam = "specified";
-    int charenc = cfg( doc, TidyCharEncoding ); 
-    if ( charenc == WIN1252 ) 
+    int charenc = cfg( doc, TidyCharEncoding );
+    if ( charenc == WIN1252 )
         encnam = "Windows-1252";
     else if ( charenc == MACROMAN )
         encnam = "MacRoman";
@@ -1662,7 +1763,7 @@ void TY_(ErrorSummary)( TidyDocImpl* doc )
         tidy_out(doc, "placed before a table, the </form> cannot be placed inside the\n");
         tidy_out(doc, "table! Note that one form can't be nested inside another!\n\n");
     }
-    
+
     if (doc->badAccess)
     {
         /* Tidy "classic" accessibility tests */
@@ -1768,7 +1869,7 @@ void TY_(UnknownOption)( TidyDocImpl* doc, char c )
 
 void TY_(UnknownFile)( TidyDocImpl* doc, ctmbstr program, ctmbstr file )
 {
-    message( doc, TidyConfig, 
+    message( doc, TidyConfig,
              "%s: can't open file \"%s\"\n", program, file );
 }
 #endif
@@ -1811,15 +1912,15 @@ void TY_(HelloMessage)( TidyDocImpl* doc, ctmbstr date, ctmbstr filename )
     platform = PLATFORM_NAME;
     helper = " for ";
 #endif
-    
+
     if ( TY_(tmbstrcmp)(filename, "stdin") == 0 )
     {
         /* Filename will be ignored at end of varargs */
         msgfmt = "\nHTML Tidy for %s (vers %s; built on %s, at %s)\n"
                  "Parsing console input (stdin)\n";
     }
-    
-    TY_(tmbsnprintf)(buf, sizeof(buf), msgfmt, helper, platform, 
+
+    TY_(tmbsnprintf)(buf, sizeof(buf), msgfmt, helper, platform,
                      date, __DATE__, __TIME__, filename);
     tidy_out( doc, buf );
 }

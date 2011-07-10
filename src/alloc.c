@@ -5,9 +5,9 @@
 
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
 */
 
@@ -96,6 +96,8 @@ static const TidyAllocatorVtbl defaultVtbl = {
 TidyAllocator TY_(g_default_allocator) = {
     &defaultVtbl
 };
+
+
 
 /*
  * local variables:

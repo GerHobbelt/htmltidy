@@ -6,9 +6,9 @@
 
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
   Filters from other formats such as Microsoft Word
   often make excessive use of presentation markup such
@@ -24,13 +24,13 @@
   Such rules are applied to the element's content and then
   to the element itself until none of the rules more apply.
   Having applied all the rules to an element, it will have
-  a style attribute with one or more properties. 
+  a style attribute with one or more properties.
 
   Other rules strip the element they apply to, replacing
   it by style properties on the contents, e.g.
-  
+
   <dir><li><p>...</li></dir> -> <p style="margin-left 1em">...
-      
+
   These rules are applied to an element before processing
   its content and replace the current element by the first
   element in the exposed content.
@@ -417,7 +417,7 @@ static void CleanBodyAttrs( TidyDocImpl* doc, Node* body )
     tmbstr bgcolor = NULL;
     tmbstr color   = NULL;
     AttVal* attr;
-    
+
     if (NULL != (attr = TY_(AttrGetById)(body, TidyAttr_BACKGROUND)))
     {
         bgurl = attr->value;
@@ -601,11 +601,12 @@ static void StripOnlyChild(TidyDocImpl* doc, Node *node)
   used to strip font start and end tags.
   Extricate "element", replace it by its content and delete it.
 */
-static void DiscardContainer( TidyDocImpl* doc, Node *element, Node **pnode)
+void TY_(DiscardContainer)( TidyDocImpl* doc, Node *element, Node **pnode)
 {
     if (element->content)
     {
-        Node *node, *parent = element->parent;
+        Node *node;
+		Node *parent = element->parent;
 
         element->last->next = element->next;
 
@@ -1018,7 +1019,7 @@ static Bool Center2Div( TidyDocImpl* doc, Node *node, Node **pnode)
             if (node->content)
             {
                 Node *last = node->last;
-                DiscardContainer( doc, node, pnode );
+                TY_(DiscardContainer)( doc, node, pnode );
 
                 node = TY_(InferredTag)(doc, TidyTag_BR);
                 TY_(InsertNodeAfterElement)(last, node);
@@ -1027,7 +1028,7 @@ static Bool Center2Div( TidyDocImpl* doc, Node *node, Node **pnode)
             {
                 Node *prev = node->prev, *next = node->next,
                      *parent = node->parent;
-                DiscardContainer( doc, node, pnode );
+                TY_(DiscardContainer)( doc, node, pnode );
 
                 node = TY_(InferredTag)(doc, TidyTag_BR);
                 if (next)
@@ -1240,7 +1241,7 @@ Bool FindCSSSpanEq( Node *node, ctmbstr *s, Bool deprecatedOnly )
             *s = CSS_SpanEq[i].CSSeq;
             return yes;
         }
-    return no; 
+    return no;
 }
 
 /* Necessary conditions to apply BlockStyle(). */
@@ -1385,7 +1386,7 @@ static Bool InlineElementToCSS( TidyDocImpl* doc, Node* node,
         return yes;
     }
     return no;
-} 
+}
 
 /*
   Replace font elements by span elements, deleting
@@ -1400,7 +1401,7 @@ static Bool Font2Span( TidyDocImpl* doc, Node *node, Node **pnode )
     {
         if ( cfgBool(doc, TidyDropFontTags) )
         {
-            DiscardContainer( doc, node, pnode );
+            TY_(DiscardContainer)( doc, node, pnode );
             return yes;
         }
 
@@ -1530,7 +1531,7 @@ static void DefineStyleRules( TidyDocImpl* doc, Node *node )
 void TY_(CleanDocument)( TidyDocImpl* doc )
 {
     /* placeholder.  CleanTree()/CleanNode() will not
-    ** zap root element 
+    ** zap root element
     */
     CleanTree( doc, &doc->root );
 
@@ -1554,7 +1555,7 @@ void TY_(NestedEmphasis)( TidyDocImpl* doc, Node* node )
              && node->parent && node->parent->tag == node->tag)
         {
             /* strip redundant inner element */
-            DiscardContainer( doc, node, &next );
+            TY_(DiscardContainer)( doc, node, &next );
             node = next;
             continue;
         }
@@ -1699,7 +1700,7 @@ static Node* PruneSection( TidyDocImpl* doc, Node *node )
 
         if (node == NULL)
             return NULL;
-        
+
         if (node->type == SectionTag)
         {
             if (TY_(tmbstrncmp)(lexer->lexbuf + node->start, "if", 2) == 0)
@@ -1899,8 +1900,11 @@ static Bool SingleSpace( Lexer* lexer, Node* node )
 
         if ( (node->end - node->start) == 2 )
         {
-            uint c = 0;
-            TY_(GetUTF8)( lexer->lexbuf + node->start, &c );
+            uint c = lexer->lexbuf[node->start];
+
+			/* look for UTF-8 multibyte character */
+			if ( c > 0x7F )
+				TY_(GetUTF8)( lexer->lexbuf + node->start, &c );
             if ( c == 160 )
                 return yes;
         }
@@ -2006,14 +2010,14 @@ void TY_(CleanWord2000)( TidyDocImpl* doc, Node *node)
         if ( node->tag && TY_(tmbstrcmp)(node->tag->name,"o:p")==0)
         {
             Node* next;
-            DiscardContainer( doc, node, &next );
+            TY_(DiscardContainer)( doc, node, &next );
             node = next;
             continue;
         }
 
         /* discard empty paragraphs */
 
-        if ( node->content == NULL && nodeIsP(node) )
+        if ( !TY_(HasContent)(doc, node) && nodeIsP(node) )
         {
             /*  Use the existing function to ensure consistency */
             Node *next = TY_(TrimEmptyElement)( doc, node );
@@ -2024,7 +2028,7 @@ void TY_(CleanWord2000)( TidyDocImpl* doc, Node *node)
         if ( nodeIsP(node) )
         {
             AttVal *attr, *atrStyle;
-            
+
             attr = TY_(AttrGetById)(node, TidyAttr_CLASS);
             atrStyle = TY_(AttrGetById)(node, TidyAttr_STYLE);
             /*
@@ -2108,7 +2112,7 @@ Bool TY_(IsWord2000)( TidyDocImpl* doc )
 
     if (html && TY_(GetAttrByName)(html, "xmlns:o"))
         return yes;
-    
+
     /* search for <meta name="GENERATOR" content="Microsoft ..."> */
     head = TY_(FindHEAD)( doc );
 
@@ -2184,8 +2188,8 @@ void TY_(BumpObject)( TidyDocImpl* doc, Node *html )
 }
 
 /* This is disabled due to http://tidy.sf.net/bug/681116 */
-#if 0
-void FixBrakes( TidyDocImpl* pDoc, Node *pParent )
+/* #if 0 */
+void TY_(FixBrakes)( TidyDocImpl* pDoc, Node *pParent )
 {
     Node *pNode;
     Bool bBRDeleted = no;
@@ -2199,17 +2203,17 @@ void FixBrakes( TidyDocImpl* pDoc, Node *pParent )
     {
         /* The node may get trimmed, so save the next pointer, if any */
         Node *pNext = pNode->next;
-        FixBrakes( pDoc, pNode );
+        TY_(FixBrakes)( pDoc, pNode );
         pNode = pNext;
     }
 
 
     /*  As long as my last child is a <br />, move it to my last peer  */
-    if ( nodeCMIsBlock( pParent ))
-    { 
-        for ( pNode = pParent->last; 
-              NULL != pNode && nodeIsBR( pNode ); 
-              pNode = pParent->last ) 
+    if ( TY_(nodeCMIsBlock)( pParent ))
+    {
+        for ( pNode = pParent->last;
+              NULL != pNode && nodeIsBR( pNode );
+              pNode = pParent->last )
         {
             if ( NULL == pNode->attributes && no == bBRDeleted )
             {
@@ -2225,7 +2229,8 @@ void FixBrakes( TidyDocImpl* pDoc, Node *pParent )
         TY_(TrimEmptyElement)( pDoc, pParent );
     }
 }
-#endif
+/* #endif */
+
 
 void TY_(VerifyHTTPEquiv)(TidyDocImpl* doc, Node *head)
 {
@@ -2336,7 +2341,7 @@ void TY_(DropFontElements)(TidyDocImpl* doc, Node* node, Node **ARG_UNUSED(pnode
 
         if (nodeIsFONT(node))
         {
-            DiscardContainer(doc, node, &next);
+            TY_(DiscardContainer)(doc, node, &next);
             node = next;
             continue;
         }
@@ -2402,7 +2407,7 @@ void TY_(WbrToSpace)(TidyDocImpl* doc, Node* node)
     <p title='&#x2018;'>...</p>
 
   got
-  
+
     <p title='''>...</p>
 
   Since browser support is much better nowadays and
@@ -2550,7 +2555,7 @@ void TY_(FixLanguageInformation)(TidyDocImpl* doc, Node* node, Bool wantXmlLang,
 
             if (lang && !wantLang)
                 TY_(RemoveAttribute)(doc, node, lang);
-            
+
             if (xmlLang && !wantXmlLang)
                 TY_(RemoveAttribute)(doc, node, xmlLang);
         }
@@ -2628,7 +2633,9 @@ void TY_(FixAnchors)(TidyDocImpl* doc, Node *node, Bool wantName, Bool wantId)
                         IdEmitted = yes;
                     }
                     else
+                    {
                         TY_(ReportAttrError)(doc, node, name, INVALID_XML_ID);
+                    }
                  }
             }
             else if (id && wantName)
@@ -2663,6 +2670,152 @@ void TY_(FixAnchors)(TidyDocImpl* doc, Node *node, Bool wantName, Bool wantId)
         node = next;
     }
 }
+
+
+/* [i_a] */
+struct FixTitleCallbackData
+{
+	TidyBuffer text;
+	ctmbstr str;
+	Node *header;
+};
+
+static NodeTraversalSignal FixTitleCallback( TidyDocImpl* doc, Node* node, void *propagate )
+{
+	struct FixTitleCallbackData *data = (struct FixTitleCallbackData *)propagate;
+
+	if (node->type == EndTag)
+		return ContinueTraversal;
+
+	/* no use traversing children for nodes which aren't HTML elements: */
+	if (!TY_(nodeIsElement)(node))
+		return SkipChildren;
+
+	/* only check for nodes which are certified headers. */
+	if (TY_(nodeIsHeader)(node))
+	{
+		ctmbstr word;
+
+		word = TY_(getTextNodeClear)(doc, node, &data->text);
+		if (!TY_(IsWhitespace)(word))
+		{
+			/* OK, we're done. We're outa here! */
+			data->str = word;
+			data->header = node;
+
+			return ExitTraversal;
+		}
+	}
+	return ContinueTraversal;
+}
+
+
+/*
+   Ensure the document has a non-empty and most probably sane
+   title for improved usability and SEO.
+
+   How?
+
+   When the title is empty or non-existent (which should already have
+   been fixed @ ParseDocument() in file:parse.c), look for the first
+   non-empty <hN> tag in the body (where  N={1..6}) and copy its
+   content to the <title> tag.
+ */
+void TY_(FixTitle)(TidyDocImpl* doc)
+{
+	Node *title = TY_(FindTITLE)(doc);
+    tmbstr word = NULL;
+	Bool HasSaneTitleContent = no;
+	Bool insert_node = no;
+	Node* head = NULL;
+
+	if (!title)
+    {
+		/*
+		   This bit is identical to the code in ParseDocument(); will only be
+		   used when you constructed your HTML node tree in another way -- which
+		   didn't pass through ParseDocument() that is...
+         */
+        head = TY_(FindHEAD)(doc);
+		if (head != NULL)
+		{
+			title = TY_(InferredTag)(doc, TidyTag_TITLE);
+			insert_node = yes;
+		}
+    }
+
+	/*
+	   now see if the title tag has any content.
+
+	   PARANOID: if 'title' == NULL right here, we're in deeeeeep trouble in the code
+	   above, but that doesn't mean we should dump core here. Hence the 'if (title)' here.
+	 */
+	if (title)
+	{
+		struct FixTitleCallbackData cb_data = {0};
+		tidyBufInit(&cb_data.text);
+
+        word = TY_(getTextNodeClear)(doc, title, &cb_data.text);
+		if (!TY_(IsWhitespace)(word))
+        {
+            HasSaneTitleContent = yes;
+        }
+
+		/* no content? get the content from the first non-empty header element in body: */
+		if (!HasSaneTitleContent)
+		{
+			/* track down the first non-empty <hN> tag in the body and collect its content */
+			Node *body = TY_(FindBody)(doc);
+
+			if (body)
+				TY_(TraverseNodeTree)(doc, body->content, FixTitleCallback, &cb_data);
+			if (cb_data.header != NULL)
+			{
+				Node* tn = TY_(NewLiteralTextNode)(doc->lexer, cb_data.str);
+				Node *old = title->content;
+
+				/* since the old title text is empty or whitespace only, we remove the original
+				   title->content, when it exists. */
+				while (old)
+				{
+					old = TY_(DiscardElement)(doc, old);
+				}
+				title->content = NULL;
+				TY_(InsertNodeAtEnd)(title, tn);
+		        TY_(ReportNotice)(doc, title, tn, FIXED_TITLE_ELEMENT);
+			}
+			else
+			{
+				/*
+				we couldn't 'fix' the title text: only warn when
+				the <title> tag was not inferred itself
+				*/
+				if (title->implicit == no)
+				{
+					TY_(ReportWarning)(doc, title, NULL, CANNOT_FIX_TITLE_ELEMENT);
+				}
+
+				if (insert_node == yes)
+				{
+					TY_(FreeNode)(doc, title);
+					insert_node = no;
+				}
+			}
+		}
+		tidyBufFree(&cb_data.text);
+
+		/* only insert inferred <title> node when we've actually something put in there */
+		if (insert_node == yes)
+		{
+			assert(head != NULL);
+			TY_(ReportError)(doc, head, title, MISSING_TITLE_ELEMENT);
+			TY_(InsertNodeAtEnd)(head, title);
+		}
+	}
+}
+
+
+
 
 /*
  * local variables:

@@ -5,12 +5,12 @@
 
   (c) 1998-2007 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
-  
+
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
 */
 
@@ -72,5 +72,13 @@ void TY_(ParseDocument)( TidyDocImpl* doc );
 Bool TY_(XMLPreserveWhiteSpace)( TidyDocImpl* doc, Node *element );
 
 void TY_(ParseXMLDocument)( TidyDocImpl* doc );
+
+
+
+
+/* [i_a] TODO: html2db patch; complete/clean it for Win32 build of html2db! */
+Bool TY_(DescendantOf)( Node *element, TidyTagId tid );
+
+
 
 #endif /* __PARSER_H__ */

@@ -5,12 +5,12 @@
 
   (c) 1998-2007 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
-  
+
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
 */
 
@@ -45,9 +45,11 @@ void TY_(GeneralInfo)( TidyDocImpl* doc );
 /* void TY_(UnknownOption)( TidyDocImpl* doc, char c ); */
 /* void TY_(UnknownFile)( TidyDocImpl* doc, ctmbstr program, ctmbstr file ); */
 void TY_(FileError)( TidyDocImpl* doc, ctmbstr file, TidyReportLevel level );
+void TY_(BufferReadError)( TidyDocImpl* doc, TidyReportLevel level ); /* [i_a] */
 
 void TY_(ErrorSummary)( TidyDocImpl* doc );
 
+void TY_(ReportCharSetWarning)(TidyDocImpl* doc, uint code, uint encoding);
 void TY_(ReportEncodingWarning)(TidyDocImpl* doc, uint code, uint encoding);
 void TY_(ReportEncodingError)(TidyDocImpl* doc, uint code, uint c, Bool discarded);
 void TY_(ReportEntityError)( TidyDocImpl* doc, uint code, ctmbstr entity, int c );
@@ -88,6 +90,8 @@ void TY_(ReportFatal)(TidyDocImpl* doc, Node* element, Node* node, uint code);
 #define INSERTING_TAG                15
 #define SUSPECTED_MISSING_QUOTE      16
 #define MISSING_TITLE_ELEMENT        17
+#define FIXED_TITLE_ELEMENT          89 /* [i_a] */
+#define CANNOT_FIX_TITLE_ELEMENT     90
 #define DUPLICATE_FRAMESET           18
 #define CANT_BE_NESTED               19
 #define OBSOLETE_ELEMENT             20
@@ -160,7 +164,7 @@ void TY_(ReportFatal)(TidyDocImpl* doc, Node* element, Node* node, uint code);
 #define MISSING_ATTRIBUTE            86
 #define WHITE_IN_URI                 87
 
-#define PREVIOUS_LOCATION            88 /* last */
+#define PREVIOUS_LOCATION            88 /* [i_a] */
 
 /* character encoding errors */
 
@@ -171,6 +175,9 @@ void TY_(ReportFatal)(TidyDocImpl* doc, Node* element, Node* node, uint code);
 #define ENCODING_MISMATCH            80
 #define INVALID_URI                  81
 #define INVALID_NCR                  82
+#define UNSUPPORTED_CHARENC          91
+
+#define REWIND_IMPOSSIBLE			 92 /* last */
 
 /* accessibility flaws */
 
@@ -180,7 +187,7 @@ void TY_(ReportFatal)(TidyDocImpl* doc, Node* element, Node* node, uint code);
 #define BA_MISSING_IMAGE_MAP       8
 #define BA_USING_FRAMES            16
 #define BA_USING_NOFRAMES          32
-#define BA_INVALID_LINK_NOFRAMES   64  /* WAI [6.5.1.4] */  
+#define BA_INVALID_LINK_NOFRAMES   64  /* WAI [6.5.1.4] */
 #define BA_WAI                     (1 << 31)
 
 /* presentation flaws */

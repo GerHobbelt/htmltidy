@@ -10,7 +10,7 @@
 #include "attrdict.h"
 #include "lexer.h"
 
-const AttrVersion TY_(W3CAttrsFor_A)[] = 
+const AttrVersion TY_(W3CAttrsFor_A)[] =
 {
   { TidyAttr_ACCESSKEY,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_CHARSET,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -50,7 +50,7 @@ const AttrVersion TY_(W3CAttrsFor_A)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_ABBR)[] = 
+const AttrVersion TY_(W3CAttrsFor_ABBR)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -73,7 +73,7 @@ const AttrVersion TY_(W3CAttrsFor_ABBR)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_ACRONYM)[] = 
+const AttrVersion TY_(W3CAttrsFor_ACRONYM)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -96,7 +96,7 @@ const AttrVersion TY_(W3CAttrsFor_ACRONYM)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_ADDRESS)[] = 
+const AttrVersion TY_(W3CAttrsFor_ADDRESS)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -121,7 +121,7 @@ const AttrVersion TY_(W3CAttrsFor_ADDRESS)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_APPLET)[] = 
+const AttrVersion TY_(W3CAttrsFor_APPLET)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_ALT,            xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -141,7 +141,7 @@ const AttrVersion TY_(W3CAttrsFor_APPLET)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_AREA)[] = 
+const AttrVersion TY_(W3CAttrsFor_AREA)[] =
 {
   { TidyAttr_ACCESSKEY,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_ALT,            xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -174,7 +174,7 @@ const AttrVersion TY_(W3CAttrsFor_AREA)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_B)[] = 
+const AttrVersion TY_(W3CAttrsFor_B)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -198,7 +198,7 @@ const AttrVersion TY_(W3CAttrsFor_B)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_BASE)[] = 
+const AttrVersion TY_(W3CAttrsFor_BASE)[] =
 {
   { TidyAttr_HREF,           HT20|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_ID,             xxxx|xxxx|xxxx|xxxx|X10T|xxxx|xxxx|X10F|xxxx|xxxx|X10S|xxxx|xxxx },
@@ -207,7 +207,7 @@ const AttrVersion TY_(W3CAttrsFor_BASE)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_BASEFONT)[] = 
+const AttrVersion TY_(W3CAttrsFor_BASEFONT)[] =
 {
   { TidyAttr_COLOR,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_FACE,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -216,7 +216,7 @@ const AttrVersion TY_(W3CAttrsFor_BASEFONT)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_BDO)[] = 
+const AttrVersion TY_(W3CAttrsFor_BDO)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -239,7 +239,7 @@ const AttrVersion TY_(W3CAttrsFor_BDO)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_BIG)[] = 
+const AttrVersion TY_(W3CAttrsFor_BIG)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -262,7 +262,7 @@ const AttrVersion TY_(W3CAttrsFor_BIG)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_BLOCKQUOTE)[] = 
+const AttrVersion TY_(W3CAttrsFor_BLOCKQUOTE)[] =
 {
   { TidyAttr_CITE,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -287,7 +287,7 @@ const AttrVersion TY_(W3CAttrsFor_BLOCKQUOTE)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_BODY)[] = 
+const AttrVersion TY_(W3CAttrsFor_BODY)[] =
 {
   { TidyAttr_ALINK,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_BACKGROUND,     xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -318,7 +318,7 @@ const AttrVersion TY_(W3CAttrsFor_BODY)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_BR)[] = 
+const AttrVersion TY_(W3CAttrsFor_BR)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_CLEAR,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -330,7 +330,7 @@ const AttrVersion TY_(W3CAttrsFor_BR)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_BUTTON)[] = 
+const AttrVersion TY_(W3CAttrsFor_BUTTON)[] =
 {
   { TidyAttr_ACCESSKEY,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -361,7 +361,33 @@ const AttrVersion TY_(W3CAttrsFor_BUTTON)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_CAPTION)[] = 
+const AttrVersion TY_(W3CAttrsFor_CANVAS)[] =
+{
+	{ TidyAttr_ALIGN,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_ID,             xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_HEIGHT,         xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
+	{ TidyAttr_LANG,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|xxxx|xxxx },
+	{ TidyAttr_OnCLICK,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnDBLCLICK,     xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnKEYDOWN,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnKEYPRESS,     xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnKEYUP,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEDOWN,    xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEMOVE,    xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEOUT,     xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEOVER,    xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEUP,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_STYLE,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_TITLE,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_WIDTH,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
+	{ TidyAttr_XML_LANG,       xxxx|xxxx|xxxx|xxxx|X10T|xxxx|xxxx|X10F|xxxx|xxxx|X10S|XH11|xxxx },
+	{ TidyAttr_XMLNS,          xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
+	{ TidyAttr_UNKNOWN,        0                                                                },
+};
+
+const AttrVersion TY_(W3CAttrsFor_CAPTION)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -385,7 +411,7 @@ const AttrVersion TY_(W3CAttrsFor_CAPTION)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_CENTER)[] = 
+const AttrVersion TY_(W3CAttrsFor_CENTER)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -407,7 +433,7 @@ const AttrVersion TY_(W3CAttrsFor_CENTER)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_CITE)[] = 
+const AttrVersion TY_(W3CAttrsFor_CITE)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -431,7 +457,7 @@ const AttrVersion TY_(W3CAttrsFor_CITE)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_CODE)[] = 
+const AttrVersion TY_(W3CAttrsFor_CODE)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -455,7 +481,7 @@ const AttrVersion TY_(W3CAttrsFor_CODE)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_COL)[] = 
+const AttrVersion TY_(W3CAttrsFor_COL)[] =
 {
   { TidyAttr_ALIGN,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_CHAR,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -484,7 +510,7 @@ const AttrVersion TY_(W3CAttrsFor_COL)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_COLGROUP)[] = 
+const AttrVersion TY_(W3CAttrsFor_COLGROUP)[] =
 {
   { TidyAttr_ALIGN,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_CHAR,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -513,7 +539,7 @@ const AttrVersion TY_(W3CAttrsFor_COLGROUP)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_DD)[] = 
+const AttrVersion TY_(W3CAttrsFor_DD)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -537,7 +563,7 @@ const AttrVersion TY_(W3CAttrsFor_DD)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_DEL)[] = 
+const AttrVersion TY_(W3CAttrsFor_DEL)[] =
 {
   { TidyAttr_CITE,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -562,7 +588,7 @@ const AttrVersion TY_(W3CAttrsFor_DEL)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_DFN)[] = 
+const AttrVersion TY_(W3CAttrsFor_DFN)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -585,7 +611,7 @@ const AttrVersion TY_(W3CAttrsFor_DFN)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_DIR)[] = 
+const AttrVersion TY_(W3CAttrsFor_DIR)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_COMPACT,        HT20|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -610,7 +636,7 @@ const AttrVersion TY_(W3CAttrsFor_DIR)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_DIV)[] = 
+const AttrVersion TY_(W3CAttrsFor_DIV)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -634,7 +660,7 @@ const AttrVersion TY_(W3CAttrsFor_DIV)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_DL)[] = 
+const AttrVersion TY_(W3CAttrsFor_DL)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_COMPACT,        HT20|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -660,7 +686,7 @@ const AttrVersion TY_(W3CAttrsFor_DL)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_DT)[] = 
+const AttrVersion TY_(W3CAttrsFor_DT)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -684,7 +710,7 @@ const AttrVersion TY_(W3CAttrsFor_DT)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_EM)[] = 
+const AttrVersion TY_(W3CAttrsFor_EM)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -708,7 +734,7 @@ const AttrVersion TY_(W3CAttrsFor_EM)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_FIELDSET)[] = 
+const AttrVersion TY_(W3CAttrsFor_FIELDSET)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -731,7 +757,7 @@ const AttrVersion TY_(W3CAttrsFor_FIELDSET)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_FONT)[] = 
+const AttrVersion TY_(W3CAttrsFor_FONT)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_COLOR,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -746,7 +772,7 @@ const AttrVersion TY_(W3CAttrsFor_FONT)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_FORM)[] = 
+const AttrVersion TY_(W3CAttrsFor_FORM)[] =
 {
   { TidyAttr_ACCEPT,         xxxx|xxxx|xxxx|H41T|X10T|xxxx|H41F|X10F|xxxx|H41S|X10S|XH11|xxxx },
   { TidyAttr_ACCEPT_CHARSET, xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -780,7 +806,7 @@ const AttrVersion TY_(W3CAttrsFor_FORM)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_FRAME)[] = 
+const AttrVersion TY_(W3CAttrsFor_FRAME)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|xxxx|xxxx|xxxx|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_FRAMEBORDER,    xxxx|xxxx|xxxx|xxxx|xxxx|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -797,7 +823,7 @@ const AttrVersion TY_(W3CAttrsFor_FRAME)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_FRAMESET)[] = 
+const AttrVersion TY_(W3CAttrsFor_FRAMESET)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|xxxx|xxxx|xxxx|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_COLS,           xxxx|xxxx|xxxx|xxxx|xxxx|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -810,7 +836,7 @@ const AttrVersion TY_(W3CAttrsFor_FRAMESET)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_H1)[] = 
+const AttrVersion TY_(W3CAttrsFor_H1)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -835,7 +861,7 @@ const AttrVersion TY_(W3CAttrsFor_H1)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_H2)[] = 
+const AttrVersion TY_(W3CAttrsFor_H2)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -860,7 +886,7 @@ const AttrVersion TY_(W3CAttrsFor_H2)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_H3)[] = 
+const AttrVersion TY_(W3CAttrsFor_H3)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -885,7 +911,7 @@ const AttrVersion TY_(W3CAttrsFor_H3)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_H4)[] = 
+const AttrVersion TY_(W3CAttrsFor_H4)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -910,7 +936,7 @@ const AttrVersion TY_(W3CAttrsFor_H4)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_H5)[] = 
+const AttrVersion TY_(W3CAttrsFor_H5)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -935,7 +961,7 @@ const AttrVersion TY_(W3CAttrsFor_H5)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_H6)[] = 
+const AttrVersion TY_(W3CAttrsFor_H6)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -960,7 +986,7 @@ const AttrVersion TY_(W3CAttrsFor_H6)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_HEAD)[] = 
+const AttrVersion TY_(W3CAttrsFor_HEAD)[] =
 {
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_ID,             xxxx|xxxx|xxxx|xxxx|X10T|xxxx|xxxx|X10F|xxxx|xxxx|X10S|xxxx|xxxx },
@@ -971,7 +997,7 @@ const AttrVersion TY_(W3CAttrsFor_HEAD)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_HR)[] = 
+const AttrVersion TY_(W3CAttrsFor_HR)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -999,7 +1025,7 @@ const AttrVersion TY_(W3CAttrsFor_HR)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_HTML)[] = 
+const AttrVersion TY_(W3CAttrsFor_HTML)[] =
 {
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_ID,             xxxx|xxxx|xxxx|xxxx|X10T|xxxx|xxxx|X10F|xxxx|xxxx|X10S|xxxx|xxxx },
@@ -1011,7 +1037,7 @@ const AttrVersion TY_(W3CAttrsFor_HTML)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_I)[] = 
+const AttrVersion TY_(W3CAttrsFor_I)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1035,7 +1061,7 @@ const AttrVersion TY_(W3CAttrsFor_I)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_IFRAME)[] = 
+const AttrVersion TY_(W3CAttrsFor_IFRAME)[] =
 {
   { TidyAttr_ALIGN,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -1054,7 +1080,7 @@ const AttrVersion TY_(W3CAttrsFor_IFRAME)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_IMG)[] = 
+const AttrVersion TY_(W3CAttrsFor_IMG)[] =
 {
   { TidyAttr_ALIGN,          HT20|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_ALT,            HT20|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -1090,7 +1116,7 @@ const AttrVersion TY_(W3CAttrsFor_IMG)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_INPUT)[] = 
+const AttrVersion TY_(W3CAttrsFor_INPUT)[] =
 {
   { TidyAttr_ACCEPT,         xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_ACCESSKEY,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -1134,7 +1160,7 @@ const AttrVersion TY_(W3CAttrsFor_INPUT)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_INS)[] = 
+const AttrVersion TY_(W3CAttrsFor_INS)[] =
 {
   { TidyAttr_CITE,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1159,7 +1185,7 @@ const AttrVersion TY_(W3CAttrsFor_INS)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_ISINDEX)[] = 
+const AttrVersion TY_(W3CAttrsFor_ISINDEX)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -1173,7 +1199,7 @@ const AttrVersion TY_(W3CAttrsFor_ISINDEX)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_KBD)[] = 
+const AttrVersion TY_(W3CAttrsFor_KBD)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1197,7 +1223,7 @@ const AttrVersion TY_(W3CAttrsFor_KBD)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_LABEL)[] = 
+const AttrVersion TY_(W3CAttrsFor_LABEL)[] =
 {
   { TidyAttr_ACCESSKEY,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -1224,7 +1250,7 @@ const AttrVersion TY_(W3CAttrsFor_LABEL)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_LEGEND)[] = 
+const AttrVersion TY_(W3CAttrsFor_LEGEND)[] =
 {
   { TidyAttr_ACCESSKEY,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_ALIGN,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -1249,7 +1275,7 @@ const AttrVersion TY_(W3CAttrsFor_LEGEND)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_LI)[] = 
+const AttrVersion TY_(W3CAttrsFor_LI)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1275,7 +1301,7 @@ const AttrVersion TY_(W3CAttrsFor_LI)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_LINK)[] = 
+const AttrVersion TY_(W3CAttrsFor_LINK)[] =
 {
   { TidyAttr_CHARSET,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -1309,14 +1335,14 @@ const AttrVersion TY_(W3CAttrsFor_LINK)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_LISTING)[] = 
+const AttrVersion TY_(W3CAttrsFor_LISTING)[] =
 {
   { TidyAttr_SDAFORM,        HT20|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_SDAPREF,        HT20|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_MAP)[] = 
+const AttrVersion TY_(W3CAttrsFor_MAP)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1340,7 +1366,33 @@ const AttrVersion TY_(W3CAttrsFor_MAP)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_MENU)[] = 
+const AttrVersion TY_(W3CAttrsFor_MATHML)[] =
+{
+	{ TidyAttr_ALIGN,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_ID,             xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_HEIGHT,         xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
+	{ TidyAttr_LANG,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|xxxx|xxxx },
+	{ TidyAttr_OnCLICK,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnDBLCLICK,     xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnKEYDOWN,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnKEYPRESS,     xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnKEYUP,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEDOWN,    xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEMOVE,    xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEOUT,     xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEOVER,    xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEUP,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_STYLE,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_TITLE,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_WIDTH,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
+	{ TidyAttr_XML_LANG,       xxxx|xxxx|xxxx|xxxx|X10T|xxxx|xxxx|X10F|xxxx|xxxx|X10S|XH11|xxxx },
+	{ TidyAttr_XMLNS,          xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
+	{ TidyAttr_UNKNOWN,        0                                                                },
+};
+
+const AttrVersion TY_(W3CAttrsFor_MENU)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_COMPACT,        HT20|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -1365,7 +1417,7 @@ const AttrVersion TY_(W3CAttrsFor_MENU)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_META)[] = 
+const AttrVersion TY_(W3CAttrsFor_META)[] =
 {
   { TidyAttr_CONTENT,        HT20|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1379,13 +1431,13 @@ const AttrVersion TY_(W3CAttrsFor_META)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_NEXTID)[] = 
+const AttrVersion TY_(W3CAttrsFor_NEXTID)[] =
 {
   { TidyAttr_N,              HT20|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_NOFRAMES)[] = 
+const AttrVersion TY_(W3CAttrsFor_NOFRAMES)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -1407,7 +1459,7 @@ const AttrVersion TY_(W3CAttrsFor_NOFRAMES)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_NOSCRIPT)[] = 
+const AttrVersion TY_(W3CAttrsFor_NOSCRIPT)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1430,7 +1482,7 @@ const AttrVersion TY_(W3CAttrsFor_NOSCRIPT)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_OBJECT)[] = 
+const AttrVersion TY_(W3CAttrsFor_OBJECT)[] =
 {
   { TidyAttr_ALIGN,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_ARCHIVE,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -1470,7 +1522,7 @@ const AttrVersion TY_(W3CAttrsFor_OBJECT)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_OL)[] = 
+const AttrVersion TY_(W3CAttrsFor_OL)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_COMPACT,        HT20|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -1497,7 +1549,7 @@ const AttrVersion TY_(W3CAttrsFor_OL)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_OPTGROUP)[] = 
+const AttrVersion TY_(W3CAttrsFor_OPTGROUP)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1522,7 +1574,7 @@ const AttrVersion TY_(W3CAttrsFor_OPTGROUP)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_OPTION)[] = 
+const AttrVersion TY_(W3CAttrsFor_OPTION)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1551,7 +1603,7 @@ const AttrVersion TY_(W3CAttrsFor_OPTION)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_P)[] = 
+const AttrVersion TY_(W3CAttrsFor_P)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -1576,7 +1628,7 @@ const AttrVersion TY_(W3CAttrsFor_P)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_PARAM)[] = 
+const AttrVersion TY_(W3CAttrsFor_PARAM)[] =
 {
   { TidyAttr_ID,             xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_NAME,           xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -1587,13 +1639,13 @@ const AttrVersion TY_(W3CAttrsFor_PARAM)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_PLAINTEXT)[] = 
+const AttrVersion TY_(W3CAttrsFor_PLAINTEXT)[] =
 {
   { TidyAttr_SDAFORM,        HT20|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_PRE)[] = 
+const AttrVersion TY_(W3CAttrsFor_PRE)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1619,7 +1671,7 @@ const AttrVersion TY_(W3CAttrsFor_PRE)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_Q)[] = 
+const AttrVersion TY_(W3CAttrsFor_Q)[] =
 {
   { TidyAttr_CITE,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -1643,7 +1695,7 @@ const AttrVersion TY_(W3CAttrsFor_Q)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_RB)[] = 
+const AttrVersion TY_(W3CAttrsFor_RB)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
@@ -1665,7 +1717,7 @@ const AttrVersion TY_(W3CAttrsFor_RB)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_RBC)[] = 
+const AttrVersion TY_(W3CAttrsFor_RBC)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
@@ -1687,7 +1739,7 @@ const AttrVersion TY_(W3CAttrsFor_RBC)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_RP)[] = 
+const AttrVersion TY_(W3CAttrsFor_RP)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
@@ -1709,7 +1761,7 @@ const AttrVersion TY_(W3CAttrsFor_RP)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_RT)[] = 
+const AttrVersion TY_(W3CAttrsFor_RT)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
@@ -1732,7 +1784,7 @@ const AttrVersion TY_(W3CAttrsFor_RT)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_RTC)[] = 
+const AttrVersion TY_(W3CAttrsFor_RTC)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
@@ -1754,7 +1806,7 @@ const AttrVersion TY_(W3CAttrsFor_RTC)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_RUBY)[] = 
+const AttrVersion TY_(W3CAttrsFor_RUBY)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
@@ -1776,7 +1828,7 @@ const AttrVersion TY_(W3CAttrsFor_RUBY)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_S)[] = 
+const AttrVersion TY_(W3CAttrsFor_S)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -1798,7 +1850,7 @@ const AttrVersion TY_(W3CAttrsFor_S)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_SAMP)[] = 
+const AttrVersion TY_(W3CAttrsFor_SAMP)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1822,7 +1874,7 @@ const AttrVersion TY_(W3CAttrsFor_SAMP)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_SCRIPT)[] = 
+const AttrVersion TY_(W3CAttrsFor_SCRIPT)[] =
 {
   { TidyAttr_CHARSET,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DEFER,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1837,7 +1889,7 @@ const AttrVersion TY_(W3CAttrsFor_SCRIPT)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_SELECT)[] = 
+const AttrVersion TY_(W3CAttrsFor_SELECT)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1870,7 +1922,7 @@ const AttrVersion TY_(W3CAttrsFor_SELECT)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_SMALL)[] = 
+const AttrVersion TY_(W3CAttrsFor_SMALL)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1893,7 +1945,7 @@ const AttrVersion TY_(W3CAttrsFor_SMALL)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_SPAN)[] = 
+const AttrVersion TY_(W3CAttrsFor_SPAN)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1916,7 +1968,7 @@ const AttrVersion TY_(W3CAttrsFor_SPAN)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_STRIKE)[] = 
+const AttrVersion TY_(W3CAttrsFor_STRIKE)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -1938,7 +1990,7 @@ const AttrVersion TY_(W3CAttrsFor_STRIKE)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_STRONG)[] = 
+const AttrVersion TY_(W3CAttrsFor_STRONG)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1962,7 +2014,7 @@ const AttrVersion TY_(W3CAttrsFor_STRONG)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_STYLE)[] = 
+const AttrVersion TY_(W3CAttrsFor_STYLE)[] =
 {
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_ID,             xxxx|xxxx|xxxx|xxxx|X10T|xxxx|xxxx|X10F|xxxx|xxxx|X10S|xxxx|xxxx },
@@ -1976,7 +2028,7 @@ const AttrVersion TY_(W3CAttrsFor_STYLE)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_SUB)[] = 
+const AttrVersion TY_(W3CAttrsFor_SUB)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -1999,7 +2051,7 @@ const AttrVersion TY_(W3CAttrsFor_SUB)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_SUP)[] = 
+const AttrVersion TY_(W3CAttrsFor_SUP)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -2022,7 +2074,45 @@ const AttrVersion TY_(W3CAttrsFor_SUP)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_TABLE)[] = 
+const AttrVersion TY_(W3CAttrsFor_SVG)[] =
+{
+	{ TidyAttr_ALIGN,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_ID,             xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_HEIGHT,         xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
+	{ TidyAttr_LANG,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|xxxx|xxxx },
+	{ TidyAttr_OnCLICK,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnDBLCLICK,     xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnKEYDOWN,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnKEYPRESS,     xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnKEYUP,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEDOWN,    xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEMOVE,    xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEOUT,     xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEOVER,    xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_OnMOUSEUP,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_STYLE,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_TITLE,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_WIDTH,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
+	{ TidyAttr_XML_LANG,       xxxx|xxxx|xxxx|xxxx|X10T|xxxx|xxxx|X10F|xxxx|xxxx|X10S|XH11|xxxx },
+	{ TidyAttr_XMLNS,          xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|XH11|xxxx },
+	{ TidyAttr_X,              xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_Y,              xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_VIEWBOX,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_PRESERVEASPECTRATIO,
+	                           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_ZOOMANDPAN,     xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_VERSION,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_BASEPROFILE,    xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_CONTENTSCRIPTTYPE,
+	                           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_CONTENTSTYLETYPE,
+	                           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|H41S|X10S|XH11|xxxx },
+	{ TidyAttr_UNKNOWN,        0                                                                },
+};
+
+const AttrVersion TY_(W3CAttrsFor_TABLE)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_BGCOLOR,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -2055,7 +2145,7 @@ const AttrVersion TY_(W3CAttrsFor_TABLE)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_TBODY)[] = 
+const AttrVersion TY_(W3CAttrsFor_TBODY)[] =
 {
   { TidyAttr_ALIGN,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_CHAR,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -2082,7 +2172,7 @@ const AttrVersion TY_(W3CAttrsFor_TBODY)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_TD)[] = 
+const AttrVersion TY_(W3CAttrsFor_TD)[] =
 {
   { TidyAttr_ABBR,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -2119,7 +2209,7 @@ const AttrVersion TY_(W3CAttrsFor_TD)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_TEXTAREA)[] = 
+const AttrVersion TY_(W3CAttrsFor_TEXTAREA)[] =
 {
   { TidyAttr_ACCESSKEY,      xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -2155,7 +2245,7 @@ const AttrVersion TY_(W3CAttrsFor_TEXTAREA)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_TFOOT)[] = 
+const AttrVersion TY_(W3CAttrsFor_TFOOT)[] =
 {
   { TidyAttr_ALIGN,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_CHAR,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -2182,7 +2272,7 @@ const AttrVersion TY_(W3CAttrsFor_TFOOT)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_TH)[] = 
+const AttrVersion TY_(W3CAttrsFor_TH)[] =
 {
   { TidyAttr_ABBR,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
@@ -2219,7 +2309,7 @@ const AttrVersion TY_(W3CAttrsFor_TH)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_THEAD)[] = 
+const AttrVersion TY_(W3CAttrsFor_THEAD)[] =
 {
   { TidyAttr_ALIGN,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_CHAR,           xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -2246,7 +2336,7 @@ const AttrVersion TY_(W3CAttrsFor_THEAD)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_TITLE)[] = 
+const AttrVersion TY_(W3CAttrsFor_TITLE)[] =
 {
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_ID,             xxxx|xxxx|xxxx|xxxx|X10T|xxxx|xxxx|X10F|xxxx|xxxx|X10S|xxxx|xxxx },
@@ -2257,7 +2347,7 @@ const AttrVersion TY_(W3CAttrsFor_TITLE)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_TR)[] = 
+const AttrVersion TY_(W3CAttrsFor_TR)[] =
 {
   { TidyAttr_ALIGN,          xxxx|HT32|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_BGCOLOR,        xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -2285,7 +2375,7 @@ const AttrVersion TY_(W3CAttrsFor_TR)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_TT)[] = 
+const AttrVersion TY_(W3CAttrsFor_TT)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -2309,7 +2399,7 @@ const AttrVersion TY_(W3CAttrsFor_TT)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_U)[] = 
+const AttrVersion TY_(W3CAttrsFor_U)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -2331,7 +2421,7 @@ const AttrVersion TY_(W3CAttrsFor_U)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_UL)[] = 
+const AttrVersion TY_(W3CAttrsFor_UL)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_COMPACT,        HT20|HT32|H40T|H41T|X10T|H40F|H41F|X10F|xxxx|xxxx|xxxx|xxxx|xxxx },
@@ -2357,7 +2447,7 @@ const AttrVersion TY_(W3CAttrsFor_UL)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_VAR)[] = 
+const AttrVersion TY_(W3CAttrsFor_VAR)[] =
 {
   { TidyAttr_CLASS,          xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|XB10 },
   { TidyAttr_DIR,            xxxx|xxxx|H40T|H41T|X10T|H40F|H41F|X10F|H40S|H41S|X10S|XH11|xxxx },
@@ -2381,7 +2471,7 @@ const AttrVersion TY_(W3CAttrsFor_VAR)[] =
   { TidyAttr_UNKNOWN,        0                                                                },
 };
 
-const AttrVersion TY_(W3CAttrsFor_XMP)[] = 
+const AttrVersion TY_(W3CAttrsFor_XMP)[] =
 {
   { TidyAttr_SDAFORM,        HT20|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx },
   { TidyAttr_SDAPREF,        HT20|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx|xxxx },

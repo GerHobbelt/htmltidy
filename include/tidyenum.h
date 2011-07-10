@@ -7,33 +7,33 @@
   generated wrappers and COM IDL files.
 
   Copyright (c) 1998-2008 World Wide Web Consortium
-  (Massachusetts Institute of Technology, European Research 
+  (Massachusetts Institute of Technology, European Research
   Consortium for Informatics and Mathematics, Keio University).
   All Rights Reserved.
 
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
   Contributing Author(s):
 
      Dave Raggett <dsr@w3.org>
 
   The contributing author(s) would like to thank all those who
-  helped with testing, bug fixes and suggestions for improvements. 
+  helped with testing, bug fixes and suggestions for improvements.
   This wouldn't have been possible without your help.
 
   COPYRIGHT NOTICE:
- 
+
   This software and documentation is provided "as is," and
   the copyright holders and contributing author(s) make no
   representations or warranties, express or implied, including
   but not limited to, warranties of merchantability or fitness
   for any particular purpose or that the use of the software or
   documentation will not infringe any third party patents,
-  copyrights, trademarks or other rights. 
+  copyrights, trademarks or other rights.
 
   The copyright holders and contributing author(s) will not be held
   liable for any direct, indirect, special or consequential damages
@@ -49,7 +49,7 @@
      not be misrepresented as being the original source.
   3. This Copyright notice may not be removed or altered from any
      source or altered source distribution.
- 
+
   The copyright holders and contributing author(s) specifically
   permit, without fee, and encourage the use of this source code
   as a component for supporting the Hypertext Markup Language in
@@ -92,7 +92,7 @@ typedef enum
 
   TidyCharEncoding,    /**< In/out character encoding */
   TidyInCharEncoding,  /**< Input character encoding (if different) */
-  TidyOutCharEncoding, /**< Output character encoding (if different) */    
+  TidyOutCharEncoding, /**< Output character encoding (if different) */
   TidyNewline,         /**< Output line ending (default to platform) */
 
   TidyDoctypeMode,     /**< See doctype property */
@@ -100,7 +100,7 @@ typedef enum
 
   TidyDuplicateAttrs,  /**< Keep first or last duplicate attribute */
   TidyAltText,         /**< Default text for alt attribute */
-  
+
   /* obsolete */
   TidySlideStyle,      /**< Style sheet for slides: not used for anything yet */
 
@@ -127,6 +127,7 @@ typedef enum
   TidyDropPropAttrs,   /**< Discard proprietary attributes */
   TidyDropFontTags,    /**< Discard presentation tags */
   TidyDropEmptyParas,  /**< Discard empty p elements */
+  TidyDropEmptyOptions,/**< Discard empty option elements [i_a] */
   TidyFixComments,     /**< Fix comments with adjacent hyphens */
   TidyBreakBeforeBR,   /**< Output newline before <br> or not? */
 
@@ -188,8 +189,9 @@ typedef enum
   TidyBlockTags,       /**< Declared block tags */
   TidyEmptyTags,       /**< Declared empty tags */
   TidyPreTags,         /**< Declared pre tags */
+  TidyOtherNamespaceTags, /**< Declared 'alternate namespace' tags, i.e. tags which contain subtrees with non-HTML tags, e.g. <math> and <svg> */
 
-  TidyAccessibilityCheckLevel, /**< Accessibility check level 
+  TidyAccessibilityCheckLevel, /**< Accessibility check level
                                    0 (old style), or 1, 2, 3 */
 
   TidyVertSpace,       /**< degree to which markup is spread out vertically */
@@ -204,6 +206,10 @@ typedef enum
   TidySortAttributes,      /**< Sort attributes */
   TidyMergeSpans,       /**< Merge multiple SPANs */
   TidyAnchorAsName,    /**< Define anchors as name attributes */
+  TidyTitle,           /**< Fix an empty title element by filling it with a copy of the first header element in the document body */ /* [i_a] */
+  TidySuppressEmptyTagSyntax,    /**< Suppress empty tag syntax in the output, i.e. write '<div id="1"></div>' instead of '<div id="1" />' */ /* [i_a] */
+  TidyFixBrakes,       /**< Remove '<br />' from paragraphs (and other block elements); this option conditionally enables the 2003AD code which was turned off due to bug report http://tidy.sf.net/bug/681116 */ /* [i_a] */
+
   N_TIDY_OPTIONS       /**< Must be last */
 } TidyOptionId;
 
@@ -266,8 +272,8 @@ typedef enum
 
 /* I/O and Message handling interface
 **
-** By default, Tidy will define, create and use 
-** instances of input and output handlers for 
+** By default, Tidy will define, create and use
+** instances of input and output handlers for
 ** standard C buffered I/O (i.e. FILE* stdin,
 ** FILE* stdout and FILE* stderr for content
 ** input, content output and diagnostic output,
@@ -278,7 +284,7 @@ typedef enum
 
 /** Message severity level
 */
-typedef enum 
+typedef enum
 {
   TidyInfo,             /**< Information about markup usage */
   TidyWarning,          /**< Warning message */
@@ -295,7 +301,7 @@ typedef enum
 
 /** Node types
 */
-typedef enum 
+typedef enum
 {
   TidyNode_Root,        /**< Root */
   TidyNode_DocType,     /**< DOCTYPE */
@@ -337,6 +343,7 @@ typedef enum
   TidyTag_BODY,     /**< BODY */
   TidyTag_BR,       /**< BR */
   TidyTag_BUTTON,   /**< BUTTON */
+  TidyTag_CANVAS,   /**< CANVAS */
   TidyTag_CAPTION,  /**< CAPTION */
   TidyTag_CENTER,   /**< CENTER */
   TidyTag_CITE,     /**< CITE */
@@ -383,6 +390,7 @@ typedef enum
   TidyTag_LINK,     /**< LINK */
   TidyTag_LISTING,  /**< LISTING */
   TidyTag_MAP,      /**< MAP */
+  TidyTag_MATHML,   /**< MATH  (HTML5) MathML embedded in [X]HTML */
   TidyTag_MARQUEE,  /**< MARQUEE */
   TidyTag_MENU,     /**< MENU */
   TidyTag_META,     /**< META */
@@ -422,6 +430,7 @@ typedef enum
   TidyTag_STYLE,    /**< STYLE */
   TidyTag_SUB,      /**< SUB */
   TidyTag_SUP,      /**< SUP */
+  TidyTag_SVG,      /**< SVG  (HTML5) */
   TidyTag_TABLE,    /**< TABLE */
   TidyTag_TBODY,    /**< TBODY */
   TidyTag_TD,       /**< TD */
@@ -613,8 +622,42 @@ typedef enum
   TidyAttr_SDASUFF,           /**< SDASUFF= */
   TidyAttr_URN,               /**< URN= */
 
+  /* SVG attributes (SVG 1.1) */
+  TidyAttr_X,					/**< X= */
+  TidyAttr_Y,                   /**< Y= */
+  TidyAttr_VIEWBOX,             /**< VIEWBOX= */
+  TidyAttr_PRESERVEASPECTRATIO, /**< PRESERVEASPECTRATIO= */
+  TidyAttr_ZOOMANDPAN,          /**< ZOOMANDPAN= */
+  TidyAttr_BASEPROFILE,         /**< BASEPROFILE= */
+  TidyAttr_CONTENTSCRIPTTYPE,   /**< CONTENTSCRIPTTYPE= */
+  TidyAttr_CONTENTSTYLETYPE,    /**< CONTENTSTYLETYPE= */
+
   N_TIDY_ATTRIBS              /**< Must be last */
 } TidyAttrId;
+
+
+/* [i_a] */
+/** Block-level and unknown elements are printed on
+  new lines and their contents indented 2 spaces.
+
+  Inline elements are printed inline.
+
+  Inline content is wrapped on spaces (except in
+  attribute values or preformatted text, after
+  start tags and before end tags.
+*/
+typedef enum
+{
+	TidyTextFormat_Normal = 0x0000,	/**< NORMAL (default) */
+	TidyTextFormat_Preformatted = 0x0001,	/**< PREFORMATTED */
+	TidyTextFormat_Comment = 0x0002,	/**< COMMENT */
+	TidyTextFormat_AttribValue = 0x0004,	/**< ATTRIBVALUE */
+	TidyTextFormat_NoWrap = 0x0008,	/**< NOWRAP */
+	TidyTextFormat_CDATA = 0x0010,	/**< CDATA */
+	TidyTextFormat_OtherNamespace = 0x0020,	/**< print subtree as XML */
+} TidyTextFormat;
+/* Warning: TidyTextFormat values must match the #define's in pprint.h exactly! */
+
 
 #ifdef __cplusplus
 }  /* extern "C" */

@@ -1,0 +1,189 @@
+--- .\vendor\src\lexer.h	2009-03-12 11:38:03.577596500 -0400
++++ .\main\src\lexer.h	2009-07-14 15:49:04.723000000 -0400
+@@ -357,6 +357,9 @@
+     Bool bad_doctype;       /* e.g. if html or PUBLIC is missing */
+     uint txtstart;          /* start of current node */
+     uint txtend;            /* end of current node */
++    uint skipped;           /* number of characters previously read from the
++                               stream past the end of the last token returned
++                               (CMWoods - HTML Tidy Bug #2819903) */
+     LexerState state;       /* state of lexer's finite state machine */
+ 
+     Node* token;            /* last token returned by GetToken() */
+
+--- .\vendor\src\lexer.c	2009-03-12 11:38:03.598598600 -0400
++++ .\main\src\lexer.c	2009-07-14 16:14:31.756000000 -0400
+@@ -779,8 +779,21 @@
+ 
+ static void SetLexerLocus( TidyDocImpl* doc, Lexer *lexer )
+ {
++    /*
++      CMWoods - HTML Tidy Bug #2819903
++      If the lexer's skipped value is non-zero then this indicates characters
++      that have already been read from the stream but were not part of the last
++      token returned.  Subtract the skipped from the current stream position to
++      get the correct stream position to record and then clear it.
++
++      To-Do: Add a check to ensure that skipped isn't larger than curcol.
++      To-Do: Check for cases in code where skipped could be non-zero and one
++             or more line-breaks have been read (i.e. have to adjust line and
++             column - not sure how to handle that).
++	*/
+     lexer->lines = doc->docIn->curline;
+-    lexer->columns = doc->docIn->curcol;
++    lexer->columns = doc->docIn->curcol - lexer->skipped;
++    lexer->skipped = 0;
+ }
+ 
+ /*
+@@ -902,6 +915,17 @@
+     /* report invalid NCR's - Terry Teague 01 Sep 01 */
+     if ( !found || (ch >= 128 && ch <= 159) || (ch >= 256 && c != ';') )
+     {
++        /*
++          CMWoods - HTML Tidy Bug #2819903
++          SetLexerLocus() should only be called to record the
++          position for the pending token.  However in order to
++          report the line/column of the actual error the lexer's
++          locus must be updated.  So once the error has been
++          reported reset the locus to its original value.
++        */
++        uint savedLine = lexer->lines;
++        uint savedCol = lexer->columns;
++
+         /* set error position just before offending character */
+         SetLexerLocus( doc, lexer );
+         lexer->columns = startcol;
+@@ -954,15 +978,34 @@
+         else /* naked & */
+             TY_(ReportEntityError)( doc, UNESCAPED_AMPERSAND,
+                                     lexer->lexbuf+start, ch );
++
++        /* #2819903 - reset the lexer's locus to the original value */
++        lexer->lines = savedLine;
++        lexer->columns = savedCol;
+     }
+     else
+     {
+         if ( c != ';' )    /* issue warning if not terminated by ';' */
+         {
++            /*
++              CMWoods - HTML Tidy Bug #2819903
++              SetLexerLocus() should only be called to record the
++              position for the pending token.  However in order to
++              report the line/column of the actual error the lexer's
++              locus must be updated.  So once the error has been
++              reported reset the locus to its original value.
++            */
++            uint savedLine = lexer->lines;
++            uint savedCol = lexer->columns;
++
+             /* set error position just before offending chararcter */
+             SetLexerLocus( doc, lexer );
+             lexer->columns = startcol;
+             TY_(ReportEntityError)( doc, MISSING_SEMICOLON, lexer->lexbuf+start, c );
++
++            /* #2819903 - reset the lexer's locus to the original value */
++            lexer->lines = savedLine;
++            lexer->columns = savedCol;
+         }
+ 
+         if (preserveEntities)
+@@ -1939,11 +1982,26 @@
+             }
+             else if (lexer->lexbuf[start - 2] != '\\')
+             {
++                /*
++                  CMWoods - HTML Tidy Bug #2819903
++                  SetLexerLocus() should only be called to record the
++                  position for the pending token.  However in order to
++                  report the line/column of the actual error the lexer's
++                  locus must be updated.  So once the error has been
++                  reported reset the locus to its original value.
++                */
++                uint savedLine = lexer->lines;
++                uint savedCol = lexer->columns;
++
+                 /* if the end tag is not already escaped using backslash */
+                 SetLexerLocus( doc, lexer );
+                 lexer->columns -= 3;
+                 TY_(ReportError)(doc, NULL, NULL, BAD_CDATA_CONTENT);
+ 
++                /* #2819903 - reset the lexer's locus to the original value */
++                lexer->lines = savedLine;
++                lexer->columns = savedCol;
++
+                 /* if javascript insert backslash before / */
+                 if (TY_(IsJavaScript)(container))
+                 {
+@@ -1981,11 +2039,19 @@
+     doc->lexer->pushed = yes;
+ }
+ 
++/*
++  CMWoods - HTML Tidy Bug #2819903.
++  Added recording of skip value to correct position recorded by the next call
++  to SetLexerLocus().  If a non-zero skip value is specified then this
++  represents some content which has already been read from the input stream and
++  does not need to be processed again by the lexer.
++*/
+ #ifdef TIDY_STORE_ORIGINAL_TEXT
+ #define CondReturnTextNode(doc, skip) \
+             if (lexer->txtend > lexer->txtstart) \
+             { \
+                 lexer->token = TY_(TextToken)(lexer); \
++                lexer->skipped = skip; \
+                 StoreOriginalTextInToken(doc, lexer->token, skip); \
+                 return lexer->token; \
+             }
+@@ -1994,6 +2060,7 @@
+             if (lexer->txtend > lexer->txtstart) \
+             { \
+                 lexer->token = TY_(TextToken)(lexer); \
++                lexer->skipped = skip; \
+                 return lexer->token; \
+             }
+ #endif
+@@ -2488,8 +2555,12 @@
+ 
+                 if (c == '>')
+                 {
+-                    if (badcomment)
+-                        TY_(ReportError)(doc, NULL, NULL, MALFORMED_COMMENT );
++                    /*
++                      CMWoods - HTML Tidy Bug #2819903
++                      Moved reporting of bad comment so that the correct error
++                      position can be returned in the message without actually
++                      changing the node's position.
++                    */
+ 
+                     /* do not store closing -- in lexbuf */
+                     lexer->lexsize -= 2;
+@@ -2514,8 +2585,25 @@
+                 /* note position of first such error in the comment */
+                 if (!badcomment)
+                 {
++                    /*
++                      CMWoods - HTML Tidy Bug #2819903
++                      SetLexerLocus() should only be called to record the
++                      position for the pending token.  However in order to
++                      report the line/column of the actual error the lexer's
++                      locus must be updated.  So once the error has been
++                      reported reset the locus to its original value.
++                    */
++                    uint savedLine = lexer->lines;
++                    uint savedCol = lexer->columns;
++
++                    /* report the error */
+                     SetLexerLocus( doc, lexer );
+                     lexer->columns -= 3;
++                    TY_(ReportError)(doc, NULL, NULL, MALFORMED_COMMENT );
++
++                    /* reset the lexer's locus to the original value */
++                    lexer->lines = savedLine;
++                    lexer->columns = savedCol;
+                 }
+ 
+                 badcomment++;
+
+ 	  	 

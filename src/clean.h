@@ -7,9 +7,9 @@
   See tidy.h for the copyright notice.
 
   CVS Info:
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
 */
 
@@ -65,9 +65,9 @@ Bool TY_(IsWord2000)( TidyDocImpl* doc );
 void TY_(BumpObject)( TidyDocImpl* doc, Node *html );
 
 /* This is disabled due to http://tidy.sf.net/bug/681116 */
-#if 0
+/* #if 0 */
 void TY_(FixBrakes)( TidyDocImpl* pDoc, Node *pParent );
-#endif
+/* #endif */
 
 void TY_(VerifyHTTPEquiv)( TidyDocImpl* pDoc, Node *pParent );
 
@@ -82,6 +82,10 @@ void TY_(ConvertCDATANodes)(TidyDocImpl* doc, Node* node);
 void TY_(FixAnchors)(TidyDocImpl* doc, Node *node, Bool wantName, Bool wantId);
 void TY_(FixXhtmlNamespace)(TidyDocImpl* doc, Bool wantXmlns);
 void TY_(FixLanguageInformation)(TidyDocImpl* doc, Node* node, Bool wantXmlLang, Bool wantLang);
+
+void TY_(FixTitle)(TidyDocImpl* doc); /* [i_a] */
+
+void TY_(DiscardContainer)( TidyDocImpl* doc, Node *element, Node **pnode);
 
 
 #endif /* __CLEAN_H__ */

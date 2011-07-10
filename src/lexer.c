@@ -1,13 +1,13 @@
 /* lexer.c -- Lexer for html parser
-  
+
   (c) 1998-2008 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
-  
+
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
 */
 
@@ -51,7 +51,7 @@
 /* swallows closing '>' */
 static AttVal *ParseAttrs( TidyDocImpl* doc, Bool *isempty );
 
-static tmbstr ParseAttribute( TidyDocImpl* doc, Bool* isempty, 
+static tmbstr ParseAttribute( TidyDocImpl* doc, Bool* isempty,
                              Node **asp, Node **php );
 
 static tmbstr ParseValue( TidyDocImpl* doc, ctmbstr name, Bool foldCase,
@@ -722,7 +722,7 @@ static void AddByte( Lexer *lexer, tmbchar ch )
         buf = (tmbstr) TidyRealloc( lexer->allocator, lexer->lexbuf, allocAmt );
         if ( buf )
         {
-          TidyClearMemory( buf + lexer->lexlength, 
+          TidyClearMemory( buf + lexer->lexlength,
                            allocAmt - lexer->lexlength );
           lexer->lexbuf = buf;
           lexer->lexlength = allocAmt;
@@ -746,7 +746,7 @@ void TY_(AddCharToLexer)( Lexer *lexer, uint c )
 {
     int i, err, count = 0;
     tmbchar buf[10] = {0};
-    
+
     err = TY_(EncodeCharToUTF8Bytes)( c, buf, NULL, &count );
     if (err)
     {
@@ -759,7 +759,7 @@ void TY_(AddCharToLexer)( Lexer *lexer, uint c )
         buf[2] = (byte) 0xBD;
         count = 3;
     }
-    
+
     for ( i = 0; i < count; ++i )
         AddByte( lexer, buf[i] );
 }
@@ -796,17 +796,17 @@ static void SetLexerLocus( TidyDocImpl* doc, Lexer *lexer )
 
   Also Randy Waki pointed out the following case for the
   04 Aug 00 version (bug #433012):
-  
+
   For example:   <a href="something.htm?id=1&lang=en">
   was tidied to: <a href="something.htm?id=1&lang;=en">
   rather than:   <a href="something.htm?id=1&amp;lang=en">
-  
+
   where "lang" is a known entity (#9001), but browsers would
   misinterpret "&lang;" because it had a value > 256.
-  
+
   So the case of an apparently known entity with a value > 256 and
   missing a semicolon is handled specially.
-  
+
   "ParseEntity" is also a bit of a misnomer - it handles entities and
   numeric character references. Invalid NCR's are now reported.
 */
@@ -818,7 +818,7 @@ static void ParseEntity( TidyDocImpl* doc, GetTokenMode mode )
         ENT_numdec,
         ENT_numhex
     } ENTState;
-    
+
     typedef Bool (*ENTfn)(uint);
     const ENTfn entFn[] = {
         TY_(IsNamechar),
@@ -849,7 +849,7 @@ static void ParseEntity( TidyDocImpl* doc, GetTokenMode mode )
         if (charRead == 1 && c == '#')
         {
 #if SUPPORT_ASIAN_ENCODINGS
-            if ( !cfgBool(doc, TidyNCR) || 
+            if ( !cfgBool(doc, TidyNCR) ||
                  cfg(doc, TidyInCharEncoding) == BIG5 ||
                  cfg(doc, TidyInCharEncoding) == SHIFTJIS )
             {
@@ -883,7 +883,7 @@ static void ParseEntity( TidyDocImpl* doc, GetTokenMode mode )
     /* make sure entity is NULL terminated */
     lexer->lexbuf[lexer->lexsize] = '\0';
 
-    /* Should contrain version to XML/XHTML if &apos; 
+    /* Should contrain version to XML/XHTML if &apos;
     ** is encountered.  But this is not possible with
     ** Tidy's content model bit mask.
     */
@@ -911,10 +911,10 @@ static void ParseEntity( TidyDocImpl* doc, GetTokenMode mode )
             if (ch >= 128 && ch <= 159)
             {
                 /* invalid numeric character reference */
-                
+
                 uint c1 = 0;
                 int replaceMode = DISCARDED_CHAR;
-            
+
                 if ( TY_(ReplacementCharEncoding) == WIN1252 )
                     c1 = TY_(DecodeWin1252)( ch );
                 else if ( TY_(ReplacementCharEncoding) == MACROMAN )
@@ -922,13 +922,13 @@ static void ParseEntity( TidyDocImpl* doc, GetTokenMode mode )
 
                 if ( c1 )
                     replaceMode = REPLACED_CHAR;
-                
+
                 if ( c != ';' )  /* issue warning if not terminated by ';' */
                     TY_(ReportEntityError)( doc, MISSING_SEMICOLON_NCR,
                                             lexer->lexbuf+start, c );
- 
+
                 TY_(ReportEncodingError)(doc, INVALID_NCR, ch, replaceMode == DISCARDED_CHAR);
-                
+
                 if ( c1 )
                 {
                     /* make the replacement */
@@ -942,7 +942,7 @@ static void ParseEntity( TidyDocImpl* doc, GetTokenMode mode )
                     lexer->lexsize = start;
                     semicolon = no;
                }
-               
+
             }
             else
                 TY_(ReportEntityError)( doc, UNKNOWN_ENTITY,
@@ -1284,7 +1284,7 @@ Node *TY_(FindDocType)( TidyDocImpl* doc )
 {
     Node* node;
     for ( node = (doc ? doc->root.content : NULL);
-          node && node->type != DocTypeTag; 
+          node && node->type != DocTypeTag;
           node = node->next )
         /**/;
     return node;
@@ -1307,7 +1307,7 @@ Node *TY_(FindHTML)( TidyDocImpl* doc )
 {
     Node *node;
     for ( node = (doc ? doc->root.content : NULL);
-          node && !nodeIsHTML(node); 
+          node && !nodeIsHTML(node);
           node = node->next )
         /**/;
 
@@ -1334,7 +1334,7 @@ Node *TY_(FindHEAD)( TidyDocImpl* doc )
     if ( node )
     {
         for ( node = node->content;
-              node && !nodeIsHEAD(node); 
+              node && !nodeIsHEAD(node);
               node = node->next )
             /**/;
     }
@@ -1392,7 +1392,7 @@ Bool TY_(AddGenerator)( TidyDocImpl* doc )
     Node *node;
     Node *head = TY_(FindHEAD)( doc );
     tmbchar buf[256];
-    
+
     if (head)
     {
 #ifdef PLATFORM_NAME
@@ -1417,7 +1417,7 @@ Bool TY_(AddGenerator)( TidyDocImpl* doc )
                     {
                         /* update the existing content to reflect the */
                         /* actual version of Tidy currently being used */
-                        
+
                         TidyDocFree(doc, attval->value);
                         attval->value = TY_(tmbstrdup)(doc->allocator, buf);
                         return no;
@@ -1492,7 +1492,7 @@ Bool TY_(WarnMissingSIInEmittedDocType)( TidyDocImpl* doc )
 {
     Bool isXhtml = doc->lexer->isvoyager;
     Node* doctype;
-    
+
     /* Do not warn in XHTML mode */
     if ( isXhtml )
         return no;
@@ -1515,7 +1515,7 @@ Bool TY_(WarnMissingSIInEmittedDocType)( TidyDocImpl* doc )
 
 /* Put DOCTYPE declaration between the
 ** <?xml version "1.0" ... ?> declaration, if any,
-** and the <html> tag.  Should also work for any comments, 
+** and the <html> tag.  Should also work for any comments,
 ** etc. that may precede the <html> tag.
 */
 
@@ -1699,6 +1699,8 @@ Bool TY_(FixDocType)( TidyDocImpl* doc )
     else
     {
         doctype = NewDocTypeNode(doc);
+		if (doctype == NULL)									/* [i_a] fix crash */
+			return no;
         doctype->element = TY_(tmbstrdup)(doc->allocator, "html");
     }
 
@@ -1730,14 +1732,14 @@ Bool TY_(FixXmlDecl)( TidyDocImpl* doc )
         if ( root->content )
             TY_(InsertNodeBeforeElement)(root->content, xml);
         else
-            root->content = xml;
+			TY_(InsertNodeAtStart)(root, xml); /* [i_a] fix integrity check assert for empty XML inputs */
     }
 
     version = TY_(GetAttrByName)(xml, "version");
     encoding = TY_(GetAttrByName)(xml, "encoding");
 
     /*
-      We need to insert a check if declared encoding 
+      We need to insert a check if declared encoding
       and output encoding mismatch and fix the XML
       declaration accordingly!!!
     */
@@ -1853,7 +1855,7 @@ static Node *GetCDATA( TidyDocImpl* doc, Node *container )
                 TY_(AddCharToLexer)(lexer, c);
 
                 c = TY_(ReadChar)(doc->docIn);
-                
+
                 if (!TY_(IsLetter)(c))
                 {
                     TY_(UngetChar)(c, doc->docIn);
@@ -1879,7 +1881,7 @@ static Node *GetCDATA( TidyDocImpl* doc, Node *container )
 
                 TY_(AddCharToLexer)(lexer, c);
                 c = TY_(ReadChar)(doc->docIn);
-                
+
                 if (!TY_(IsLetter)(c))
                 {
                     TY_(UngetChar)(c, doc->docIn);
@@ -2004,6 +2006,7 @@ void TY_(UngetToken)( TidyDocImpl* doc )
   MixedContent   -- for elements which don't accept PCDATA
   Preformatted   -- white space preserved as is
   IgnoreMarkup   -- for CDATA elements such as script, style
+  OtherNamespace -- for XML-formatted subtrees where whitespace will be preserved
 */
 static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode );
 
@@ -2025,7 +2028,7 @@ Node* TY_(GetToken)( TidyDocImpl* doc, GetTokenMode mode )
             /* itoken has been accepted */
             lexer->itoken = NULL;
         }
-            
+
         /* duplicate inlines in preference to pushed text nodes when appropriate */
         lexer->pushed = no;
         if (lexer->token->type != TextNode
@@ -2050,10 +2053,172 @@ Node* TY_(GetToken)( TidyDocImpl* doc, GetTokenMode mode )
     return GetTokenFromStream( doc, mode );
 }
 
+/*
+Check whether the lexer is currently watching string content, and if so,
+check whether or not the string has reached an end.
+
+Take care of escaped quotes and similar trickery by skipping those when
+the need arises.
+
+Also take care of comments in the active content: string delimiters are
+not required to 'match up' within comments after all and not minding about
+that would thwart our efforts here by introducing bugs for particular
+inputs.
+
+Returns 'yes' when the given character is outside a string and should
+therefor be treated as-is. Return 'no' when the given character resides
+within a string and should not be parsed.
+*/
+static Bool TrackStringContent( TidyDocImpl* doc, uint c )
+{
+	Lexer* lexer = doc->lexer;
+
+	switch (c)
+	{
+	case '`':
+		/*
+		ASP and PHP don't support strings in backquotes. But we never mind that
+		as the character cannot occur legally in the code, except in comments.
+		Which we have to handle anyhow...
+		*/
+		if (lexer->state != LEX_JSTE)
+		{
+			/*
+			not an important char otherwise; just don't change
+			the quote/comment state machine in here
+			*/
+			return no;
+		}
+		goto parse_string;
+
+	case '\'':
+		if (lexer->state == LEX_ASP)
+		{
+			if (lexer->activeQuoteChar == 0)
+			{
+				/* ' is a shorthand for 'rem' in ASP */
+				if (lexer->activeCommentStyle == COMMENT_NONE)
+				{
+					lexer->activeCommentStyle = COMMENT_SINGLE_LINE;
+				}
+			}
+			/*
+			ignore characters within comment / string anyway, and
+			with ASP this one can't occur anywhere else.
+			*/
+			assert(lexer->activeQuoteChar != '\'');
+			return no;
+		}
+		goto parse_string;
+
+	case '"':
+parse_string:
+		if (lexer->activeCommentStyle == COMMENT_NONE)
+		{
+			/* don't monitor strings within strings; no need */
+			if (lexer->activeQuoteChar && lexer->activeQuoteChar == c)
+				lexer->activeQuoteChar = 0;
+			else if (0 == lexer->activeQuoteChar)
+				lexer->activeQuoteChar = c;
+		}
+		else
+		{
+			assert(lexer->activeQuoteChar == 0);
+		}
+		return no;
+
+	case '\\':
+		/*
+		escape sequence in PHP/... code: either the next char or a hex/uni/oct sequence.
+		We can rough it by simply ignoring the next character altogether.
+
+		Note: when this character occurs in a comment, skipping the next char is
+		      a no-go, as nasty buggers may write _\_*_/ (remove the underscores)
+			  to end a C-style comment immediately after that backslash.
+		*/
+		if (lexer->activeCommentStyle == COMMENT_NONE)
+		{
+			c = TY_(ReadChar)(doc->docIn);
+
+			if (c == EndOfStream)
+			{
+				/* TY_(ReportError)(doc, NULL, NULL, UNEXPECTED_END_OF_FILE ); */
+				TY_(UngetChar)(c, doc->docIn);
+			}
+			else
+			{
+				TY_(AddCharToLexer)(lexer, c);
+			}
+		}
+		return no;
+
+	case '/':
+		if (lexer->activeCommentStyle == COMMENT_NONE)
+		{
+			c = TY_(ReadChar)(doc->docIn);
+			if (c == '*')
+			{
+				lexer->activeCommentStyle = COMMENT_C;
+				TY_(AddCharToLexer)(lexer, c);
+			}
+			else if (c == '/')
+			{
+				lexer->activeCommentStyle = COMMENT_SINGLE_LINE;
+				TY_(AddCharToLexer)(lexer, c);
+			}
+			else
+			{
+				/* unget that next character, please */
+				TY_(UngetChar)(c, doc->docIn);
+			}
+		}
+		return no;
+
+	case '\n':
+		if (lexer->activeCommentStyle == COMMENT_SINGLE_LINE)
+		{
+			lexer->activeCommentStyle = COMMENT_NONE;
+		}
+		return no;
+
+	case 'r':
+	case 'R':
+		/*
+		some buggers may write ASP code with real 'rem's in, and
+		than be extra-nasty by dropping a single double-quote
+		in there:    REM   fonky biz'niz, aye?"
+		*/
+		if (lexer->state == LEX_ASP &&
+			lexer->activeCommentStyle == COMMENT_NONE)
+		{
+			c = TY_(ReadChar)(doc->docIn);
+			if (c == 'e' || c == 'E')
+			{
+				TY_(AddCharToLexer)(lexer, c);
+				c = TY_(ReadChar)(doc->docIn);
+				if (c == 'm' || c == 'M')
+				{
+					TY_(AddCharToLexer)(lexer, c);
+					lexer->activeCommentStyle = COMMENT_SINGLE_LINE;
+					return no;
+				}
+			}
+			/* unget that last character, please */
+			TY_(UngetChar)(c, doc->docIn);
+		}
+		return no;
+	}
+
+	return (lexer->activeQuoteChar == 0 &&
+			lexer->activeCommentStyle == COMMENT_NONE);
+}
+
+
 static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
 {
     Lexer* lexer = doc->lexer;
-    uint c, badcomment = 0;
+    uint c;
+	uint badcomment = 0;
     Bool isempty = no;
     AttVal *attributes = NULL;
 
@@ -2088,7 +2253,7 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                  to do this here rather than in parser methods
                  for elements that don't have mixed content.
                 */
-                if (TY_(IsWhite)(c) && (mode == IgnoreWhitespace) 
+                if (TY_(IsWhite)(c) && (mode == IgnoreWhitespace)
                       && lexer->lexsize == lexer->txtstart + 1)
                 {
                     --(lexer->lexsize);
@@ -2097,8 +2262,27 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                     continue;
                 }
 
+				/*
+				When this is 'active content' (such as with the <script> tag), make sure
+				we skip any programming / comments / strings in there, even when they contain
+				the '</' sequence within a string.
+				*/
+#if 0
+				if (no == TrackStringContent( doc, c ))
+					continue;
+#endif
                 if (c == '<')
                 {
+					/* 'active content' can ONLY be followed by a </...> closing tag! */
+					if (mode == IgnoreMarkup || mode == CdataContent)
+					{
+						c = TY_(ReadChar)(doc->docIn);
+						TY_(UngetChar)(c, doc->docIn);
+						if (c != '/')
+						{
+							continue;
+						}
+					}
                     lexer->state = LEX_GT;
                     continue;
                 }
@@ -2108,7 +2292,7 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                     /* was previous character white? */
                     if (lexer->waswhite)
                     {
-                        if (mode != Preformatted && mode != IgnoreMarkup)
+                        if (mode != Preformatted && mode != IgnoreMarkup && mode != OtherNamespace)
                         {
                             --(lexer->lexsize);
                             SetLexerLocus( doc, lexer );
@@ -2118,7 +2302,7 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                     {
                         lexer->waswhite = yes;
 
-                        if (mode != Preformatted && mode != IgnoreMarkup && c != ' ')
+                        if (mode != Preformatted && mode != IgnoreMarkup && mode != OtherNamespace && c != ' ')
                             ChangeChar(lexer, ' ');
                     }
 
@@ -2217,7 +2401,7 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                     }
                     else if (c == 'd' || c == 'D')
                     {
-                        /* todo: check for complete "<!DOCTYPE" not just <!D */
+                        /* TODO: check for complete "<!DOCTYPE" not just <!D */
 
                         uint skip = 0;
 
@@ -2311,6 +2495,8 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                 {
                     lexer->lexsize -= 2;
                     lexer->state = LEX_PROCINSTR;
+					lexer->activeQuoteChar = 0;
+					lexer->activeCommentStyle = COMMENT_NONE;
                     lexer->txtend = lexer->lexsize;
 
                     CondReturnTextNode(doc, 2)
@@ -2324,6 +2510,8 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                 {
                     lexer->lexsize -= 2;
                     lexer->state = LEX_ASP;
+					lexer->activeQuoteChar = 0;
+					lexer->activeCommentStyle = COMMENT_NONE;
                     lexer->txtend = lexer->lexsize;
 
                     CondReturnTextNode(doc, 2)
@@ -2337,6 +2525,8 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                 {
                     lexer->lexsize -= 2;
                     lexer->state = LEX_JSTE;
+					lexer->activeQuoteChar = 0;
+					lexer->activeCommentStyle = COMMENT_NONE;
                     lexer->txtend = lexer->lexsize;
 
                     CondReturnTextNode(doc, 2)
@@ -2387,7 +2577,9 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
 
                 if (c == EndOfStream)
                 {
+					TY_(ReportError)(doc, NULL, NULL, UNEXPECTED_END_OF_FILE );
                     TY_(FreeNode)( doc, lexer->token );
+					TY_(UngetChar)(c, doc->docIn);
                     continue;
                 }
 
@@ -2400,12 +2592,13 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
 
             case LEX_STARTTAG: /* first letter of tagname */
                 c = TY_(ReadChar)(doc->docIn);
+				assert(c != EndOfStream);
                 ChangeChar(lexer, (tmbchar)c);
                 lexer->txtstart = lexer->lexsize - 1; /* set txtstart to first letter */
                 c = ParseTagName( doc );
                 isempty = no;
                 attributes = NULL;
-                lexer->token = TagToken( doc, (isempty ? StartEndTag : StartTag) );
+                lexer->token = TagToken( doc, StartTag ); /* [i_a] 'isempty' is always false, thanks to code 2 lines above */
 
                 /* parse attributes, consuming closing ">" */
                 if (c != '>')
@@ -2432,8 +2625,10 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                 {
                     c = TY_(ReadChar)(doc->docIn);
 
-                    if (c != '\n' && c != '\f')
+					if (c != '\n' && c != '\f')
+					{
                         TY_(UngetChar)(c, doc->docIn);
+					}
 
                     lexer->waswhite = yes;  /* to swallow leading whitespace */
                 }
@@ -2441,31 +2636,34 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                     lexer->waswhite = no;
 
                 lexer->state = LEX_CONTENT;
-                if (lexer->token->tag == NULL)
+                if (mode != OtherNamespace && lexer->token->tag == NULL)
                     TY_(ReportFatal)( doc, NULL, lexer->token, UNKNOWN_ELEMENT );
                 else if ( !cfgBool(doc, TidyXmlTags) )
                 {
                     Node* curr = lexer->token;
-                    TY_(ConstrainVersion)( doc, curr->tag->versions );
-                    
-                    if ( curr->tag->versions & VERS_PROPRIETARY )
-                    {
-                        if ( !cfgBool(doc, TidyMakeClean) ||
-                             ( !nodeIsNOBR(curr) && !nodeIsWBR(curr) ) )
-                        {
-                            TY_(ReportError)(doc, NULL, curr, PROPRIETARY_ELEMENT );
+					if ( mode != OtherNamespace )
+					{
+						TY_(ConstrainVersion)( doc, curr->tag->versions );
 
-                            if ( nodeIsLAYER(curr) )
-                                doc->badLayout |= USING_LAYER;
-                            else if ( nodeIsSPACER(curr) )
-                                doc->badLayout |= USING_SPACER;
-                            else if ( nodeIsNOBR(curr) )
-                                doc->badLayout |= USING_NOBR;
-                        }
-                    }
+						if ( curr->tag->versions & VERS_PROPRIETARY )
+						{
+							if ( !cfgBool(doc, TidyMakeClean) ||
+								 ( !nodeIsNOBR(curr) && !nodeIsWBR(curr) ) )
+							{
+								TY_(ReportError)(doc, NULL, curr, PROPRIETARY_ELEMENT );
+
+								if ( nodeIsLAYER(curr) )
+									doc->badLayout |= USING_LAYER;
+								else if ( nodeIsSPACER(curr) )
+									doc->badLayout |= USING_SPACER;
+								else if ( nodeIsNOBR(curr) )
+									doc->badLayout |= USING_NOBR;
+							}
+						}
+					}
 
                     TY_(RepairDuplicateAttributes)( doc, curr, no );
-                } else 
+                } else
                     TY_(RepairDuplicateAttributes)( doc, lexer->token, yes );
 #ifdef TIDY_STORE_ORIGINAL_TEXT
                 StoreOriginalTextInToken(doc, lexer->token, 0);
@@ -2478,7 +2676,13 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                     continue;
 
                 c = TY_(ReadChar)(doc->docIn);
-                TY_(AddCharToLexer)(lexer, c);
+				if (c == EndOfStream)
+				{
+					TY_(ReportError)(doc, NULL, NULL, UNEXPECTED_END_OF_FILE );
+					TY_(UngetChar)(c, doc->docIn);
+					continue;
+				}
+				TY_(AddCharToLexer)(lexer, c);
 
                 if (c != '-')
                     continue;
@@ -2534,9 +2738,15 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                 lexer->lexbuf[lexer->lexsize - 1] = '=';
 
                 /* http://tidy.sf.net/bug/1266647 */
+				if (c == EndOfStream)
+				{
+					TY_(ReportError)(doc, NULL, NULL, UNEXPECTED_END_OF_FILE );
+					TY_(UngetChar)(c, doc->docIn);
+					continue;
+				}
                 TY_(AddCharToLexer)(lexer, c);
 
-                continue; 
+                continue;
 
             case LEX_DOCTYPE:  /* seen <!d so look for '>' munging whitespace */
 
@@ -2563,6 +2773,8 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                     if (TY_(tmbstrncmp)(lexer->lexbuf + lexer->txtstart, "php", 3) == 0)
                     {
                         lexer->state = LEX_PHP;
+						lexer->activeQuoteChar = 0;
+						lexer->activeCommentStyle = COMMENT_NONE;
                         continue;
                     }
                 }
@@ -2573,6 +2785,8 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                         TY_(IsWhite)(lexer->lexbuf[lexer->txtstart + 3]))
                     {
                         lexer->state = LEX_XMLDECL;
+						lexer->activeQuoteChar = 0;
+						lexer->activeCommentStyle = COMMENT_NONE;
                         attributes = NULL;
                         continue;
                     }
@@ -2580,6 +2794,15 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
 
                 if (cfgBool(doc, TidyXmlPIs) || lexer->isvoyager) /* insist on ?> as terminator */
                 {
+					/*
+					within a <?..?> tag no further tags can be found; treat is as 'active content' to
+					ensure strings are skipped in their entirety.
+
+					Note also that lots of PHP pages use <?...?> instead of <?php ...?>
+					*/
+					if (no == TrackStringContent( doc, c ))
+						continue;
+
                     if (c != '?')
                         continue;
 
@@ -2638,14 +2861,20 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                 return lexer->token;
 
             case LEX_ASP:  /* seen <% so look for "%>" */
+				if (no == TrackStringContent( doc, c ))
+					continue;
+
                 if (c != '%')
                     continue;
 
                 /* now look for '>' */
                 c = TY_(ReadChar)(doc->docIn);
+				if (c == EndOfStream)
+				{
+					TY_(ReportError)(doc, NULL, NULL, UNEXPECTED_END_OF_FILE );
+				}
 
-
-                if (c != '>')
+				if (c != '>')
                 {
                     TY_(UngetChar)(c, doc->docIn);
                     continue;
@@ -2659,12 +2888,18 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                 return lexer->token = AspToken(doc);
 
             case LEX_JSTE:  /* seen <# so look for "#>" */
+				if (no == TrackStringContent( doc, c ))
+					continue;
+
                 if (c != '#')
                     continue;
 
                 /* now look for '>' */
                 c = TY_(ReadChar)(doc->docIn);
-
+				if (c == EndOfStream)
+				{
+					TY_(ReportError)(doc, NULL, NULL, UNEXPECTED_END_OF_FILE );
+				}
 
                 if (c != '>')
                 {
@@ -2680,11 +2915,18 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                 return lexer->token = JsteToken(doc);
 
             case LEX_PHP: /* seen "<?php" so look for "?>" */
+				if (no == TrackStringContent( doc, c ))
+					continue;
+
                 if (c != '?')
                     continue;
 
                 /* now look for '>' */
                 c = TY_(ReadChar)(doc->docIn);
+				if (c == EndOfStream)
+				{
+					TY_(ReportError)(doc, NULL, NULL, UNEXPECTED_END_OF_FILE );
+				}
 
                 if (c != '>')
                 {
@@ -2742,6 +2984,10 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
 
                 /* now look for '>' */
                 c = TY_(ReadChar)(doc->docIn);
+				if (c == EndOfStream)
+				{
+					TY_(ReportError)(doc, NULL, NULL, UNEXPECTED_END_OF_FILE );
+				}
 
                 if (c != '>')
                 {
@@ -2774,6 +3020,10 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
 
                 /* now look for '>' */
                 c = TY_(ReadChar)(doc->docIn);
+				if (c == EndOfStream)
+				{
+					TY_(ReportError)(doc, NULL, NULL, UNEXPECTED_END_OF_FILE );
+				}
 
                 if (c != '>')
                 {
@@ -2794,6 +3044,10 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
 
                 /* now look for ']' */
                 c = TY_(ReadChar)(doc->docIn);
+				if (c == EndOfStream)
+				{
+					TY_(ReportError)(doc, NULL, NULL, UNEXPECTED_END_OF_FILE );
+				}
 
                 if (c != ']')
                 {
@@ -2803,6 +3057,10 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
 
                 /* now look for '>' */
                 c = TY_(ReadChar)(doc->docIn);
+				if (c == EndOfStream)
+				{
+					TY_(ReportError)(doc, NULL, NULL, UNEXPECTED_END_OF_FILE );
+				}
 
                 if (c != '>')
                 {
@@ -2817,6 +3075,14 @@ static Node* GetTokenFromStream( TidyDocImpl* doc, GetTokenMode mode )
                 lexer->state = LEX_CONTENT;
                 lexer->waswhite = no;
                 return lexer->token = CDATAToken(doc);
+
+			case LEX_REWIND:
+				/*
+				seen an inline char encoding (or other showstopper)
+				and now all we need to do is rewind everything:
+				InStream + Lexer.
+				*/
+				return lexer->token = NULL;
         }
     }
 
@@ -2866,6 +3132,7 @@ static void MapStr( ctmbstr str, uint code )
 
 void TY_(InitMap)(void)
 {
+	TidyClearMemory(lexmap, sizeof(lexmap)); /* [i_a] static memory is not zeroed by default in some compilers/OS combos */
     MapStr("\r\n\f", newline|white);
     MapStr(" \t", white);
     MapStr("-.:_", namechar);
@@ -2878,7 +3145,7 @@ void TY_(InitMap)(void)
 /*
  parser for ASP within start tags
 
- Some people use ASP for to customize attributes
+ Some people use ASP to customize attributes.
  Tidy isn't really well suited to dealing with ASP
  This is a workaround for attributes, but won't
  deal with the case where the ASP is used to tailor
@@ -2907,6 +3174,8 @@ static Node *ParseAsp( TidyDocImpl* doc )
 
         TY_(AddCharToLexer)(lexer, c);
 
+		if (no == TrackStringContent(doc, c))
+			continue;
 
         if (c != '%')
             continue;
@@ -2915,6 +3184,9 @@ static Node *ParseAsp( TidyDocImpl* doc )
             break;
 
         TY_(AddCharToLexer)(lexer, c);
+
+		if (no == TrackStringContent( doc, c ))
+			continue;
 
         if (c == '>')
         {
@@ -2929,8 +3201,8 @@ static Node *ParseAsp( TidyDocImpl* doc )
 
     lexer->txtstart = lexer->txtend;
     return asp;
-}   
- 
+}
+
 
 /*
  PHP is like ASP but is based upon XML
@@ -2951,6 +3223,8 @@ static Node *ParsePhp( TidyDocImpl* doc )
 
         TY_(AddCharToLexer)(lexer, c);
 
+		if (no == TrackStringContent( doc, c ))
+			continue;
 
         if (c != '?')
             continue;
@@ -2959,6 +3233,9 @@ static Node *ParsePhp( TidyDocImpl* doc )
             break;
 
         TY_(AddCharToLexer)(lexer, c);
+
+		if (no == TrackStringContent( doc, c ))
+			continue;
 
         if (c == '>')
         {
@@ -2973,7 +3250,7 @@ static Node *ParsePhp( TidyDocImpl* doc )
 
     lexer->txtstart = lexer->txtend;
     return php;
-}   
+}
 
 /* consumes the '>' terminating start tags */
 static tmbstr  ParseAttribute( TidyDocImpl* doc, Bool *isempty,
@@ -2987,7 +3264,7 @@ static tmbstr  ParseAttribute( TidyDocImpl* doc, Bool *isempty,
     *asp = NULL;  /* clear asp pointer */
     *php = NULL;  /* clear php pointer */
 
- /* skip white space before the attribute */
+	/* skip white space before the attribute */
 
     for (;;)
     {
@@ -3062,7 +3339,7 @@ static tmbstr  ParseAttribute( TidyDocImpl* doc, Bool *isempty,
 
     for (;;)
     {
-     /* but push back '=' for parseValue() */
+		/* but push back '=' for parseValue() */
         if (c == '=' || c == '>')
         {
             TY_(UngetChar)(c, doc->docIn);
@@ -3324,7 +3601,7 @@ static tmbstr ParseValue( TidyDocImpl* doc, ctmbstr name,
                 /* handle <input onclick=s("btn1")> and <a title=foo""">...</a> */
                 /* this doesn't handle <a title=foo"/> which browsers treat as  */
                 /* 'foo"/' nor  <a title=foo" /> which browser treat as 'foo"'  */
-                
+
                 c = TY_(ReadChar)(doc->docIn);
                 if (c == '>')
                 {
@@ -3414,7 +3691,7 @@ static tmbstr ParseValue( TidyDocImpl* doc, ctmbstr name,
 
             if (munge)
             {
-                /* discard line breaks in quoted URLs */ 
+                /* discard line breaks in quoted URLs */
                 /* #438650 - fix by Randy Waki */
                 if ( c == '\n' && TY_(IsUrl)(doc, name) )
                 {
@@ -3422,7 +3699,7 @@ static tmbstr ParseValue( TidyDocImpl* doc, ctmbstr name,
                     TY_(ReportAttrError)( doc, lexer->token, NULL, NEWLINE_IN_URI);
                     continue;
                 }
-                
+
                 c = ' ';
 
                 if (lastc == ' ')
@@ -3454,7 +3731,7 @@ static tmbstr ParseValue( TidyDocImpl* doc, ctmbstr name,
              !(TY_(IsUrl)(doc, name) && TY_(tmbstrncmp)(lexer->lexbuf+start, "javascript:", 11) == 0) &&
              !(TY_(tmbstrncmp)(lexer->lexbuf+start, "<xml ", 5) == 0)
            )
-            TY_(ReportFatal)( doc, NULL, NULL, SUSPECTED_MISSING_QUOTE ); 
+            TY_(ReportFatal)( doc, NULL, NULL, SUSPECTED_MISSING_QUOTE );
     }
 
     len = lexer->lexsize - start;
@@ -3584,7 +3861,7 @@ static AttVal* ParseAttrs( TidyDocImpl* doc, Bool *isempty )
             {
                 av = TY_(NewAttribute)(doc);
                 av->asp = asp;
-                AddAttrToList( &list, av ); 
+                AddAttrToList( &list, av );
                 continue;
             }
 
@@ -3593,7 +3870,7 @@ static AttVal* ParseAttrs( TidyDocImpl* doc, Bool *isempty )
             {
                 av = TY_(NewAttribute)(doc);
                 av->php = php;
-                AddAttrToList( &list, av ); 
+                AddAttrToList( &list, av );
                 continue;
             }
 
@@ -3610,7 +3887,7 @@ static AttVal* ParseAttrs( TidyDocImpl* doc, Bool *isempty )
             av->attribute = attribute;
             av->value = value;
             av->dict = TY_(FindAttribute)( doc, av );
-            AddAttrToList( &list, av ); 
+            AddAttrToList( &list, av );
         }
         else
         {

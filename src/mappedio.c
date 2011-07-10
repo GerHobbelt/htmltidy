@@ -34,6 +34,13 @@ typedef struct
 static int TIDY_CALL mapped_getByte( void* sourceData )
 {
     MappedFileSource* fin = (MappedFileSource*) sourceData;
+
+	/* only step forward to the next block when not on the last block */
+	if (fin->pos >= fin->size)
+	{
+		return EndOfStream;
+    }
+
     return fin->base[fin->pos++];
 }
 
@@ -43,9 +50,22 @@ static Bool TIDY_CALL mapped_eof( void* sourceData )
     return (fin->pos >= fin->size);
 }
 
+static size_t TIDY_CALL mapped_tell( void* sourceData )
+{
+	MappedFileSource* fin = (MappedFileSource*) sourceData;
+	return fin->pos;
+}
+
 static void TIDY_CALL mapped_ungetByte( void* sourceData, byte ARG_UNUSED(bv) )
 {
     MappedFileSource* fin = (MappedFileSource*) sourceData;
+
+    if ( fin->pos <= 0 || fin->pos > fin->size /* size_t wrap around for 0-n */ )
+    {
+        assert(0);
+        return;
+    }
+
     fin->pos--;
 }
 
@@ -77,6 +97,7 @@ int TY_(initFileSource)( TidyAllocator *allocator, TidyInputSource* inp, FILE* f
     inp->getByte    = mapped_getByte;
     inp->eof        = mapped_eof;
     inp->ungetByte  = mapped_ungetByte;
+	inp->tell		= mapped_tell;
     inp->sourceData = fin;
 
     return 0;
@@ -119,7 +140,7 @@ typedef struct _fp_input_mapped_source
 
 static int mapped_openView( MappedFileSource *data )
 {
-    DWORD numb = ( ( data->size - data->pos ) > data->gran ) ?
+	DWORD numb = ( ( data->size - data->pos ) > data->gran ) ?
         data->gran : (DWORD)( data->size - data->pos );
 
     if ( data->view )
@@ -144,12 +165,23 @@ static int TIDY_CALL mapped_getByte( void *sourceData )
 {
     MappedFileSource *data = sourceData;
 
-    if ( !data->view || data->iter >= data->end )
-    {
-        data->pos += data->gran;
+	/* when mapping failed so bad, stay failed */
+    if ( !data->view )
+		return EndOfStream;
+	/* only step forward to the next block when not on the last block */
+	if ( data->iter >= data->end )
+	{
+		if ( data->pos + data->gran < data->size )
+		{
+			data->pos += data->gran;
 
-        if ( data->pos >= data->size || mapped_openView(data) != 0 )
-            return EndOfStream;
+			if ( mapped_openView(data) != 0 )
+				return EndOfStream;
+		}
+		else
+		{
+			return EndOfStream;
+		}
     }
 
     return *( data->iter++ );
@@ -158,14 +190,25 @@ static int TIDY_CALL mapped_getByte( void *sourceData )
 static Bool TIDY_CALL mapped_eof( void *sourceData )
 {
     MappedFileSource *data = sourceData;
-    return ( data->pos >= data->size );
+    return ( data->iter >= data->end && data->pos + data->gran >= data->size );
+}
+
+static size_t TIDY_CALL mapped_tell( void *sourceData )
+{
+	MappedFileSource *data = sourceData;
+	LONGLONG len;
+
+	len = data->pos + (data->iter - data->view);
+	if (len > ~((size_t)0) /* /not/ UINT_MAX */ )
+		len = ~((size_t)0) /* /not/ UINT_MAX */ ;
+	return (size_t)len;
 }
 
 static void TIDY_CALL mapped_ungetByte( void *sourceData, byte ARG_UNUSED(bt) )
 {
     MappedFileSource *data = sourceData;
 
-    if ( data->iter >= data->view )
+    if ( data->iter > data->view ) /* [i_a] */
     {
         --data->iter;
         return;
@@ -178,7 +221,9 @@ static void TIDY_CALL mapped_ungetByte( void *sourceData, byte ARG_UNUSED(bt) )
     }
 
     data->pos -= data->gran;
-    mapped_openView( data );
+    if (mapped_openView( data ) != 0)
+		return;
+	data->iter = data->end;
 }
 
 static int initMappedFileSource( TidyAllocator *allocator, TidyInputSource* inp, HANDLE fp )
@@ -188,11 +233,12 @@ static int initMappedFileSource( TidyAllocator *allocator, TidyInputSource* inp,
     inp->getByte    = mapped_getByte;
     inp->eof        = mapped_eof;
     inp->ungetByte  = mapped_ungetByte;
+	inp->tell		= mapped_tell;
 
     fin = (MappedFileSource*) TidyAlloc( allocator, sizeof(MappedFileSource) );
     if ( !fin )
         return -1;
-    
+
 #if _MSC_VER < 1300  /* less than msvc++ 7.0 */
     {
         LARGE_INTEGER* pli = (LARGE_INTEGER *)&fin->size;

@@ -1,20 +1,21 @@
 #ifndef __PPRINT_H__
 #define __PPRINT_H__
 
-/* pprint.h -- pretty print parse tree  
-  
+/* pprint.h -- pretty print parse tree
+
    (c) 1998-2007 (W3C) MIT, ERCIM, Keio University
    See tidy.h for the copyright notice.
-  
+
    CVS Info:
-     $Author$ 
-     $Date$ 
-     $Revision$ 
+     $Author$
+     $Date$
+     $Revision$
 
 */
 
 #include "forward.h"
 
+#if 0 /* [i_a] */
 /*
   Block-level and unknown elements are printed on
   new lines and their contents indented 2 spaces
@@ -32,6 +33,7 @@
 #define ATTRIBVALUE   4u
 #define NOWRAP        8u
 #define CDATA         16u
+#endif
 
 
 /* The pretty printer keeps at most two lines of text in the
@@ -40,7 +42,7 @@
 ** line, not the end of just the second line.
 **
 ** We must also keep track "In Attribute" and "In String"
-** states at the _end_ of each line, 
+** states at the _end_ of each line,
 */
 
 typedef struct _TidyIndent
@@ -58,7 +60,7 @@ typedef struct _TidyPrintImpl
     uint lbufsize;
     uint linelen;
     uint wraphere;
-  
+
     uint ixInd;
     TidyIndent indent[2];  /* Two lines worth of indent state */
 } TidyPrintImpl;
@@ -74,11 +76,13 @@ void TY_(FreePrintBuf)( TidyDocImpl* doc );
 
 void TY_(PFlushLine)( TidyDocImpl* doc, uint indent );
 
+void TY_(PCondFlushLine)( TidyDocImpl* doc, uint indent ); /* [i_a] html2db */
+
 
 /* print just the content of the body element.
 ** useful when you want to reuse material from
 ** other documents.
-** 
+**
 ** -- Sebastiano Vigna <vigna@dsi.unimi.it>
 */
 

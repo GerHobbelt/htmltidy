@@ -2,15 +2,15 @@
   tidy.c - HTML TidyLib command line driver
 
   Copyright (c) 1998-2008 World Wide Web Consortium
-  (Massachusetts Institute of Technology, European Research 
+  (Massachusetts Institute of Technology, European Research
   Consortium for Informatics and Mathematics, Keio University).
   All Rights Reserved.
 
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 */
 
 #include "tidy.h"
@@ -283,7 +283,7 @@ static const CmdOptDesc cmdopt_defs[] =  {
 static tmbstr get_option_names( const CmdOptDesc* pos )
 {
     tmbstr name;
-    uint len = strlen(pos->name1);
+    size_t len = strlen(pos->name1);  /* [i_a] */
     if (pos->name2)
         len += 2+strlen(pos->name2);
     if (pos->name3)
@@ -477,6 +477,7 @@ ctmbstr ConfigCategoryName( TidyConfigCategory id )
     fprintf(stderr, "Fatal error: impossible value for id='%d'.\n", (int)id);
     assert(0);
     abort();
+	return NULL; /* [i_a] */
 }
 
 /* Description of an option */
@@ -622,7 +623,7 @@ void getSortedOption( TidyDoc tdoc, AllOption_t *tOption )
     }
     tOption->topt[i] = NULL; /* sentinel */
 
-    qsort(tOption->topt,
+    qsort((void *)tOption->topt,   /* [i_a] different const qualifiers */
           /* Do not sort the sentinel: hence `-1' */
           sizeof(tOption->topt)/sizeof(tOption->topt[0])-1,
           sizeof(tOption->topt[0]),
@@ -753,7 +754,7 @@ tmbstr GetAllowedValuesFromPick( TidyOption topt )
     TidyIterator pos;
     Bool first;
     ctmbstr def;
-    uint len = 0;
+    size_t len = 0;  /* [i_a] */
     tmbstr val;
 
     pos = tidyOptGetPickList( topt );
@@ -928,7 +929,7 @@ int main( int argc, char** argv )
 
     errout = stderr;  /* initialize to stderr */
     status = 0;
-    
+
 #ifdef TIDY_CONFIG_FILE
     if ( tidyFileExists( tdoc, TIDY_CONFIG_FILE) )
     {
@@ -1290,7 +1291,7 @@ int main( int argc, char** argv )
         errout == stderr && !contentErrors)
         fprintf(errout, "\n");
 
-    if (contentErrors + contentWarnings > 0 && 
+    if (contentErrors + contentWarnings > 0 &&
          !tidyOptGetBool(tdoc, TidyQuiet))
         tidyErrorSummary(tdoc);
 

@@ -6,12 +6,12 @@
   Copyright University of Toronto
   Portions (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
-  
+
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
 */
 
@@ -26,8 +26,8 @@
 * called AFTER the tree structure has been formed.
 *
 * If, in the command prompt, there is no specification of which
-* accessibility priorities to check, no accessibility checks will be 
-* performed.  (ie. '1' for priority 1, '2' for priorities 1 and 2, 
+* accessibility priorities to check, no accessibility checks will be
+* performed.  (ie. '1' for priority 1, '2' for priorities 1 and 2,
 *                  and '3') for priorities 1, 2 and 3.)
 *
 * Copyright University of Toronto
@@ -38,6 +38,7 @@
 
 
 #include "forward.h"
+#include "buffio.h"  /* [i_a] TidyBuffer-ized the accessibility code; makes the code more re-usable */
 
 #if SUPPORT_ACCESSIBILITY_CHECKS
 
@@ -57,9 +58,11 @@ typedef struct AreaLinks
 } AreaLinks;
 */
 
+#if 0
 enum {
   TEXTBUF_SIZE=128u
 };
+#endif
 
 struct _TidyAccessImpl;
 typedef struct _TidyAccessImpl TidyAccessImpl;
@@ -69,28 +72,32 @@ struct _TidyAccessImpl
     /* gets set from Tidy variable AccessibilityCheckLevel */
     int PRIORITYCHK;
 
-    /* Number of characters that are found within the concatenated text */
+#if 0
+	/* Number of characters that are found within the concatenated text */
     int counter;
 
     /* list of characters in the text nodes found within a container element */
-    tmbchar textNode[ TEXTBUF_SIZE ]; 
+    tmbchar textNode[ TEXTBUF_SIZE ];
 
     /* The list of characters found within one text node */
-    tmbchar text[ TEXTBUF_SIZE ]; 
+    tmbchar text[ TEXTBUF_SIZE ];
+#else
+	TidyBuffer textBuffer;
+#endif
 
     /* Number of frame elements found within a frameset */
-    int numFrames; 
+    int numFrames;
 
     /* Number of 'longdesc' attributes found within a frameset */
-    int HasCheckedLongDesc; 
+    int HasCheckedLongDesc;
 
     int  CheckedHeaders;
     int  ListElements;
     int  OtherListElements;
 
     /* For 'USEMAP' identifier */
-    Bool HasUseMap; 
-    Bool HasName; 
+    Bool HasUseMap;
+    Bool HasName;
     Bool HasMap;
 
     /* For tracking nodes that are deleted from the original parse tree - TRT */
@@ -114,7 +121,7 @@ struct _TidyAccessImpl
 };
 
 
-/* 
+/*
     Determines which error/warning message should be displayed,
     depending on the error code that was called.
 
@@ -124,7 +131,7 @@ struct _TidyAccessImpl
 enum accessErrorCodes
 {
                            FIRST_ACCESS_ERR = 1000,    /* must be first */
- 
+
     /* [1.1.1.1] */        IMG_MISSING_ALT,
     /* [1.1.1.2] */        IMG_ALT_SUSPICIOUS_FILENAME,
     /* [1.1.1.3] */        IMG_ALT_SUSPICIOUS_FILE_SIZE,
@@ -136,7 +143,7 @@ enum accessErrorCodes
     /* [1.1.2.2] */        IMG_MISSING_DLINK,
     /* [1.1.2.3] */        IMG_MISSING_LONGDESC,
     /* [1.1.2.5] */        LONGDESC_NOT_REQUIRED,
-    /* [1.1.3.1] */        IMG_BUTTON_MISSING_ALT, 
+    /* [1.1.3.1] */        IMG_BUTTON_MISSING_ALT,
     /* [1.1.4.1] */        APPLET_MISSING_ALT,
     /* [1.1.5.1] */        OBJECT_MISSING_ALT,
     /* [1.1.6.1] */        AUDIO_MISSING_TEXT_WAV,
@@ -256,7 +263,7 @@ enum accessErrorCodes
     /* [13.2.1.2] */       METADATA_MISSING_LINK,
     /* [13.2.1.3] */       METADATA_MISSING_REDIRECT_AUTOREFRESH,
     /* [13.10.1.1] */      SKIPOVER_ASCII_ART,
-    
+
     LAST_ACCESS_ERR    /* must be last */
 };
 
@@ -276,4 +283,22 @@ void TY_(AccessibilityChecks)( TidyDocImpl* doc );
 
 
 #endif /* SUPPORT_ACCESSIBILITY_CHECKS */
+
+
+tmbstr TY_(getTextNodeClear)( TidyDocImpl* doc, Node* node, TidyBuffer* buf ); /* [i_a] */
+Bool TY_(IsWhitespace)( ctmbstr pString );
+
+/*
+Return 'yes' when the specified node does not have any content.
+
+'not any content' must be read as either:
+
+- absolutely NO child nodes
+- contains only one or more COMMENT nodes
+*/
+Bool TY_(HasContent)(TidyDocImpl* doc, Node *node);
+
+
+
+
 #endif /* __ACCESS_H__ */

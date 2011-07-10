@@ -26,7 +26,7 @@ TESTNO=$1
 TESTEXPECTED=$2
 ACCESSLEVEL=$3
 
-TIDY=../bin/tidy
+TIDY=../console/tidy
 INFILES=./accessTest/$1.*ml
 CFGFILE=./accessTest/cfg_$1.txt
 

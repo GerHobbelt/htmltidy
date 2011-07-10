@@ -1,0 +1,65 @@
+diff --git a/src/access.c b/src/access.c
+index 8d0da96..43769d7 100644
+--- a/src/access.c
++++ b/src/access.c
+@@ -1726,32 +1726,25 @@ static void CheckTable( TidyDocImpl* doc, Node* node )
+     
+     if (node->content != NULL)
+     {
+-        if ( nodeIsCAPTION(node->content) && nodeIsTR(node->content->next) )
+-        {
+-            CheckColumns( doc, node->content->next );
+-        }
+-        else if ( nodeIsTR(node->content) )
+-        {
+-            CheckColumns( doc, node->content );
+-        }
+-    }
+-    
+-    if ( ! doc->access.HasValidColumnHeaders )
+-    {
+-        if (node->content != NULL)
++
++        temp = node->content;
++/* We ignore the <caption></caption> at the top of the table */
++        if ( nodeIsCAPTION(temp) )
++            temp = temp->next;
++/* If a <thead></thead> is present we got in */
++        if ( nodeIsTHEAD(temp) )
++            temp = temp->content;
++
++        if ( nodeIsTR(temp) )
+         {
+-            if ( nodeIsCAPTION(node->content) && nodeIsTR(node->content->next) )
+-            {
+-                CheckRows( doc, node->content->next);
+-            }
+-            else if ( nodeIsTR(node->content) )
++            CheckColumns( doc, temp, &thisTable );
++            if ( ! thisTable.HasValidColumnHeaders )
+             {
+-                CheckRows( doc, node->content);
++                CheckRows( doc, temp, &thisTable);
+             }
+         }
+     }
+-    
+-    
++
+     if (Level3_Enabled( doc ))
+     {
+         /* Suppress warning for missing 'SUMMARY for HTML 2.0 and HTML 3.2 */
+diff --git a/src/tags.h b/src/tags.h
+index 14b7108..bb7c43a 100644
+--- a/src/tags.h
++++ b/src/tags.h
+@@ -230,6 +230,7 @@ uint TY_(nodeHeaderLevel)( Node* node );  /* 1, 2, ..., 6 */
+ #define nodeIsU( node )          TagIsId( node, TidyTag_U )
+ #define nodeIsMENU( node )       TagIsId( node, TidyTag_MENU )
+ #define nodeIsBUTTON( node )     TagIsId( node, TidyTag_BUTTON )
++#define nodeIsTHEAD( node )      TagIsId( node, TidyTag_THEAD )
+ 
+ 
+ #endif /* __TAGS_H__ */
+
+ 	  	 

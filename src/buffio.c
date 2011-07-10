@@ -5,9 +5,9 @@
 
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
   Requires buffer to automatically grow as bytes are added.
   Must keep track of current read and write points.
@@ -37,12 +37,18 @@ static void TIDY_CALL insrc_ungetByte( void* appData, byte bv )
   TidyBuffer* buf = (TidyBuffer*) appData;
   tidyBufUngetByte( buf, bv );
 }
+static size_t TIDY_CALL insrc_tell( void* appData )
+{
+	TidyBuffer* buf = (TidyBuffer*) appData;
+	return buf->next;
+}
 
 void TIDY_CALL tidyInitInputBuffer( TidyInputSource* inp, TidyBuffer* buf )
 {
   inp->getByte    = insrc_getByte;
   inp->eof        = insrc_eof;
   inp->ungetByte  = insrc_ungetByte;
+  inp->tell		  = insrc_tell;
   inp->sourceData = buf;
 }
 
@@ -58,6 +64,37 @@ void TIDY_CALL tidyInitOutputBuffer( TidyOutputSink* outp, TidyBuffer* buf )
   outp->sinkData = buf;
 }
 
+
+TidyBuffer* TIDY_CALL tidyBufCreate( TidyAllocator* allocator ) /* [i_a] */
+{
+    TidyBuffer* buf;
+
+	allocator = ( allocator ? allocator : &TY_(g_default_allocator) );
+
+	buf = (TidyBuffer*)TidyAlloc( allocator, sizeof(TidyBuffer) );
+	if ( buf )
+	{
+		tidyBufInitWithAllocator( buf, allocator );
+	}
+	return buf;
+}
+
+void TIDY_CALL tidyBufDestroy( TidyBuffer* buf ) /* [i_a] */
+{
+    assert( buf != NULL );
+    if ( buf )
+	{
+		TidyAllocator *allocator;
+
+		assert( buf->allocator );
+	    allocator = ( buf->allocator ? buf->allocator : &TY_(g_default_allocator) );
+		if (buf->bp)
+		{
+		    TidyFree( allocator, buf->bp );
+		}
+		TidyFree(buf->allocator, buf );
+	}
+}
 
 void TIDY_CALL tidyBufInit( TidyBuffer* buf )
 {
@@ -82,15 +119,17 @@ void TIDY_CALL tidyBufAllocWithAllocator( TidyBuffer* buf,
                                           TidyAllocator *allocator,
                                           uint allocSize )
 {
+	assert( buf != NULL );
     tidyBufInitWithAllocator( buf, allocator );
-    tidyBufCheckAlloc( buf, allocSize, 0 );
-    buf->next = 0;
+    (void)tidyBufCheckAlloc( buf, allocSize, 0 );
+    assert(buf->next == 0);
 }
 
 void TIDY_CALL tidyBufFree( TidyBuffer* buf )
 {
     assert( buf != NULL );
-    TidyFree(  buf->allocator, buf->bp );
+	if ( buf->bp )	/* [i_a] */
+	    TidyFree(  buf->allocator, buf->bp );
     tidyBufInitWithAllocator( buf, buf->allocator );
 }
 
@@ -110,21 +149,34 @@ void TIDY_CALL tidyBufClear( TidyBuffer* buf )
 */
 static void setDefaultAllocator( TidyBuffer* buf )
 {
+	assert( buf != NULL );
     buf->allocator = &TY_(g_default_allocator);
 }
 
 /* Avoid thrashing memory by doubling buffer size
-** until larger than requested size.
+   until larger than requested size.
+
    buf->allocated is bigger than allocSize+1 so that a trailing null byte is
    always available.
+
+   Return false when the buffer could not be expanded to the requested size.
 */
-void TIDY_CALL tidyBufCheckAlloc( TidyBuffer* buf, uint allocSize, uint chunkSize )
+Bool TIDY_CALL tidyBufCheckAlloc( TidyBuffer* buf, uint allocSize, uint chunkSize )
 {
     assert( buf != NULL );
 
     if ( !buf->allocator )
         setDefaultAllocator( buf );
-        
+
+	/*
+	[i_a] special case: when the buffer space has been ATTACHED, its size is immutable.
+	This is signaled by having allocated==0 while bp!=NULL.
+	*/
+	if (buf->allocated == 0 && buf->bp != NULL)
+	{
+		return no;
+	}
+
     if ( 0 == chunkSize )
         chunkSize = 256;
     if ( allocSize+1 > buf->allocated )
@@ -144,16 +196,19 @@ void TIDY_CALL tidyBufCheckAlloc( TidyBuffer* buf, uint allocSize, uint chunkSiz
             buf->allocated = allocAmt;
         }
     }
+	return yes;
 }
 
 /* Attach buffer to a chunk O' memory w/out allocation */
-void  TIDY_CALL tidyBufAttach( TidyBuffer* buf, byte* bp, uint size )
+void TIDY_CALL tidyBufAttach( TidyBuffer* buf, byte* bp, uint size )
 {
     assert( buf != NULL );
+	tidyBufFree(buf); /* [i_a] release any previously allocated memory */
     buf->bp = bp;
-    buf->size = buf->allocated = size;
+    buf->size = size;
+	buf->allocated = 0; /* [i_a] signal the attached storage cannot be resized through the allocator */
     buf->next = 0;
-    if ( !buf->allocator )
+	if ( !buf->allocator )
         setDefaultAllocator( buf );
 }
 
@@ -168,22 +223,26 @@ void TIDY_CALL tidyBufDetach( TidyBuffer* buf )
    OUTPUT
 **************/
 
-void TIDY_CALL tidyBufAppend( TidyBuffer* buf, void* vp, uint size )
+void TIDY_CALL tidyBufAppend( TidyBuffer* buf, const void* vp, uint size )
 {
     assert( buf != NULL );
     if ( vp != NULL && size > 0 )
     {
-        tidyBufCheckAlloc( buf, buf->size + size, 0 );
-        memcpy( buf->bp + buf->size, vp, size );
-        buf->size += size;
+        if (tidyBufCheckAlloc( buf, buf->size + size, 0 ))
+		{
+			memcpy( buf->bp + buf->size, vp, size );
+			buf->size += size;
+		}
     }
 }
 
 void TIDY_CALL tidyBufPutByte( TidyBuffer* buf, byte bv )
 {
     assert( buf != NULL );
-    tidyBufCheckAlloc( buf, buf->size + 1, 0 );
-    buf->bp[ buf->size++ ] = bv;
+    if (tidyBufCheckAlloc( buf, buf->size + 1, 0 ))
+	{
+		buf->bp[ buf->size++ ] = bv;
+	}
 }
 
 
@@ -221,6 +280,61 @@ void TIDY_CALL tidyBufUngetByte( TidyBuffer* buf, byte bv )
         assert( bv == buf->bp[ buf->next ] );
     }
 }
+
+
+/**************
+ASSIST
+**************/
+
+
+int TIDY_CALL  tidyBufPeekLastByte( TidyBuffer* buf )
+{
+	int bv = EOF;
+	if ( buf->size > 0 )
+		bv = buf->bp[ buf->size - 1 ];
+	return bv;
+}
+
+int TIDY_CALL  tidyBufPeekByte( TidyBuffer* buf )
+{
+	int bv = EOF;
+	if ( ! tidyBufEndOfInput(buf) )
+		bv = buf->bp[ buf->next ];
+	return bv;
+}
+
+size_t TIDY_CALL tidyBufLength( TidyBuffer* buf )
+{
+	assert( buf != NULL );
+	if ( !tidyBufEndOfInput(buf) )
+		return buf->size - buf->next;
+	return 0;
+}
+
+size_t TIDY_CALL tidyBufGetString( TidyBuffer* buf, tmbstr dst, size_t dstsize )
+{
+	assert( buf != NULL );
+	assert( dst != NULL );
+	assert( dstsize > 0 );
+	if ( !tidyBufEndOfInput(buf))
+	{
+		uint size = buf->size - buf->next;
+		byte *src = buf->bp + buf->next;
+		if (size + 1 > dstsize) /* keep space for extra NUL sentinel! */
+			size = dstsize - 1;
+		memcpy(dst, src, size);
+		dst[size] = 0;
+		buf->next += size;
+		return size;
+	}
+	else
+	{
+		dst[0] = 0;
+		return 0;
+	}
+}
+
+
 
 /*
  * local variables:

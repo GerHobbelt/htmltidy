@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-_W3C_DTD XHTML 1.0 Strict_EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" [
+   <!ELEMENT embed EMPTY>
+<!ATTLIST embed
+    src CDATA #REQUIRED
+    width CDATA #IMPLIED
+    height CDATA #IMPLIED>
+<!ENTITY % inline
+    "embed | a | %special; | %fontstyle; | %phrase; | %inline.forms;">]>
+<html>
+<head>
+<title>Example of bugwards compatibly extended XHTML</title>
+</head>
+<body>
+<p>Support the <a href="http://www.webstandards.org/">WaSP</a> for
+standards in our browsers.
+<object type="image/svg+xml" data="./mjr-svgopenwindow.svg"
+        name="owMain" width="400" height="150">
+</object>
+</p>
+</body>
+</html>
+<!-- http://wiki.svg.org/SVG_and_HTML   - only an object tag, nothing of the HTML5 sort -->

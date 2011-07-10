@@ -1,0 +1,109 @@
+diff --git a/src/attrs.c b/src/attrs.c
+index a7b0463..4554967 100644
+--- a/src/attrs.c
++++ b/src/attrs.c
+@@ -37,6 +37,7 @@ static AttrCheck CheckAction;
+ static AttrCheck CheckScript;
+ static AttrCheck CheckName;
+ static AttrCheck CheckId;
++static AttrCheck CheckIdRef;
+ static AttrCheck CheckAlign;
+ static AttrCheck CheckValign;
+ static AttrCheck CheckBool;
+@@ -76,7 +77,7 @@ static AttrCheck CheckType;
+ #define CH_DATE        NULL
+ #define CH_TEXTDIR     CheckTextDir
+ #define CH_IDREFS      NULL
+-#define CH_IDREF       NULL
++#define CH_IDREF       CheckIdRef
+ #define CH_IDDEF       CheckId
+ #define CH_NAME        CheckName
+ #define CH_TFRAME      NULL
+@@ -1405,6 +1406,44 @@ void CheckId( TidyDocImpl* doc, Node *node, AttVal *attval )
+         AddAnchor( doc, attval->value, node );
+ }
+ 
++Node* FindNodeByIdInNodeTree (Node* node, AttVal *attval)
++{
++
++    Node* walker = node;
++    Node* result;
++    AttVal *id;
++
++    while (walker != NULL) {
++
++        if (walker->content != NULL && walker->content) {
++            result = FindNodeByIdInNodeTree(walker->content, attval);
++            if (result != NULL)
++                return result;
++        }
++
++        id = TY_(AttrGetById)(walker, TidyAttr_ID);
++        if (id != NULL && id->value &&
++            TY_(tmbstrcmp)(id->value, attval->value) == 0)
++                return(walker);
++
++        walker = walker->next;
++    }
++
++    return NULL;
++}
++
++
++void CheckIdRef( TidyDocImpl* doc, Node *node, AttVal *attval )
++{
++    Node* body = TY_(FindBody)(doc);
++
++    if (AttrHasValue(attval) &&
++            FindNodeByIdInNodeTree(body, attval) == NULL) {
++        TY_(ReportAttrError)( doc, node, attval, ID_NOT_FOUND);
++    }
++
++}
++
+ void CheckBool( TidyDocImpl* doc, Node *node, AttVal *attval)
+ {
+     if (!AttrHasValue(attval))
+diff --git a/src/localize.c b/src/localize.c
+index b832c23..45062c3 100644
+--- a/src/localize.c
++++ b/src/localize.c
+@@ -75,6 +75,7 @@ static struct _msgfmt
+   { ATTR_VALUE_NOT_LCASE,         "%s attribute value \"%s\" must be lower case for XHTML"                  }, /* Error if XHTML input, Notice if HTML input and XHTML outout */
+   { PROPRIETARY_ATTR_VALUE,       "%s proprietary attribute value \"%s\""                                   }, /* Error */
+   { ANCHOR_NOT_UNIQUE,            "%s anchor \"%s\" already defined"                                        }, /* Error */
++  { ID_NOT_FOUND,                 "%s id \"%s\" not found in the document"                                  }, /* Error */
+ 
+   /* attribute name, attribute value */
+   { BAD_ATTRIBUTE_VALUE,          "%s attribute \"%s\" has invalid value \"%s\""                            }, /* Error */
+@@ -1304,6 +1305,7 @@ void TY_(ReportAttrError)(TidyDocImpl* doc, Node *node, AttVal *av, uint code)
+     case XML_ID_SYNTAX:
+     case PROPRIETARY_ATTR_VALUE:
+     case ANCHOR_NOT_UNIQUE:
++    case ID_NOT_FOUND:
+     case ATTR_VALUE_NOT_LCASE:
+         messageNode(doc, TidyWarning, node, fmt, tagdesc, value);
+         break;
+diff --git a/src/message.h b/src/message.h
+index 46327be..6d4a78f 100644
+--- a/src/message.h
++++ b/src/message.h
+@@ -145,6 +145,7 @@ void TY_(ReportFatal)(TidyDocImpl* doc, Node* element, Node* node, uint code);
+ 
+ #define NEWLINE_IN_URI               65
+ #define ANCHOR_NOT_UNIQUE            66
++#define ID_NOT_FOUND                 89 /* last */
+ 
+ #define JOINING_ATTRIBUTE            68
+ #define UNEXPECTED_EQUALSIGN         69
+@@ -160,7 +161,7 @@ void TY_(ReportFatal)(TidyDocImpl* doc, Node* element, Node* node, uint code);
+ #define MISSING_ATTRIBUTE            86
+ #define WHITE_IN_URI                 87
+ 
+-#define PREVIOUS_LOCATION            88 /* last */
++#define PREVIOUS_LOCATION            88
+ 
+ /* character encoding errors */
+ 
+
+ 	  	 

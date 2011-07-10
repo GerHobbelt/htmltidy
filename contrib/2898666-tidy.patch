@@ -1,0 +1,24 @@
+Index: lexer.c
+===================================================================
+RCS file: /cvsroot/tidy/tidy/src/lexer.c,v
+retrieving revision 1.194
+diff -u -r1.194 lexer.c
+--- lexer.c	22 Mar 2008 21:06:55 -0000	1.194
++++ lexer.c	20 Jan 2009 00:17:40 -0000
+@@ -1901,9 +1901,14 @@
+             if (TY_(IsLetter)(c))
+                 continue;
+ 
++            // we still could have here "(for i=0;i<script ; i++)" case
++			// and it could be <script language="bla bla" bla="language" ...
++			// so we really can't decide here if it's really a new tag
++
+             matches = TY_(tmbstrncasecmp)(container->element, lexer->lexbuf + start,
+                                           TY_(tmbstrlen)(container->element)) == 0;
+-            if (matches)
++
++			if (matches && !nodeIsSCRIPT(container))
+                 nested++;
+ 
+             state = CDATA_INTERMEDIATE;
+

@@ -8,9 +8,9 @@
 
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
   The HTML tags are stored as 8 bit ASCII strings.
   Use lookupw() to find a tag given a wide char string.
@@ -34,7 +34,8 @@ typedef enum
     tagtype_empty = 1,
     tagtype_inline = 2,
     tagtype_block = 4,
-    tagtype_pre = 8
+    tagtype_pre = 8,
+	tagtype_OtherNamespace = 16
 } UserTagType;
 
 struct _Dict
@@ -107,6 +108,7 @@ Parser TY_(ParsePre);
 Parser TY_(ParseList);
 Parser TY_(ParseDefList);
 Parser TY_(ParseBlock);
+Parser TY_(ParseOtherNamespace);
 Parser TY_(ParseInline);
 Parser TY_(ParseEmpty);
 Parser TY_(ParseTableTag);
@@ -121,19 +123,19 @@ CheckAttribs TY_(CheckAttributes);
 
 /* 0 == TidyTag_UNKNOWN */
 #define TagId(node)        ((node) && (node)->tag ? (node)->tag->id : TidyTag_UNKNOWN)
-#define TagIsId(node, tid) ((node) && (node)->tag && (node)->tag->id == tid)
+#define TagIsId(node, tid) (TagId(node) == tid) /* [i_a] important for svg/math support */
+
+Bool TY_(nodeIsComment)( Node* node ); /* [i_a] */
 
 Bool TY_(nodeIsText)( Node* node );
 Bool TY_(nodeIsElement)( Node* node );
 
 Bool TY_(nodeHasText)( TidyDocImpl* doc, Node* node );
 
-#if 0
 /* Compare & result to operand.  If equal, then all bits
-** requested are set.
+   requested are set.
 */
-Bool nodeMatchCM( Node* node, uint contentModel );
-#endif
+Bool TY_(nodeMatchCM)( Node* node, uint contentModel );
 
 /* True if any of the bits requested are set.
 */

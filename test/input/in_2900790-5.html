@@ -1,0 +1,121 @@
+<html>
+<body>
+<table id="companyAccountsTable">
+<tbody><tr><td>jschmoe</td></tr></tbody>
+</table>
+<tr>Bla bla bla</tr>
+and some more gobbledigook...
+
+
+</table>
+</table>
+</table>
+</table>
+</table>
+
+
+
+
+
+<h2>Fresh table inferred for leading TR #2</h2>
+<!-- and what when this stuff is hugging a real table? -->
+Yes,
+<tr><td>Proper</tr>
+<tr><td>content</tr>
+<tr><td>should end up in a single table.</tr>
+<table id="companyAccountsTable">
+<tbody><tr><td>jschmoe</td></tr>
+<table><!-- nested table or moved before real table as this <table> is rather unexpected??? -->
+<tr></tr>
+<tr><td>row #2</tr>
+<tr><td>row #3</tr>
+
+</table>
+</table>
+</table>
+</table>
+</table>
+
+
+
+
+
+<h2>content hidden inside conditional comment</h2>
+<!-- should produce a full table -->
+
+Before
+<tr><!--[if IE 5]>
+<td>bugger!</td>
+<![endif]--></tr>
+and after...
+
+
+
+<h2>nested tables: outer missing TABLE tag</h2>
+
+Before
+<tr>
+    <td>
+        <table>
+            <tr>
+                <td>inner</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+and after...
+
+
+
+<h2>nested tables: outer missing TABLE tag (+ TD missing)</h2>
+
+Before
+<tr>
+        <table>
+            <tr>
+                <td>inner</td>
+            </tr>
+        </table>
+</tr>
+and after...
+
+
+
+<h2>nested tables: inner missing TABLE tag</h2>
+
+... and that makes this a legal case of HTML finding one table, 2 rows:
+
+Before
+<table>
+<tr>
+    <td>
+            <tr>
+                <td>inner</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+</table>
+and after...
+
+
+
+<h2>nested tables: inner missing TABLE tag (+ TD missing)</h2>
+
+Before
+<table>
+<tr>
+    <td>
+            <tr>
+                inner <!-- buggy -->
+            </tr>
+    </td>
+</tr>
+</table>
+and after...
+
+
+
+
+</body>
+</html>

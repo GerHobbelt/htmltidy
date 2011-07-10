@@ -1,0 +1,22 @@
+--- tidy/src/tidylib.c.orig	Fri Nov 06 17:04:34 2009
++++ tidy/src/tidylib.c	Fri Nov 06 16:52:10 2009
+@@ -1078,12 +1078,14 @@
+     out = TY_(BufferOutput)( doc, &outbuf, outenc, nl );
+     status = tidyDocSaveStream( doc, out );
+ 
+-    if ( outbuf.size > *buflen )
++    if ( outbuf.size + 1 > *buflen )
+         status = -ENOMEM;
+-    else
++    else {
+         memcpy( buffer, outbuf.bp, outbuf.size );
++	buffer[outbuf.size] = '\0';
++    }
+ 
+-    *buflen = outbuf.size;
++    *buflen = outbuf.size + 1;
+     tidyBufFree( &outbuf );
+     TidyDocFree( doc, out );
+     return status;
+
+[i_a] applied patch; slight modification plus documentation fix in tidy.h

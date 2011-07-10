@@ -2,15 +2,15 @@
 #define __CONFIG_H__
 
 /* config.h -- read config file and manage config properties
-  
+
   (c) 1998-2006 (W3C) MIT, ERCIM, Keio University
   See tidy.h for the copyright notice.
 
   CVS Info :
 
-    $Author$ 
-    $Date$ 
-    $Revision$ 
+    $Author$
+    $Date$
+    $Revision$
 
   config files associate a property name with a value.
 
@@ -104,8 +104,11 @@ void TY_(CopyConfig)( TidyDocImpl* docTo, TidyDocImpl* docFrom );
 int  TY_(ParseConfigFile)( TidyDocImpl* doc, ctmbstr cfgfil );
 int  TY_(ParseConfigFileEnc)( TidyDocImpl* doc,
                               ctmbstr cfgfil, ctmbstr charenc );
+int  TY_(ParseConfigBuffer)( TidyDocImpl* doc, TidyBuffer* buffer ); /* [i_a] */
+int  TY_(ParseConfigBufferEnc)( TidyDocImpl* doc, TidyBuffer* buffer, ctmbstr charenc ); /* [i_a] */
 
 int  TY_(SaveConfigFile)( TidyDocImpl* doc, ctmbstr cfgfil );
+int  TY_(SaveConfigBuffer)( TidyDocImpl* doc, TidyBuffer* buffer ); /* [i_a] */
 int  TY_(SaveConfigSink)( TidyDocImpl* doc, TidyOutputSink* sink );
 
 /* returns false if unknown option, missing parameter, or
@@ -125,6 +128,25 @@ ctmbstr TY_(CharEncodingName)( int encoding );
 ctmbstr TY_(CharEncodingOptName)( int encoding );
 
 /* void SetEmacsFilename( TidyDocImpl* doc, ctmbstr filename ); */
+
+
+/* ensure that config is self consistent */
+void TY_(AdjustConfig)( TidyDocImpl* doc ); /* [i_a] */
+
+
+/* [i_a] TODO: html2db patch; complete/clean it for Win32 build of html2db! */
+void TY_(PPrintChar)( TidyDocImpl* doc, uint c, uint mode );
+void TY_(PPrintText)( TidyDocImpl* doc, uint mode, uint indent, Node* node );
+void TY_(PPrintString)( TidyDocImpl* doc, uint indent, ctmbstr str );
+void TY_(PPrintComment)( TidyDocImpl* doc, uint indent, Node* node );
+void TY_(PPrintPI)( TidyDocImpl* doc, uint indent, Node *node );
+void TY_(PPrintXmlDecl)( TidyDocImpl* doc, uint indent, Node *node );
+void TY_(PPrintCDATA)( TidyDocImpl* doc, uint indent, Node *node );
+void TY_(PPrintSection)( TidyDocImpl* doc, uint indent, Node *node );
+Bool TY_(ShouldIndent)( TidyDocImpl* doc, Node *node );
+
+
+
 
 
 #ifdef _DEBUG

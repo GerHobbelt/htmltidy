@@ -16,4 +16,16 @@ REM    $Revision$
 REM (for MS compiler users):
 REM call alltest1 ..\build\msvc\Release\tidy.exe .\tmp
 
+if exist ..\bin\tidy_dbg.exe goto debugmode
+
 call alltest1 ..\bin\tidy.exe .\tmp
+
+goto ende
+
+:debugmode
+
+call alltest1 ..\bin\tidy_dbg.exe .\tmp
+
+:ende
+
+pause

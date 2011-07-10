@@ -1,0 +1,17 @@
+diff --git a/src/access.c b/src/access.c
+index 8d0da96..4f21609 100644
+--- a/src/access.c
++++ b/src/access.c
+@@ -3145,8 +3145,10 @@ static void AccessibilityCheckNode( TidyDocImpl* doc, Node* node )
+         CheckLabel( doc, node );
+     }
+ 
+-    /* Check INPUT tag for validity */
+-    else if ( nodeIsINPUT(node) )
++    /* Check INPUT/TEXTAREA/SELECT tag for validity */
++    else if ( nodeIsINPUT(node) ||
++           nodeIsTEXTAREA(node) ||
++	   nodeIsSELECT(node) )
+     {
+         CheckColorAvailable( doc, node );
+         CheckInputLabel( doc, node );

@@ -10,5 +10,6 @@ uint TY_(GetEncodingIdFromName)(ctmbstr name);
 uint TY_(GetEncodingIdFromCodePage)(uint cp);
 uint TY_(GetEncodingCodePageFromName)(ctmbstr name);
 uint TY_(GetEncodingCodePageFromId)(uint id);
+int TY_(GetEncodingSystemFromId)(uint id);
 ctmbstr TY_(GetEncodingNameFromId)(uint id);
 ctmbstr TY_(GetEncodingNameFromCodePage)(uint cp);

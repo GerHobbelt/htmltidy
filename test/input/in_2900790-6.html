@@ -1,0 +1,101 @@
+<html>
+<style>
+body
+{
+    border-width: 2px;
+    border-style: solid;
+    border-color: blue;
+}
+
+table, td, th
+{
+    border-width: 2px;
+    border-style: solid;
+    border-color: red;
+}
+
+p
+{
+    border-width: 2px;
+    border-style: solid;
+    border-color: green;
+}
+</style>
+<body>
+<h1>test cases</h1>
+
+
+
+
+<h2>discard &lt;tr&gt; #1</h2>
+<tr></tr> <!-- empty tr: discard tag? -->
+
+
+
+<h2>discard &lt;tr&gt; #2</h2>
+<tr><!-- semi-empty tr: discard tag? --></tr>
+<!-- I'd expect the above to just discard the 
+     inferred table tag, the real tr and the 
+     inferred td, so that would remove the 
+     table entirely as for #1, but the comment 
+     should linger. Alternatively, the table 
+     can stay, with the comment sitting in 
+     there. One empty table to go. 
+-->
+
+
+
+<h2>discard &lt;tr&gt; #3</h2>
+<tr>
+
+   <!-- semi-empty tr (comment + whitespace): discard tag? -->
+   
+</tr>
+
+
+
+<h2>move content forward</h2>
+<tr><!-- start -->buggy content</tr> <!-- tr with buggy content: move forward? -->
+
+
+
+<h2>move content forward, add whitespace #1</h2>
+<!-- tr with buggy content: move forward? -->
+Yes,<tr>buggy content</tr>
+ should have whitespace between each word once moved... 
+
+
+
+<h2>move content forward, add whitespace #2</h2>
+<!-- tr with buggy content: move forward? -->
+Yes,<tr>buggy content</tr>should have whitespace between each word once moved, even now... 
+
+
+
+<h2>same for multiple TR #1</h2>
+<!-- multiple tr with buggy content: move forward? -->
+Yes,
+<tr>buggy</tr>
+<tr>content</tr>
+<tr>should have whitespace</tr>
+between each word once moved, again... 
+
+
+
+<h2>same for multiple TR #2</h2>
+<!-- multiple tr with buggy content: move forward? -->
+Yes,<tr>buggy</tr><tr>content</tr><tr>should have whitespace</tr>between each word once moved, again, once more... 
+
+<h2>Fresh table inferred for leading TR #1</h2>
+<!-- tr with okay content: infer table? -->
+Yes,
+<tr><td>Proper</tr>
+<tr><td>content</tr>
+<tr><td>should end up in a single table.</tr>
+<tr>buggy content halfway a series of TRs will be moved to before the table still.</tr>
+So in the end this section will look quite different from the order these pieces of text appear in the input, alas.
+
+
+
+</body>
+</html>

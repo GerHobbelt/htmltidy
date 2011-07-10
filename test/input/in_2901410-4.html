@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en"><head>
+
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Raphaël · Ball</title>
+    <link rel="stylesheet" href="demo.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="demo-print.css" type="text/css" media="print">
+    <script src="../raphael.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        Raphael.fn.ball = function (x, y, r, hue) {
+            hue = hue || 0;
+            return this.set(
+                this.ellipse(x, y + r - r / 5, r, r / 2).attr({fill: "rhsb(" + hue + ", 1, .25)-hsb(" + hue + ", 1, .25)", stroke: "none", opacity: 0}),
+                this.ellipse(x, y, r, r).attr({fill: "r(.5,.9)hsb(" + hue + ", 1, .75)-hsb(" + hue + ", .5, .25)", stroke: "none"}),
+                this.ellipse(x, y, r - r / 5, r - r / 20).attr({stroke: "none", fill: "r(.5,.1)#ccc-#ccc", opacity: 0})
+            );
+        };
+        window.onload = function () {
+            var R = Raphael("holder"), x = 310, y = 180, r = 150;
+            R.ball(x, y, r, Math.random());
+        };
+    </script>
+    </head><body>
+        <div id="holder"><svg height="480" width="640"><desc>Created with Raphaël</desc><defs><radialGradient fy="0.5" fx="0.5" id="r0"><stop stop-color="#3f2200" offset="0%"></stop><stop stop-opacity="0" stop-color="#3f2200" offset="100%"></stop></radialGradient><radialGradient fy="0.9" fx="0.5" id="r1"><stop stop-color="#bf6800" offset="0%"></stop><stop stop-color="#3f311f" offset="100%"></stop></radialGradient><radialGradient fy="0.1" fx="0.5" id="r2"><stop stop-color="#cccccc" offset="0%"></stop><stop stop-opacity="0" stop-color="#cccccc" offset="100%"></stop></radialGradient></defs><ellipse style="opacity: 1;" fill-opacity="1" opacity="1" stroke="none" fill="url(#r0)" ry="75" rx="150" cy="300.5" cx="310.5"></ellipse><ellipse style="opacity: 1;" fill-opacity="1" opacity="1" stroke="none" fill="url(#r1)" ry="150" rx="150" cy="180.5" cx="310.5"></ellipse><ellipse style="opacity: 1;" fill-opacity="1" opacity="1" stroke="none" fill="url(#r2)" ry="142.5" rx="120" cy="180.5" cx="310.5"></ellipse></svg></div>
+    <i style="display: none; color: rgb(204, 204, 204);" class="Raphaël colour picker"></i></body></html>

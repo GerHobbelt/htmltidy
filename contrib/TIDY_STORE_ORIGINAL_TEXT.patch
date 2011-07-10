@@ -1,0 +1,222 @@
+--- .\vendor\include\tidy.h	2009-03-12 11:38:03.281566900 -0400
++++ .\main\include\tidy.h	2009-07-09 15:52:12.687000000 -0400
+@@ -851,6 +851,11 @@
+ /* Copy the unescaped value of this node into the given TidyBuffer as UTF-8 */
+ TIDY_EXPORT Bool TIDY_CALL tidyNodeGetValue( TidyDoc tdoc, TidyNode tnod, TidyBuffer* buf );
+ 
++/* July 2009, CMWoods - Exposed original text captured when Tidy is build with TIDY_STORE_ORIGINAL_TEXT */
++#ifdef TIDY_STORE_ORIGINAL_TEXT
++TIDY_EXPORT Bool TIDY_CALL tidyNodeGetOrigText( TidyDoc tdoc, TidyNode tnod, TidyBuffer* buf );
++#endif
++
+ TIDY_EXPORT TidyTagId TIDY_CALL tidyNodeGetId( TidyNode tnod );
+ 
+ TIDY_EXPORT uint TIDY_CALL tidyNodeLine( TidyNode tnod );
+
+--- .\vendor\src\tidylib.c	2009-03-12 11:38:03.806619400 -0400
++++ .\main\src\tidylib.c	2009-07-09 15:52:46.017000000 -0400
+@@ -1614,6 +1614,24 @@
+     return yes;
+ }
+ 
++#ifdef TIDY_STORE_ORIGINAL_TEXT
++Bool TIDY_CALL tidyNodeGetOrigText( TidyDoc tdoc, TidyNode tnod, TidyBuffer* buf )
++{
++    TidyDocImpl *doc = tidyDocToImpl( tdoc );
++    Node *node = tidyNodeToImpl( tnod );
++
++    if ( doc == NULL || node == NULL || buf == NULL )
++        return no;
++
++    tidyBufClear( buf );
++
++    if (node->otext)
++        tidyBufAppend( buf, node->otext, strlen(node->otext) );
++
++    return yes;
++}
++#endif
++
+ Bool TIDY_CALL tidyNodeIsProp( TidyDoc ARG_UNUSED(tdoc), TidyNode tnod )
+ {
+   Node* nimp = tidyNodeToImpl( tnod );
+
+--- .\vendor\src\lexer.c	2009-03-12 11:38:03.598598600 -0400
++++ .\main\src\lexer.c	2009-07-14 17:29:47.487000000 -0400
+@@ -1149,7 +1149,7 @@
+ #ifdef TIDY_STORE_ORIGINAL_TEXT
+ void StoreOriginalTextInToken(TidyDocImpl* doc, Node* node, uint count)
+ {
+-    if (!doc->storeText)
++    if (0) /*!doc->storeText)*/
+         return;
+ 
+     if (count >= doc->docIn->otextlen)
+@@ -1191,6 +1191,19 @@
+         doc->docIn->otextsize = count + 1;
+     }
+ }
++
++/*
++  July 2009 CMWoods - New function to discard any original text that has been
++  buffered.  This should ONLY be called to discard whitespace around tags.
++*/
++void DiscardOriginalText(TidyDocImpl* doc)
++{
++    if (doc->docIn->otextbuf)
++    {
++        doc->docIn->otextbuf[0] = 0;
++        doc->docIn->otextlen = 0;
++    }
++}
+ #endif
+ 
+ Node* TY_(TextToken)( Lexer *lexer )
+@@ -2094,6 +2107,19 @@
+                     --(lexer->lexsize);
+                     lexer->waswhite = no;
+                     SetLexerLocus( doc, lexer );
++#ifdef TIDY_STORE_ORIGINAL_TEXT
++                    /*
++                      July 2009 CMWoods - To keep the original text in sync
++                      with the node position we have to discard the original
++                      text (whitespace).  Ideally SetLexerLocus() would not be
++                      called here (in which case this discard wouldn't be
++                      required) but then the wrong position is returned for
++                      non-text nodes.  So for now we'll accept the suppression
++                      of the leading white-space in Text nodes until a better
++                      fix can be made.
++                    */
++                    DiscardOriginalText( doc );
++#endif
+                     continue;
+                 }
+ 
+@@ -2167,7 +2193,12 @@
+                             }
+                             lexer->token = TY_(TextToken)(lexer);
+ #ifdef TIDY_STORE_ORIGINAL_TEXT
+-                            StoreOriginalTextInToken(doc, lexer->token, 3);
++                            /*
++                              July 2009 CMWoods - Now that UngetChar is popping
++                              chars from the original text the number of extra
++                              chars is reduced from 3 to 2.
++                            */
++                            StoreOriginalTextInToken(doc, lexer->token, 2);
+ #endif
+                             return lexer->token;
+                         }
+@@ -2279,7 +2310,8 @@
+                         lexer->state = LEX_SECTION;
+                         lexer->txtend = lexer->lexsize;
+ 
+-                        CondReturnTextNode(doc, 2)
++                        /* July 2009 CMWoods - Read "<![" so we should be skip 3! */
++                        CondReturnTextNode(doc, 3)
+ 
+                         lexer->txtstart = lexer->lexsize;
+                         continue;
+@@ -2354,7 +2386,11 @@
+                     lexer->txtend = lexer->lexsize;
+                     lexer->state = LEX_STARTTAG;         /* ready to read tag name */
+ 
+-                    CondReturnTextNode(doc, 2)
++                    /*
++                      July 2009 CMWoods - UngetChar() is popping chars from the
++                      original text so skip is reduced from 2 to 0.
++                    */
++                    CondReturnTextNode(doc, 0)
+ 
+                     /* lexer->txtstart = lexer->lexsize; missing here? */
+                     continue;       /* no text so keep going */
+@@ -2504,8 +2540,16 @@
+                     c = TY_(ReadChar)(doc->docIn);
+ 
+                     if (c == '\n')
++                    {
+                         lexer->token->linebreak = yes;
+-                    else
++#ifdef TIDY_STORE_ORIGINAL_TEXT
++                        /*
++                          July 2009 CMWoods - Discarding the line break from the
++                          original text.
++                        */
++                        DiscardOriginalText( doc );
++#endif
++					} else
+                         TY_(UngetChar)(c, doc->docIn);
+ 
+                     return lexer->token;
+
+--- .\vendor\src\streamio.c	2009-03-12 11:38:03.718610600 -0400
++++ .\main\src\streamio.c	2009-07-14 17:27:52.504000000 -0400
+@@ -273,6 +273,37 @@
+     for (i = 0; i < count; ++i)
+         TY_(AddByteToOriginalText)(in, buf[i]);
+ }
++
++/* July 2009, CMWoods */
++void TY_(PopByteFromOriginalText)(StreamIn *in)
++{
++    if (in->otextlen)
++    {
++        in->otextbuf[--in->otextlen] = 0;
++	}
++}
++
++void TY_(PopCharFromOriginalText)(StreamIn *in, tchar c)
++{
++    int i, err, count = 0;
++    tmbchar buf[10] = {0};
++    
++    err = TY_(EncodeCharToUTF8Bytes)(c, buf, NULL, &count);
++
++    if (err)
++    {
++        /* replacement character 0xFFFD encoded as UTF-8 */
++        buf[0] = (byte) 0xEF;
++        buf[1] = (byte) 0xBF;
++        buf[2] = (byte) 0xBD;
++        count = 3;
++    }
++    
++    for (i = 0; i < count; ++i)
++	{
++        TY_(PopByteFromOriginalText)(in);
++	}
++}
+ #endif
+ 
+ static void InitLastPos( StreamIn *in )
+@@ -316,7 +347,16 @@
+ #endif
+ 
+     if ( in->pushed )
+-        return PopChar( in );
++	{
++        c = PopChar( in );
++
++#ifdef TIDY_STORE_ORIGINAL_TEXT
++        /* July 2009, CMWoods - Fix for original TIDY_STORE_ORIGINAL_TEXT code */
++        TY_(AddCharToOriginalText)(in, (tchar)c);
++#endif
++
++        return c;
++	}
+ 
+     SaveLastPos( in );
+ 
+@@ -545,6 +585,11 @@
+     
+     in->pushed = yes;
+ 
++#ifdef TIDY_STORE_ORIGINAL_TEXT
++    /* July 2009 CMWoods - Fix for bug in original TIDY_STORE_ORIGINAL_TEXT */
++    TY_(PopCharFromOriginalText)(in, c);
++#endif
++
+     if (in->bufpos + 1 >= in->bufsize)
+         in->charbuf = (tchar*)TidyRealloc(in->allocator, in->charbuf, sizeof(tchar) * ++(in->bufsize));
+ 
+
+ 	  	 

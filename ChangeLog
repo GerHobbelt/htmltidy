@@ -1,0 +1,20 @@
+
+2008-05-15 GerH - initial release of this patched version which goes with 
+                  the .NET HtmlTidyWrapper library, which is also available 
+                  at hebbut.net > Public Offerings.
+
+2008-05-?? GerH - upgraded local copy to latest W3C/sourceforge CVS.
+
+2008-11-07 GerH - augmented API to allow applications to use the HTML/XML output routines in htmltidy (e.g. html2db) to generate custom, formatted, HTML/XML output.
+
+2009-09-01 GerH - added HTML5 <CANVAS> support
+
+2009-11-17 GerH - added HTML5 <SVG> and MathML support; done by way of introducing a new type of 'custom' tag, which switches 'namespace', therefor allowing other custom/unknown tags to appear within its section without htmltidy complaining. This means that the <svg> support is a simple container, which builds that part of the DOM but does not validate the tags occuring within the <svg>...</svg> section beyond generic XML/HTML format correctness.
+
+                  Also added the 'no empty XML tag syntax' option, i.e. HTML and XML tags without content, e.g. <span></span>, will not be rendered as <span /> (empty XML tag syntax) but as <span></span>. This is useful for DOM/content manipulating JavaScript routines, such as this one:
+
+                      http://intertwingly.net/blog/2006/12/05/HOWTO-Embed-MathML-and-SVG-into-HTML4
+
+
+
+
